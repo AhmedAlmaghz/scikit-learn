@@ -1,57 +1,35 @@
-.. _computational_performance:
+:ref: :mod: :term: الأداء الحسابي لـ sklearn
+بالنسبة لبعض التطبيقات، يعد أداء الخوارزميات (الخاصة بالتعلم الآلي) أمرًا بالغ الأهمية، خاصة سرعة الاستجابة (الزمن اللازم لإتمام عملية التنبؤ) وسعة المعالجة (عدد التنبؤات التي يمكن إجراؤها في وحدة الزمن) أثناء مرحلة التنبؤ. في حين أن سعة المعالجة أثناء التدريب قد تكون أيضًا ذات أهمية، إلا أنها غالبًا ما تكون أقل أهمية في بيئة الإنتاج، حيث يتم التدريب غالبًا خارج الخط (offline).
 
-.. currentmodule:: sklearn
+في هذا القسم، سنستعرض أوامر الحجم التي يمكن توقعها من عدد من خوارزميات "سكيت-ليرن" في سياقات مختلفة، وسنقدم بعض النصائح والحيل للتغلب على الاختناقات المتعلقة بالأداء.
 
-Computational Performance
-=========================
+سرعة الاستجابة أثناء التنبؤ
+--------------------------
 
-For some applications the performance (mainly latency and throughput at
-prediction time) of estimators is crucial. It may also be of interest to
-consider the training throughput but this is often less important in a
-production setup (where it often takes place offline).
+يتم قياس سرعة الاستجابة أثناء التنبؤ على أنها الزمن المنقضي اللازم لإجراء تنبؤ واحد (على سبيل المثال، بالمايكروثانية). وغالبًا ما يُنظر إلى سرعة الاستجابة على أنها توزيع، ويركز مهندسو العمليات غالبًا على سرعة الاستجابة عند نسبة مئوية معينة من هذا التوزيع (على سبيل المثال، المئين 90).
 
-We will review here the orders of magnitude you can expect from a number of
-scikit-learn estimators in different contexts and provide some tips and
-tricks for overcoming performance bottlenecks.
+سعة المعالجة أثناء التنبؤ
+--------------------------
 
-Prediction latency is measured as the elapsed time necessary to make a
-prediction (e.g. in micro-seconds). Latency is often viewed as a distribution
-and operations engineers often focus on the latency at a given percentile of
-this distribution (e.g. the 90 percentile).
+تُعرَّف سعة المعالجة أثناء التنبؤ على أنها عدد التنبؤات التي يمكن للبرنامج تقديمها في وحدة زمنية معينة (على سبيل المثال، عدد التنبؤات في الثانية).
 
-Prediction throughput is defined as the number of predictions the software can
-deliver in a given amount of time (e.g. in predictions per second).
+من الجوانب المهمة لتحسين الأداء أيضًا أنه يمكن أن يؤثر سلبًا على دقة التنبؤ. في الواقع، غالبًا ما تكون النماذج البسيطة (على سبيل المثال، الخطية بدلاً من غير الخطية، أو ذات عدد أقل من المعلمات) أسرع في التنفيذ، ولكنها ليست دائمًا قادرة على مراعاة نفس الخصائص الدقيقة للبيانات مثل النماذج الأكثر تعقيدًا.
 
-An important aspect of performance optimization is also that it can hurt
-prediction accuracy. Indeed, simpler models (e.g. linear instead of
-non-linear, or with fewer parameters) often run faster but are not always able
-to take into account the same exact properties of the data as more complex ones.
+عوامل مؤثرة على سرعة الاستجابة أثناء التنبؤ
+............................................
 
-Prediction Latency
-------------------
+أحد أكثر المخاوف المباشرة التي قد تواجهها عند استخدام/اختيار مجموعة أدوات تعلم الآلة هي سرعة الاستجابة التي يمكن بها إجراء التنبؤات في بيئة الإنتاج.
 
-One of the most straight-forward concerns one may have when using/choosing a
-machine learning toolkit is the latency at which predictions can be made in a
-production environment.
+العوامل الرئيسية التي تؤثر على سرعة الاستجابة أثناء التنبؤ هي:
 
-The main factors that influence the prediction latency are
+1. عدد الخصائص (features): كلما زاد عدد الخصائص، زاد الوقت اللازم لإجراء عملية التنبؤ.
+2. تمثيل البيانات ومدى ندرتها (sparsity): يمكن لتمثيل البيانات ومدى ندرتها أن يؤثرا بشكل كبير على سرعة الاستجابة. على سبيل المثال، إذا كانت البيانات نادرة (أي تحتوي على العديد من القيم الصفرية)، فيمكن استخدام هياكل بيانات متخصصة لتخزينها بكفاءة، مما يحسن سرعة الاستجابة.
+3. تعقيد النموذج: النماذج الأكثر تعقيدًا، مثل نماذج الغابات العشوائية أو الشبكات العصبية العميقة، قد تستغرق وقتًا أطول في إجراء التنبؤات مقارنة بالنماذج البسيطة، مثل نماذج الانحدار الخطي.
+4. استخراج الخصائص: قد تكون عملية استخراج الخصائص من البيانات الأولية (مثل تحويل نص إلى ناقلات كلمات) مكلفة من حيث الوقت، خاصة إذا كانت البيانات كبيرة.
 
-1. Number of features
-2. Input data representation and sparsity
-3. Model complexity
-4. Feature extraction
+هناك أيضًا عامل رئيسي آخر وهو إمكانية إجراء التنبؤات بشكل مجمع (bulk) أو بشكل منفرد (one-at-a-time). بشكل عام، فإن إجراء التنبؤات بشكل مجمع (أي إجراء العديد من التنبؤات في نفس الوقت) أكثر كفاءة لعدد من الأسباب (مثل قابلية التفرع، وذاكرة التخزين المؤقت للمعالج، وتحسينات مكتبات الجبر الخطي، وما إلى ذلك).
 
-A last major parameter is also the possibility to do predictions in bulk or
-one-at-a-time mode.
-
-Bulk versus Atomic mode
-........................
-
-In general doing predictions in bulk (many instances at the same time) is
-more efficient for a number of reasons (branching predictability, CPU cache,
-linear algebra libraries optimizations etc.). Here we see on a setting
-with few features that independently of estimator choice the bulk mode is
-always faster, and for some of them by 1 to 2 orders of magnitude:
+في المثال التالي، يمكننا رؤية أن إجراء التنبؤات بشكل مجمع يكون دائمًا أسرع، وبفارق يصل إلى مرتبة أو مرتبتين من حيث الحجم، وذلك في حالة وجود عدد قليل من الخصائص:
 
 .. |atomic_prediction_latency| image::  ../auto_examples/applications/images/sphx_glr_plot_prediction_latency_001.png
     :target: ../auto_examples/applications/plot_prediction_latency.html
@@ -65,41 +43,27 @@ always faster, and for some of them by 1 to 2 orders of magnitude:
 
 .. centered:: |bulk_prediction_latency|
 
-To benchmark different estimators for your case you can simply change the
-``n_features`` parameter in this example:
-:ref:`sphx_glr_auto_examples_applications_plot_prediction_latency.py`. This should give
-you an estimate of the order of magnitude of the prediction latency.
+لقياس أداء خوارزميات مختلفة في حالتك الخاصة، يمكنك ببساطة تغيير معلمة "n_features" في هذا المثال: :ref:`sphx_glr_auto_examples_applications_plot_prediction_latency.py`. يجب أن يعطيك هذا تقديرًا لحجم سرعة الاستجابة أثناء التنبؤ.
 
-Configuring Scikit-learn for reduced validation overhead
-.........................................................
+تكوين "سكيت-ليرن" لتقليل التحميل الزائد للتحقق من الصحة
+........................................................
 
-Scikit-learn does some validation on data that increases the overhead per
-call to ``predict`` and similar functions. In particular, checking that
-features are finite (not NaN or infinite) involves a full pass over the
-data. If you ensure that your data is acceptable, you may suppress
-checking for finiteness by setting the environment variable
-``SKLEARN_ASSUME_FINITE`` to a non-empty string before importing
-scikit-learn, or configure it in Python with :func:`set_config`.
-For more control than these global settings, a :func:`config_context`
-allows you to set this configuration within a specified context::
+يقوم "سكيت-ليرن" ببعض التحقق من صحة البيانات التي تزيد من التحميل الزائد لكل استدعاء لوظيفة "predict" والوظائف المماثلة. على وجه الخصوص، يتضمن التحقق من أن الخصائص محدودة (ليست NaN أو لا نهائية) تمريرًا كاملاً عبر البيانات. إذا كنت تتأكد من أن بياناتك مقبولة، فيمكنك إلغاء التحقق من المحدودية عن طريق تعيين متغير البيئة "SKLEARN_ASSUME_FINITE" إلى سلسلة غير فارغة قبل استيراد "سكيت-ليرن"، أو تكوينه في بايثون باستخدام الدالة: :func:`set_config`.
+
+لمزيد من التحكم أكثر من هذه الإعدادات العالمية، يسمح السياق التكويني (config context) بتعيين هذا التكوين ضمن سياق محدد::
 
   >>> import sklearn
   >>> with sklearn.config_context(assume_finite=True):
-  ...     pass  # do learning/prediction here with reduced validation
+  ...     pass  # قم بالتعلم/التنبؤ هنا مع تقليل التحقق من الصحة
 
-Note that this will affect all uses of
-:func:`~utils.assert_all_finite` within the context.
+لاحظ أن هذا سيؤثر على جميع استخدامات :func:`~utils.assert_all_finite` داخل السياق.
 
-Influence of the Number of Features
-....................................
+تأثير عدد الخصائص
+....................
 
-Obviously when the number of features increases so does the memory
-consumption of each example. Indeed, for a matrix of :math:`M` instances
-with :math:`N` features, the space complexity is in :math:`O(NM)`.
-From a computing perspective it also means that the number of basic operations
-(e.g., multiplications for vector-matrix products in linear models) increases
-too. Here is a graph of the evolution of the prediction latency with the
-number of features:
+من الواضح أنه عندما يزيد عدد الخصائص، تزداد أيضًا كمية الذاكرة التي تستهلكها كل عينة. في الواقع، بالنسبة لمصفوفة مكونة من M عينة و N خاصية، تكون التعقيد المكاني (space complexity) هو O(NM).
+
+من منظور الحساب، يعني هذا أيضًا أن عدد العمليات الأساسية (مثل الضربات لمنتجات المصفوفة-المتجه في النماذج الخطية) يزيد أيضًا. في الرسم البياني التالي، يمكننا رؤية تطور سرعة الاستجابة أثناء التنبؤ مع زيادة عدد الخصائص:
 
 .. |influence_of_n_features_on_latency| image::  ../auto_examples/applications/images/sphx_glr_plot_prediction_latency_003.png
     :target: ../auto_examples/applications/plot_prediction_latency.html
@@ -107,68 +71,33 @@ number of features:
 
 .. centered:: |influence_of_n_features_on_latency|
 
-Overall you can expect the prediction time to increase at least linearly with
-the number of features (non-linear cases can happen depending on the global
-memory footprint and estimator).
+بشكل عام، يمكنك توقع زيادة وقت التنبؤ بشكل خطي على الأقل مع زيادة عدد الخصائص (قد تحدث حالات غير خطية اعتمادًا على البصمة الذاكرية الإجمالية والخوارزمية).
 
-Influence of the Input Data Representation
-...........................................
+تأثير تمثيل البيانات المدخلة
+...............................
 
-Scipy provides sparse matrix data structures which are optimized for storing
-sparse data. The main feature of sparse formats is that you don't store zeros
-so if your data is sparse then you use much less memory. A non-zero value in
-a sparse (`CSR or CSC <https://docs.scipy.org/doc/scipy/reference/sparse.html>`_)
-representation will only take on average one 32bit integer position + the 64
-bit floating point value + an additional 32bit per row or column in the matrix.
-Using sparse input on a dense (or sparse) linear model can speedup prediction
-by quite a bit as only the non zero valued features impact the dot product
-and thus the model predictions. Hence if you have 100 non zeros in 1e6
-dimensional space, you only need 100 multiply and add operation instead of 1e6.
+يوفر "سايكوب" (SciPy) هياكل بيانات المصفوفة النادرة (sparse matrix) والتي تم تحسينها لتخزين البيانات النادرة. الميزة الرئيسية لتنسيقات البيانات النادرة هي أنك لا تخزن الأصفار، لذلك إذا كانت بياناتك نادرة، فستستخدم ذاكرة أقل بكثير. لن تأخذ القيمة غير الصفرية في تمثيل نادرة ('CSR' أو 'CSC') في المتوسط سوى موضع 32 بت صحيح واحد + قيمة النقطة العائمة 64 بت + 32 بت إضافية لكل صف أو عمود في المصفوفة.
 
-Calculation over a dense representation, however, may leverage highly optimized
-vector operations and multithreading in BLAS, and tends to result in fewer CPU
-cache misses. So the sparsity should typically be quite high (10% non-zeros
-max, to be checked depending on the hardware) for the sparse input
-representation to be faster than the dense input representation on a machine
-with many CPUs and an optimized BLAS implementation.
+يؤدي استخدام المدخلات النادرة في نموذج خطي (أو نادر) إلى تسريع التنبؤ بشكل كبير، حيث تؤثر فقط القيم غير الصفرية على الضرب النقطي وبالتالي على تنبؤات النموذج. لذلك، إذا كان لديك 100 قيمة غير صفرية في مساحة أبعادها 1e6، فأنت بحاجة فقط إلى 100 عملية ضرب وجمع بدلاً من 1e6.
 
-Here is sample code to test the sparsity of your input::
+ومع ذلك، قد تستفيد الحسابات على التمثيل الكثيف (dense representation) من عمليات المتجهات المُحسّنة بشكل كبير وتعدد الخيوط في "BLAS"، وتميل إلى إعطاء عدد أقل من حالات الإخفاق في ذاكرة التخزين المؤقت للمعالج. لذلك، يجب أن تكون النسبة المئوية للقيم غير الصفرية منخفضة جدًا (10٪ كحد أقصى، اعتمادًا على الأجهزة) ليكون تمثيل الإدخال النادر أسرع من تمثيل الإدخال الكثيف على آلة بها العديد من وحدات المعالجة المركزية (CPUs) وتنفيذ "BLAS" المحسّن.
+
+فيما يلي كود بايثون لاختبار ندرة مدخلاتك::
 
     def sparsity_ratio(X):
         return 1.0 - np.count_nonzero(X) / float(X.shape[0] * X.shape[1])
-    print("input sparsity ratio:", sparsity_ratio(X))
+    print("نسبة الندرة في الإدخال:", sparsity_ratio(X))
 
-As a rule of thumb you can consider that if the sparsity ratio is greater
-than 90% you can probably benefit from sparse formats. Check Scipy's sparse
-matrix formats `documentation <https://docs.scipy.org/doc/scipy/reference/sparse.html>`_
-for more information on how to build (or convert your data to) sparse matrix
-formats. Most of the time the ``CSR`` and ``CSC`` formats work best.
+كقاعدة عامة، يمكنك اعتبار أنه إذا كانت نسبة الندرة أكبر من 90٪، فيمكنك الاستفادة من التنسيقات النادرة. راجع وثائق تنسيقات المصفوفة النادرة في "سايكوب" للحصول على مزيد من المعلومات حول كيفية بناء (أو تحويل بياناتك إلى) تنسيقات المصفوفة النادرة. في معظم الأحيان، تعمل تنسيقات "CSR" و "CSC" بشكل أفضل.
 
-Influence of the Model Complexity
-..................................
+تأثير تعقيد النموذج
+......................
 
-Generally speaking, when model complexity increases, predictive power and
-latency are supposed to increase. Increasing predictive power is usually
-interesting, but for many applications we would better not increase
-prediction latency too much. We will now review this idea for different
-families of supervised models.
+بشكل عام، عندما يزيد تعقيد النموذج، من المفترض أن تزداد قوة التنبؤ وسرعة الاستجابة. عادة ما يكون زيادة قوة التنبؤ أمرًا مثيرًا للاهتمام، ولكن بالنسبة للعديد من التطبيقات، من الأفضل ألا نزيد كثيرًا من سرعة الاستجابة أثناء التنبؤ. سنستعرض الآن هذه الفكرة لعائلات مختلفة من النماذج المُشرفة.
 
-For :mod:`sklearn.linear_model` (e.g. Lasso, ElasticNet,
-SGDClassifier/Regressor, Ridge & RidgeClassifier,
-PassiveAggressiveClassifier/Regressor, LinearSVC, LogisticRegression...) the
-decision function that is applied at prediction time is the same (a dot product)
-, so latency should be equivalent.
+بالنسبة لـ :mod:`sklearn.linear_model` (على سبيل المثال، "Lasso"، و "ElasticNet"، و "SGDClassifier/Regressor"، و "Ridge" و "RidgeClassifier"، و "PassiveAggressiveClassifier/Regressor"، و "LinearSVC"، و "LogisticRegression"، وما إلى ذلك)، فإن دالة القرار المطبقة أثناء التنبؤ هي نفسها (ضرب نقطي)، لذلك يجب أن تكون سرعة الاستجابة مكافئة.
 
-Here is an example using
-:class:`~linear_model.SGDClassifier` with the
-``elasticnet`` penalty. The regularization strength is globally controlled by
-the ``alpha`` parameter. With a sufficiently high ``alpha``,
-one can then increase the ``l1_ratio`` parameter of ``elasticnet`` to
-enforce various levels of sparsity in the model coefficients. Higher sparsity
-here is interpreted as less model complexity as we need fewer coefficients to
-describe it fully. Of course sparsity influences in turn the prediction time
-as the sparse dot-product takes time roughly proportional to the number of
-non-zero coefficients.
+فيما يلي مثال باستخدام :class:`~linear_model.SGDClassifier` مع عقوبة "elasticnet". يتم التحكم في قوة العقوبة بشكل عام بواسطة معلمة "alpha". باستخدام "alpha" عالية بما يكفي، يمكنك بعد ذلك زيادة معلمة "l1_ratio" لعقوبة "elasticnet" لفرض مستويات مختلفة من الندرة في معاملات النموذج. تُفسر الندرة العالية هنا على أنها تعقيد أقل للنموذج حيث نحتاج إلى عدد أقل من المعاملات لوصفها بالكامل. بالطبع، تؤثر الندرة بدورها على وقت التنبؤ حيث يستغرق الضرب النقطي النادر وقتًا يتناسب تقريبًا مع عدد المعاملات غير الصفرية.
 
 .. |en_model_complexity| image::  ../auto_examples/applications/images/sphx_glr_plot_model_complexity_influence_001.png
     :target: ../auto_examples/applications/plot_model_complexity_influence.html
@@ -176,14 +105,7 @@ non-zero coefficients.
 
 .. centered:: |en_model_complexity|
 
-For the :mod:`sklearn.svm` family of algorithms with a non-linear kernel,
-the latency is tied to the number of support vectors (the fewer the faster).
-Latency and throughput should (asymptotically) grow linearly with the number
-of support vectors in a SVC or SVR model. The kernel will also influence the
-latency as it is used to compute the projection of the input vector once per
-support vector. In the following graph the ``nu`` parameter of
-:class:`~svm.NuSVR` was used to influence the number of
-support vectors.
+بالنسبة لعائلة :mod:`sklearn.svm` من الخوارزميات مع نواة غير خطية، ترتبط سرعة الاستجابة بعدد متجهات الدعم (support vectors) (كلما قل العدد، زادت السرعة). يجب أن تنمو سرعة الاستجابة وسعة المعالجة (بشكل أساسي) بشكل خطي مع عدد متجهات الدعم في نموذج "SVC" أو "SVR". ستؤثر النواة أيضًا على سرعة الاستجابة حيث يتم استخدامها لحساب إسقاط متجه الإدخال مرة واحدة لكل متجه دعم. في الرسم البياني التالي، تم استخدام معلمة "nu" من :class:`~svm.NuSVR` للتأثير على عدد متجهات الدعم.
 
 .. |nusvr_model_complexity| image::  ../auto_examples/applications/images/sphx_glr_plot_model_complexity_influence_002.png
     :target: ../auto_examples/applications/plot_model_complexity_influence.html
@@ -191,11 +113,7 @@ support vectors.
 
 .. centered:: |nusvr_model_complexity|
 
-For :mod:`sklearn.ensemble` of trees (e.g. RandomForest, GBT,
-ExtraTrees, etc.) the number of trees and their depth play the most
-important role. Latency and throughput should scale linearly with the number
-of trees. In this case we used directly the ``n_estimators`` parameter of
-:class:`~ensemble.GradientBoostingRegressor`.
+بالنسبة لـ :mod:`sklearn.ensemble` من الأشجار (مثل "RandomForest"، و "GBT"، و "ExtraTrees"، وما إلى ذلك)، يلعب عدد الأشجار وعمقها أهم دور. يجب أن تتناسب سرعة الاستجابة وسعة المعالجة بشكل خطي مع عدد الأشجار. في هذه الحالة، تم استخدام معلمة "n_estimators" من :class:`~ensemble.GradientBoostingRegressor` مباشرة.
 
 .. |gbt_model_complexity| image::  ../auto_examples/applications/images/sphx_glr_plot_model_complexity_influence_003.png
     :target: ../auto_examples/applications/plot_model_complexity_influence.html
@@ -203,23 +121,12 @@ of trees. In this case we used directly the ``n_estimators`` parameter of
 
 .. centered:: |gbt_model_complexity|
 
-In any case be warned that decreasing model complexity can hurt accuracy as
-mentioned above. For instance a non-linearly separable problem can be handled
-with a speedy linear model but prediction power will very likely suffer in
-the process.
+في أي حال، يجب أن تكون على علم بأن تقليل تعقيد النموذج يمكن أن يؤثر سلبًا على الدقة، كما ذُكر سابقًا. على سبيل المثال، يمكن التعامل مع مشكلة غير قابلة للفصل الخطي باستخدام نموذج خطي سريع، ولكن من المحتمل أن تتأثر قوة التنبؤ في هذه العملية.
 
-Feature Extraction Latency
-..........................
+سرعة استجابة استخراج الخصائص
+...............................
 
-Most scikit-learn models are usually pretty fast as they are implemented
-either with compiled Cython extensions or optimized computing libraries.
-On the other hand, in many real world applications the feature extraction
-process (i.e. turning raw data like database rows or network packets into
-numpy arrays) governs the overall prediction time. For example on the Reuters
-text classification task the whole preparation (reading and parsing SGML
-files, tokenizing the text and hashing it into a common vector space) is
-taking 100 to 500 times more time than the actual prediction code, depending on
-the chosen model.
+معظم نماذج "سكيت-ليرن" سريعة جدًا لأنها مُنفذة إما باستخدام امتدادات "Cython" المترجمة أو مكتبات الحوسبة المُحسّنة. من ناحية أخرى، في العديد من تطبيقات العالم الحقيقي، تحكم عملية استخراج الخصائص (أي تحويل البيانات الأولية، مثل صفوف قواعد البيانات أو رزم البيانات الشبكية، إلى مصفوفات "نمبر") وقت التنبؤ الإجمالي. على سبيل المثال، في مهمة تصنيف نص "رويترز"، تستغرق عملية الإعداد بأكملها (قراءة وتهيئة ملفات "SGML"، وتجزئة النص، وهاشه إلى مساحة متجه مشتركة) من 100 إلى 500 ضعف الوقت الذي تستغرقه كود التنبؤ الفعلي، وهذا يتوقف على النموذج المُختار.
 
 .. |prediction_time| image::  ../auto_examples/applications/images/sphx_glr_plot_out_of_core_classification_004.png
   :target: ../auto_examples/applications/plot_out_of_core_classification.html
@@ -227,18 +134,12 @@ the chosen model.
 
 .. centered:: |prediction_time|
 
-In many cases it is thus recommended to carefully time and profile your
-feature extraction code as it may be a good place to start optimizing when
-your overall latency is too slow for your application.
+لذلك، يوصى في العديد من الحالات بقياس وتوصيف كود استخراج الخصائص الخاص بك بعناية، حيث قد يكون هذا مكانًا جيدًا للبدء في التحسين عندما تكون سرعة الاستجابة الإجمالية بطيئة جدًا لتطبيقك.
 
-Prediction Throughput
-----------------------
+سعة المعالجة أثناء التنبؤ
+--------------------------
 
-Another important metric to care about when sizing production systems is the
-throughput i.e. the number of predictions you can make in a given amount of
-time. Here is a benchmark from the
-:ref:`sphx_glr_auto_examples_applications_plot_prediction_latency.py` example that measures
-this quantity for a number of estimators on synthetic data:
+مقياس آخر مهم يجب مراعاته عند تحديد حجم أنظمة الإنتاج هو سعة المعالجة، أي عدد التنبؤات التي يمكنك إجراؤها في وحدة زمنية معينة. فيما يلي مقياس للأداء من المثال: :ref:`sphx_glr_auto_examples_applications_plot_prediction_latency.py` الذي يقيس هذه الكمية لعدد من الخوارزميات على بيانات اصطناعية:
 
 .. |throughput_benchmark| image::  ../auto_examples/applications/images/sphx_glr_plot_prediction_latency_004.png
     :target: ../auto_examples/applications/plot_prediction_latency.html
@@ -246,121 +147,68 @@ this quantity for a number of estimators on synthetic data:
 
 .. centered:: |throughput_benchmark|
 
-These throughputs are achieved on a single process. An obvious way to
-increase the throughput of your application is to spawn additional instances
-(usually processes in Python because of the
-`GIL <https://wiki.python.org/moin/GlobalInterpreterLock>`_) that share the
-same model. One might also add machines to spread the load. A detailed
-explanation on how to achieve this is beyond the scope of this documentation
-though.
+تم تحقيق هذه السعات على عملية واحدة. إحدى الطرق الواضحة لزيادة سعة المعالجة لتطبيقك هي إنشاء مثيلات إضافية (عادةً ما تكون عمليات في بايثون بسبب "GIL") تشارك نفس النموذج. قد يقوم المرء أيضًا بإضافة آلات لنشر الحمل. ومع ذلك، فإن الشرح المفصل لكيفية تحقيق ذلك يتجاوز نطاق هذه الوثيقة.
 
-Tips and Tricks
-----------------
+نصائح وحيل
+...........
 
-Linear algebra libraries
-.........................
+يمكن أن يساعد استخدام أجهزة رسومات أفضل (GPU) في تسريع بعض الخوارزميات، خاصة تلك التي تنطوي على عمليات مصفوفة كثيفة، مثل بعض خوارزميات التعلم العميق. يمكن لمكتبات مثل "CuPy" و "TensorFlow" و "PyTorch" الاستفادة من أجهزة "GPU" لأداء الحسابات بشكل أسرع.
 
-As scikit-learn relies heavily on Numpy/Scipy and linear algebra in general it
-makes sense to take explicit care of the versions of these libraries.
-Basically, you ought to make sure that Numpy is built using an optimized `BLAS
-<https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms>`_ /
-`LAPACK <https://en.wikipedia.org/wiki/LAPACK>`_ library.
+يمكن أن يس
+مكتبات الجبر الخطي
+...................................
 
-Not all models benefit from optimized BLAS and Lapack implementations. For
-instance models based on (randomized) decision trees typically do not rely on
-BLAS calls in their inner loops, nor do kernel SVMs (``SVC``, ``SVR``,
-``NuSVC``, ``NuSVR``).  On the other hand a linear model implemented with a
-BLAS DGEMM call (via ``numpy.dot``) will typically benefit hugely from a tuned
-BLAS implementation and lead to orders of magnitude speedup over a
-non-optimized BLAS.
+نظرًا لأن scikit-learn يعتمد بشكل كبير على Numpy/Scipy والجبر الخطي بشكل عام، فمن المنطقي الاهتمام بشكل صريح بإصدارات هذه المكتبات. بشكل أساسي، يجب التأكد من أن Numpy تم بناؤه باستخدام مكتبة BLAS محسّنة <https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms> / LAPACK <https://en.wikipedia.org/wiki/LAPACK>.
 
-You can display the BLAS / LAPACK implementation used by your NumPy / SciPy /
-scikit-learn install with the following command::
+لا تستفيد جميع النماذج من تنفيذات BLAS وLapack المحسّنة. على سبيل المثال، لا تعتمد النماذج المستندة إلى (randomized) decision trees عادةً على استدعاءات BLAS في حلقاتها الداخلية، وكذلك الأمر بالنسبة لنواة SVMs (SVC وSVR وNuSVC وNuSVR). من ناحية أخرى، فإن النموذج الخطي المنفذ باستخدام استدعاء BLAS DGEMM (عبر numpy.dot) سيستفيد عادةً بشكل كبير من تنفيذ BLAS المحسّن، مما يؤدي إلى تسريع كبير في الأداء مقارنة بـ BLAS غير المحسّن.
+
+يمكنك عرض تنفيذ BLAS / LAPACK الذي تستخدمه تثبيتات NumPy / SciPy / scikit-learn باستخدام الأمر التالي::
 
     python -c "import sklearn; sklearn.show_versions()"
 
-Optimized BLAS / LAPACK implementations include:
+تشمل تنفيذات BLAS / LAPACK المحسّنة ما يلي:
 
-- Atlas (need hardware specific tuning by rebuilding on the target machine)
+- أطلس (يحتاج إلى ضبط محدد للأجهزة عن طريق إعادة البناء على الجهاز المستهدف)
 - OpenBLAS
 - MKL
-- Apple Accelerate and vecLib frameworks (OSX only)
+- Apple Accelerate وvecLib frameworks (لنظام التشغيل OSX فقط)
 
-More information can be found on the `NumPy install page <https://numpy.org/install/>`_
-and in this
-`blog post <https://danielnouri.org/notes/2012/12/19/libblas-and-liblapack-issues-and-speed,-with-scipy-and-ubuntu/>`_
-from Daniel Nouri which has some nice step by step install instructions for
-Debian / Ubuntu.
+يمكن العثور على مزيد من المعلومات في صفحة تثبيت NumPy <https://numpy.org/install/> وصفحة المدونة هذه <https://danielnouri.org/notes/2012/12/19/libblas-and-liblapack-issues-and-speed,-with-scipy-and-ubuntu/> من Daniel Nouri والتي تحتوي على تعليمات تثبيت مفصلة لنظامي Debian / Ubuntu.
 
-.. _working_memory:
+تحديد الذاكرة العاملة
+........................................
 
-Limiting Working Memory
-........................
+عند تنفيذ بعض الحسابات باستخدام عمليات Numpy المتجهة القياسية، يتم استخدام كمية كبيرة من ذاكرة النظام المؤقتة. قد يؤدي هذا إلى استنفاد ذاكرة النظام. حيثما يمكن إجراء الحسابات في قطع ذاكرة ثابتة، نحاول القيام بذلك، والسماح للمستخدم بالإشارة إلى الحد الأقصى لحجم ذاكرة العمل هذه (الافتراضي إلى 1 جيجابايت) باستخدام: func: set_config أو: func: config_context. يقترح ما يلي تحديد ذاكرة العمل المؤقتة إلى 128 ميغا بايت::
 
-Some calculations when implemented using standard numpy vectorized operations
-involve using a large amount of temporary memory.  This may potentially exhaust
-system memory.  Where computations can be performed in fixed-memory chunks, we
-attempt to do so, and allow the user to hint at the maximum size of this
-working memory (defaulting to 1GB) using :func:`set_config` or
-:func:`config_context`.  The following suggests to limit temporary working
-memory to 128 MiB::
+    >>> import sklearn
+    >>> with sklearn.config_context(working_memory=128):
+    ...     pass # قم بالعمل المجزأ هنا
 
-  >>> import sklearn
-  >>> with sklearn.config_context(working_memory=128):
-  ...     pass  # do chunked work here
+مثال على عملية مجزأة تلتزم بهذا الإعداد هو: func: ~ metrics.pairwise_distances_chunked، والذي يسهل حساب التخفيضات الصفوف لمصفوفة المسافة الزوجية.
 
-An example of a chunked operation adhering to this setting is
-:func:`~metrics.pairwise_distances_chunked`, which facilitates computing
-row-wise reductions of a pairwise distance matrix.
-
-Model Compression
+ضغط النموذج
 ..................
 
-Model compression in scikit-learn only concerns linear models for the moment.
-In this context it means that we want to control the model sparsity (i.e. the
-number of non-zero coordinates in the model vectors). It is generally a good
-idea to combine model sparsity with sparse input data representation.
+في scikit-learn، لا يتعلق ضغط النموذج إلا بالنماذج الخطية في الوقت الحالي. في هذا السياق، يعني ذلك أننا نريد التحكم في ندرة النموذج (أي عدد الإحداثيات غير الصفرية في متجهات النموذج). من الجيد عمومًا الجمع بين ندرة النموذج وتمثيل البيانات النادرة.
 
-Here is sample code that illustrates the use of the ``sparsify()`` method::
+هنا عينة من التعليمات البرمجية التي توضح استخدام طريقة "sparsify()"::
 
     clf = SGDRegressor(penalty='elasticnet', l1_ratio=0.25)
     clf.fit(X_train, y_train).sparsify()
     clf.predict(X_test)
 
-In this example we prefer the ``elasticnet`` penalty as it is often a good
-compromise between model compactness and prediction power. One can also
-further tune the ``l1_ratio`` parameter (in combination with the
-regularization strength ``alpha``) to control this tradeoff.
+في هذا المثال، نفضل عقوبة "elasticnet" لأنها غالبًا ما تكون حلًا وسطًا جيدًا بين دقة النموذج وسرعته. يمكن أيضًا ضبط معلمة "l1_ratio" بشكل أكبر (بالاشتراك مع قوة التنظيم "alpha") للتحكم في هذا التوازن.
 
-A typical `benchmark <https://github.com/scikit-learn/scikit-learn/blob/main/benchmarks/bench_sparsify.py>`_
-on synthetic data yields a >30% decrease in latency when both the model and
-input are sparse (with 0.000024 and 0.027400 non-zero coefficients ratio
-respectively). Your mileage may vary depending on the sparsity and size of
-your data and model.
-Furthermore, sparsifying can be very useful to reduce the memory usage of
-predictive models deployed on production servers.
+تؤدي "مقارنة قياسية" <https://github.com/scikit-learn/scikit-learn/blob/main/benchmarks/bench_sparsify.py> على بيانات صناعية إلى انخفاض في زمن الوصول بنسبة تزيد عن 30% عندما يكون كل من النموذج والمدخلات نادرة (بنسبة 0.000024 و0.027400 من نسب المعاملات غير الصفرية على التوالي). قد تختلف النتائج حسب ندرة وحجم بياناتك ونموذجك. علاوة على ذلك، يمكن أن يكون الضغط مفيدًا جدًا لتقليل استخدام الذاكرة في النماذج التنبؤية المنشورة على خوادم الإنتاج.
 
-Model Reshaping
-................
+إعادة تشكيل النموذج
+.........................
 
-Model reshaping consists in selecting only a portion of the available features
-to fit a model. In other words, if a model discards features during the
-learning phase we can then strip those from the input. This has several
-benefits. Firstly it reduces memory (and therefore time) overhead of the
-model itself. It also allows to discard explicit
-feature selection components in a pipeline once we know which features to
-keep from a previous run. Finally, it can help reduce processing time and I/O
-usage upstream in the data access and feature extraction layers by not
-collecting and building features that are discarded by the model. For instance
-if the raw data come from a database, it can make it possible to write simpler
-and faster queries or reduce I/O usage by making the queries return lighter
-records.
-At the moment, reshaping needs to be performed manually in scikit-learn.
-In the case of sparse input (particularly in ``CSR`` format), it is generally
-sufficient to not generate the relevant features, leaving their columns empty.
+تتكون إعادة تشكيل النموذج من اختيار جزء فقط من الميزات المتاحة لتناسب النموذج. وبعبارة أخرى، إذا تخلى النموذج عن الميزات أثناء مرحلة التعلم، فيمكننا بعد ذلك إزالة تلك الميزات من الإدخال. هذا له فوائد عدة. أولاً، يقلل من النفقات العامة للذاكرة (وبالتالي الوقت) للنموذج نفسه. كما يسمح بإزالة مكونات اختيار الميزات الصريحة في خط الأنابيب بمجرد معرفة الميزات التي يجب الاحتفاظ بها من تشغيل سابق. وأخيرًا، يمكنه المساعدة في تقليل وقت المعالجة واستخدام وحدة الإدخال والإخراج في طبقات الوصول إلى البيانات واستخراج الميزات عن طريق عدم جمع وبناء الميزات التي يتخلص منها النموذج. على سبيل المثال، إذا كانت البيانات الخام تأتي من قاعدة بيانات، فقد يكون من الممكن كتابة استعلامات أبسط وأسرع أو تقليل استخدام وحدة الإدخال والإخراج عن طريق جعل الاستعلامات تعيد سجلات أخف.
+في الوقت الحالي، يجب إجراء إعادة التشكيل يدويًا في scikit-learn. في حالة الإدخال النادر (خاصة بتنسيق "CSR")، يكون من الكافي عمومًا عدم إنشاء الميزات ذات الصلة، وترك أعمدتها فارغة.
 
-Links
-......
+الروابط
+........
 
-- :ref:`scikit-learn developer performance documentation <performance-howto>`
-- `Scipy sparse matrix formats documentation <https://docs.scipy.org/doc/scipy/reference/sparse.html>`_
+- : ref: <performance-howto> توثيق أداء مطور scikit-learn
+- تنسيقات مصفوفة scipy النادرة <https://docs.scipy.org/doc/scipy/reference/sparse.html>
