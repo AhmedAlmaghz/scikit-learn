@@ -1,45 +1,42 @@
 .. _learning_curves:
 
 =====================================================
-Validation curves: plotting scores to evaluate models
+منحنيات التحقق: رسم الدرجات لتقييم النماذج
 =====================================================
 
 .. currentmodule:: sklearn.model_selection
 
-Every estimator has its advantages and drawbacks. Its generalization error
-can be decomposed in terms of bias, variance and noise. The **bias** of an
-estimator is its average error for different training sets. The **variance**
-of an estimator indicates how sensitive it is to varying training sets. Noise
-is a property of the data.
+كل خوارزمية تقدير لها مزايا وعيوب. يمكن تحليل خطأ التعميم
+من حيث الانحياز والتشتت والضوضاء. **انحياز** خوارزمية التقدير هو متوسط خطأها لمجموعات التدريب المختلفة. يشير **تشتت**
+خوارزمية التقدير إلى مدى حساسيتها لمجموعات التدريب المختلفة. الضوضاء هي خاصية البيانات.
 
-In the following plot, we see a function :math:`f(x) = \cos (\frac{3}{2} \pi x)`
-and some noisy samples from that function. We use three different estimators
-to fit the function: linear regression with polynomial features of degree 1,
-4 and 15. We see that the first estimator can at best provide only a poor fit
-to the samples and the true function because it is too simple (high bias),
-the second estimator approximates it almost perfectly and the last estimator
-approximates the training data perfectly but does not fit the true function
-very well, i.e. it is very sensitive to varying training data (high variance).
+في المخطط التالي، نرى دالة :math:`f(x) = \cos (\frac{3}{2} \pi x)`
+وبعض العينات المشوشة من تلك الدالة. نستخدم ثلاث خوارزميات تقدير مختلفة
+لتناسب الدالة: الانحدار الخطي مع ميزات متعددة الحدود من الدرجة 1،
+4 و15. نرى أن أول خوارزمية تقدير لا يمكنها سوى توفير ملاءمة سيئة
+للعينات والدالة الحقيقية لأنها بسيطة للغاية (انحياز مرتفع)،
+تقريب خوارزمية التقدير الثانية تقريبًا بشكل مثالي وآخر
+تقريب خوارزمية التقدير البيانات التدريبية بشكل مثالي ولكنها لا تناسب الدالة الحقيقية
+جيدًا، أي أنها حساسة جدًا لبيانات التدريب المتغيرة (تشتت مرتفع).
 
 .. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_underfitting_overfitting_001.png
    :target: ../auto_examples/model_selection/plot_underfitting_overfitting.html
    :align: center
    :scale: 50%
 
-Bias and variance are inherent properties of estimators and we usually have to
-select learning algorithms and hyperparameters so that both bias and variance
-are as low as possible (see `Bias-variance dilemma
-<https://en.wikipedia.org/wiki/Bias-variance_dilemma>`_). Another way to reduce
-the variance of a model is to use more training data. However, you should only
-collect more training data if the true function is too complex to be
-approximated by an estimator with a lower variance.
+الانحياز والتشتت هما خصائص متأصلة في خوارزميات التقدير وعلينا عادةً اختيار
+خوارزميات التعلم وفرط المعلمات بحيث يكون الانحياز والتشتت منخفضين قدر الإمكان (انظر `معضلة الانحياز-التشتت
+<https://en.wikipedia.org/wiki/Bias-variance_dilemma>`_). هناك طريقة أخرى لتقليل
+تشتت النموذج هي استخدام المزيد من بيانات التدريب. ومع ذلك، يجب عليك فقط
+جمع المزيد من بيانات التدريب إذا كانت الدالة الحقيقية معقدة للغاية بحيث لا يمكن
+تقريبها بواسطة خوارزمية تقدير ذات تشتت أقل.
 
-In the simple one-dimensional problem that we have seen in the example it is
-easy to see whether the estimator suffers from bias or variance. However, in
-high-dimensional spaces, models can become very difficult to visualize. For
-this reason, it is often helpful to use the tools described below.
+في المشكلة الأحادية البعد البسيطة التي رأيناها في المثال، من السهل
+أن نرى ما إذا كانت خوارزمية التقدير تعاني من الانحياز أو التشتت. ومع ذلك، في
+الأبعاد العالية، يمكن أن تصبح النماذج صعبة للغاية في التصور. لهذا السبب،
+من المفيد غالبًا استخدام الأدوات الموضحة أدناه.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_model_selection_plot_underfitting_overfitting.py`
 * :ref:`sphx_glr_auto_examples_model_selection_plot_validation_curve.py`
@@ -48,25 +45,20 @@ this reason, it is often helpful to use the tools described below.
 
 .. _validation_curve:
 
-Validation curve
+منحنى التحقق
 ================
 
-To validate a model we need a scoring function (see :ref:`model_evaluation`),
-for example accuracy for classifiers. The proper way of choosing multiple
-hyperparameters of an estimator is of course grid search or similar methods
-(see :ref:`grid_search`) that select the hyperparameter with the maximum score
-on a validation set or multiple validation sets. Note that if we optimize
-the hyperparameters based on a validation score the validation score is biased
-and not a good estimate of the generalization any longer. To get a proper
-estimate of the generalization we have to compute the score on another test
-set.
+لتحقق من صحة نموذج، نحتاج إلى دالة تسجيل (راجع :ref:`model_evaluation`)،
+على سبيل المثال الدقة للتصنيف. الطريقة الصحيحة لاختيار فرط معلمات متعددة
+من خوارزمية التقدير هي بالطبع البحث الشبكي أو طرق مماثلة (راجع :ref:`grid_search`)
+التي تحدد فرط المعلمة ذات الدرجة القصوى على مجموعة تحقق واحدة أو أكثر. لاحظ أنه إذا قمنا بتحسين
+فرط المعلمات بناءً على درجة التحقق، فإن درجة التحقق متحيزة
+وليس تقديرًا جيدًا للتعميم بعد الآن. للحصول على تقدير صحيح للتعميم، يجب علينا حساب الدرجة على مجموعة اختبار أخرى.
 
-However, it is sometimes helpful to plot the influence of a single
-hyperparameter on the training score and the validation score to find out
-whether the estimator is overfitting or underfitting for some hyperparameter
-values.
+ومع ذلك، فمن المفيد أحيانًا رسم تأثير فرط معلمة واحدة على درجة التدريب ودرجة التحقق لمعرفة ما إذا كانت
+خوارزمية التقدير مفرطة أو ناقصة التحديد لبعض قيم فرط المعلمات.
 
-The function :func:`validation_curve` can help in this case::
+يمكن أن تساعد دالة :func:`validation_curve` في هذه الحالة::
 
   >>> import numpy as np
   >>> from sklearn.model_selection import validation_curve
@@ -91,12 +83,12 @@ The function :func:`validation_curve` can help in this case::
          [0.9..., 0.83..., 0.96..., 0.96..., 0.93...],
          [1.... , 0.93..., 1....  , 1....  , 0.9... ]])
 
-If you intend to plot the validation curves only, the class
-:class:`~sklearn.model_selection.ValidationCurveDisplay` is more direct than
-using matplotlib manually on the results of a call to :func:`validation_curve`.
-You can use the method
-:meth:`~sklearn.model_selection.ValidationCurveDisplay.from_estimator` similarly
-to :func:`validation_curve` to generate and plot the validation curve:
+إذا كنت تنوي رسم منحنيات التحقق فقط، فإن الفئة
+:class:`~sklearn.model_selection.ValidationCurveDisplay` أكثر مباشرة من
+استخدام matplotlib يدويًا على نتائج مكالمة إلى :func:`validation_curve`.
+يمكنك استخدام الأسلوب
+:meth:`~sklearn.model_selection.ValidationCurveDisplay.from_estimator` بشكل مشابه
+إلى :func:`validation_curve` لتوليد ورسم منحنى التحقق:
 
 .. plot::
    :context: close-figs
@@ -112,12 +104,10 @@ to :func:`validation_curve` to generate and plot the validation curve:
          SVC(kernel="linear"), X, y, param_name="C", param_range=np.logspace(-7, 3, 10)
       )
 
-If the training score and the validation score are both low, the estimator will
-be underfitting. If the training score is high and the validation score is low,
-the estimator is overfitting and otherwise it is working very well. A low
-training score and a high validation score is usually not possible. Underfitting,
-overfitting, and a working model are shown in the in the plot below where we vary
-the parameter `gamma` of an SVM with an RBF kernel on the digits dataset.
+إذا كانت درجة التدريب ودرجة التحقق منخفضة، فستكون خوارزمية التقدير ناقصة التحديد. إذا كانت درجة التدريب مرتفعة ودرجة التحقق منخفضة،
+فإن خوارزمية التقدير مفرطة في التحديد وإلا فهي تعمل بشكل جيد جدًا. من غير الممكن عادةً الحصول على درجة تدريب منخفضة ودرجة تحقق عالية. نقص التحديد،
+فرط التحديد، ونموذج العمل موضح في المخطط أدناه حيث نغير
+معلمة `gamma` لخوارزمية SVM ذات نواة RBF على مجموعة بيانات الأرقام.
 
 .. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_validation_curve_001.png
    :target: ../auto_examples/model_selection/plot_validation_curve.html
@@ -126,32 +116,28 @@ the parameter `gamma` of an SVM with an RBF kernel on the digits dataset.
 
 .. _learning_curve:
 
-Learning curve
+منحنى التعلم
 ==============
 
-A learning curve shows the validation and training score of an estimator
-for varying numbers of training samples. It is a tool to find out how much
-we benefit from adding more training data and whether the estimator suffers
-more from a variance error or a bias error. Consider the following example
-where we plot the learning curve of a naive Bayes classifier and an SVM.
+يظهر منحنى التعلم درجات التحقق والتدريب لخوارزمية تقدير
+لأعداد متنوعة من عينات التدريب. إنها أداة لمعرفة مدى استفادتنا من إضافة المزيد من بيانات التدريب وما إذا كانت خوارزمية التقدير تعاني
+من خطأ التباين أو خطأ الانحياز. ضع في اعتبارك المثال التالي حيث نرسم منحنى التعلم لخوارزمية بايز البسيط وخوارزمية SVM.
 
-For the naive Bayes, both the validation score and the training score
-converge to a value that is quite low with increasing size of the training
-set. Thus, we will probably not benefit much from more training data.
+بالنسبة لخوارزمية بايز البسيطة، تتقارب كل من درجة التحقق ودرجة التدريب
+إلى قيمة منخفضة جدًا مع زيادة حجم مجموعة التدريب. وبالتالي، فمن المحتمل ألا نستفيد كثيرًا من المزيد من بيانات التدريب.
 
-In contrast, for small amounts of data, the training score of the SVM is
-much greater than the validation score. Adding more training samples will
-most likely increase generalization.
+على النقيض من ذلك، بالنسبة لكميات صغيرة من البيانات، تكون درجة التدريب لخوارزمية SVM
+أكبر بكثير من درجة التحقق. من المحتمل أن يؤدي إضافة المزيد من عينات التدريب إلى زيادة التعميم.
 
 .. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_learning_curve_001.png
    :target: ../auto_examples/model_selection/plot_learning_curve.html
    :align: center
    :scale: 50%
 
-We can use the function :func:`learning_curve` to generate the values
-that are required to plot such a learning curve (number of samples
-that have been used, the average scores on the training sets and the
-average scores on the validation sets)::
+يمكننا استخدام دالة :func:`learning_curve` لتوليد القيم
+اللازمة لرسم مثل هذا المنحنى التعليمي (عدد العينات
+التي تم استخدامها، متوسط الدرجات على مجموعات التدريب و
+متوسط الدرجات على مجموعات التحقق)::
 
   >>> from sklearn.model_selection import learning_curve
   >>> from sklearn.svm import SVC
@@ -169,11 +155,11 @@ average scores on the validation sets)::
          [1. ,  0.96...,  1. ,  1. ,  0.96...],
          [1. ,  0.96...,  1. ,  1. ,  0.96...]])
 
-If you intend to plot the learning curves only, the class
-:class:`~sklearn.model_selection.LearningCurveDisplay` will be easier to use.
-You can use the method
-:meth:`~sklearn.model_selection.LearningCurveDisplay.from_estimator` similarly
-to :func:`learning_curve` to generate and plot the learning curve:
+إذا كنت تنوي رسم منحنيات التعلم فقط، فإن الفئة
+:class:`~sklearn.model_selection.LearningCurveDisplay` ستكون أسهل في الاستخدام.
+يمكنك استخدام الأسلوب
+:meth:`~sklearn.model_selection.LearningCurveDisplay.from_estimator` بشكل مشابه
+إلى :func:`learning_curve` لتوليد ورسم منحنى التعلم:
 
 .. plot::
    :context: close-figs
