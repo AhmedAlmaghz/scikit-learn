@@ -1,132 +1,69 @@
-.. _covariance:
+تقدير التغاير 
 
-===================================================
-Covariance estimation
 ===================================================
 
 .. currentmodule:: sklearn.covariance
 
 
-Many statistical problems require the estimation of a
-population's covariance matrix, which can be seen as an estimation of
-data set scatter plot shape. Most of the time, such an estimation has
-to be done on a sample whose properties (size, structure, homogeneity)
-have a large influence on the estimation's quality. The
-:mod:`sklearn.covariance` package provides tools for accurately estimating
-a population's covariance matrix under various settings.
+يتطلب العديد من المشكلات الإحصائية تقدير مصفوفة التغاير لسكان، والتي يمكن اعتبارها تقديرًا لشكل مخطط التشتت لمجموعة البيانات. وفي معظم الأحيان، يجب إجراء هذا التقدير على عينة يكون لخصائصها (الحجم، والبنية، والتماثل) تأثير كبير على جودة التقدير. توفر حزمة :mod:`sklearn.covariance` أدوات لتقدير مصفوفة التغاير للسكان بدقة في ظل إعدادات مختلفة.
 
-We assume that the observations are independent and identically
-distributed (i.i.d.).
+نفترض أن الملاحظات مستقلة ومتطابقة التوزيع (i.i.d.).
 
 
-Empirical covariance
+التغاير التجريبي
 ====================
 
-The covariance matrix of a data set is known to be well approximated
-by the classical *maximum likelihood estimator* (or "empirical
-covariance"), provided the number of observations is large enough
-compared to the number of features (the variables describing the
-observations). More precisely, the Maximum Likelihood Estimator of a
-sample is an asymptotically unbiased estimator of the corresponding
-population's covariance matrix.
+من المعروف أن مصفوفة التغاير لمجموعة بيانات تقترب جيدًا من *المقدر الأقصى الاحتمالي* الكلاسيكي (أو "التغاير التجريبي")، بشرط أن يكون عدد الملاحظات كبيرًا بما يكفي مقارنة بعدد الخصائص (المتغيرات التي تصف الملاحظات). وبشكل أكثر دقة، فإن المقدر الأقصى الاحتمالي لعينة ما هو مقدر غير متحيز تقاربيًا لمصفوفة التغاير المقابلة للسكان.
 
-The empirical covariance matrix of a sample can be computed using the
-:func:`empirical_covariance` function of the package, or by fitting an
-:class:`EmpiricalCovariance` object to the data sample with the
-:meth:`EmpiricalCovariance.fit` method. Be careful that results depend
-on whether the data are centered, so one may want to use the
-``assume_centered`` parameter accurately. More precisely, if
-``assume_centered=False``, then the test set is supposed to have the
-same mean vector as the training set. If not, both should be centered
-by the user, and ``assume_centered=True`` should be used.
+يمكن حساب مصفوفة التغاير التجريبية لعينة ما باستخدام دالة :func:`empirical_covariance` في الحزمة، أو عن طريق ملاءمة كائن :class:`EmpiricalCovariance` إلى عينة البيانات باستخدام طريقة :meth:`EmpiricalCovariance.fit`. كن حذرًا لأن النتائج تعتمد على ما إذا كانت البيانات مركزة، لذا قد يرغب المستخدم في استخدام معلمة ``assume_centered`` بدقة. وبشكل أكثر تحديدًا، إذا كان ``assume_centered=False``، فمن المفترض أن يكون لمجموعة الاختبار نفس متجه المتوسط مثل مجموعة التدريب. إذا لم يكن الأمر كذلك، فيجب على المستخدم أن يقوم بمركزة كل من المجموعتين، واستخدام ``assume_centered=True``.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` for
-  an example on how to fit an :class:`EmpiricalCovariance` object to data.
+* راجع :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` للحصول
+  على مثال حول كيفية ملاءمة كائن :class:`EmpiricalCovariance` إلى البيانات.
 
 
-.. _shrunk_covariance:
-
-Shrunk Covariance
+التغاير المنكمش
 =================
 
-Basic shrinkage
+الانكماش الأساسي
 ---------------
 
-Despite being an asymptotically unbiased estimator of the covariance matrix,
-the Maximum Likelihood Estimator is not a good estimator of the
-eigenvalues of the covariance matrix, so the precision matrix obtained
-from its inversion is not accurate. Sometimes, it even occurs that the
-empirical covariance matrix cannot be inverted for numerical
-reasons. To avoid such an inversion problem, a transformation of the
-empirical covariance matrix has been introduced: the ``shrinkage``.
+على الرغم من أن المقدر الأقصى الاحتمالي هو مقدر غير متحيز تقاربيًا لمصفوفة التغاير، إلا أنه ليس مقدرًا جيدًا للقيم الذاتية لمصفوفة التغاير، لذلك فإن مصفوفة الدقة الناتجة عن معكوسها غير دقيقة. وفي بعض الأحيان، يحدث حتى أن مصفوفة التغاير التجريبية لا يمكن عكسها لأسباب رقمية. ولتجنب مشكلة العكس هذه، تم تقديم تحويل لمصفوفة التغاير التجريبية: "الانكماش".
 
-In scikit-learn, this transformation (with a user-defined shrinkage
-coefficient) can be directly applied to a pre-computed covariance with
-the :func:`shrunk_covariance` method. Also, a shrunk estimator of the
-covariance can be fitted to data with a :class:`ShrunkCovariance` object
-and its :meth:`ShrunkCovariance.fit` method. Again, results depend on
-whether the data are centered, so one may want to use the
-``assume_centered`` parameter accurately.
+في سكيت-ليرن، يمكن تطبيق هذا التحويل (مع معامل انكماش يحدده المستخدم) مباشرة على مصفوفة تغاير محسوبة مسبقًا باستخدام طريقة :func:`shrunk_covariance`. أيضًا، يمكن ملاءمة مقدر منكمش لمصفوفة التغاير إلى البيانات باستخدام كائن :class:`ShrunkCovariance` وطريقته :meth:`ShrunkCovariance.fit`. مرة أخرى، تعتمد النتائج على ما إذا كانت البيانات مركزة، لذا قد يرغب المستخدم في استخدام معلمة ``assume_centered`` بدقة.
 
 
-Mathematically, this shrinkage consists in reducing the ratio between the
-smallest and the largest eigenvalues of the empirical covariance matrix.
-It can be done by simply shifting every eigenvalue according to a given
-offset, which is equivalent of finding the l2-penalized Maximum
-Likelihood Estimator of the covariance matrix. In practice, shrinkage
-boils down to a simple a convex transformation : :math:`\Sigma_{\rm
-shrunk} = (1-\alpha)\hat{\Sigma} + \alpha\frac{{\rm
-Tr}\hat{\Sigma}}{p}\rm Id`.
+رياضيًا، يتكون هذا الانكماش من تقليل نسبة القيمة الذاتية الصغرى إلى القيمة الذاتية الكبرى لمصفوفة التغاير التجريبية. ويمكن القيام بذلك عن طريق تحويل كل قيمة ذاتية وفقًا لتعويض معين، وهو ما يعادل إيجاد المقدر الأقصى الاحتمالي المعاقب وفقًا للمعيار :math:`\ell_2` لمصفوفة التغاير. وفي الممارسة العملية، ينطوي الانكماش على تحويل محدب بسيط : :math:`\Sigma_{\rm shrunk} = (1-\alpha)\hat{\Sigma} + \alpha\frac{{\rm Tr}\hat{\Sigma}}{p}\rm Id`.
 
-Choosing the amount of shrinkage, :math:`\alpha` amounts to setting a
-bias/variance trade-off, and is discussed below.
+إن اختيار مقدار الانكماش، :math:`\alpha`، يعادل تحديد مفاضلة بين الانحياز والتباين، وسيتم مناقشته أدناه.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` for
-  an example on how to fit a :class:`ShrunkCovariance` object to data.
+* راجع :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` للحصول
+  على مثال حول كيفية ملاءمة كائن :class:`ShrunkCovariance` إلى البيانات.
 
 
-Ledoit-Wolf shrinkage
+انكماش ليدويت-وولف
 ---------------------
 
-In their 2004 paper [1]_, O. Ledoit and M. Wolf propose a formula
-to compute the optimal shrinkage coefficient :math:`\alpha` that
-minimizes the Mean Squared Error between the estimated and the real
-covariance matrix.
+في ورقتهم البحثية لعام 2004 [1]_، اقترح O. Ledoit وM. Wolf صيغة لحساب معامل الانكماش الأمثل :math:`\alpha` الذي يقلل من متوسط مربعات الخطأ بين مصفوفة التغاير المقدرة والمصفوفة الحقيقية.
 
-The Ledoit-Wolf estimator of the covariance matrix can be computed on
-a sample with the :meth:`ledoit_wolf` function of the
-:mod:`sklearn.covariance` package, or it can be otherwise obtained by
-fitting a :class:`LedoitWolf` object to the same sample.
+يمكن حساب مقدر ليدويت-وولف لمصفوفة التغاير على عينة باستخدام دالة :meth:`ledoit_wolf` في الحزمة :mod:`sklearn.covariance`، أو يمكن الحصول عليه بخلاف ذلك عن طريق ملاءمة كائن :class:`LedoitWolf` إلى نفس العينة.
 
-.. note:: **Case when population covariance matrix is isotropic**
+.. note:: **الحالة عندما تكون مصفوفة التغاير السكانية متسقة الخواص**
 
-    It is important to note that when the number of samples is much larger than
-    the number of features, one would expect that no shrinkage would be
-    necessary. The intuition behind this is that if the population covariance
-    is full rank, when the number of sample grows, the sample covariance will
-    also become positive definite. As a result, no shrinkage would necessary
-    and the method should automatically do this.
+    من المهم ملاحظة أنه عندما يكون عدد العينات أكبر بكثير من عدد الخصائص، من المتوقع ألا تكون هناك حاجة إلى أي انكماش. والحدس وراء هذا هو أنه إذا كانت مصفوفة التغاير السكانية ذات رتبة كاملة، فعندما يزداد عدد العينات، ستصبح مصفوفة التغاير للعينة أيضًا موجبة التأكيد. ونتيجة لذلك، لن يكون الانكماش ضروريًا، وينبغي أن تقوم الطريقة بذلك تلقائيًا.
 
-    This, however, is not the case in the Ledoit-Wolf procedure when the
-    population covariance happens to be a multiple of the identity matrix. In
-    this case, the Ledoit-Wolf shrinkage estimate approaches 1 as the number of
-    samples increases. This indicates that the optimal estimate of the
-    covariance matrix in the Ledoit-Wolf sense is multiple of the identity.
-    Since the population covariance is already a multiple of the identity
-    matrix, the Ledoit-Wolf solution is indeed a reasonable estimate.
+    ومع ذلك، فإن هذا ليس هو الحال في إجراء ليدويت-وولف عندما تكون مصفوفة التغاير السكانية مضاعفًا لمصفوفة الهوية. في هذه الحالة، يقترب تقدير الانكماش ليدويت-وولف من 1 مع زيادة عدد العينات. ويشير هذا إلى أن التقدير الأمثل لمصفوفة التغاير وفقًا لطريقة ليدويت-وولف هو مضاعف لمصفوفة الهوية. وبما أن مصفوفة التغاير السكانية هي بالفعل مضاعف لمصفوفة الهوية، فإن حل ليدويت-وولف هو بالفعل تقدير معقول.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` for
-  an example on how to fit a :class:`LedoitWolf` object to data and
-  for visualizing the performances of the Ledoit-Wolf estimator in
-  terms of likelihood.
+* راجع :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` للحصول
+  على مثال حول كيفية ملاءمة كائن :class:`LedoitWolf` إلى البيانات ولتصور أداء مقدر ليدويت-وولف
+  من حيث الاحتمالية.
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [1] O. Ledoit and M. Wolf, "A Well-Conditioned Estimator for Large-Dimensional
        Covariance Matrices", Journal of Multivariate Analysis, Volume 88, Issue 2,
@@ -134,43 +71,34 @@ fitting a :class:`LedoitWolf` object to the same sample.
 
 .. _oracle_approximating_shrinkage:
 
-Oracle Approximating Shrinkage
+انكماش التقريب الأمثل
 ------------------------------
 
-Under the assumption that the data are Gaussian distributed, Chen et
-al. [2]_ derived a formula aimed at choosing a shrinkage coefficient that
-yields a smaller Mean Squared Error than the one given by Ledoit and
-Wolf's formula. The resulting estimator is known as the Oracle
-Shrinkage Approximating estimator of the covariance.
+بافتراض أن البيانات موزعة وفقًا لتوزيع غاوسي، اشتق تشين وآخرون. [2]_ صيغة تهدف إلى اختيار معامل انكماش يعطي متوسط مربعات خطأ أصغر من ذلك الذي تعطيه صيغة ليدويت ووولف. ويعرف المقدر الناتج باسم مقدر الانكماش التقريبي الأمثل لمصفوفة التغاير.
 
-The OAS estimator of the covariance matrix can be computed on a sample
-with the :meth:`oas` function of the :mod:`sklearn.covariance`
-package, or it can be otherwise obtained by fitting an :class:`OAS`
-object to the same sample.
+يمكن حساب مقدر OAS لمصفوفة التغاير على عينة باستخدام دالة :meth:`oas` في الحزمة :mod:`sklearn.covariance`، أو يمكن الحصول عليه بخلاف ذلك عن طريق ملاءمة كائن :class:`OAS` إلى نفس العينة.
 
 .. figure:: ../auto_examples/covariance/images/sphx_glr_plot_covariance_estimation_001.png
    :target: ../auto_examples/covariance/plot_covariance_estimation.html
    :align: center
    :scale: 65%
 
-   Bias-variance trade-off when setting the shrinkage: comparing the
-   choices of Ledoit-Wolf and OAS estimators
+   المفاضلة بين الانحياز والتباين عند تحديد الانكماش: مقارنة اختيارات مقدري ليدويت-وولف وOAS
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [2] :arxiv:`"Shrinkage algorithms for MMSE covariance estimation.",
        Chen, Y., Wiesel, A., Eldar, Y. C., & Hero, A. O.
        IEEE Transactions on Signal Processing, 58(10), 5016-5029, 2010.
        <0907.4698>`
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` for
-  an example on how to fit an :class:`OAS` object to data.
+* راجع :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` للحصول
+  على مثال حول كيفية ملاءمة كائن :class:`OAS` إلى البيانات.
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_lw_vs_oas.py` to visualize the
-  Mean Squared Error difference between a :class:`LedoitWolf` and
-  an :class:`OAS` estimator of the covariance.
+* راجع :ref:`sphx_glr_auto_examples_covariance_plot_lw_vs_oas.py` لتصور الفرق في متوسط
+  مربعات الخطأ بين مقدري :class:`LedoitWolf` و:class:`OAS` لمصفوفة التغاير.
 
 
 .. figure:: ../auto_examples/covariance/images/sphx_glr_plot_lw_vs_oas_001.png
@@ -181,61 +109,35 @@ object to the same sample.
 
 .. _sparse_inverse_covariance:
 
-Sparse inverse covariance
+مصفوفة الدقة المتناثرة
 ==========================
 
-The matrix inverse of the covariance matrix, often called the precision
-matrix, is proportional to the partial correlation matrix. It gives the
-partial independence relationship. In other words, if two features are
-independent conditionally on the others, the corresponding coefficient in
-the precision matrix will be zero. This is why it makes sense to
-estimate a sparse precision matrix: the estimation of the covariance
-matrix is better conditioned by learning independence relations from
-the data. This is known as *covariance selection*.
+إن معكوس مصفوفة التغاير، والذي يُطلق عليه غالبًا مصفوفة الدقة، يتناسب مع مصفوفة الارتباط الجزئي. فهو يعطي علاقة الاستقلال الجزئي. وبعبارة أخرى، إذا كان الميزتان مستقلتين شرطيًا على الميزات الأخرى، فإن المعامل المقابل في مصفوفة الدقة سيكون صفرًا. وهذا هو السبب في أن تقدير مصفوفة دقة متناثرة له معنى: يكون تقدير مصفوفة التغاير مشروطًا بشكل أفضل عن طريق تعلم علاقات الاستقلال من البيانات. وهذا ما يعرف باسم *اختيار التغاير*.
 
-In the small-samples situation, in which ``n_samples`` is on the order
-of ``n_features`` or smaller, sparse inverse covariance estimators tend to work
-better than shrunk covariance estimators. However, in the opposite
-situation, or for very correlated data, they can be numerically unstable.
-In addition, unlike shrinkage estimators, sparse estimators are able to
-recover off-diagonal structure.
+في حالة العينات الصغيرة، حيث يكون ``n_samples`` بنفس ترتيب ``n_features`` أو أصغر، يميل مقدرو مصفوفة الدقة المتناثرة إلى العمل بشكل أفضل من مقدري التغاير المنكمش. ومع ذلك، في الحالة المعاكسة، أو بالنسبة للبيانات عالية الارتباط، يمكن أن تكون غير مستقرة من الناحية العددية. بالإضافة إلى ذلك، على عكس مقدرات الانكماش، يمكن لمقدرات التفرق المتناثرة استرداد البنية غير القطرية.
 
-The :class:`GraphicalLasso` estimator uses an l1 penalty to enforce sparsity on
-the precision matrix: the higher its ``alpha`` parameter, the more sparse
-the precision matrix. The corresponding :class:`GraphicalLassoCV` object uses
-cross-validation to automatically set the ``alpha`` parameter.
+يستخدم مقدر :class:`GraphicalLasso` معاقبة :math:`\ell_1` لفرض التفرق على مصفوفة الدقة: فكلما زادت معلمة ``alpha``، زاد تفرق مصفوفة الدقة. ويستخدم الكائن المقابل :class:`GraphicalLassoCV` التحقق من الصلاحية المتقاطع لضبط معلمة ``alpha`` تلقائيًا.
 
 .. figure:: ../auto_examples/covariance/images/sphx_glr_plot_sparse_cov_001.png
    :target: ../auto_examples/covariance/plot_sparse_cov.html
    :align: center
    :scale: 60%
 
-   *A comparison of maximum likelihood, shrinkage and sparse estimates of
-   the covariance and precision matrix in the very small samples
-   settings.*
+   *مقارنة بين التقديرات الأقصى الاحتمالية والمنكمشة والمتناثرة لمصفوفة التغاير ومصفوفة الدقة في حالة العينات الصغيرة جدًا.*
 
-.. note:: **Structure recovery**
+.. note:: **استرداد البنية**
 
-   Recovering a graphical structure from correlations in the data is a
-   challenging thing. If you are interested in such recovery keep in mind
-   that:
+   إن استرداد بنية رسومية من الارتباطات في البيانات أمر صعب. إذا كنت مهتمًا بمثل هذا الاسترداد، فضع في اعتبارك ما يلي:
 
-   * Recovery is easier from a correlation matrix than a covariance
-     matrix: standardize your observations before running :class:`GraphicalLasso`
+   * من الأسهل استرداد بنية من مصفوفة ارتباط بدلاً من مصفوفة تغاير: قم بتوحيد ملاحظاتك قبل تشغيل :class:`GraphicalLasso`
 
-   * If the underlying graph has nodes with much more connections than
-     the average node, the algorithm will miss some of these connections.
+   * إذا كانت البنية الأساسية للرسم البياني تحتوي على عقد بها اتصالات أكثر بكثير من العقدة المتوسطة، فسوف تفقد الخوارزمية بعض هذه الاتصالات.
 
-   * If your number of observations is not large compared to the number
-     of edges in your underlying graph, you will not recover it.
+   * إذا لم يكن عدد ملاحظاتك كبيرًا مقارنة بعدد الحواف في رسمك البياني الأساسي، فلن تسترد الرسم البياني.
 
-   * Even if you are in favorable recovery conditions, the alpha
-     parameter chosen by cross-validation (e.g. using the
-     :class:`GraphicalLassoCV` object) will lead to selecting too many edges.
-     However, the relevant edges will have heavier weights than the
-     irrelevant ones.
+   * حتى إذا كنت في ظروف استرداد مواتية، فإن معلمة alpha التي يختارها التحقق من الصلاحية المتقاطع (على سبيل المثال، باستخدام كائن :class:`GraphicalLassoCV`) ستؤدي إلى تحديد حواف كثيرة جدًا. ومع ذلك، سيكون للحواف ذات الصلة أوزان أثقل من الحواف غير ذات الصلة.
 
-The mathematical formulation is the following:
+الصيغة الرياضية هي كما يلي:
 
 .. math::
 
@@ -244,23 +146,16 @@ The mathematical formulation is the following:
                 + \alpha \|K\|_1
                 \big)
 
-Where :math:`K` is the precision matrix to be estimated, and :math:`S` is the
-sample covariance matrix. :math:`\|K\|_1` is the sum of the absolute values of
-off-diagonal coefficients of :math:`K`. The algorithm employed to solve this
-problem is the GLasso algorithm, from the Friedman 2008 Biostatistics
-paper. It is the same algorithm as in the R ``glasso`` package.
+حيث :math:`K` هي مصفوفة الدقة التي سيتم تقديرها، و:math:`S` هي مصفوفة التغاير للعينة. :math:`\|K\|_1` هو مجموع القيم المطلقة للمعاملات غير القطرية لـ :math:`K`. والخوارزمية المستخدمة لحل هذه المشكلة هي خوارزمية GLasso، من ورقة فريدمان لعام 2008 في علم الإحصاء الحيوي. وهي نفس الخوارزمية المستخدمة في حزمة ``glasso`` في R.
 
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
-* :ref:`sphx_glr_auto_examples_covariance_plot_sparse_cov.py`: example on synthetic
-  data showing some recovery of a structure, and comparing to other
-  covariance estimators.
+* :ref:`sphx_glr_auto_examples_covariance_plot_sparse_cov.py`: مثال على بيانات اصطناعية توضح بعض استرداد البنية، ومقارنتها بمقدرات التغاير الأخرى.
 
-* :ref:`sphx_glr_auto_examples_applications_plot_stock_market.py`: example on real
-  stock market data, finding which symbols are most linked.
+* :ref:`sphx_glr_auto_examples_applications_plot_stock_market.py`: مثال على بيانات سوق الأوراق المالية الحقيقية، لمعرفة الرموز الأكثر ارتباطًا.
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * Friedman et al, `"Sparse inverse covariance estimation with the
   graphical lasso" <https://biostatistics.oxfordjournals.org/content/9/3/432.short>`_,
@@ -268,84 +163,35 @@ paper. It is the same algorithm as in the R ``glasso`` package.
 
 .. _robust_covariance:
 
-Robust Covariance Estimation
-============================
+تقدير التغاير المتين
+فيما يلي ترجمة للنص المحدد بتنسيق RST إلى اللغة العربية مع اتباع التعليمات المذكورة:
 
-Real data sets are often subject to measurement or recording
-errors. Regular but uncommon observations may also appear for a variety
-of reasons. Observations which are very uncommon are called
-outliers.
-The empirical covariance estimator and the shrunk covariance
-estimators presented above are very sensitive to the presence of
-outliers in the data. Therefore, one should use robust
-covariance estimators to estimate the covariance of its real data
-sets. Alternatively, robust covariance estimators can be used to
-perform outlier detection and discard/downweight some observations
-according to further processing of the data.
+غالبًا ما تخضع مجموعات البيانات الفعلية لأخطاء القياس أو التسجيل. وقد تظهر الملاحظات المنتظمة ولكن غير الشائعة أيضًا لعدة أسباب. وتسمى الملاحظات غير الشائعة جدًا بالشذوذ.
 
-The ``sklearn.covariance`` package implements a robust estimator of covariance,
-the Minimum Covariance Determinant [3]_.
+إن تقدير التغاير التجريبي ومقدّرات التغاير المنكمشة المذكورة أعلاه حساسة جدًا لوجود الشواذ في البيانات. لذلك، يجب استخدام تقديرات التغاير القوية لتقدير التغاير في مجموعات البيانات الفعلية. أو بدلاً من ذلك، يمكن استخدام تقديرات التغاير القوية للكشف عن الشواذ واستبعاد/تخفيض بعض الملاحظات وفقًا للمعالجة الإضافية للبيانات.
 
+تنفذ حزمة "sklearn.covariance" تقديرًا قويًا للتغاير، وهو الحد الأدنى لمحدد التغاير [3] _.
 
-Minimum Covariance Determinant
-------------------------------
+الحد الأدنى لمحدد التغاير
 
-The Minimum Covariance Determinant estimator is a robust estimator of
-a data set's covariance introduced by P.J. Rousseeuw in [3]_.  The idea
-is to find a given proportion (h) of "good" observations which are not
-outliers and compute their empirical covariance matrix.  This
-empirical covariance matrix is then rescaled to compensate the
-performed selection of observations ("consistency step").  Having
-computed the Minimum Covariance Determinant estimator, one can give
-weights to observations according to their Mahalanobis distance,
-leading to a reweighted estimate of the covariance matrix of the data
-set ("reweighting step").
+تقدير الحد الأدنى لمحدد التغاير هو تقدير قوي لتغاير مجموعة البيانات قدمه P.J. Rousseeuw في [3] _. والفكرة هي إيجاد نسبة معينة (ح) من الملاحظات "الجيدة" التي ليست شاذة وحساب مصفوفة التغاير التجريبية الخاصة بها. ثم يتم إعادة تحجيم مصفوفة التغاير التجريبية هذه للتعويض عن اختيار الملاحظات الذي تم إجراؤه ("خطوة الاتساق"). وبمجرد حساب تقدير الحد الأدنى لمحدد التغاير، يمكن إعطاء أوزان للملاحظات وفقًا لبعد ماهالانوبيس، مما يؤدي إلى تقدير معيد الوزن لمصفوفة التغاير الخاصة بمجموعة البيانات ("خطوة إعادة الوزن").
 
-Rousseeuw and Van Driessen [4]_ developed the FastMCD algorithm in order
-to compute the Minimum Covariance Determinant. This algorithm is used
-in scikit-learn when fitting an MCD object to data. The FastMCD
-algorithm also computes a robust estimate of the data set location at
-the same time.
+قام Rousseeuw و Van Driessen [4] _ بتطوير خوارزمية FastMCD لحساب الحد الأدنى لمحدد التغاير. ويستخدم هذا الخوارزم في Scikit-learn عند ملاءمة كائن MCD للبيانات. كما تحسب خوارزمية FastMCD تقديرًا قويًا لموقع مجموعة البيانات في نفس الوقت.
 
-Raw estimates can be accessed as ``raw_location_`` and ``raw_covariance_``
-attributes of a :class:`MinCovDet` robust covariance estimator object.
+يمكن الوصول إلى التقديرات الخام على أنها سمات "raw_location_" و "raw_covariance_" لكائن "MinCovDet" لتقدير التغاير القوي.
 
-.. rubric:: References
+المراجع
 
-.. [3] P. J. Rousseeuw. Least median of squares regression.
-       J. Am Stat Ass, 79:871, 1984.
-.. [4] A Fast Algorithm for the Minimum Covariance Determinant Estimator,
-       1999, American Statistical Association and the American Society
-       for Quality, TECHNOMETRICS.
+[3] P. J. Rousseeuw. أقل الانحدار الوسيط للمربعات. مجلة آم ستات أس، 79:871، 1984.
+[4] خوارزمية سريعة لمقدّر الحد الأدنى لمحدد التغاير، 1999، الجمعية الإحصائية الأمريكية والجمعية الأمريكية للجودة، تكنوميتريكس.
 
-.. rubric:: Examples
+الأمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_robust_vs_empirical_covariance.py` for
-  an example on how to fit a :class:`MinCovDet` object to data and see how
-  the estimate remains accurate despite the presence of outliers.
+* راجع: :ref:`sphx_glr_auto_examples_covariance_plot_robust_vs_empirical_covariance.py` للحصول على مثال حول كيفية ملاءمة كائن "MinCovDet" للبيانات ورؤية كيف يظل التقدير دقيقًا على الرغم من وجود الشواذ.
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_mahalanobis_distances.py` to
-  visualize the difference between :class:`EmpiricalCovariance` and
-  :class:`MinCovDet` covariance estimators in terms of Mahalanobis distance
-  (so we get a better estimate of the precision matrix too).
+* راجع: :ref:`sphx_glr_auto_examples_covariance_plot_mahalanobis_distances.py` لتصور الفرق بين تقدير التغاير "EmpiricalCovariance" و "MinCovDet" من حيث مسافة ماهالانوبيس (حتى نحصل على تقدير أفضل لمصفوفة الدقة أيضًا).
 
-.. |robust_vs_emp| image:: ../auto_examples/covariance/images/sphx_glr_plot_robust_vs_empirical_covariance_001.png
-   :target: ../auto_examples/covariance/plot_robust_vs_empirical_covariance.html
-   :scale: 49%
-
-.. |mahalanobis| image:: ../auto_examples/covariance/images/sphx_glr_plot_mahalanobis_distances_001.png
-   :target: ../auto_examples/covariance/plot_mahalanobis_distances.html
-   :scale: 49%
-
-
-
-____
-
-.. list-table::
-    :header-rows: 1
-
-    * - Influence of outliers on location and covariance estimates
-      - Separating inliers from outliers using a Mahalanobis distance
-
-    * - |robust_vs_emp|
-      - |mahalanobis|
+| | |
+|---|---|
+| تأثير الشواذ على تقديرات الموقع والتغاير | فصل الملاحظات الداخلية عن الشواذ باستخدام مسافة ماهالانوبيس |
+| | |
