@@ -1,33 +1,33 @@
-- Mathieu Blondel
-- Matthieu Brucher
-- Lars Buitinck
-- David Cournapeau
-- Noel Dawe
-- Vincent Dubourg
-- Edouard Duchesnay
-- Alexander Fabisch
-- Virgile Fritsch
-- Satrajit Ghosh
-- Angel Soler Gollonet
-- Chris Gorgolewski
-- Jaques Grobler
-- Brian Holt
-- Arnaud Joly
-- Thouis (Ray) Jones
-- Kyle Kastner
-- manoj kumar
-- Robert Layton
-- Wei Li
-- Paolo Losi
-- Gilles Louppe
-- Vincent Michel
-- Jarrod Millman
-- Alexandre Passos
-- Fabian Pedregosa
-- Peter Prettenhofer
-- (Venkat) Raghav, Rajagopalan
-- Jacob Schreiber
-- 杜世橋 Du Shiqiao
-- Jake Vanderplas
-- David Warde-Farley
-- Ron Weiss
+ماثيو بلونديل
+ماثيو بروشر
+لارس بويتينك
+ديفيد كورنياو
+نويل داو
+فنسنت دوبورغ
+إدوارد دوشيسناي
+ألكسندر فابيش
+فيرجيل فريتش
+ساتراجيت غوش
+أنجيل سولير غولونيت
+كريس جورغوليفسكي
+جاك جروبلر
+برايان هولت
+أرنو جولي
+ثويس (راي) جونز
+كايل كاستنر
+مانوج كومار
+روبرت لايتون
+وي لي
+باولو لوسي
+جيلز لوب
+فنسنت ميشيل
+جارود ميلمان
+ألكسندر باسوس
+فابيان بيدريجوسا
+بيتر بريتنهوفر
+(فينكات) راغاف، راجاجوبالان
+جاكوب شريبر
+دو شي تشياو
+جيك فانديربلاس
+ديفيد وارد-فارلي
+رون وايس
