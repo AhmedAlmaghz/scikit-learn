@@ -1,25 +1,13 @@
 .. _data-transforms:
 
-Dataset transformations
+تحويلات مجموعة البيانات
 -----------------------
 
-scikit-learn provides a library of transformers, which may clean (see
-:ref:`preprocessing`), reduce (see :ref:`data_reduction`), expand (see
-:ref:`kernel_approximation`) or generate (see :ref:`feature_extraction`)
-feature representations.
+يوفر scikit-learn مكتبة من المحولات التي يمكنها تنظيف (راجع :ref:`preprocessing`) أو تقليل (راجع :ref:`data_reduction`) أو توسيع (راجع :ref:`kernel_approximation`) أو إنشاء (راجع :ref:`feature_extraction`) تمثيلات الخصائص.
 
-Like other estimators, these are represented by classes with a ``fit`` method,
-which learns model parameters (e.g. mean and standard deviation for
-normalization) from a training set, and a ``transform`` method which applies
-this transformation model to unseen data. ``fit_transform`` may be more
-convenient and efficient for modelling and transforming the training data
-simultaneously.
+مثل التقديرات الأخرى، يتم تمثيل هذه التقديرات بواسطة فئات مع طريقة ``fit``، والتي تتعلم معلمات النموذج (مثل المتوسط والانحراف المعياري للتوحيد) من مجموعة تدريب، وطريقة ``transform`` التي تطبق نموذج التحول هذا على البيانات غير المرئية. قد يكون ``fit_transform`` أكثر ملاءمة وكفاءة لنمذجة البيانات التدريبية وتحويلها في نفس الوقت.
 
-Combining such transformers, either in parallel or series is covered in
-:ref:`combining_estimators`. :ref:`metrics` covers transforming feature
-spaces into affinity matrices, while :ref:`preprocessing_targets` considers
-transformations of the target space (e.g. categorical labels) for use in
-scikit-learn.
+يتم تغطية دمج مثل هذه المحولات، إما بالتوازي أو بالتسلسل، في :ref:`combining_estimators`. يغطي :ref:`metrics` تحويل مساحات الميزة إلى مصفوفات التشابه، في حين أن :ref:`preprocessing_targets` ينظر في تحويلات مساحة الهدف (على سبيل المثال، العلامات الفئوية) للاستخدام في scikit-learn.
 
 .. toctree::
     :maxdepth: 2
