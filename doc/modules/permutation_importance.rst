@@ -1,67 +1,23 @@
-
-.. _permutation_importance:
-
-Permutation feature importance
+أهمية ميزة التبديل
 ==============================
 
-.. currentmodule:: sklearn.inspection
+تقنية تفتيش النموذج التي تقيس مساهمة كل ميزة في الأداء الإحصائي لنموذج مُدرب على مجموعة بيانات جدولة معينة. هذه التقنية مفيدة بشكل خاص للمُقدرات غير الخطية أو المعتمة، وتنطوي على خلط قيم ميزة واحدة بشكل عشوائي ومراقبة التدهور الناتج في نتيجة النموذج [1] _ . من خلال كسر العلاقة بين الميزة والهدف، نحدد مدى اعتماد النموذج على هذه الميزة المحددة.
 
-Permutation feature importance is a model inspection technique that measures the
-contribution of each feature to a :term:`fitted` model's statistical performance
-on a given tabular dataset. This technique is particularly useful for non-linear
-or opaque :term:`estimators`, and involves randomly shuffling the values of a
-single feature and observing the resulting degradation of the model's score
-[1]_. By breaking the relationship between the feature and the target, we
-determine how much the model relies on such particular feature.
+في الأشكال التالية، نلاحظ تأثير تبديل الميزات على الارتباط بين الميزة والهدف وبالتالي على الأداء الإحصائي للنموذج.
 
-In the following figures, we observe the effect of permuting features on the correlation
-between the feature and the target and consequently on the model statistical
-performance.
+في الشكل العلوي، نلاحظ أن تبديل ميزة تنبؤية يكسر الارتباط بين الميزة والهدف، وبالتالي ينخفض الأداء الإحصائي للنموذج. في الشكل السفلي، نلاحظ أن تبديل ميزة غير تنبؤية لا يقلل بشكل كبير من الأداء الإحصائي للنموذج.
 
-.. image:: ../images/permuted_predictive_feature.png
-   :align: center
+تتمثل إحدى المزايا الرئيسية لأهمية ميزة التبديل في أنها لا تعتمد على النموذج، أي يمكن تطبيقها على أي مُقدر مُدرب. علاوة على ذلك، يمكن حسابه عدة مرات بتكرارات مختلفة للميزة، مما يوفر مقياسًا لتغاير التقديرات لأهمية الميزات بالنسبة للنموذج المدرب المحدد.
 
-.. image:: ../images/permuted_non_predictive_feature.png
-   :align: center
+يوضح الشكل أدناه أهمية ميزة التبديل لمصنف غابة عشوائية مدرب على نسخة محسنة من مجموعة بيانات التيتانيك تحتوي على ميزتي "random_cat" و "random_num"، أي ميزة تصنيف وميزة رقمية غير مرتبطتين بأي طريقة مع متغير الهدف:
 
-On the top figure, we observe that permuting a predictive feature breaks the
-correlation between the feature and the target, and consequently the model
-statistical performance decreases. On the bottom figure, we observe that permuting
-a non-predictive feature does not significantly degrade the model statistical performance.
+تحذير:
 
-One key advantage of permutation feature importance is that it is
-model-agnostic, i.e. it can be applied to any fitted estimator. Moreover, it can
-be calculated multiple times with different permutations of the feature, further
-providing a measure of the variance in the estimated feature importances for the
-specific trained model.
+قد تكون الميزات التي تعتبر ذات **أهمية منخفضة بالنسبة لنموذج سيئ** (درجة تحقق منخفضة) **مهمة للغاية بالنسبة لنموذج جيد**. لذلك من المهم دائمًا تقييم القوة التنبؤية للنموذج باستخدام مجموعة بيانات محجوزة (أو الأفضل باستخدام التحقق من التداخل) قبل حساب الأهميات. لا تعكس أهمية التبديل القيمة التنبؤية الجوهرية لميزة بنفسها ولكن **مدى أهمية هذه الميزة لنموذج معين**.
 
-The figure below shows the permutation feature importance of a
-:class:`~sklearn.ensemble.RandomForestClassifier` trained on an augmented
-version of the titanic dataset that contains a `random_cat` and a `random_num`
-features, i.e. a categrical and a numerical feature that are not correlated in
-any way with the target variable:
+تحسب دالة "permutation_importance" أهمية الميزة للمُقدرات لمجموعة بيانات معينة. يحدد معلمة "n_repeats" عدد المرات التي يتم فيها خلط ميزة بشكل عشوائي وإرجاع عينة من أهمية الميزة.
 
-.. figure:: ../auto_examples/inspection/images/sphx_glr_plot_permutation_importance_002.png
-   :target: ../auto_examples/inspection/plot_permutation_importance.html
-   :align: center
-   :scale: 70
-
-.. warning::
-
-  Features that are deemed of **low importance for a bad model** (low
-  cross-validation score) could be **very important for a good model**.
-  Therefore it is always important to evaluate the predictive power of a model
-  using a held-out set (or better with cross-validation) prior to computing
-  importances. Permutation importance does not reflect to the intrinsic
-  predictive value of a feature by itself but **how important this feature is
-  for a particular model**.
-
-The :func:`permutation_importance` function calculates the feature importance
-of :term:`estimators` for a given dataset. The ``n_repeats`` parameter sets the
-number of times a feature is randomly shuffled and returns a sample of feature
-importances.
-
-Let's consider the following trained regression model::
+لنأخذ في الاعتبار نموذج الانحدار المدرب التالي::
 
   >>> from sklearn.datasets import load_diabetes
   >>> from sklearn.model_selection import train_test_split
@@ -74,10 +30,7 @@ Let's consider the following trained regression model::
   >>> model.score(X_val, y_val)
   0.356...
 
-Its validation performance, measured via the :math:`R^2` score, is
-significantly larger than the chance level. This makes it possible to use the
-:func:`permutation_importance` function to probe which features are most
-predictive::
+أداؤه التحققي، الذي يتم قياسه عبر درجة R^2، أكبر بشكل ملحوظ من مستوى الفرصة. وهذا يجعل من الممكن استخدام دالة "permutation_importance" للتحقق من الميزات الأكثر تنبؤية::
 
   >>> from sklearn.inspection import permutation_importance
   >>> r = permutation_importance(model, X_val, y_val,
@@ -95,25 +48,15 @@ predictive::
   bp      0.088 +/- 0.033
   sex     0.056 +/- 0.023
 
-Note that the importance values for the top features represent a large
-fraction of the reference score of 0.356.
+لاحظ أن قيم الأهمية للميزات الأعلى تمثل جزءًا كبيرًا من النتيجة المرجعية البالغة 0.356.
 
-Permutation importances can be computed either on the training set or on a
-held-out testing or validation set. Using a held-out set makes it possible to
-highlight which features contribute the most to the generalization power of the
-inspected model. Features that are important on the training set but not on the
-held-out set might cause the model to overfit.
+يمكن حساب أهمية التبديل إما على مجموعة التدريب أو على مجموعة اختبار أو تحقق محجوزة. باستخدام مجموعة محجوزة، يمكن تسليط الضوء على الميزات التي تساهم بشكل أكبر في قوة تعميم النموذج قيد الفحص. قد تتسبب الميزات المهمة في مجموعة التدريب ولكن ليس في المجموعة المحجوزة في زيادة ملاءمة النموذج.
 
-The permutation feature importance depends on the score function that is
-specified with the `scoring` argument. This argument accepts multiple scorers,
-which is more computationally efficient than sequentially calling
-:func:`permutation_importance` several times with a different scorer, as it
-reuses model predictions.
+تعتمد أهمية ميزة التبديل على دالة النتيجة المحددة باستخدام حجة "التسجيل". يقبل هذا الحجة العديد من المُقيمين، وهو أكثر كفاءة من الناحية الحسابية من استدعاء دالة "permutation_importance" بشكل متسلسل بعدة مرات بمُقيم مختلف، حيث يعيد استخدام تنبؤات النموذج.
 
-.. dropdown:: Example of permutation feature importance using multiple scorers
+مثال على أهمية ميزة التبديل باستخدام مُقيمين متعددين:
 
-  In the example below we use a list of metrics, but more input formats are
-  possible, as documented in :ref:`multimetric_scoring`.
+في المثال أدناه، نستخدم قائمة من المقاييس، ولكن هناك تنسيقات إدخال أخرى ممكنة، كما هو موثق في: ref: `multimetric_scoring` .
 
     >>> scoring = ['r2', 'neg_mean_absolute_percentage_error', 'neg_mean_squared_error']
     >>> r_multi = permutation_importance(
@@ -143,93 +86,52 @@ reuses model predictions.
         bp      438.663 +/- 163.022
         sex     277.376 +/- 115.123
 
-  The ranking of the features is approximately the same for different metrics even
-  if the scales of the importance values are very different. However, this is not
-  guaranteed and different metrics might lead to significantly different feature
-  importances, in particular for models trained for imbalanced classification problems,
-  for which **the choice of the classification metric can be critical**.
+ترتيب الميزات هو نفسه تقريبًا لمقاييس مختلفة حتى إذا كانت نطاقات قيم الأهمية مختلفة جدًا. ومع ذلك، لا يتم ضمان ذلك وقد تؤدي المقاييس المختلفة إلى أهمية ميزة مختلفة بشكل كبير، خاصة بالنسبة للنماذج المدربة لمشكلات التصنيف غير المتوازنة، والتي قد يكون **اختيار المقياس التصنيفي فيها حاسمًا**.
 
-Outline of the permutation importance algorithm
+مخطط خوارزمية أهمية التبديل
 -----------------------------------------------
 
-- Inputs: fitted predictive model :math:`m`, tabular dataset (training or
-  validation) :math:`D`.
-- Compute the reference score :math:`s` of the model :math:`m` on data
-  :math:`D` (for instance the accuracy for a classifier or the :math:`R^2` for
-  a regressor).
-- For each feature :math:`j` (column of :math:`D`):
+- المدخلات: نموذج تنبئي مدرب m، مجموعة بيانات جدولة (تدريب أو تحقق) D.
+- احسب النتيجة المرجعية s للنموذج m على البيانات D (على سبيل المثال الدقة لمصنف أو R^2 لمُرجح).
+- لكل ميزة j (عمود من D):
 
-  - For each repetition :math:`k` in :math:`{1, ..., K}`:
+  - لكل تكرار k في {1، ...، K}:
 
-    - Randomly shuffle column :math:`j` of dataset :math:`D` to generate a
-      corrupted version of the data named :math:`\tilde{D}_{k,j}`.
-    - Compute the score :math:`s_{k,j}` of model :math:`m` on corrupted data
-      :math:`\tilde{D}_{k,j}`.
+    - قم بخلط العمود j من مجموعة البيانات D بشكل عشوائي لإنشاء إصدار تالف من البيانات يسمى ~D_ {k، j}.
+    - احسب النتيجة s_ {k، j} للنموذج m على البيانات التالفة ~D_ {k، j}.
 
-  - Compute importance :math:`i_j` for feature :math:`f_j` defined as:
+  - احسب الأهمية i_j للميزة j_f محددة على النحو التالي:
 
-    .. math:: i_j = s - \frac{1}{K} \sum_{k=1}^{K} s_{k,j}
+    .. math:: i_j = s - \frac{1}{K} \ sum_ {k = 1} ^ {K} s_ {k، j}
 
-Relation to impurity-based importance in trees
+العلاقة بأهمية النقاء في الأشجار
 ----------------------------------------------
 
-Tree-based models provide an alternative measure of :ref:`feature importances
-based on the mean decrease in impurity <random_forest_feature_importance>`
-(MDI). Impurity is quantified by the splitting criterion of the decision trees
-(Gini, Log Loss or Mean Squared Error). However, this method can give high
-importance to features that may not be predictive on unseen data when the model
-is overfitting. Permutation-based feature importance, on the other hand, avoids
-this issue, since it can be computed on unseen data.
+تقدم النماذج المستندة إلى الشجرة مقياسًا بديلاً لأهمية الميزة بناءً على الانخفاض المتوسط في النقاء (MDI). يتم تحديد النقاء بواسطة معيار التقسيم لأشجار القرار (Gini، أو سجل الخسارة، أو متوسط ​​خطأ المربعات). ومع ذلك، يمكن أن تعطي هذه الطريقة أهمية عالية للميزات التي قد لا تكون تنبؤية على بيانات غير مرئية عندما يكون النموذج مفرطًا في الملاءمة. من ناحية أخرى، تتجنب أهمية الميزة المستندة إلى التبديل هذه المشكلة، حيث يمكن حسابها على بيانات غير مرئية.
 
-Furthermore, impurity-based feature importance for trees are **strongly
-biased** and **favor high cardinality features** (typically numerical features)
-over low cardinality features such as binary features or categorical variables
-with a small number of possible categories.
+علاوة على ذلك، فإن أهمية الميزة المستندة إلى النقاء للأشجار **متحيزة بشدة** و **تفضل ميزات التعداد المرتفع** (عادة الميزات الرقمية) على ميزات التعداد المنخفض مثل الميزات الثنائية أو المتغيرات الفئوية بعدد صغير من الفئات الممكنة.
 
-Permutation-based feature importances do not exhibit such a bias. Additionally,
-the permutation feature importance may be computed with any performance metric
-on the model predictions and can be used to analyze any model class (not just
-tree-based models).
+لا تظهر أهمية ميزة التبديل مثل هذا التحيز. بالإضافة إلى ذلك، يمكن حساب أهمية الميزة بالتبديل باستخدام أي مقياس للأداء على تنبؤات النموذج ويمكن استخدامه لتحليل أي فئة من فئات النماذج (وليس فقط النماذج المستندة إلى الشجرة).
 
-The following example highlights the limitations of impurity-based feature
-importance in contrast to permutation-based feature importance:
-:ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`.
+يسلط المثال التالي الضوء على قيود أهمية الميزة المستندة إلى النقاء على النقيض من أهمية الميزة المستندة إلى التبديل: ref: `sphx_glr_auto_examples_inspection_plot_permutation_importance.py` .
 
-Misleading values on strongly correlated features
+القيم المضللة للميزات ذات الارتباط القوي
 -------------------------------------------------
 
-When two features are correlated and one of the features is permuted, the model
-still has access to the latter through its correlated feature. This results in a
-lower reported importance value for both features, though they might *actually*
-be important.
+عندما تكون هناك ميزتان مرتبطتان، وإذا تم تبديل إحدى الميزتين، فسيظل بإمكان النموذج الوصول إلى الأخيرة من خلال ميزتها المرتبطة. يؤدي هذا إلى انخفاض قيمة الأهمية المبلغ عنها لكلتا الميزتين، على الرغم من أنهما قد تكونان *في الواقع* مهمتين.
 
-The figure below shows the permutation feature importance of a
-:class:`~sklearn.ensemble.RandomForestClassifier` trained using the
-:ref:`breast_cancer_dataset`, which contains strongly correlated features. A
-naive interpretation would suggest that all features are unimportant:
+يوضح الشكل أدناه أهمية ميزة التبديل لمصنف غابة عشوائية مدرب باستخدام مجموعة بيانات سرطان الثدي، والتي تحتوي على ميزات مرتبطة ارتباطًا وثيقًا. قد يوحي التفسير البسيط بأن جميع الميزات غير مهمة:
 
-.. figure:: ../auto_examples/inspection/images/sphx_glr_plot_permutation_importance_multicollinear_002.png
-   :target: ../auto_examples/inspection/plot_permutation_importance_multicollinear.html
-   :align: center
-   :scale: 70
+يمكن التعامل مع هذه المشكلة عن طريق تجميع الميزات المرتبطة واختيار ميزة واحدة فقط من كل مجموعة.
 
-One way to handle the issue is to cluster features that are correlated and only
-keep one feature from each cluster.
+لمزيد من التفاصيل حول هذه الاستراتيجية، راجع المثال: ref: `sphx_glr_auto_examples_inspection_plot_permutation_importance_multicollinear.py` .
 
-.. figure:: ../auto_examples/inspection/images/sphx_glr_plot_permutation_importance_multicollinear_004.png
-   :target: ../auto_examples/inspection/plot_permutation_importance_multicollinear.html
-   :align: center
-   :scale: 70
+.. rubric:: أمثلة
 
-For more details on such strategy, see the example
-:ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance_multicollinear.py`.
+* : ref: `sphx_glr_auto_examples_inspection_plot_permutation_importance.py`
+* : ref: `sphx_glr_auto_examples_inspection_plot_permutation_importance_multicollinear.py`
 
-.. rubric:: Examples
+.. rubric:: المراجع
 
-* :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`
-* :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance_multicollinear.py`
-
-.. rubric:: References
-
-.. [1] L. Breiman, :doi:`"Random Forests" <10.1023/A:1010933404324>`,
-  Machine Learning, 45(1), 5-32, 2001.
+.. [1] L. Breiman،: doi: `"Random Forests" <10.1023 / A: 1010933404324>`،
+   التعلم الآلي، 45 (1)، 5-32، 2001.
