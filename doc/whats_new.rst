@@ -2,15 +2,15 @@
 
 .. include:: whats_new/_contributors.rst
 
-Release History
+تاريخ الإصدارات
 ===============
 
-Changelogs and release notes for all scikit-learn releases are linked in this page.
+سجلات التغيير ومذكرات الإصدار لجميع إصدارات سكيت-ليرن مرتبطة في هذه الصفحة.
 
 .. tip::
 
-   `Subscribe to scikit-learn releases <https://libraries.io/pypi/scikit-learn>`__
-   on libraries.io to be notified when new versions are released.
+   `اشترك في إصدارات سكيت-ليرن <https://libraries.io/pypi/scikit-learn>`__
+   على libraries.io لتصلك إشعارات عند إصدار نسخ جديدة.
 
 .. toctree::
    :maxdepth: 2
