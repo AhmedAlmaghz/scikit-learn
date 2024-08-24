@@ -1,280 +1,68 @@
-.. _decompositions:
-
-
-=================================================================
-Decomposing signals in components (matrix factorization problems)
+تفكيك الإشارات إلى مكونات (مشاكل تحليل المصفوفة)
 =================================================================
 
-.. currentmodule:: sklearn.decomposition
+يُستخدم تحليل المكونات الرئيسية (PCA) لتفكيك مجموعة بيانات متعددة المتغيرات إلى مجموعة من المكونات المتعامدة المتتالية التي تفسر الحد الأقصى من التباين. في سكيت-ليرن، يتم تنفيذ PCA ككائن محول يتعلم n مكونًا في طريقة التجهيز الخاصة به، ويمكن استخدامه على بيانات جديدة لمشروعها على هذه المكونات.
 
+يقوم PCA بمركزة بيانات الإدخال ولكنه لا يقوم بمقياسها لكل ميزة قبل تطبيق SVD. تسمح المعلمة الاختيارية "whiten=True" بإسقاط البيانات على مساحة المميز مع قياس كل مكون إلى تباين الوحدة. غالبًا ما يكون هذا مفيدًا إذا كانت النماذج أسفل البث تضع افتراضات قوية بشأن توزيع الإشارة: هذا هو الحال، على سبيل المثال، بالنسبة لآلات المتجهات الداعمة مع نواة RBF وخوارزمية التجميع K-Means.
 
-.. _PCA:
+فيما يلي مثال لمجموعة بيانات Iris، والتي تتكون من 4 ميزات، يتم إسقاطها على البعدين اللذين يفسران معظم التباين:
 
+توفر كائن PCA أيضًا تفسيرًا احتماليًا لـ PCA يمكن أن يعطي احتمالية للبيانات بناءً على مقدار التباين الذي تفسره. على هذا النحو، فإنه ينفذ طريقة "التسجيل" التي يمكن استخدامها في التحقق من الصلاحية:
 
-Principal component analysis (PCA)
-==================================
-
-Exact PCA and probabilistic interpretation
-------------------------------------------
-
-PCA is used to decompose a multivariate dataset in a set of successive
-orthogonal components that explain a maximum amount of the variance. In
-scikit-learn, :class:`PCA` is implemented as a *transformer* object
-that learns :math:`n` components in its ``fit`` method, and can be used on new
-data to project it on these components.
-
-PCA centers but does not scale the input data for each feature before
-applying the SVD. The optional parameter ``whiten=True`` makes it
-possible to project the data onto the singular space while scaling each
-component to unit variance. This is often useful if the models down-stream make
-strong assumptions on the isotropy of the signal: this is for example the case
-for Support Vector Machines with the RBF kernel and the K-Means clustering
-algorithm.
-
-Below is an example of the iris dataset, which is comprised of 4
-features, projected on the 2 dimensions that explain most variance:
-
-.. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_pca_vs_lda_001.png
-    :target: ../auto_examples/decomposition/plot_pca_vs_lda.html
-    :align: center
-    :scale: 75%
-
-
-The :class:`PCA` object also provides a
-probabilistic interpretation of the PCA that can give a likelihood of
-data based on the amount of variance it explains. As such it implements a
-:term:`score` method that can be used in cross-validation:
-
-.. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_pca_vs_fa_model_selection_001.png
-    :target: ../auto_examples/decomposition/plot_pca_vs_fa_model_selection.html
-    :align: center
-    :scale: 75%
-
-
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_decomposition_plot_pca_iris.py`
-* :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_lda.py`
-* :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_fa_model_selection.py`
-
-
-.. _IncrementalPCA:
-
-Incremental PCA
----------------
-
-The :class:`PCA` object is very useful, but has certain limitations for
-large datasets. The biggest limitation is that :class:`PCA` only supports
-batch processing, which means all of the data to be processed must fit in main
-memory. The :class:`IncrementalPCA` object uses a different form of
-processing and allows for partial computations which almost
-exactly match the results of :class:`PCA` while processing the data in a
-minibatch fashion. :class:`IncrementalPCA` makes it possible to implement
-out-of-core Principal Component Analysis either by:
-
-* Using its ``partial_fit`` method on chunks of data fetched sequentially
-  from the local hard drive or a network database.
-
-* Calling its fit method on a memory mapped file using
-  ``numpy.memmap``.
-
-:class:`IncrementalPCA` only stores estimates of component and noise variances,
-in order update ``explained_variance_ratio_`` incrementally. This is why
-memory usage depends on the number of samples per batch, rather than the
-number of samples to be processed in the dataset.
-
-As in :class:`PCA`, :class:`IncrementalPCA` centers but does not scale the
-input data for each feature before applying the SVD.
-
-.. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_incremental_pca_001.png
-    :target: ../auto_examples/decomposition/plot_incremental_pca.html
-    :align: center
-    :scale: 75%
-
-.. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_incremental_pca_002.png
-    :target: ../auto_examples/decomposition/plot_incremental_pca.html
-    :align: center
-    :scale: 75%
-
-
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_decomposition_plot_incremental_pca.py`
-
-
-.. _RandomizedPCA:
-
-PCA using randomized SVD
+PCA باستخدام SVD العشوائي
 ------------------------
 
-It is often interesting to project data to a lower-dimensional
-space that preserves most of the variance, by dropping the singular vector
-of components associated with lower singular values.
+غالبًا ما يكون من المثير للاهتمام إسقاط البيانات إلى مساحة ذات أبعاد أقل تحافظ على معظم التباين، عن طريق إسقاط متجه المميز للمكونات المرتبط بقيم مميزة أقل.
 
-For instance, if we work with 64x64 pixel gray-level pictures
-for face recognition,
-the dimensionality of the data is 4096 and it is slow to train an
-RBF support vector machine on such wide data. Furthermore we know that
-the intrinsic dimensionality of the data is much lower than 4096 since all
-pictures of human faces look somewhat alike.
-The samples lie on a manifold of much lower
-dimension (say around 200 for instance). The PCA algorithm can be used
-to linearly transform the data while both reducing the dimensionality
-and preserve most of the explained variance at the same time.
+على سبيل المثال، إذا كنا نعمل مع صور رمادية بمقياس 64x64 بكسل للتعرف على الوجه، فإن أبعاد البيانات هي 4096 ومن البطيء تدريب آلة المتجهات الداعمة RBF على مثل هذه البيانات العريضة. علاوة على ذلك، نحن نعلم أن البعد الجوهري للبيانات أقل بكثير من 4096 لأن جميع صور الوجوه البشرية تبدو متشابهة إلى حد ما.
 
-The class :class:`PCA` used with the optional parameter
-``svd_solver='randomized'`` is very useful in that case: since we are going
-to drop most of the singular vectors it is much more efficient to limit the
-computation to an approximated estimate of the singular vectors we will keep
-to actually perform the transform.
+توجد عينات على متعدد شعب ذو أبعاد أقل بكثير (حوالي 200 على سبيل المثال). يمكن استخدام خوارزمية PCA لتحويل البيانات الخطي مع تقليل الأبعاد والحفاظ على معظم التباين الموضح في نفس الوقت.
 
-For instance, the following shows 16 sample portraits (centered around
-0.0) from the Olivetti dataset. On the right hand side are the first 16
-singular vectors reshaped as portraits. Since we only require the top
-16 singular vectors of a dataset with size :math:`n_{samples} = 400`
-and :math:`n_{features} = 64 \times 64 = 4096`, the computation time is
-less than 1s:
+تعد فئة PCA المستخدمة مع المعلمة الاختيارية "svd_solver='randomized'" مفيدة جدًا في هذه الحالة: نظرًا لأننا سنقوم بإسقاط معظم متجهات المميز، فمن الأكثر كفاءة الحد من الحساب إلى تقدير تقريبي لمتجهات المميز التي سنحتفظ بها لأداء التحويل بالفعل.
 
-.. |orig_img| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_001.png
-   :target: ../auto_examples/decomposition/plot_faces_decomposition.html
-   :scale: 60%
+على سبيل المثال، يُظهر ما يلي 16 صورة شخصية عينة (مركزة حول 0.0) من مجموعة بيانات Olivetti. على الجانب الأيمن، توجد المتجهات المميزة الأولى التي تمت إعادة تشكيلها على شكل صور شخصية. نظرًا لأننا نحتاج فقط إلى المتجهات المميزة العليا لمجموعة بيانات بحجم n_samples = 400 وn_features = 64 × 64 = 4096، فإن وقت الحساب أقل من 1 ثانية:
 
-.. |pca_img| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_002.png
-   :target: ../auto_examples/decomposition/plot_faces_decomposition.html
-   :scale: 60%
+يُظهر المثال التالي 16 مكونًا مستخرجًا باستخدام PCA غير المتناظر من مجموعة بيانات وجوه Olivetti. يمكن ملاحظة كيفية قيام مصطلح الانتظام بإحداث العديد من الأصفار. علاوة على ذلك، يتسبب الهيكل الطبيعي للبيانات في أن تكون المعاملات غير الصفرية متجاورة عموديًا. لا يفرض النموذج هذا رياضيًا: كل مكون هو متجه h ∈ R^4096، ولا يوجد مفهوم للتجاور الرأسي باستثناء التصور الودي للبشر كصور 64x64 بكسل. إن حقيقة أن المكونات الموضحة أدناه تبدو محلية هي تأثير الهيكل المتأصل للبيانات، والذي يجعل مثل هذه الأنماط المحلية تقلل من خطأ إعادة البناء. هناك قواعد ل-1 تحفيز تأخذ في الاعتبار التجاورة وأنواع مختلفة من الهياكل؛ راجع [Jen09] _ لمحة عامة عن هذه الأساليب.
 
-.. centered:: |orig_img| |pca_img|
+توجد صيغ مختلفة لمشكلة PCA غير المتناظرة. يعتمد التنفيذ هنا على [Mrl09] _. مشكلة التحسين التي تم حلها هي مشكلة PCA (تعلم القاموس) مع عقوبة l1 على المكونات:
 
-If we note :math:`n_{\max} = \max(n_{\mathrm{samples}}, n_{\mathrm{features}})` and
-:math:`n_{\min} = \min(n_{\mathrm{samples}}, n_{\mathrm{features}})`, the time complexity
-of the randomized :class:`PCA` is :math:`O(n_{\max}^2 \cdot n_{\mathrm{components}})`
-instead of :math:`O(n_{\max}^2 \cdot n_{\min})` for the exact method
-implemented in :class:`PCA`.
+حيث || . ||_Fro يمثل المعيار فروبينيوس و||. ||_1،1 يمثل معيار المصفوفة القائم على الإدخال والذي هو مجموع القيم المطلقة لجميع الإدخالات في المصفوفة.
 
-The memory footprint of randomized :class:`PCA` is also proportional to
-:math:`2 \cdot n_{\max} \cdot n_{\mathrm{components}}` instead of :math:`n_{\max}
-\cdot n_{\min}` for the exact method.
+تمنع قاعدة L1 المُحفِّزة للمصفوفة أيضًا تعلم المكونات من الضوضاء عند توفر عدد قليل من عينات التدريب. يمكن ضبط درجة العقوبة (وبالتالي التجزئة) من خلال معلمة "ألفا" الفرط. تؤدي القيم الصغيرة إلى تفكيك معتدل، في حين أن القيم الأكبر حجمًا تقلص العديد من المعاملات إلى الصفر.
 
-Note: the implementation of ``inverse_transform`` in :class:`PCA` with
-``svd_solver='randomized'`` is not the exact inverse transform of
-``transform`` even when ``whiten=False`` (default).
+ملاحظة: على الرغم من أنها في روح خوارزمية عبر الإنترنت، فإن فئة MiniBatchSparsePCA لا تنفذ "partial_fit" لأن الخوارزمية عبر الإنترنت على اتجاه الميزات، وليس اتجاه العينات.
 
+مراجع
+------
 
-.. rubric:: Examples
+- خوارزمية 4.3 في "إيجاد البنية باستخدام العشوائية: خوارزميات احتمالية لبناء تقريبي لتفكيك المصفوفة" Halko، وآخرون، 2009
 
-* :ref:`sphx_glr_auto_examples_applications_plot_face_recognition.py`
-* :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
+- "تنفيذ خوارزمية عشوائية لتحليل المكونات الرئيسية" A. Szlam et al. 2014
 
-.. rubric:: References
-
-* Algorithm 4.3 in
-  :arxiv:`"Finding structure with randomness: Stochastic algorithms for
-  constructing approximate matrix decompositions" <0909.4061>`
-  Halko, et al., 2009
-
-* :arxiv:`"An implementation of a randomized algorithm for principal component
-  analysis" <1412.3510>` A. Szlam et al. 2014
-
-.. _SparsePCA:
-
-Sparse principal components analysis (SparsePCA and MiniBatchSparsePCA)
+PCA غير المتناظرة (SparsePCA وMiniBatchSparsePCA)
 -----------------------------------------------------------------------
 
-:class:`SparsePCA` is a variant of PCA, with the goal of extracting the
-set of sparse components that best reconstruct the data.
+PCA غير المتناظرة هو متغير من PCA، بهدف استخراج مجموعة من المكونات غير المتناظرة التي تعيد بناء البيانات بشكل أفضل.
 
-Mini-batch sparse PCA (:class:`MiniBatchSparsePCA`) is a variant of
-:class:`SparsePCA` that is faster but less accurate. The increased speed is
-reached by iterating over small chunks of the set of features, for a given
-number of iterations.
+Mini-batch Sparse PCA (MiniBatchSparsePCA) هو متغير من SparsePCA الذي يكون أسرع ولكنه أقل دقة. تتم زيادة السرعة عن طريق التكرار فوق أجزاء صغيرة من مجموعة الميزات، لعدد معين من التكرارات.
 
+يتمثل عيب تحليل المكونات الرئيسية (PCA) في أن المكونات المستخرجة بواسطة هذه الطريقة لها تعبيرات كثيفة بشكل حصري، أي أن لها معاملات غير صفرية عند التعبير عنها كمزيج خطي من المتغيرات الأصلية. يمكن أن يجعل هذا التفسير صعبًا. في كثير من الحالات، يمكن تصور المكونات الأساسية الفعلية بشكل أكثر طبيعية كمؤشرات غير متناظرة؛ على سبيل المثال في التعرف على الوجه، قد ترتبط المكونات بشكل طبيعي بأجزاء من الوجوه.
 
-Principal component analysis (:class:`PCA`) has the disadvantage that the
-components extracted by this method have exclusively dense expressions, i.e.
-they have non-zero coefficients when expressed as linear combinations of the
-original variables. This can make interpretation difficult. In many cases,
-the real underlying components can be more naturally imagined as sparse
-vectors; for example in face recognition, components might naturally map to
-parts of faces.
+يؤدي PCA غير المتناظر إلى تمثيل أكثر إيجازًا وقابلية للفهم، مما يؤكد بوضوح أي من الميزات الأصلية تساهم في الاختلافات بين العينات.
 
-Sparse principal components yields a more parsimonious, interpretable
-representation, clearly emphasizing which of the original features contribute
-to the differences between samples.
+يوضح المثال التالي 16 مكونًا مستخرجًا باستخدام PCA غير المتناظر من مجموعة بيانات وجوه Olivetti. يمكن ملاحظة كيفية قيام مصطلح الانتظام بإحداث العديد من الأصفار. علاوة على ذلك، يتسبب الهيكل الطبيعي للبيانات في أن تكون المعاملات غير الصفرية متجاورة عموديًا. لا يفرض النموذج هذا رياضيًا: كل مكون هو متجه h ∈ R^4096، ولا يوجد مفهوم للتجاور الرأسي باستثناء التصور الودي للبشر كصور 64x64 بكسل. إن حقيقة أن المكونات الموضحة أدناه تبدو محلية هي تأثير الهيكل المتأصل للبيانات، والذي يجعل مثل هذه الأنماط المحلية تقلل من خطأ إعادة البناء. هناك قواعد ل-1 تحفيز تأخذ في الاعتبار التجاورة وأنواع مختلفة من الهياكل؛ راجع [Jen09] _ لمحة عامة عن هذه الأساليب.
 
-The following example illustrates 16 components extracted using sparse PCA from
-the Olivetti faces dataset.  It can be seen how the regularization term induces
-many zeros. Furthermore, the natural structure of the data causes the non-zero
-coefficients to be vertically adjacent. The model does not enforce this
-mathematically: each component is a vector :math:`h \in \mathbf{R}^{4096}`, and
-there is no notion of vertical adjacency except during the human-friendly
-visualization as 64x64 pixel images. The fact that the components shown below
-appear local is the effect of the inherent structure of the data, which makes
-such local patterns minimize reconstruction error. There exist sparsity-inducing
-norms that take into account adjacency and different kinds of structure; see
-[Jen09]_ for a review of such methods.
-For more details on how to use Sparse PCA, see the Examples section, below.
+لاحظ أن هناك صيغًا مختلفة لمشكلة PCA غير المتناظرة. يعتمد التنفيذ هنا على [Mrl09] _. مشكلة التحسين التي تم حلها هي مشكلة PCA (تعلم القاموس) مع عقوبة l1 على المكونات:
 
+حيث || . ||_Fro يمثل معيار فروبينيوس و||. ||_1،1 يمثل معيار المصفوفة القائم على الإدخال والذي هو مجموع القيم المطلقة لجميع الإدخالات في المصفوفة.
 
-.. |spca_img| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_005.png
-   :target: ../auto_examples/decomposition/plot_faces_decomposition.html
-   :scale: 60%
+تمنع قاعدة L1 المُحفِّزة للمصفوفة أيضًا تعلم المكونات من الضوضاء عند توفر عدد قليل من عينات التدريب. يمكن ضبط درجة العقوبة (وبالتالي التجزئة) من خلال معلمة "ألفا" الفرط. تؤدي القيم الصغيرة إلى تفكيك معتدل، في حين أن القيم الأكبر حجمًا تقلص العديد من المعاملات إلى الصفر.
 
-.. centered:: |pca_img| |spca_img|
-
-Note that there are many different formulations for the Sparse PCA
-problem. The one implemented here is based on [Mrl09]_ . The optimization
-problem solved is a PCA problem (dictionary learning) with an
-:math:`\ell_1` penalty on the components:
-
-.. math::
-   (U^*, V^*) = \underset{U, V}{\operatorname{arg\,min\,}} & \frac{1}{2}
-                ||X-UV||_{\text{Fro}}^2+\alpha||V||_{1,1} \\
-                \text{subject to } & ||U_k||_2 <= 1 \text{ for all }
-                0 \leq k < n_{components}
-
-:math:`||.||_{\text{Fro}}` stands for the Frobenius norm and :math:`||.||_{1,1}`
-stands for the entry-wise matrix norm which is the sum of the absolute values
-of all the entries in the matrix.
-The sparsity-inducing :math:`||.||_{1,1}` matrix norm also prevents learning
-components from noise when few training samples are available. The degree
-of penalization (and thus sparsity) can be adjusted through the
-hyperparameter ``alpha``. Small values lead to a gently regularized
-factorization, while larger values shrink many coefficients to zero.
-
-.. note::
-
-  While in the spirit of an online algorithm, the class
-  :class:`MiniBatchSparsePCA` does not implement ``partial_fit`` because
-  the algorithm is online along the features direction, not the samples
-  direction.
-
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
-
-.. rubric:: References
-
-.. [Mrl09] `"Online Dictionary Learning for Sparse Coding"
-   <https://www.di.ens.fr/sierra/pdfs/icml09.pdf>`_
-   J. Mairal, F. Bach, J. Ponce, G. Sapiro, 2009
-.. [Jen09] `"Structured Sparse Principal Component Analysis"
-   <https://www.di.ens.fr/~fbach/sspca_AISTATS2010.pdf>`_
-   R. Jenatton, G. Obozinski, F. Bach, 2009
-
-
-.. _kernel_PCA:
-
-Kernel Principal Component Analysis (kPCA)
-==========================================
-
-Exact Kernel PCA
+تحليل المكونات الرئيسية للنواة (kPCA)
+Kernel PCA الدقيق
 ----------------
 
-:class:`KernelPCA` is an extension of PCA which achieves non-linear
-dimensionality reduction through the use of kernels (see :ref:`metrics`) [Scholkopf1997]_. It
-has many applications including denoising, compression and structured
-prediction (kernel dependency estimation). :class:`KernelPCA` supports both
-``transform`` and ``inverse_transform``.
+: class: 'KernelPCA' هو امتداد لPCA يحقق تقليل الأبعاد غير الخطية من خلال استخدام النواة (راجع: ref: 'metrics') [Scholkopf1997] _. ولديه العديد من التطبيقات بما في ذلك إزالة الضوضاء والضغط والتنبؤ المنظم (تقدير اعتماد النواة). يدعم: class: 'KernelPCA' كل من "التحويل" و "inverse_transform".
 
 .. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_kernel_pca_002.png
     :target: ../auto_examples/decomposition/plot_kernel_pca.html
@@ -282,245 +70,201 @@ prediction (kernel dependency estimation). :class:`KernelPCA` supports both
     :scale: 75%
 
 .. note::
-    :meth:`KernelPCA.inverse_transform` relies on a kernel ridge to learn the
-    function mapping samples from the PCA basis into the original feature
-    space [Bakir2003]_. Thus, the reconstruction obtained with
-    :meth:`KernelPCA.inverse_transform` is an approximation. See the example
-    linked below for more details.
+    : meth: 'KernelPCA.inverse_transform' يعتمد على ريدج النواة لتعلم
+    وظيفة رسم الخرائط للعينات من أساس PCA إلى مساحة الميزة الأصلية [Bakir2003] _. وبالتالي، فإن إعادة البناء التي تم الحصول عليها مع
+    : meth: 'KernelPCA.inverse_transform' هو تقريب. راجع المثال
+    أدناه للحصول على مزيد من التفاصيل.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_decomposition_plot_kernel_pca.py`
-* :ref:`sphx_glr_auto_examples_applications_plot_digits_denoising.py`
+* : ref: 'sphx_glr_auto_examples_decomposition_plot_kernel_pca.py'
+* : ref: 'sphx_glr_auto_examples_applications_plot_digits_denoising.py'
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [Scholkopf1997] Schölkopf, Bernhard, Alexander Smola, and Klaus-Robert Müller.
-   `"Kernel principal component analysis."
-   <https://people.eecs.berkeley.edu/~wainwrig/stat241b/scholkopf_kernel.pdf>`_
-   International conference on artificial neural networks.
-   Springer, Berlin, Heidelberg, 1997.
+.. [Scholkopf1997] شولكوف، برنارد، ألكسندر سمولا، وكلاوس روبرت مولر.
+   "تحليل المكونات الأساسية للنواة".
+   <https://people.eecs.berkeley.edu/~wainwrig/stat241b/scholkopf_kernel.pdf>'
+   المؤتمر الدولي للشبكات العصبية الاصطناعية.
+   سبرينغر، برلين، هايدلبرغ، 1997.
 
-.. [Bakir2003] Bakır, Gökhan H., Jason Weston, and Bernhard Schölkopf.
-   `"Learning to find pre-images."
-   <https://papers.nips.cc/paper/2003/file/ac1ad983e08ad3304a97e147f522747e-Paper.pdf>`_
-   Advances in neural information processing systems 16 (2003): 449-456.
+.. [Bakir2003] باكير، جوهان ح، جيسون ويستون، وبرنارد شولكوف.
+   "التعلم للعثور على الصور المسبقة".
+   <https://papers.nips.cc/paper/2003/file/ac1ad983e08ad3304a97e147f522747e-Paper.pdf>'
+   تقدم في معالجة المعلومات العصبية 16 (2003): 449-456.
 
 .. _kPCA_Solvers:
 
-Choice of solver for Kernel PCA
+خيار المحلل لـ Kernel PCA
 -------------------------------
 
-While in :class:`PCA` the number of components is bounded by the number of
-features, in :class:`KernelPCA` the number of components is bounded by the
-number of samples. Many real-world datasets have large number of samples! In
-these cases finding *all* the components with a full kPCA is a waste of
-computation time, as data is mostly described by the first few components
-(e.g. ``n_components<=100``). In other words, the centered Gram matrix that
-is eigendecomposed in the Kernel PCA fitting process has an effective rank that
-is much smaller than its size. This is a situation where approximate
-eigensolvers can provide speedup with very low precision loss.
+في حين أن: class: 'PCA' عدد المكونات محدود بعدد الميزات، في: class: 'KernelPCA' عدد المكونات محدود بعدد
+العينات. تحتوي العديد من مجموعات البيانات الواقعية على عدد كبير من العينات! في
+هذه الحالات، يعد العثور على *جميع* المكونات باستخدام kPCA الكامل مضيعة لوقت الحساب، حيث يتم وصف البيانات بشكل أساسي بواسطة المكونات القليلة الأولى
+(على سبيل المثال، "n_components<=100"). وبعبارة أخرى، فإن مصفوفة غرام المركزة التي
+يتم تحليلها ذاتيًا في عملية التجهيز لـ Kernel PCA لها مرتبة فعالة
+أصغر بكثير من حجمها. هذا هو موقف حيث يمكن لمحللات القيمة الذاتية التقريبية توفير تسريع مع فقدان دقة منخفض جدًا.
 
 
 .. dropdown:: Eigensolvers
 
-    The optional parameter ``eigen_solver='randomized'`` can be used to
-    *significantly* reduce the computation time when the number of requested
-    ``n_components`` is small compared with the number of samples. It relies on
-    randomized decomposition methods to find an approximate solution in a shorter
-    time.
+    يمكن استخدام المعلمة الاختيارية "eigen_solver='randomized'" ل
+    الحد بشكل كبير من وقت الحساب عندما يكون عدد "n_components" المطلوب
+    صغيرًا مقارنة بعدد العينات. يعتمد على طرق التحليل العشوائي للعثور على
+    حل تقريبي في وقت أقصر.
 
-    The time complexity of the randomized :class:`KernelPCA` is
-    :math:`O(n_{\mathrm{samples}}^2 \cdot n_{\mathrm{components}})`
-    instead of :math:`O(n_{\mathrm{samples}}^3)` for the exact method
-    implemented with ``eigen_solver='dense'``.
+    تبلغ التعقيد الزمني لـ KernelPCA العشوائي: math: 'O (n_ {samples} ^ 2 \ cdot n_ {components})'
+    بدلاً من: math: 'O (n_ {samples} ^ 3)' للطريقة الدقيقة
+    التي تم تنفيذها باستخدام "eigen_solver='dense'".
 
-    The memory footprint of randomized :class:`KernelPCA` is also proportional to
-    :math:`2 \cdot n_{\mathrm{samples}} \cdot n_{\mathrm{components}}` instead of
-    :math:`n_{\mathrm{samples}}^2` for the exact method.
+    بصمة الذاكرة لـ KernelPCA العشوائي تتناسب أيضًا مع:
+    math: '2 \ cdot n_ {samples} \ cdot n_ {components}` بدلاً من
+    : math: 'n_ {samples} ^ 2` للطريقة الدقيقة.
 
-    Note: this technique is the same as in :ref:`RandomizedPCA`.
+    ملاحظة: هذه التقنية هي نفسها كما في: ref: 'RandomizedPCA'.
 
-    In addition to the above two solvers, ``eigen_solver='arpack'`` can be used as
-    an alternate way to get an approximate decomposition. In practice, this method
-    only provides reasonable execution times when the number of components to find
-    is extremely small. It is enabled by default when the desired number of
-    components is less than 10 (strict) and the number of samples is more than 200
-    (strict). See :class:`KernelPCA` for details.
+    بالإضافة إلى المحللين أعلاه، يمكن استخدام "eigen_solver='arpack'" ك
+    طريقة بديلة للحصول على تحليل تقريبي. في الممارسة العملية، توفر هذه الطريقة فقط أوقات تنفيذ معقولة عندما يكون عدد المكونات التي سيتم العثور عليها
+    صغيرًا جدًا. يتم تمكينه بشكل افتراضي عندما يكون عدد المكونات المطلوبة أقل من 10 (صارم) وعدد العينات أكبر من 200
+    (صارم). راجع: class: 'KernelPCA' للحصول على التفاصيل.
 
-    .. rubric:: References
+    .. rubric:: المراجع
 
-    * *dense* solver:
+    * المحلل *الكثيف*:
       `scipy.linalg.eigh documentation
       <https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.eigh.html>`_
 
-    * *randomized* solver:
+    * المحلل *العشوائي*:
 
-      * Algorithm 4.3 in
-        :arxiv:`"Finding structure with randomness: Stochastic
-        algorithms for constructing approximate matrix decompositions" <0909.4061>`
-        Halko, et al. (2009)
+      * الخوارزمية 4.3 في
+        :arxiv: "العثور على البنية باستخدام العشوائية: خوارزميات عشوائية
+        لبناء التحليلات التقريبية للمصفوفة <0909.4061>`
+        Halko، et al. (2009)
 
-      * :arxiv:`"An implementation of a randomized algorithm
-        for principal component analysis" <1412.3510>`
-        A. Szlam et al. (2014)
+      * :arxiv: "تنفيذ خوارزمية عشوائية
+        لتحليل المكونات الأساسية <1412.3510>`
+        أ. Szlam et al. (2014)
 
-    * *arpack* solver:
+    * محلل *arpack*:
       `scipy.sparse.linalg.eigsh documentation
       <https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.eigsh.html>`_
-      R. B. Lehoucq, D. C. Sorensen, and C. Yang, (1998)
+      R. B. Lehoucq، D. C. سورينسن، و C. يانغ، (1998)
 
 
 .. _LSA:
 
-Truncated singular value decomposition and latent semantic analysis
+تحليل القيمة المفردة المبتورة وتحليل المعنى الكامن
 ===================================================================
 
-:class:`TruncatedSVD` implements a variant of singular value decomposition
-(SVD) that only computes the :math:`k` largest singular values,
-where :math:`k` is a user-specified parameter.
+: class: 'TruncatedSVD' ينفذ متغيرًا من تحليل القيمة الفردية
+(SVD) الذي يحسب فقط: math: 'k' أكبر القيم الفردية،
+حيث: math: 'k' هو معلمة يحددها المستخدم.
 
-:class:`TruncatedSVD` is very similar to :class:`PCA`, but differs
-in that the matrix :math:`X` does not need to be centered.
-When the columnwise (per-feature) means of :math:`X`
-are subtracted from the feature values,
-truncated SVD on the resulting matrix is equivalent to PCA.
+: class: 'TruncatedSVD' مشابه جدًا لـ: class: 'PCA'، ولكنه يختلف
+في أن المصفوفة: math: 'X' لا تحتاج إلى أن تكون مركزة.
+عندما يتم طرح الوسائل العمودية (لكل ميزة) من: math: 'X'
+من قيم الميزة، فإن SVD المبتور للمصفوفة الناتجة يعادل PCA.
 
-.. dropdown:: About truncated SVD and latent semantic analysis (LSA)
+.. dropdown:: حول SVD المبتور وتحليل المعنى الكامن (LSA)
 
-    When truncated SVD is applied to term-document matrices
-    (as returned by :class:`~sklearn.feature_extraction.text.CountVectorizer` or
-    :class:`~sklearn.feature_extraction.text.TfidfVectorizer`),
-    this transformation is known as
-    `latent semantic analysis <https://nlp.stanford.edu/IR-book/pdf/18lsi.pdf>`_
-    (LSA), because it transforms such matrices
-    to a "semantic" space of low dimensionality.
-    In particular, LSA is known to combat the effects of synonymy and polysemy
-    (both of which roughly mean there are multiple meanings per word),
-    which cause term-document matrices to be overly sparse
-    and exhibit poor similarity under measures such as cosine similarity.
+    عندما يتم تطبيق SVD المبتور على مصفوفات المصطلحات والمستندات
+    (كما هو موضح بواسطة: class: '~sklearn.feature_extraction.text.CountVectorizer` أو
+    : class: '~sklearn.feature_extraction.text.TfidfVectorizer`)،
+    يُعرف هذا التحول باسم
+    `تحليل المعنى الكامن <https://nlp.stanford.edu/IR-book/pdf/18lsi.pdf>`_
+    (LSA)، لأنه يحول هذه المصفوفات
+    إلى مساحة "معنوية" ذات أبعاد منخفضة.
+    على وجه الخصوص، من المعروف أن LSA تكافح آثار الترادف وتعدد المعاني
+    (كلاهما يعني تقريبًا وجود معانٍ متعددة لكل كلمة)،
+    مما يتسبب في أن تكون مصفوفات المصطلحات والمستندات متباعدة جدًا
+    وتظهر تشابهًا سيئًا وفقًا لتدابير مثل تشابه جيب التمام.
 
     .. note::
-        LSA is also known as latent semantic indexing, LSI,
-        though strictly that refers to its use in persistent indexes
-        for information retrieval purposes.
+        LSA معروف أيضًا باسم الفهرسة الدلالية الكامنة، LSI،
+        على الرغم من أن هذا يشير بشكل صارم إلى استخدامه في الفهارس الدائمة
+        لأغراض استرجاع المعلومات.
 
-    Mathematically, truncated SVD applied to training samples :math:`X`
-    produces a low-rank approximation :math:`X`:
+    من الناحية الرياضية، ينتج SVD المبتور المطبق على عينات التدريب: math: 'X'
+    تقريبًا منخفض الرتبة: math: 'X':
 
     .. math::
-        X \approx X_k = U_k \Sigma_k V_k^\top
+        X \ approx X_k = U_k \ Sigma_k V_k ^ \ top
 
-    After this operation, :math:`U_k \Sigma_k`
-    is the transformed training set with :math:`k` features
-    (called ``n_components`` in the API).
+    بعد هذه العملية،: math: 'U_k \ Sigma_k'
+    هي مجموعة بيانات التدريب المحولة مع: math: 'k' ميزات
+    (تسمى "n_components" في واجهة برمجة التطبيقات).
 
-    To also transform a test set :math:`X`, we multiply it with :math:`V_k`:
+    لتحويل مجموعة اختبار: math: 'X' أيضًا، نقوم بضربها في: math: 'V_k':
 
     .. math::
         X' = X V_k
 
     .. note::
-        Most treatments of LSA in the natural language processing (NLP)
-        and information retrieval (IR) literature
-        swap the axes of the matrix :math:`X` so that it has shape
-        ``(n_features, n_samples)``.
-        We present LSA in a different way that matches the scikit-learn API better,
-        but the singular values found are the same.
+        تتبادل معظم معالجات LSA في أدبيات معالجة اللغات الطبيعية (NLP)
+        واسترجاع المعلومات (IR) محاور المصفوفة: math: 'X' بحيث يكون لها شكل
+        "(n_features، n_samples)".
+        نقدم LSA بطريقة مختلفة تتوافق بشكل أفضل مع واجهة برمجة تطبيقات scikit-learn،
+        ولكن القيم الفردية التي تم العثور عليها هي نفسها.
 
-    While the :class:`TruncatedSVD` transformer
-    works with any feature matrix,
-    using it on tf-idf matrices is recommended over raw frequency counts
-    in an LSA/document processing setting.
-    In particular, sublinear scaling and inverse document frequency
-    should be turned on (``sublinear_tf=True, use_idf=True``)
-    to bring the feature values closer to a Gaussian distribution,
-    compensating for LSA's erroneous assumptions about textual data.
+    في حين أن محول: class: 'TruncatedSVD'
+    يعمل مع أي مصفوفة ميزات،
+    يوصى باستخدامه على مصفوفات tf-idf بدلاً من عدات التردد الخام
+    في إعداد LSA/معالجة المستندات.
+    على وجه الخصوص، يجب تشغيل التوسيع تحت الخطي والتردد العكسي للمستند
+    (sublinear_tf=True، use_idf=True)
+    لجعل قيم الميزة أقرب إلى التوزيع الطبيعي،
+    للتعويض عن الافتراضات الخاطئة لـ LSA حول البيانات النصية.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py`
+* : ref: 'sphx_glr_auto_examples_text_plot_document_clustering.py'
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* Christopher D. Manning, Prabhakar Raghavan and Hinrich Schütze (2008),
-  *Introduction to Information Retrieval*, Cambridge University Press,
-  chapter 18: `Matrix decompositions & latent semantic indexing
+* كريستوفر د. مانينج، برابهاكار راغافان وهينريش شوتزي (2008)،
+  *مقدمة في استرجاع المعلومات*، مطبعة جامعة كامبريدج،
+  الفصل 18: "تحليل المصفوفة والفهرسة الدلالية الكامنة
   <https://nlp.stanford.edu/IR-book/pdf/18lsi.pdf>`_
 
 
 
 .. _DictionaryLearning:
 
-Dictionary Learning
-===================
+تعلم القاموس
+الترميز المُقَشَّع باستخدام قاموس مُحَسَّب مُسْبَقًا
+----------------------------------------------------------
 
-.. _SparseCoder:
+يُعد كائن :class:`SparseCoder` مُقَدِّرًا يمكن استخدامه لتحويل الإشارات إلى تركيبة خطية مُقَشَّعة من الذرات المُستخرجة من قاموس ثابت مُحَسَّب مُسْبَقًا مثل أساس موجة متقطعة. لذلك، فإن هذا الكائن لا ينفذ طريقة ``fit``. ويبلغ مقدار التحويل إلى مشكلة ترميز مُقَشَّع: العثور على تمثيل للبيانات كتركيبة خطية لأقل عدد ممكن من ذرات القاموس. وتنفذ جميع تنويعات تعلم القاموس طرق التحويل التالية، والتي يمكن التحكم فيها عبر معامل ``transform_method`` عند تهيئة المعلمة:
 
-Sparse coding with a precomputed dictionary
--------------------------------------------
+* مطاردة المطابقة المتعامدة (:ref:`omp`)
 
-The :class:`SparseCoder` object is an estimator that can be used to transform signals
-into sparse linear combination of atoms from a fixed, precomputed dictionary
-such as a discrete wavelet basis. This object therefore does not
-implement a ``fit`` method. The transformation amounts
-to a sparse coding problem: finding a representation of the data as a linear
-combination of as few dictionary atoms as possible. All variations of
-dictionary learning implement the following transform methods, controllable via
-the ``transform_method`` initialization parameter:
+* الانحدار ذو الزاوية الصغرى (:ref:`least_angle_regression`)
 
-* Orthogonal matching pursuit (:ref:`omp`)
+* لسو باستخدام الانحدار ذو الزاوية الصغرى
 
-* Least-angle regression (:ref:`least_angle_regression`)
+* لسو باستخدام الانحدار التنسيقي (:ref:`lasso`)
 
-* Lasso computed by least-angle regression
+* العتبات
 
-* Lasso using coordinate descent (:ref:`lasso`)
+إن العتبات سريعة للغاية ولكنها لا تُنتج ترميمات دقيقة. وقد ثبت أنها مفيدة في الأدبيات لمهام التصنيف. وبالنسبة لمهام ترميم الصور، فإن مطاردة المطابقة المتعامدة تُنتج أكثر الترميمات دقة وحيادية.
 
-* Thresholding
+توفر كائنات تعلم القاموس، عبر معامل ``split_code``، إمكانية فصل القيم الموجبة والسالبة في نتائج الترميز المُقَشَّع. وهذا مفيد عندما يُستخدم تعلم القاموس لاستخراج ميزات ستُستخدم للتعلم المُشرف، لأنه يسمح لخوارزمية التعلم بتعيين أوزان مختلفة لتحميلات سالبة لذرة معينة، مُقارنة بالتحميل الموجب المُقابل.
 
-Thresholding is very fast but it does not yield accurate reconstructions.
-They have been shown useful in literature for classification tasks. For image
-reconstruction tasks, orthogonal matching pursuit yields the most accurate,
-unbiased reconstruction.
+يكون للرمز المُقسَّم لعينة واحدة طول ``2 * n_components``، ويتم بناؤه باستخدام القاعدة التالية: أولاً، يتم حساب الرمز العادي بطول ``n_components``. بعد ذلك، يتم ملء الإدخالات الأولى لـ ``n_components`` من ``split_code`` بالجزء الموجب من متجه الرمز العادي. ويتم ملء النصف الثاني من الرمز المُقسَّم بالجزء السالب من متجه الرمز، ولكن بإشارة موجبة. وبالتالي، يكون ``split_code`` غير سالب.
 
-The dictionary learning objects offer, via the ``split_code`` parameter, the
-possibility to separate the positive and negative values in the results of
-sparse coding. This is useful when dictionary learning is used for extracting
-features that will be used for supervised learning, because it allows the
-learning algorithm to assign different weights to negative loadings of a
-particular atom, from to the corresponding positive loading.
-
-The split code for a single sample has length ``2 * n_components``
-and is constructed using the following rule: First, the regular code of length
-``n_components`` is computed. Then, the first ``n_components`` entries of the
-``split_code`` are
-filled with the positive part of the regular code vector. The second half of
-the split code is filled with the negative part of the code vector, only with
-a positive sign. Therefore, the split_code is non-negative.
-
-
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_decomposition_plot_sparse_coding.py`
 
 
-Generic dictionary learning
+تعلم القاموس العام
 ---------------------------
 
-Dictionary learning (:class:`DictionaryLearning`) is a matrix factorization
-problem that amounts to finding a (usually overcomplete) dictionary that will
-perform well at sparsely encoding the fitted data.
+يُعد تعلم القاموس (:class:`DictionaryLearning`) مشكلة تحليل إلى عوامل تُعادل إيجاد قاموس (عادة ما يكون مكتملًا) سيؤدي أداءً جيدًا في الترميز المُقَشَّع للبيانات المُلائمة.
 
-Representing data as sparse combinations of atoms from an overcomplete
-dictionary is suggested to be the way the mammalian primary visual cortex works.
-Consequently, dictionary learning applied on image patches has been shown to
-give good results in image processing tasks such as image completion,
-inpainting and denoising, as well as for supervised recognition tasks.
+ويُقترح أن تمثيل البيانات كتركيبات مُقَشَّعة من ذرات مُستخرجة من قاموس مكتمل هو الطريقة التي تعمل بها القشرة البصرية الأولية للثدييات. ونتيجة لذلك، فقد ثبت أن تعلم القاموس المُطبق على رقع الصور يُعطي نتائج جيدة في مهام معالجة الصور مثل استكمال الصور، والرسم على اللوحات، وإزالة التشويش، بالإضافة إلى مهام التعرف الخاضعة للإشراف.
 
-Dictionary learning is an optimization problem solved by alternatively updating
-the sparse code, as a solution to multiple Lasso problems, considering the
-dictionary fixed, and then updating the dictionary to best fit the sparse code.
+إن تعلم القاموس هو مشكلة تحسين يتم حلها عن طريق تحديث الرمز المُقَشَّع بشكل مُتكرر، كحل لمشكلات لسو المُتعددة، مع اعتبار القاموس ثابتًا، ثم تحديث القاموس ليتناسب بشكل أفضل مع الرمز المُقَشَّع.
 
 .. math::
    (U^*, V^*) = \underset{U, V}{\operatorname{arg\,min\,}} & \frac{1}{2}
@@ -539,26 +283,17 @@ dictionary fixed, and then updating the dictionary to best fit the sparse code.
 
 .. centered:: |pca_img2| |dict_img2|
 
-:math:`||.||_{\text{Fro}}` stands for the Frobenius norm and :math:`||.||_{1,1}`
-stands for the entry-wise matrix norm which is the sum of the absolute values
-of all the entries in the matrix.
-After using such a procedure to fit the dictionary, the transform is simply a
-sparse coding step that shares the same implementation with all dictionary
-learning objects (see :ref:`SparseCoder`).
+يرمز :math:`||.||_{\text{Fro}}` إلى معيار فروبينيوس، ويرمز :math:`||.||_{1,1}` إلى معيار المصفوفة حسب العنصر، وهو مجموع القيم المطلقة لجميع الإدخالات في المصفوفة.
+وبعد استخدام مثل هذا الإجراء لملاءمة القاموس، يكون التحويل ببساطة عبارة عن خطوة ترميز مُقَشَّع تتشارك في نفس التنفيذ مع جميع كائنات تعلم القاموس (انظر :ref:`SparseCoder`).
 
-It is also possible to constrain the dictionary and/or code to be positive to
-match constraints that may be present in the data. Below are the faces with
-different positivity constraints applied. Red indicates negative values, blue
-indicates positive values, and white represents zeros.
-
+ومن الممكن أيضًا تقييد القاموس و/أو الرمز ليكون موجبًا لمطابقة القيود التي قد تكون موجودة في البيانات. وفيما يلي الوجوه مع قيود الموجبة المُختلفة المُطبقة. يشير اللون الأحمر إلى القيم السالبة، ويشير اللون الأزرق إلى القيم الموجبة، ويمثل اللون الأبيض الأصفار.
 
 .. |dict_img_pos1| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_010.png
     :target: ../auto_examples/decomposition/plot_image_denoising.html
     :scale: 60%
 
 .. |dict_img_pos2| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_011.png
-    :target: ../auto_examples/decomposition/plot_image_denoising.html
-    :scale: 60%
+    :target, :scale: 60%
 
 .. |dict_img_pos3| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_012.png
     :target: ../auto_examples/decomposition/plot_image_denoising.html
@@ -572,9 +307,7 @@ indicates positive values, and white represents zeros.
 .. centered:: |dict_img_pos3| |dict_img_pos4|
 
 
-The following image shows how a dictionary learned from 4x4 pixel image patches
-extracted from part of the image of a raccoon face looks like.
-
+وتُظهر الصورة التالية كيف يبدو القاموس المُتعلم من رقع صور 4x4 بكسل المُستخرجة من جزء من صورة وجه الراكون.
 
 .. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_image_denoising_001.png
     :target: ../auto_examples/decomposition/plot_image_denoising.html
@@ -582,12 +315,12 @@ extracted from part of the image of a raccoon face looks like.
     :scale: 50%
 
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_decomposition_plot_image_denoising.py`
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * `"Online dictionary learning for sparse coding"
   <https://www.di.ens.fr/sierra/pdfs/icml09.pdf>`_
@@ -595,22 +328,14 @@ extracted from part of the image of a raccoon face looks like.
 
 .. _MiniBatchDictionaryLearning:
 
-Mini-batch dictionary learning
+تعلم القاموس بالدفعات الصغرى
 ------------------------------
 
-:class:`MiniBatchDictionaryLearning` implements a faster, but less accurate
-version of the dictionary learning algorithm that is better suited for large
-datasets.
+ينفذ :class:`MiniBatchDictionaryLearning` إصدارًا أسرع، ولكن أقل دقة من خوارزمية تعلم القاموس، وهو أكثر ملاءمة للمجموعات الضخمة من البيانات.
 
-By default, :class:`MiniBatchDictionaryLearning` divides the data into
-mini-batches and optimizes in an online manner by cycling over the mini-batches
-for the specified number of iterations. However, at the moment it does not
-implement a stopping condition.
+يقوم :class:`MiniBatchDictionaryLearning` بشكل افتراضي بتقسيم البيانات إلى دفعات صغرى ويحسنها بطريقة عبر الإنترنت عن طريق الدوران عبر الدفعات الصغرى للعدد المحدد من التكرارات. ومع ذلك، ففي الوقت الحالي، لا ينفذ شرط التوقف.
 
-The estimator also implements ``partial_fit``, which updates the dictionary by
-iterating only once over a mini-batch. This can be used for online learning
-when the data is not readily available from the start, or for when the data
-does not fit into the memory.
+ينفذ المُقَدِّر أيضًا طريقة ``partial_fit``، والتي تُحدِّث القاموس عن طريق التكرار مرة واحدة فقط عبر دفعة صغرى. ويمكن استخدام ذلك للتعلم عبر الإنترنت عندما لا تكون البيانات مُتاحة بسهولة من البداية، أو عندما لا تتناسب البيانات مع الذاكرة.
 
 .. currentmodule:: sklearn.cluster
 
@@ -619,75 +344,50 @@ does not fit into the memory.
     :scale: 50%
     :align: right
 
-.. topic:: **Clustering for dictionary learning**
+.. topic:: **التجميع لتعلم القاموس**
 
-   Note that when using dictionary learning to extract a representation
-   (e.g. for sparse coding) clustering can be a good proxy to learn the
-   dictionary. For instance the :class:`MiniBatchKMeans` estimator is
-   computationally efficient and implements on-line learning with a
-   ``partial_fit`` method.
+   لاحظ أنه عند استخدام تعلم القاموس لاستخراج تمثيل (على سبيل المثال، للترميز المُقَشَّع) يمكن أن يكون التجميع بديلاً جيدًا لتعلم القاموس. على سبيل المثال، فإن مُقَدِّر :class:`MiniBatchKMeans` فعال من حيث الكفاءة الحسابية وينفذ التعلم عبر الإنترنت بطريقة ``partial_fit``.
 
-   Example: :ref:`sphx_glr_auto_examples_cluster_plot_dict_face_patches.py`
+   مثال: :ref:`sphx_glr_auto_examples_cluster_plot_dict_face_patches.py`
 
 .. currentmodule:: sklearn.decomposition
 
 .. _FA:
 
-Factor Analysis
+التحليل العاملي
 ===============
 
-In unsupervised learning we only have a dataset :math:`X = \{x_1, x_2, \dots, x_n
-\}`. How can this dataset be described mathematically? A very simple
-`continuous latent variable` model for :math:`X` is
+في التعلم غير المُشرف، لا نمتلك سوى مجموعة بيانات :math:`X = \{x_1, x_2, \dots, x_n \}`. كيف يمكن وصف هذه المجموعة من البيانات رياضياً؟ إن أبسط نموذج `المتغيرات الكامنة المستمرة` لـ :math:`X` هو
 
 .. math:: x_i = W h_i + \mu + \epsilon
 
-The vector :math:`h_i` is called "latent" because it is unobserved. :math:`\epsilon` is
-considered a noise term distributed according to a Gaussian with mean 0 and
-covariance :math:`\Psi` (i.e. :math:`\epsilon \sim \mathcal{N}(0, \Psi)`), :math:`\mu` is some
-arbitrary offset vector. Such a model is called "generative" as it describes
-how :math:`x_i` is generated from :math:`h_i`. If we use all the :math:`x_i`'s as columns to form
-a matrix :math:`\mathbf{X}` and all the :math:`h_i`'s as columns of a matrix :math:`\mathbf{H}`
-then we can write (with suitably defined :math:`\mathbf{M}` and :math:`\mathbf{E}`):
+يُطلق على المتجه :math:`h_i` اسم "كامن" لأنه غير مرئي. ويُعتبر :math:`\epsilon` مصطلحًا عشوائيًا موزعًا وفقًا لتوزيع غاوسي بمتوسط 0 وانحراف معياري :math:`\Psi` (أي :math:`\epsilon \sim \mathcal{N}(0, \Psi)`)، و:math:`\mu` هو متجه إزاحة عشوائي. ويُطلق على هذا النموذج اسم "التوليدي" لأنه يصف كيفية توليد :math:`x_i` من :math:`h_i`. وإذا استخدمنا جميع :math:`x_i`'s كأعمدة لتشكيل مصفوفة :math:`\mathbf{X}` وجميع :math:`h_i`'s كأعمدة لمصفوفة :math:`\mathbf{H}`، فيمكننا أن نكتب (مع تعريف :math:`\mathbf{M}` و:math:`\mathbf{E}` بشكل مناسب):
 
 .. math::
     \mathbf{X} = W \mathbf{H} + \mathbf{M} + \mathbf{E}
 
-In other words, we *decomposed* matrix :math:`\mathbf{X}`.
+بعبارة أخرى، فقد *فَكَكنا* المصفوفة :math:`\mathbf{X}`.
 
-If :math:`h_i` is given, the above equation automatically implies the following
-probabilistic interpretation:
+إذا كانت :math:`h_i` مُعطاة، فإن المعادلة السابقة تعني ضمنيًا التفسير الاحتمالي التالي:
 
 .. math:: p(x_i|h_i) = \mathcal{N}(Wh_i + \mu, \Psi)
 
-For a complete probabilistic model we also need a prior distribution for the
-latent variable :math:`h`. The most straightforward assumption (based on the nice
-properties of the Gaussian distribution) is :math:`h \sim \mathcal{N}(0,
-\mathbf{I})`.  This yields a Gaussian as the marginal distribution of :math:`x`:
+وللحصول على نموذج احتمالي كامل، نحتاج أيضًا إلى توزيع سابق للمتغير الكامن :math:`h`. وافتراض الأكثر مباشرة (بناءً على الخصائص الجيدة لتوزيع غاوسي) هو :math:`h \sim \mathcal{N}(0, \mathbf{I})`. وينتج عن هذا توزيع غاوسي كاحتمال هامشي لـ :math:`x`:
 
 .. math:: p(x) = \mathcal{N}(\mu, WW^T + \Psi)
 
-Now, without any further assumptions the idea of having a latent variable :math:`h`
-would be superfluous -- :math:`x` can be completely modelled with a mean
-and a covariance. We need to impose some more specific structure on one
-of these two parameters. A simple additional assumption regards the
-structure of the error covariance :math:`\Psi`:
+والآن، بدون أي افتراضات إضافية، ستكون فكرة وجود متغير كامن :math:`h` غير ضرورية - يمكن نمذجة :math:`x` بالكامل باستخدام المتوسط والانحراف المعياري. نحتاج إلى فرض بعض الهياكل الأكثر تحديدًا على أحد هذين المعلمين. ويتمثل أحد الافتراضات الإضافية البسيطة في هيكل مصفوفة الانحراف المعياري للعشوائية :math:`\Psi`:
 
-* :math:`\Psi = \sigma^2 \mathbf{I}`: This assumption leads to
-  the probabilistic model of :class:`PCA`.
+* :math:`\Psi = \sigma^2 \mathbf{I}`: يؤدي هذا الافتراض إلى
+  نموذج احتمالي لـ :class:`PCA`.
 
-* :math:`\Psi = \mathrm{diag}(\psi_1, \psi_2, \dots, \psi_n)`: This model is called
-  :class:`FactorAnalysis`, a classical statistical model. The matrix W is
-  sometimes called the "factor loading matrix".
+* :math:`\Psi = \mathrm{diag}(\psi_1, \psi_2, \dots, \psi_n)`: يُطلق على هذا النموذج اسم
+  :class:`التحليل العاملي`، وهو نموذج إحصائي كلاسيكي. وتُسمى المصفوفة W أحيانًا "مصفوفة التحميل العاملي".
 
-Both models essentially estimate a Gaussian with a low-rank covariance matrix.
-Because both models are probabilistic they can be integrated in more complex
-models, e.g. Mixture of Factor Analysers. One gets very different models (e.g.
-:class:`FastICA`) if non-Gaussian priors on the latent variables are assumed.
+ويُقدر كلا النموذجين بشكل أساسي توزيع غاوسي بانحراف معياري منخفض الترتيب.
+وبما أن كلا النموذجين هما نموذجان احتماليان، فيمكن دمجهما في نماذج أكثر تعقيدًا، على سبيل المثال، مزيج من محللات العوامل. وسينتج عن ذلك نماذج مختلفة جدًا (على سبيل المثال، :class:`FastICA`) إذا افترضنا توزيعات غير غاوسية للمتغيرات الكامنة.
 
-Factor analysis *can* produce similar components (the columns of its loading
-matrix) to :class:`PCA`. However, one can not make any general statements
-about these components (e.g. whether they are orthogonal):
+يمكن أن ينتج التحليل العاملي مكونات مُشابهة (أعمدة مصفوفة التحميل الخاصة به) لـ :class:`PCA`. ومع ذلك، لا يمكن إجراء أي تصريحات عامة حول هذه المكونات (على سبيل المثال، ما إذا كانت متعامدة):
 
 .. |pca_img3| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_002.png
     :target: ../auto_examples/decomposition/plot_faces_decomposition.html
@@ -699,30 +399,24 @@ about these components (e.g. whether they are orthogonal):
 
 .. centered:: |pca_img3| |fa_img3|
 
-The main advantage for Factor Analysis over :class:`PCA` is that
-it can model the variance in every direction of the input space independently
-(heteroscedastic noise):
+وتتمثل الميزة الرئيسية للتحليل العاملي على :class:`PCA` في أنه يمكنه نمذجة التباين في كل اتجاه من اتجاهات فضاء الإدخال بشكل مستقل
+(الضوضاء غير المتسقة):
 
 .. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_009.png
     :target: ../auto_examples/decomposition/plot_faces_decomposition.html
     :align: center
     :scale: 75%
 
-This allows better model selection than probabilistic PCA in the presence
-of heteroscedastic noise:
+ويسمح ذلك بتحسين اختيار النموذج عن :class:`PCA` الاحتمالي في وجود ضوضاء غير متسقة:
 
 .. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_pca_vs_fa_model_selection_002.png
     :target: ../auto_examples/decomposition/plot_pca_vs_fa_model_selection.html
     :align: center
     :scale: 75%
 
-Factor Analysis is often followed by a rotation of the factors (with the
-parameter `rotation`), usually to improve interpretability. For example,
-Varimax rotation maximizes the sum of the variances of the squared loadings,
-i.e., it tends to produce sparser factors, which are influenced by only a few
-features each (the "simple structure"). See e.g., the first example below.
+وعادة ما يتبع التحليل العاملي عملية تدوير للعوامل (باستخدام معامل `rotation`)، وعادة ما يكون ذلك لتحسين قابلية التفسير. على سبيل المثال، تُعظم عملية التدوير Varimax مجموع انحرافات التقديرات التربيعية، أي أنها تميل إلى إنتاج عوامل أكثر ندرة، والتي تتأثر بعدد قليل من الميزات في كل مرة (الهيكل البسيط). راجع على سبيل المثال، المثال الأول أدناه.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_decomposition_plot_varimax_fa.py`
 * :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_fa_model_selection.py`
@@ -730,352 +424,166 @@ features each (the "simple structure"). See e.g., the first example below.
 
 .. _ICA:
 
-Independent component analysis (ICA)
-====================================
-
-Independent component analysis separates a multivariate signal into
-additive subcomponents that are maximally independent. It is
-implemented in scikit-learn using the :class:`Fast ICA <FastICA>`
-algorithm. Typically, ICA is not used for reducing dimensionality but
-for separating superimposed signals. Since the ICA model does not include
-a noise term, for the model to be correct, whitening must be applied.
-This can be done internally using the whiten argument or manually using one
-of the PCA variants.
-
-It is classically used to separate mixed signals (a problem known as
-*blind source separation*), as in the example below:
-
-.. figure:: ../auto_examples/decomposition/images/sphx_glr_plot_ica_blind_source_separation_001.png
-    :target: ../auto_examples/decomposition/plot_ica_blind_source_separation.html
-    :align: center
-    :scale: 60%
-
-
-ICA can also be used as yet another non linear decomposition that finds
-components with some sparsity:
-
-.. |pca_img4| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_002.png
-    :target: ../auto_examples/decomposition/plot_faces_decomposition.html
-    :scale: 60%
-
-.. |ica_img4| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_004.png
-    :target: ../auto_examples/decomposition/plot_faces_decomposition.html
-    :scale: 60%
-
-.. centered:: |pca_img4| |ica_img4|
-
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_decomposition_plot_ica_blind_source_separation.py`
-* :ref:`sphx_glr_auto_examples_decomposition_plot_ica_vs_pca.py`
-* :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
-
-
-.. _NMF:
-
-Non-negative matrix factorization (NMF or NNMF)
-===============================================
-
-NMF with the Frobenius norm
----------------------------
+التحليل التمييزي للمكونات المستقلة (ICA)
+التحليل المكون المستقل يفصل إشارة متعددة المتغيرات إلى مكونات فرعية إضافية مستقلة بحد أقصى. يتم تنفيذه في scikit-learn باستخدام خوارزمية Fast ICA. عادةً ما لا يتم استخدام ICA لخفض الأبعاد ولكن لفصل الإشارات المتداخلة. نظرًا لأن نموذج ICA لا يتضمن مصطلح ضوضاء، يجب تطبيق التبييض ليكون النموذج صحيحًا. يمكن القيام بذلك داخليًا باستخدام حجة التبييض أو يدويًا باستخدام أحد متغيرات PCA.
 
-:class:`NMF` [1]_ is an alternative approach to decomposition that assumes that the
-data and the components are non-negative. :class:`NMF` can be plugged in
-instead of :class:`PCA` or its variants, in the cases where the data matrix
-does not contain negative values. It finds a decomposition of samples
-:math:`X` into two matrices :math:`W` and :math:`H` of non-negative elements,
-by optimizing the distance :math:`d` between :math:`X` and the matrix product
-:math:`WH`. The most widely used distance function is the squared Frobenius
-norm, which is an obvious extension of the Euclidean norm to matrices:
+يتم استخدامه بشكل كلاسيكي لفصل الإشارات المختلطة (وهي مشكلة تُعرف باسم الفصل الأعمى للمصدر)، كما هو موضح في المثال أدناه:
 
-.. math::
-    d_{\mathrm{Fro}}(X, Y) = \frac{1}{2} ||X - Y||_{\mathrm{Fro}}^2 = \frac{1}{2} \sum_{i,j} (X_{ij} - {Y}_{ij})^2
+يستخدم ICA أيضًا كطريقة أخرى للتحليل غير الخطي الذي يجد المكونات مع بعض الندرة:
 
-Unlike :class:`PCA`, the representation of a vector is obtained in an additive
-fashion, by superimposing the components, without subtracting. Such additive
-models are efficient for representing images and text.
+|pca_img4| |ica_img4|
 
-It has been observed in [Hoyer, 2004] [2]_ that, when carefully constrained,
-:class:`NMF` can produce a parts-based representation of the dataset,
-resulting in interpretable models. The following example displays 16
-sparse components found by :class:`NMF` from the images in the Olivetti
-faces dataset, in comparison with the PCA eigenfaces.
-
-.. |pca_img5| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_002.png
-    :target: ../auto_examples/decomposition/plot_faces_decomposition.html
-    :scale: 60%
-
-.. |nmf_img5| image:: ../auto_examples/decomposition/images/sphx_glr_plot_faces_decomposition_003.png
-    :target: ../auto_examples/decomposition/plot_faces_decomposition.html
-    :scale: 60%
-
-.. centered:: |pca_img5| |nmf_img5|
-
-
-The `init` attribute determines the initialization method applied, which
-has a great impact on the performance of the method. :class:`NMF` implements the
-method Nonnegative Double Singular Value Decomposition. NNDSVD [4]_ is based on
-two SVD processes, one approximating the data matrix, the other approximating
-positive sections of the resulting partial SVD factors utilizing an algebraic
-property of unit rank matrices. The basic NNDSVD algorithm is better fit for
-sparse factorization. Its variants NNDSVDa (in which all zeros are set equal to
-the mean of all elements of the data), and NNDSVDar (in which the zeros are set
-to random perturbations less than the mean of the data divided by 100) are
-recommended in the dense case.
+أمثلة:
 
-Note that the Multiplicative Update ('mu') solver cannot update zeros present in
-the initialization, so it leads to poorer results when used jointly with the
-basic NNDSVD algorithm which introduces a lot of zeros; in this case, NNDSVDa or
-NNDSVDar should be preferred.
+- sphx_glr_auto_examples_decomposition_plot_ica_blind_source_separation.py
+- sphx_glr_auto_examples_decomposition_plot_ica_vs_pca.py
+- sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py
 
-:class:`NMF` can also be initialized with correctly scaled random non-negative
-matrices by setting `init="random"`. An integer seed or a
-``RandomState`` can also be passed to `random_state` to control
-reproducibility.
+التحليل العاملي للصفوف غير السالبة (NMF أو NNMF)
 
-In :class:`NMF`, L1 and L2 priors can be added to the loss function in order to
-regularize the model. The L2 prior uses the Frobenius norm, while the L1 prior
-uses an elementwise L1 norm. As in :class:`~sklearn.linear_model.ElasticNet`,
-we control the combination of L1 and L2 with the `l1_ratio` (:math:`\rho`)
-parameter, and the intensity of the regularization with the `alpha_W` and
-`alpha_H` (:math:`\alpha_W` and :math:`\alpha_H`) parameters. The priors are
-scaled by the number of samples (:math:`n\_samples`) for `H` and the number of
-features (:math:`n\_features`) for `W` to keep their impact balanced with
-respect to one another and to the data fit term as independent as possible of
-the size of the training set. Then the priors terms are:
+NMF مع معيار فروبنيويس
 
-.. math::
-    (\alpha_W \rho ||W||_1 + \frac{\alpha_W(1-\rho)}{2} ||W||_{\mathrm{Fro}} ^ 2) * n\_features
-    + (\alpha_H \rho ||H||_1 + \frac{\alpha_H(1-\rho)}{2} ||H||_{\mathrm{Fro}} ^ 2) * n\_samples
+NMF [1] _ هو نهج بديل للتحليل يفترض أن البيانات والمكونات غير سالبة. يمكن استخدام NMF بدلاً من PCA أو متغيراته، في الحالات التي لا تحتوي فيها مصفوفة البيانات على قيم سلبية. فهو يجد تحليلًا للعينات X إلى مصفوفتين W و H من العناصر غير السالبة، عن طريق تحسين المسافة d بين X ومُنتج المصفوفة WH. دالة المسافة الأكثر استخدامًا على نطاق واسع هي معيار Frobenius المربع، والذي يعد امتدادًا واضحًا للمعيار الإقليدي للمصفوفات:
 
-and the regularized objective function is:
+على عكس PCA، يتم الحصول على تمثيل المتجه بطريقة إضافية، عن طريق تراكب المكونات، دون طرح. تعد هذه النماذج الإضافية فعالة لتمثيل الصور والنص.
 
-.. math::
-    d_{\mathrm{Fro}}(X, WH)
-    + (\alpha_W \rho ||W||_1 + \frac{\alpha_W(1-\rho)}{2} ||W||_{\mathrm{Fro}} ^ 2) * n\_features
-    + (\alpha_H \rho ||H||_1 + \frac{\alpha_H(1-\rho)}{2} ||H||_{\mathrm{Fro}} ^ 2) * n\_samples
+وقد لوحظ في [Hoyer، 2004] [2] _ أنه عندما يتم تقييد NMF بعناية، يمكنه إنتاج تمثيل قائم على الأجزاء لمجموعة البيانات، مما يؤدي إلى نماذج يمكن تفسيرها. يعرض المثال التالي 16 مكونًا متفرقًا تم العثور عليه بواسطة NMF من الصور في مجموعة بيانات وجوه Olivetti، مقارنة بـ eigenfaces PCA.
 
-NMF with a beta-divergence
---------------------------
+|pca_img5| |nmf_img5|
 
-As described previously, the most widely used distance function is the squared
-Frobenius norm, which is an obvious extension of the Euclidean norm to
-matrices:
+تحدد صفة init طريقة التهيئة المطبقة، والتي يكون لها تأثير كبير على أداء الطريقة. ينفذ NMF طريقة التحلل القيمي المزدوج غير السلبي. تستند NNDSVD [4] _ إلى عمليتي SVD، واحدة تقريب مصفوفة البيانات، والأخرى تقريب الأقسام الإيجابية لعوامل SVD الجزئية الناتجة باستخدام خاصية جبرية لمصفوفات الرتبة الوحيدة. خوارزمية NNDSVD الأساسية مناسبة بشكل أفضل للتحليل المتقطع. يوصى باستخدام متغيراتهما NNDSVDa (حيث يتم تعيين جميع الأصفار إلى متوسط جميع عناصر البيانات)، وNNDSVDar (حيث يتم تعيين الأصفار إلى اضطرابات عشوائية أقل من متوسط البيانات مقسومًا على 100) في الحالة الكثيفة.
 
-.. math::
-    d_{\mathrm{Fro}}(X, Y) = \frac{1}{2} ||X - Y||_{Fro}^2 = \frac{1}{2} \sum_{i,j} (X_{ij} - {Y}_{ij})^2
+لاحظ أن محدد التحديث المضاعف ("mu") لا يمكنه تحديث الأصفار الموجودة في التهيئة، لذا فإنه يؤدي إلى نتائج أسوأ عند استخدامه بشكل مشترك مع خوارزمية NNDSVD الأساسية التي تقدم الكثير من الأصفار؛ في هذه الحالة، يجب تفضيل NNDSVDa أو NNDSVDar.
 
-Other distance functions can be used in NMF as, for example, the (generalized)
-Kullback-Leibler (KL) divergence, also referred as I-divergence:
+يمكن أيضًا تهيئة NMF بمصفوفات عشوائية غير سالبة ذات مقياس صحيح عن طريق تعيين "init =" random "". يمكن أيضًا تمرير بذرة صحيحة أو "RandomState" إلى "random_state" للتحكم في إمكانية إعادة الإنتاج.
 
-.. math::
-    d_{KL}(X, Y) = \sum_{i,j} (X_{ij} \log(\frac{X_{ij}}{Y_{ij}}) - X_{ij} + Y_{ij})
+في NMF، يمكن إضافة L1 وL2 إلى دالة الخسارة من أجل تنظيم النموذج. يستخدم L2 معيار Frobenius، بينما يستخدم L1 معيار L1 عنصرًا. كما هو الحال في sklearn.linear_model.ElasticNet، فإننا نتحكم في مزيج L1 وL2 باستخدام معلمة l1_ratio (:math: rho)، وشدة التنظيم مع معلمات alpha_W وalpha_H (:math: alpha_W و: math: alpha_H). يتم ضبط المقاييس المسبقة بواسطة عدد العينات (:math: n_samples) لـ H وعدد الميزات (:math: n_features) لـ W للحفاظ على توازن تأثيرها مع بعضها البعض ومع مصطلح ملاءمة البيانات قدر الإمكان من حجم مجموعة التدريب. ثم تكون مصطلحات المقاييس المسبقة هي:
 
-Or, the Itakura-Saito (IS) divergence:
+والدالة الهدف المنتظمة هي:
 
-.. math::
-    d_{IS}(X, Y) = \sum_{i,j} (\frac{X_{ij}}{Y_{ij}} - \log(\frac{X_{ij}}{Y_{ij}}) - 1)
+NMF مع انحراف بيتا
 
-These three distances are special cases of the beta-divergence family, with
-:math:`\beta = 2, 1, 0` respectively [6]_. The beta-divergence are
-defined by :
+كما هو موضح سابقًا، فإن دالة المسافة الأكثر استخدامًا على نطاق واسع هي معيار Frobenius المربع، والذي يعد امتدادًا واضحًا للمعيار الإقليدي للمصفوفات:
 
-.. math::
-    d_{\beta}(X, Y) = \sum_{i,j} \frac{1}{\beta(\beta - 1)}(X_{ij}^\beta + (\beta-1)Y_{ij}^\beta - \beta X_{ij} Y_{ij}^{\beta - 1})
+يمكن استخدام دالات مسافة أخرى في NMF، على سبيل المثال، انحراف (تعميم) كولباك-لايبلر (KL)، والذي يُشار إليه أيضًا باسم I-divergence:
 
-.. image:: ../images/beta_divergence.png
-    :align: center
-    :scale: 75%
+أو انحراف إيتاكورا-سايتو (IS):
 
-Note that this definition is not valid if :math:`\beta \in (0; 1)`, yet it can
-be continuously extended to the definitions of :math:`d_{KL}` and :math:`d_{IS}`
-respectively.
+هذه المسافات الثلاثة هي حالات خاصة لعائلة انحراف بيتا، مع: math: beta = 2، 1، 0 على التوالي [6] _. يتم تعريف انحرافات بيتا بواسطة:
 
-.. dropdown:: NMF implemented solvers
+محللو NMF المنفذون:
 
-    :class:`NMF` implements two solvers, using Coordinate Descent ('cd') [5]_, and
-    Multiplicative Update ('mu') [6]_. The 'mu' solver can optimize every
-    beta-divergence, including of course the Frobenius norm (:math:`\beta=2`), the
-    (generalized) Kullback-Leibler divergence (:math:`\beta=1`) and the
-    Itakura-Saito divergence (:math:`\beta=0`). Note that for
-    :math:`\beta \in (1; 2)`, the 'mu' solver is significantly faster than for other
-    values of :math:`\beta`. Note also that with a negative (or 0, i.e.
-    'itakura-saito') :math:`\beta`, the input matrix cannot contain zero values.
+ينفذ NMF محددين، باستخدام الانحدار المتدرج ("cd") [5] _، والتحديث المضاعف ("mu") [6] _. يمكن لمحسن "mu" تحسين أي انحراف بيتا، بما في ذلك بالطبع معيار Frobenius (:math: beta = 2)، وانحراف كولباك-لايبلر (:math: beta = 1) وانحراف إيتاكورا-سايتو (:math: beta = 0). لاحظ أنه بالنسبة لـ: math: beta in (1؛ 2)، يكون محسن "mu" أسرع بكثير من القيم الأخرى لـ: math: beta. لاحظ أيضًا أنه باستخدام قيمة سالبة (أو 0، أي "itakura-saito") لـ: math: beta، لا يمكن أن تحتوي مصفوفة الإدخال على قيم صفرية.
 
-    The 'cd' solver can only optimize the Frobenius norm. Due to the
-    underlying non-convexity of NMF, the different solvers may converge to
-    different minima, even when optimizing the same distance function.
+يمكن لمحسن "cd" تحسين معيار Frobenius فقط. نظرًا لعدم التحدب الأساسي لـ NMF، قد تتقارب المحاليل المختلفة إلى حد أدنى مختلف، حتى عند تحسين دالة المسافة نفسها.
 
-NMF is best used with the ``fit_transform`` method, which returns the matrix W.
-The matrix H is stored into the fitted model in the ``components_`` attribute;
-the method ``transform`` will decompose a new matrix X_new based on these
-stored components::
+من الأفضل استخدام NMF مع طريقة "fit_transform"، والتي تعيد مصفوفة W. يتم تخزين المصفوفة H في النموذج المناسب في صفة "components_"؛ ستعمل طريقة "transform" على تحليل مصفوفة X_new جديدة بناءً على هذه المكونات المخزنة:
 
-    >>> import numpy as np
-    >>> X = np.array([[1, 1], [2, 1], [3, 1.2], [4, 1], [5, 0.8], [6, 1]])
-    >>> from sklearn.decomposition import NMF
-    >>> model = NMF(n_components=2, init='random', random_state=0)
-    >>> W = model.fit_transform(X)
-    >>> H = model.components_
-    >>> X_new = np.array([[1, 0], [1, 6.1], [1, 0], [1, 4], [3.2, 1], [0, 4]])
-    >>> W_new = model.transform(X_new)
+أمثلة:
 
+- sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py
+- sphx_glr_auto_examples_applications_plot_topics_extraction_with_nmf_lda.py
 
+التحليل العاملي للصفوف غير السالبة الدُفعي الصغير
 
-.. rubric:: Examples
+ينفذ MiniBatchNMF [7] _ إصدارًا أسرع، ولكنه أقل دقة من التحليل العاملي للصفوف غير السالبة (أي sklearn.decomposition.NMF)، وهو أكثر ملاءمة لمجموعات البيانات الكبيرة.
 
-* :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
-* :ref:`sphx_glr_auto_examples_applications_plot_topics_extraction_with_nmf_lda.py`
+يقسم MiniBatchNMF بشكل افتراضي البيانات إلى دفعات صغيرة ويحسن نموذج NMF بطريقة عبر الإنترنت عن طريق الدوران فوق الدفعات الصغيرة للعدد المحدد من التكرارات. تتحكم معلمة "batch_size" في حجم الدفعات.
 
-.. _MiniBatchNMF:
+للتسريع من خوارزمية الدفعات الصغيرة، من الممكن أيضًا قياس الدفعات السابقة، مما يمنحها أهمية أقل من الدفعات الأحدث. يتم ذلك بتقديم ما يسمى بمعامل النسيان الذي يتحكم فيه معلمة "forget_factor".
 
-Mini-batch Non Negative Matrix Factorization
---------------------------------------------
+ينفذ المحلل أيضًا "partial_fit"، والذي يقوم بتحديث "H" عن طريق التكرار مرة واحدة فقط عبر دفعة صغيرة. يمكن استخدام هذا للتعلم عبر الإنترنت عندما لا تكون البيانات متاحة بسهولة من البداية، أو عندما لا تتسع البيانات في الذاكرة.
 
-:class:`MiniBatchNMF` [7]_ implements a faster, but less accurate version of the
-non negative matrix factorization (i.e. :class:`~sklearn.decomposition.NMF`),
-better suited for large datasets.
+المراجع:
 
-By default, :class:`MiniBatchNMF` divides the data into mini-batches and
-optimizes the NMF model in an online manner by cycling over the mini-batches
-for the specified number of iterations. The ``batch_size`` parameter controls
-the size of the batches.
+- "تعلم أجزاء الكائنات بواسطة التحليل العاملي للصفوف غير السالبة" D. Lee، S. Seung، 1999
+- "التحليل العاملي للصفوف غير السالبة مع قيود الندرة" P. Hoyer، 2004
+- "التحلل القيمي الفردي القائم على التهيئة: بداية جيدة للتحليل العاملي للصفوف غير السالبة" C. Boutsidis، E. Gallopoulos، 2008
+- "خوارزميات محلية سريعة للتحليل العاملي للصفوف غير السالبة والمتوترة غير السالبة." A. Cichocki، A. Phan، 2009
+- "خوارزميات للتحليل العاملي للصفوف غير السالبة مع انحراف بيتا" C. Fevotte، J. Idier، 2011
+- "خوارزميات عبر الإنترنت للتحليل العاملي للصفوف غير السالبة مع انحراف إيتاكورا-سايتو" A. Lefevre، F. Bach، C. Fevotte، 2011
 
-In order to speed up the mini-batch algorithm it is also possible to scale
-past batches, giving them less importance than newer batches. This is done
-introducing a so-called forgetting factor controlled by the ``forget_factor``
-parameter.
+تخصيص ديرييشليت (LDA)
+تخصيص ديريتشلي الكامن هو نموذج احتمالي تنموي لمجموعات من مجموعات البيانات المنفصلة مثل مجموعات النصوص. وهو أيضًا نموذج مواضيعي يستخدم لاستكشاف المواضيع المجردة من مجموعة من الوثائق.
 
-The estimator also implements ``partial_fit``, which updates ``H`` by iterating
-only once over a mini-batch. This can be used for online learning when the data
-is not readily available from the start, or when the data does not fit into memory.
-
-.. rubric:: References
-
-.. [1] `"Learning the parts of objects by non-negative matrix factorization"
-  <http://www.cs.columbia.edu/~blei/fogm/2020F/readings/LeeSeung1999.pdf>`_
-  D. Lee, S. Seung, 1999
-
-.. [2] `"Non-negative Matrix Factorization with Sparseness Constraints"
-  <https://www.jmlr.org/papers/volume5/hoyer04a/hoyer04a.pdf>`_
-  P. Hoyer, 2004
-
-.. [4] `"SVD based initialization: A head start for nonnegative
-  matrix factorization"
-  <https://www.boutsidis.org/Boutsidis_PRE_08.pdf>`_
-  C. Boutsidis, E. Gallopoulos, 2008
-
-.. [5] `"Fast local algorithms for large scale nonnegative matrix and tensor
-  factorizations."
-  <https://www.researchgate.net/profile/Anh-Huy-Phan/publication/220241471_Fast_Local_Algorithms_for_Large_Scale_Nonnegative_Matrix_and_Tensor_Factorizations>`_
-  A. Cichocki, A. Phan, 2009
-
-.. [6] :arxiv:`"Algorithms for nonnegative matrix factorization with
-  the beta-divergence" <1010.1763>`
-  C. Fevotte, J. Idier, 2011
-
-.. [7] :arxiv:`"Online algorithms for nonnegative matrix factorization with the
-  Itakura-Saito divergence" <1106.4198>`
-  A. Lefevre, F. Bach, C. Fevotte, 2011
-
-.. _LatentDirichletAllocation:
-
-Latent Dirichlet Allocation (LDA)
-=================================
-
-Latent Dirichlet Allocation is a generative probabilistic model for collections of
-discrete dataset such as text corpora. It is also a topic model that is used for
-discovering abstract topics from a collection of documents.
-
-The graphical model of LDA is a three-level generative model:
+نموذج LDA البياني هو نموذج تنبئي ثلاثي المستويات:
 
 .. image:: ../images/lda_model_graph.png
    :align: center
 
-Note on notations presented in the graphical model above, which can be found in
-Hoffman et al. (2013):
+ملاحظة حول الرموز المقدمة في النموذج البياني أعلاه، والتي يمكن العثور عليها في Hoffman et al. (2013):
 
-* The corpus is a collection of :math:`D` documents.
-* A document is a sequence of :math:`N` words.
-* There are :math:`K` topics in the corpus.
-* The boxes represent repeated sampling.
+* المجموعة هي مجموعة من :math:`D` الوثائق.
+* الوثيقة هي تسلسل من :math:`N` الكلمات.
+* هناك :math:`K` مواضيع في المجموعة.
+* تمثل الصناديق تكرار أخذ العينات.
 
-In the graphical model, each node is a random variable and has a role in the
-generative process. A shaded node indicates an observed variable and an unshaded
-node indicates a hidden (latent) variable. In this case, words in the corpus are
-the only data that we observe. The latent variables determine the random mixture
-of topics in the corpus and the distribution of words in the documents.
-The goal of LDA is to use the observed words to infer the hidden topic
-structure.
+في النموذج البياني، كل عقدة هي متغير عشوائي ولها دور في العملية التنموية. تشير العقدة المظللة إلى متغير مرصود، في حين تشير العقدة غير المظللة إلى متغير مخفي (كامن). في هذه الحالة، الكلمات في المجموعة هي البيانات الوحيدة التي نرصدها. تحدد المتغيرات الكامنة المزيج العشوائي للمواضيع في المجموعة وتوزيع الكلمات في الوثائق.
+هدف LDA هو استخدام الكلمات المرصودة لاستنتاج بنية الموضوع المخفية.
 
-.. dropdown:: Details on modeling text corpora
+.. dropdown:: تفاصيل حول نمذجة مجموعات النصوص
 
-    When modeling text corpora, the model assumes the following generative process
-    for a corpus with :math:`D` documents and :math:`K` topics, with :math:`K`
-    corresponding to `n_components` in the API:
+    عند نمذجة مجموعات النصوص، يفترض النموذج العملية التنموية التالية
+    لمجموعة بها :math:`D` الوثائق و :math:`K` المواضيع، مع :math:`K`
+    المقابلة لـ `n_components` في واجهة برمجة التطبيقات:
 
-    1. For each topic :math:`k \in K`, draw :math:`\beta_k \sim
-       \mathrm{Dirichlet}(\eta)`. This provides a distribution over the words,
-       i.e. the probability of a word appearing in topic :math:`k`.
-       :math:`\eta` corresponds to `topic_word_prior`.
+    1. لكل موضوع :math:`k \in K`، ارسم :math:`\beta_k \sim
+       \mathrm{Dirichlet}(\eta)`. يوفر هذا توزيعًا للكلمات،
+       أي احتمال ظهور كلمة في الموضوع :math:`k`.
+       :math:`\eta` يقابل `topic_word_prior`.
 
-    2. For each document :math:`d \in D`, draw the topic proportions
+    2. لكل وثيقة :math:`d \in D`، ارسم نسب الموضوعات
        :math:`\theta_d \sim \mathrm{Dirichlet}(\alpha)`. :math:`\alpha`
-       corresponds to `doc_topic_prior`.
+       يقابل `doc_topic_prior`.
 
-    3. For each word :math:`i` in document :math:`d`:
+    3. لكل كلمة :math:`i` في الوثيقة :math:`d`:
 
-       a. Draw the topic assignment :math:`z_{di} \sim \mathrm{Multinomial}
+       أ. ارسم تعيين الموضوع :math:`z_{di} \sim \mathrm{Multinomial}
           (\theta_d)`
-       b. Draw the observed word :math:`w_{ij} \sim \mathrm{Multinomial}
+       ب. ارسم الكلمة المرصودة :math:`w_{ij} \sim \mathrm{Multinomial}
           (\beta_{z_{di}})`
 
-    For parameter estimation, the posterior distribution is:
+    بالنسبة لتقدير المعلمات، يكون التوزيع الاحتمالي اللاحق هو:
 
     .. math::
         p(z, \theta, \beta |w, \alpha, \eta) =
         \frac{p(z, \theta, \beta|\alpha, \eta)}{p(w|\alpha, \eta)}
 
-    Since the posterior is intractable, variational Bayesian method
-    uses a simpler distribution :math:`q(z,\theta,\beta | \lambda, \phi, \gamma)`
-    to approximate it, and those variational parameters :math:`\lambda`,
-    :math:`\phi`, :math:`\gamma` are optimized to maximize the Evidence
-    Lower Bound (ELBO):
+    نظرًا لأن التوزيع اللاحق غير قابل للتعامل معه، يستخدم الأسلوب الخلوي البايزي توزيعًا أبسط :math:`q(z,\theta,\beta | \lambda, \phi، \gamma)`
+    لتقريبه، ويتم تحسين معلمات التباين هذه :math:`\lambda`،
+    :math:`\phi`، :math:`\gamma` لتعظيم حد الأدلة السفلي (ELBO):
 
     .. math::
         \log\: P(w | \alpha, \eta) \geq L(w,\phi,\gamma,\lambda) \overset{\triangle}{=}
         E_{q}[\log\:p(w,z,\theta,\beta|\alpha,\eta)] - E_{q}[\log\:q(z, \theta, \beta)]
 
-    Maximizing ELBO is equivalent to minimizing the Kullback-Leibler(KL) divergence
-    between :math:`q(z,\theta,\beta)` and the true posterior
+    تعظيم ELBO يعادل تقليل التباعد Kullback-Leibler (KL)
+    بين :math:`q(z,\theta,\beta)` والتوزيع اللاحق الحقيقي
     :math:`p(z, \theta, \beta |w, \alpha, \eta)`.
 
 
-:class:`LatentDirichletAllocation` implements the online variational Bayes
-algorithm and supports both online and batch update methods.
-While the batch method updates variational variables after each full pass through
-the data, the online method updates variational variables from mini-batch data
-points.
+:class:`LatentDirichletAllocation` ينفذ خوارزمية بايز المتغيرة عبر الإنترنت
+تدعم كل من أساليب التحديث عبر الإنترنت والدفعات.
+في حين أن طريقة الدفعة تحدّث المتغيرات المتغيرة بعد كل مرور كامل بالبيانات،
+تقوم الطريقة عبر الإنترنت بتحديث المتغيرات المتغيرة من نقاط بيانات الدفعات الصغيرة.
 
 .. note::
 
-  Although the online method is guaranteed to converge to a local optimum point, the quality of
-  the optimum point and the speed of convergence may depend on mini-batch size and
-  attributes related to learning rate setting.
+  على الرغم من أن الطريقة عبر الإنترنت تضمن التقارب إلى نقطة مثالية محلية، إلا أن جودة
+  نقطة المثالية وسرعة التقارب قد تعتمد على حجم الدفعة الصغيرة والسمات المتعلقة بإعداد معدل التعلم.
 
-When :class:`LatentDirichletAllocation` is applied on a "document-term" matrix, the matrix
-will be decomposed into a "topic-term" matrix and a "document-topic" matrix. While
-"topic-term" matrix is stored as `components_` in the model, "document-topic" matrix
-can be calculated from ``transform`` method.
+عندما يتم تطبيق :class:`LatentDirichletAllocation` على مصفوفة "مصطلح المستند"، يتم تحليل المصفوفة
+إلى مصفوفة "مصطلح الموضوع" ومصفوفة "موضوع المستند". في حين
+يتم تخزين مصفوفة "مصطلح الموضوع" على أنها `components_` في النموذج، يمكن حساب مصفوفة "موضوع المستند"
+من طريقة ``transform``.
 
-:class:`LatentDirichletAllocation` also implements ``partial_fit`` method. This is used
-when data can be fetched sequentially.
+:class:`LatentDirichletAllocation` ينفذ أيضًا طريقة ``partial_fit``. يتم استخدام هذا عندما يمكن جلب البيانات بشكل تسلسلي.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_applications_plot_topics_extraction_with_nmf_lda.py`
 
-.. rubric:: References
+.. rubric:: مراجع
 
 * `"Latent Dirichlet Allocation"
   <https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf>`_
@@ -1093,5 +601,5 @@ when data can be fetched sequentially.
   <https://link.springer.com/article/10.1007%2FBF02289233>`_
   H. F. Kaiser, 1958
 
-See also :ref:`nca_dim_reduction` for dimensionality reduction with
-Neighborhood Components Analysis.
+انظر أيضًا :ref:`nca_dim_reduction` لخفض الأبعاد مع
+تحليل مكونات الجوار.
