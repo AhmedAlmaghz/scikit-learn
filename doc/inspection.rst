@@ -1,25 +1,13 @@
-.. _inspection:
-
-Inspection
+التفتيش
 ----------
 
-Predictive performance is often the main goal of developing machine learning
-models. Yet summarizing performance with an evaluation metric is often
-insufficient: it assumes that the evaluation metric and test dataset
-perfectly reflect the target domain, which is rarely true. In certain domains,
-a model needs a certain level of interpretability before it can be deployed.
-A model that is exhibiting performance issues needs to be debugged for one to
-understand the model's underlying issue. The
-:mod:`sklearn.inspection` module provides tools to help understand the
-predictions from a model and what affects them. This can be used to
-evaluate assumptions and biases of a model, design a better model, or
-to diagnose issues with model performance.
+غالباً ما يكون الأداء التنبئي هو الهدف الرئيسي من تطوير نماذج التعلم الآلي. ومع ذلك، فإن تلخيص الأداء باستخدام مقياس تقييم قد لا يكون كافياً في كثير من الأحيان: فهو يفترض أن مقياس التقييم ومجموعة البيانات الاختبارية تعكسان المجال المستهدف بشكل مثالي، وهو ما نادراً ما يكون صحيحاً. في بعض المجالات، يحتاج النموذج إلى مستوى معين من قابلية التفسير قبل أن يمكن نشره. يجب تصحيح نموذج يعاني من مشكلات في الأداء لفهم المشكلة الأساسية للنموذج. توفر وحدة النمط :mod: 'sklearn.inspection' أدوات للمساعدة في فهم التنبؤات الصادرة عن نموذج والعوامل التي تؤثر عليها. يمكن استخدام هذا لتقييم افتراضات النموذج وتحيزاته، أو تصميم نموذج أفضل، أو تشخيص مشكلات أداء النموذج.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
-* :ref:`sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py`
+* :ref: 'sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py'.
 
 .. toctree::
 
-    modules/partial_dependence
-    modules/permutation_importance
+    الوحدات/الاعتماد الجزئي
+    الوحدات/أهمية التبديل
