@@ -1,78 +1,74 @@
 .. _sgd:
 
 ===========================
-Stochastic Gradient Descent
+انحدار تدرج الاحتمالية العشوائي
 ===========================
 
 .. currentmodule:: sklearn.linear_model
 
-**Stochastic Gradient Descent (SGD)** is a simple yet very efficient
-approach to fitting linear classifiers and regressors under
-convex loss functions such as (linear) `Support Vector Machines
-<https://en.wikipedia.org/wiki/Support_vector_machine>`_ and `Logistic
+**انحدار تدرج الاحتمالية العشوائي (SGD)** هو نهج بسيط ولكنه فعال للغاية
+لملاءمة المصنفات والمنقبات الخطية تحت
+دالات خسارة محدبة مثل (الخطية) `Support Vector Machines
+<https://en.wikipedia.org/wiki/Support_vector_machine>`_ و `Logistic
 Regression <https://en.wikipedia.org/wiki/Logistic_regression>`_.
-Even though SGD has been around in the machine learning community for
-a long time, it has received a considerable amount of attention just
-recently in the context of large-scale learning.
+على الرغم من أن SGD موجود منذ فترة طويلة في مجتمع تعلم الآلة،
+إلا أنه حظي مؤخرًا باهتمام كبير في سياق التعلم واسع النطاق.
 
-SGD has been successfully applied to large-scale and sparse machine
-learning problems often encountered in text classification and natural
-language processing.  Given that the data is sparse, the classifiers
-in this module easily scale to problems with more than 10^5 training
-examples and more than 10^5 features.
+تم تطبيق SGD بنجاح على مشكلات التعلم الآلي واسعة النطاق والمفرطة
+التي يتم مواجهتها غالبًا في تصنيف النصوص ومعالجة اللغات الطبيعية.
+ونظرًا لأن البيانات مفرطة، فإن المصنفات في هذا النموذج تتوسع بسهولة
+لتشمل مشكلات بها أكثر من 10^5 مثال تدريبي وأكثر من 10^5 خاصية.
 
-Strictly speaking, SGD is merely an optimization technique and does not
-correspond to a specific family of machine learning models. It is only a
-*way* to train a model. Often, an instance of :class:`SGDClassifier` or
-:class:`SGDRegressor` will have an equivalent estimator in
-the scikit-learn API, potentially using a different optimization technique.
-For example, using `SGDClassifier(loss='log_loss')` results in logistic regression,
-i.e. a model equivalent to :class:`~sklearn.linear_model.LogisticRegression`
-which is fitted via SGD instead of being fitted by one of the other solvers
-in :class:`~sklearn.linear_model.LogisticRegression`. Similarly,
-`SGDRegressor(loss='squared_error', penalty='l2')` and
-:class:`~sklearn.linear_model.Ridge` solve the same optimization problem, via
-different means.
+وبالحديث الدقيق، فإن SGD هو مجرد تقنية تحسين ولا يتوافق مع عائلة
+محددة من نماذج التعلم الآلي. إنها مجرد
+*طريقة* لتدريب نموذج. وغالبًا ما يكون لدى مثيل من :class:`SGDClassifier` أو
+:class:`SGDRegressor` مكافئًا في أداة تقدير
+واجهة برمجة التطبيقات scikit-learn، باستخدام تقنية تحسين مختلفة.
+على سبيل المثال، يؤدي استخدام `SGDClassifier(loss='log_loss')` إلى الانحدار اللوجستي،
+أي نموذج مكافئ لـ :class:`~sklearn.linear_model.LogisticRegression`
+الذي يتم ملاؤه عبر SGD بدلاً من ملؤه بواسطة أحد المحللين الآخرين
+في :class:`~sklearn.linear_model.LogisticRegression`. وبالمثل،
+`SGDRegressor(loss='squared_error', penalty='l2')` و
+:class:`~sklearn.linear_model.Ridge` يحلان نفس مشكلة التحسين، بوسائل مختلفة.
 
-The advantages of Stochastic Gradient Descent are:
+مزايا انحدار تدرج الاحتمالية العشوائي هي:
 
-+ Efficiency.
++ الكفاءة.
 
-+ Ease of implementation (lots of opportunities for code tuning).
++ سهولة التنفيذ (الكثير من الفرص لضبط الكود).
 
-The disadvantages of Stochastic Gradient Descent include:
+وتشمل عيوب انحدار تدرج الاحتمالية العشوائي ما يلي:
 
-+ SGD requires a number of hyperparameters such as the regularization
-  parameter and the number of iterations.
++ يتطلب SGD عددًا من فرط المعلمات مثل معامل التنظيم
+وعدد التكرارات.
 
-+ SGD is sensitive to feature scaling.
++ SGD حساس لمقياس الخاصية.
 
 .. warning::
 
-  Make sure you permute (shuffle) your training data before fitting the model
-  or use ``shuffle=True`` to shuffle after each iteration (used by default).
-  Also, ideally, features should be standardized using e.g.
-  `make_pipeline(StandardScaler(), SGDClassifier())` (see :ref:`Pipelines
+  تأكد من أنك تقوم بتبديل (خلط) بيانات التدريب الخاصة بك قبل ملاءمة النموذج
+  أو استخدام ``shuffle=True`` للخلط بعد كل تكرار (يتم استخدامه بشكل افتراضي).
+  أيضًا، من الناحية المثالية، يجب توحيد المقاييس باستخدام e.g.
+  `make_pipeline(StandardScaler(), SGDClassifier())` (راجع: :ref:`Pipelines
   <combining_estimators>`).
 
-Classification
+التصنيف
 ==============
 
 
-The class :class:`SGDClassifier` implements a plain stochastic gradient
-descent learning routine which supports different loss functions and
-penalties for classification. Below is the decision boundary of a
-:class:`SGDClassifier` trained with the hinge loss, equivalent to a linear SVM.
+تنفذ الفئة :class:`SGDClassifier` روتين تعلم الانحدار التدريجي العشوائي العادي
+الذي يدعم دالات الخسارة والعقوبات المختلفة للتصنيف. وفيما يلي حد القرار
+لمصنف :class:`SGDClassifier` تم تدريبه بخسارة المفصل، وهو ما يعادل SVM الخطي.
 
 .. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_sgd_separating_hyperplane_001.png
    :target: ../auto_examples/linear_model/plot_sgd_separating_hyperplane.html
    :align: center
    :scale: 75
 
-As other classifiers, SGD has to be fitted with two arrays: an array `X`
-of shape (n_samples, n_features) holding the training samples, and an
-array y of shape (n_samples,) holding the target values (class labels)
-for the training samples::
+وكما هو الحال مع المصنفات الأخرى، يجب ملاءمة SGD باستخدام صفيفين: صفيف `X`
+بشكل (n_samples، n_features) يحتوي على عينات التدريب، وصفيف y بشكل (n_samples،)
+يحتوي على القيم المستهدفة (ملصقات الفئات)
+لعينات التدريب::
 
     >>> from sklearn.linear_model import SGDClassifier
     >>> X = [[0., 0.], [1., 1.]]
@@ -82,492 +78,328 @@ for the training samples::
     SGDClassifier(max_iter=5)
 
 
-After being fitted, the model can then be used to predict new values::
+بعد الملاءمة، يمكن بعد ذلك استخدام النموذج للتنبؤ بقيم جديدة::
 
     >>> clf.predict([[2., 2.]])
     array([1])
 
-SGD fits a linear model to the training data. The ``coef_`` attribute holds
-the model parameters::
+يحدد SGD نموذجًا خطيًا لبيانات التدريب. يحتوي معامل ``coef_`` على
+معلمات النموذج::
 
     >>> clf.coef_
     array([[9.9..., 9.9...]])
 
-The ``intercept_`` attribute holds the intercept (aka offset or bias)::
+يحتوي معامل ``intercept_`` على المقاطعة (المعروفة أيضًا باسم الإزاحة أو الانحياز)::
 
     >>> clf.intercept_
     array([-9.9...])
 
-Whether or not the model should use an intercept, i.e. a biased
-hyperplane, is controlled by the parameter ``fit_intercept``.
+ما إذا كان يجب على النموذج استخدام مقاطعة، أي فراغ متحيز،
+يتم التحكم فيه بواسطة معامل ``fit_intercept``.
 
-The signed distance to the hyperplane (computed as the dot product between
-the coefficients and the input sample, plus the intercept) is given by
-:meth:`SGDClassifier.decision_function`::
+تعطي دالة :meth:`SGDClassifier.decision_function` المسافة الموقعة إلى الفراغ
+(المحسوبة على أنها جداء داخلي بين المعاملات والعينة المدخلة، بالإضافة إلى المقاطعة)::
 
     >>> clf.decision_function([[2., 2.]])
     array([29.6...])
 
-The concrete loss function can be set via the ``loss``
-parameter. :class:`SGDClassifier` supports the following loss functions:
+يمكن تعيين دالة الخسارة الملموسة عبر معامل ``loss``. تدعم الفئة :class:`SGDClassifier`
+دالات الخسارة التالية:
 
-* ``loss="hinge"``: (soft-margin) linear Support Vector Machine,
-* ``loss="modified_huber"``: smoothed hinge loss,
-* ``loss="log_loss"``: logistic regression,
+* ``loss="hinge"``: (soft-margin) linear Support Vector Machine،
+* ``loss="modified_huber"``: smoothed hinge loss،
+* ``loss="log_loss"``: logistic regression،
 * and all regression losses below. In this case the target is encoded as -1
   or 1, and the problem is treated as a regression problem. The predicted
   class then correspond to the sign of the predicted target.
 
-Please refer to the :ref:`mathematical section below
-<sgd_mathematical_formulation>` for formulas.
-The first two loss functions are lazy, they only update the model
-parameters if an example violates the margin constraint, which makes
-training very efficient and may result in sparser models (i.e. with more zero
-coefficients), even when L2 penalty is used.
+يرجى الرجوع إلى القسم الرياضي أدناه
+<sgd_mathematical_formulation> للصيغ.
+دالتا الخسارة الأوليتان كسولتان، فهما لا تحدثان تحديثات لمعلمات النموذج
+إلا إذا انتهك مثال ما قيد الهامش، مما يجعل التدريب فعالاً للغاية وقد يؤدي إلى
+نماذج أكثر ندرة (أي بمعاملات صفرية أكثر)، حتى عند استخدام عقوبة L2.
 
-Using ``loss="log_loss"`` or ``loss="modified_huber"`` enables the
-``predict_proba`` method, which gives a vector of probability estimates
-:math:`P(y|x)` per sample :math:`x`::
+يتيح استخدام ``loss="log_loss"`` أو ``loss="modified_huber"`` طريقة
+``predict_proba``، والتي تعطي متجهًا من تقديرات الاحتمالية
+:math:`P(y|x)` لكل عينة :math:`x`::
 
     >>> clf = SGDClassifier(loss="log_loss", max_iter=5).fit(X, y)
     >>> clf.predict_proba([[1., 1.]]) # doctest: +SKIP
     array([[0.00..., 0.99...]])
 
-The concrete penalty can be set via the ``penalty`` parameter.
-SGD supports the following penalties:
+يمكن تعيين العقوبة الملموسة عبر معامل ``penalty``.
+يدعم SGD العقوبات التالية:
 
 * ``penalty="l2"``: L2 norm penalty on ``coef_``.
 * ``penalty="l1"``: L1 norm penalty on ``coef_``.
 * ``penalty="elasticnet"``: Convex combination of L2 and L1;
   ``(1 - l1_ratio) * L2 + l1_ratio * L1``.
 
-The default setting is ``penalty="l2"``. The L1 penalty leads to sparse
-solutions, driving most coefficients to zero. The Elastic Net [#5]_ solves
-some deficiencies of the L1 penalty in the presence of highly correlated
-attributes. The parameter ``l1_ratio`` controls the convex combination
-of L1 and L2 penalty.
+الإعداد الافتراضي هو ``penalty="l2"``. تؤدي عقوبة L1 إلى حلول نادرة،
+مما يؤدي إلى جعل معظم المعاملات صفرية. وتعالج شبكة المطاط بعض أوجه القصور
+في عقوبة L1 في وجود سمات شديدة الارتباط. يتحكم معامل ``l1_ratio`` في
+الدمج المحدب للعقوبتين L1 وL2.
 
-:class:`SGDClassifier` supports multi-class classification by combining
-multiple binary classifiers in a "one versus all" (OVA) scheme. For each
-of the :math:`K` classes, a binary classifier is learned that discriminates
-between that and all other :math:`K-1` classes. At testing time, we compute the
-confidence score (i.e. the signed distances to the hyperplane) for each
-classifier and choose the class with the highest confidence. The Figure
-below illustrates the OVA approach on the iris dataset.  The dashed
-lines represent the three OVA classifiers; the background colors show
-the decision surface induced by the three classifiers.
+تدعم الفئة :class:`SGDClassifier` التصنيف متعدد الفئات عن طريق الجمع
+بين مصنفات ثنائية متعددة في مخطط "واحد مقابل الجميع" (OVA). لكل
+من الفئات :math:`K`، يتم تعلم مصنف ثنائي يميز تلك الفئة عن جميع الفئات الأخرى
+:math:`K-1`. وفي وقت الاختبار، نحسب درجة الثقة (أي المسافات الموقعة إلى الفراغ)
+لكل مصنف ونختار الفئة ذات الثقة الأعلى. توضح الصورة أدناه نهج OVA
+على مجموعة بيانات Iris. تمثل الخطوط المتقطعة المصنفات الثلاثة OVA؛
+توضح ألوان الخلفية سطح القرار الذي تسببه المصنفات الثلاثة.
 
 .. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_sgd_iris_001.png
    :target: ../auto_examples/linear_model/plot_sgd_iris.html
    :align: center
    :scale: 75
 
-In the case of multi-class classification ``coef_`` is a two-dimensional
-array of shape (n_classes, n_features) and ``intercept_`` is a
-one-dimensional array of shape (n_classes,). The i-th row of ``coef_`` holds
-the weight vector of the OVA classifier for the i-th class; classes are
-indexed in ascending order (see attribute ``classes_``).
-Note that, in principle, since they allow to create a probability model,
-``loss="log_loss"`` and ``loss="modified_huber"`` are more suitable for
-one-vs-all classification.
+في حالة التصنيف متعدد الفئات، يكون ``coef_`` مصفوفة ثنائية الأبعاد
+بشكل (n_classes، n_features) و ``intercept_`` مصفوفة أحادية البعد
+بشكل (n_classes،). يحتوي الصف i-th من ``coef_`` على
+متجه الأوزان لمصنف OVA للفئة i-th؛ يتم فهرسة الفئات بترتيب تصاعدي
+(راجع معامل "classes_").
+لاحظ أنه، من حيث المبدأ، نظرًا لأنها تسمح بإنشاء نموذج احتمالي،
+فإن ``loss="log_loss"`` و ``loss="modified_huber"`` أكثر ملاءمة
+للتصنيف أحادي مقابل الجميع.
 
-:class:`SGDClassifier` supports both weighted classes and weighted
-instances via the fit parameters ``class_weight`` and ``sample_weight``. See
-the examples below and the docstring of :meth:`SGDClassifier.fit` for
-further information.
+تدعم الفئة :class:`SGDClassifier` كلاً من الفئات المرجحة والعينات المرجحة
+عبر معلمي الملاءمة ``class_weight`` و ``sample_weight``. راجع
+الأمثلة أدناه ووثائق سلسلة طرق :meth:`SGDClassifier.fit` لمزيد من المعلومات.
 
-:class:`SGDClassifier` supports averaged SGD (ASGD) [#4]_. Averaging can be
-enabled by setting `average=True`. ASGD performs the same updates as the
-regular SGD (see :ref:`sgd_mathematical_formulation`), but instead of using
-the last value of the coefficients as the `coef_` attribute (i.e. the values
-of the last update), `coef_` is set instead to the **average** value of the
-coefficients across all updates. The same is done for the `intercept_`
-attribute. When using ASGD the learning rate can be larger and even constant,
-leading on some datasets to a speed up in training time.
+تدعم الفئة :class:`SGDClassifier` متوسط SGD (ASGD) [#4]_. يمكن تمكين المتوسط
+بوضع `average=True`. يؤدي ASGD نفس التحديثات مثل
+SGD العادي (راجع: :ref:`sgd_mathematical_formulation`)، ولكن بدلاً من استخدام
+القيمة الأخيرة للمعاملات كمعامل ``coef_`` (أي قيم
+التحديث الأخير)، يتم تعيين ``coef_`` بدلاً من ذلك إلى متوسط
+قيم المعاملات عبر جميع التحديثات. ويتم الشيء نفسه بالنسبة لمعامل ``intercept_``.
+عند استخدام ASGD، يمكن أن يكون معدل التعلم أكبر وحتى ثابتًا، مما يؤدي في بعض
+مجموعات البيانات إلى تسريع وقت التدريب.
 
-For classification with a logistic loss, another variant of SGD with an
-averaging strategy is available with Stochastic Average Gradient (SAG)
-algorithm, available as a solver in :class:`LogisticRegression`.
+بالنسبة للتصنيف بخسارة لوجستية، هناك متغير آخر من SGD مع استراتيجية
+المتوسط متاح بخوارزمية متوسط التدرج العشوائي (SAG)،
+متاح كمُحسِّن في :class:`LogisticRegression`.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 - :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_separating_hyperplane.py`
 - :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_iris.py`
 - :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_weighted_samples.py`
 - :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_comparison.py`
 - :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane_unbalanced.py`
-  (See the Note in the example)
+  (راجع الملاحظة في المثال)
 
-Regression
+الانحدار
 ==========
 
-The class :class:`SGDRegressor` implements a plain stochastic gradient
-descent learning routine which supports different loss functions and
-penalties to fit linear regression models. :class:`SGDRegressor` is
-well suited for regression problems with a large number of training
-samples (> 10.000), for other problems we recommend :class:`Ridge`,
-:class:`Lasso`, or :class:`ElasticNet`.
+تنفذ الفئة :class:`SGDRegressor` روتين تعلم الانحدار التدريجي العشوائي العادي
+الذي يدعم دالات الخسارة والعقوبات المختلفة لملاءمة نماذج الانحدار الخطي.
+الفئة :class:`SGDRegressor` مناسبة لمشكلات الانحدار التي بها عدد كبير من
+عينات التدريب (> 10.000)، وبالنسبة للمشكلات الأخرى، نوصي باستخدام الفئات
+:class:`Ridge`، أو :class:`Lasso`، أو :class:`ElasticNet`.
 
-The concrete loss function can be set via the ``loss``
-parameter. :class:`SGDRegressor` supports the following loss functions:
+يمكن تعيين دالة الخسارة الملموسة عبر معامل ``loss``. تدعم الفئة :class:`SGDRegressor`
+دالات الخسارة التالية:
 
-* ``loss="squared_error"``: Ordinary least squares,
-* ``loss="huber"``: Huber loss for robust regression,
+* ``loss="squared_error"``: Ordinary least squares،
+* ``loss="huber"``: Huber loss for robust regression،
 * ``loss="epsilon_insensitive"``: linear Support Vector Regression.
 
-Please refer to the :ref:`mathematical section below
-<sgd_mathematical_formulation>` for formulas.
-The Huber and epsilon-insensitive loss functions can be used for
-robust regression. The width of the insensitive region has to be
-specified via the parameter ``epsilon``. This parameter depends on the
-scale of the target variables.
+يرجى الرجوع إلى القسم الرياضي أدناه
+<sgd_mathematical_formulation> للصيغ.
+يمكن استخدام دالتَي الخسارة Huber وepsilon-insensitive للانحدار القوي.
+يجب تحديد عرض المنطقة غير الحساسة عبر معامل ``epsilon``. يعتمد هذا المعامل
+على مقياس المتغيرات المستهدفة.
 
-The `penalty` parameter determines the regularization to be used (see
-description above in the classification section).
+يحدد معامل `penalty` طريقة التنظيم التي سيتم استخدامها (راجع
+الوصف أعلاه في قسم التصنيف).
 
-:class:`SGDRegressor` also supports averaged SGD [#4]_ (here again, see
-description above in the classification section).
+تدعم الفئة :class:`SGDRegressor` أيضًا متوسط SGD [#4]_ (هنا مرة أخرى، راجع
+الوصف أعلاه في قسم التصنيف).
 
-For regression with a squared loss and a l2 penalty, another variant of
-SGD with an averaging strategy is available with Stochastic Average
-Gradient (SAG) algorithm, available as a solver in :class:`Ridge`.
+بالنسبة للانحدار بخسارة مربعة وعقوبة L2، هناك متغير آخر من SGD مع استراتيجية
+المتوسط متاح بخوارزمية متوسط التدرج العشوائي (SAG)،
+متاح كمُحسِّن في :class:`Ridge`.
 
 .. _sgd_online_one_class_svm:
 
 Online One-Class SVM
-====================
+ينفذ الصنف :class:`sklearn.linear_model.SGDOneClassSVM` إصدارًا خطيًا عبر الإنترنت لخوارزمية One-Class SVM باستخدام تدرج تنازلي احتمالي. وبدمجه مع تقنيات تقريب النواة، يمكن استخدام :class:`sklearn.linear_model.SGDOneClassSVM` لتقريب حل خوارزمية One-Class SVM المعممة باستخدام النواة، المنفذة في الصنف :class:`sklearn.svm.OneClassSVM`، بتعقيد خطي في عدد العينات. لاحظ أن تعقيد خوارزمية One-Class SVM المعممة باستخدام النواة هو في أفضل الأحوال تربيعي في عدد العينات.
 
-The class :class:`sklearn.linear_model.SGDOneClassSVM` implements an online
-linear version of the One-Class SVM using a stochastic gradient descent.
-Combined with kernel approximation techniques,
-:class:`sklearn.linear_model.SGDOneClassSVM` can be used to approximate the
-solution of a kernelized One-Class SVM, implemented in
-:class:`sklearn.svm.OneClassSVM`, with a linear complexity in the number of
-samples. Note that the complexity of a kernelized One-Class SVM is at best
-quadratic in the number of samples.
-:class:`sklearn.linear_model.SGDOneClassSVM` is thus well suited for datasets
-with a large number of training samples (> 10,000) for which the SGD
-variant can be several orders of magnitude faster.
+لذا، فإن الصنف :class:`sklearn.linear_model.SGDOneClassSVM` مناسب تمامًا لمجموعات البيانات التي تحتوي على عدد كبير من عينات التدريب (> 10000) والتي يمكن أن يكون فيها الإصدار المتغير أسرع بعدة درجات من حيث المقدار.
 
-.. dropdown:: Mathematical details
+يدعم كل من :class:`SGDClassifier` و:class:`SGDRegressor` و:class:`SGDOneClassSVM` خوارزمية SGD ذات المتوسط الحسابي. ويمكن تمكين المتوسط الحسابي من خلال تعيين "average=True".
 
-  Its implementation is based on the implementation of the stochastic
-  gradient descent. Indeed, the original optimization problem of the One-Class
-  SVM is given by
+خوارزمية التدرج التنازلي العشوائي للبيانات المتناثرة
+===========================================================
 
-  .. math::
+.. note::
 
-    \begin{aligned}
-    \min_{w, \rho, \xi} & \quad \frac{1}{2}\Vert w \Vert^2 - \rho + \frac{1}{\nu n} \sum_{i=1}^n \xi_i \\
-    \text{s.t.} & \quad \langle w, x_i \rangle \geq \rho - \xi_i \quad 1 \leq i \leq n \\
-    & \quad \xi_i \geq 0 \quad 1 \leq i \leq n
-    \end{aligned}
+   ينتج التنفيذ المتناثر نتائج مختلفة قليلاً عن التنفيذ الكثيف، وذلك بسبب تقلص معدل التعلم للمقاطعة. راجع :ref: `implementation_details` لمزيد من التفاصيل.
 
-  where :math:`\nu \in (0, 1]` is the user-specified parameter controlling the
-  proportion of outliers and the proportion of support vectors. Getting rid of
-  the slack variables :math:`\xi_i` this problem is equivalent to
+هناك دعم مدمج للبيانات المتناثرة المعطاة في أي مصفوفة بتنسيق مدعوم من قبل `scipy.sparse <https://docs.scipy.org/doc/scipy/reference/sparse.html>_`. ومع ذلك، فمن أجل تحقيق الكفاءة القصوى، استخدم تنسيق مصفوفة CSR كما هو محدد في `scipy.sparse.csr_matrix <https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html>_`.
 
-  .. math::
-
-    \min_{w, \rho} \frac{1}{2}\Vert w \Vert^2 - \rho + \frac{1}{\nu n} \sum_{i=1}^n \max(0, \rho - \langle w, x_i \rangle) \, .
-
-  Multiplying by the constant :math:`\nu` and introducing the intercept
-  :math:`b = 1 - \rho` we obtain the following equivalent optimization problem
-
-  .. math::
-
-    \min_{w, b} \frac{\nu}{2}\Vert w \Vert^2 + b\nu + \frac{1}{n} \sum_{i=1}^n \max(0, 1 - (\langle w, x_i \rangle + b)) \, .
-
-  This is similar to the optimization problems studied in section
-  :ref:`sgd_mathematical_formulation` with :math:`y_i = 1, 1 \leq i \leq n` and
-  :math:`\alpha = \nu/2`, :math:`L` being the hinge loss function and :math:`R`
-  being the L2 norm. We just need to add the term :math:`b\nu` in the
-  optimization loop.
-
-As :class:`SGDClassifier` and :class:`SGDRegressor`, :class:`SGDOneClassSVM`
-supports averaged SGD. Averaging can be enabled by setting ``average=True``.
-
-Stochastic Gradient Descent for sparse data
-===========================================
-
-.. note:: The sparse implementation produces slightly different results
-  from the dense implementation, due to a shrunk learning rate for the
-  intercept. See :ref:`implementation_details`.
-
-There is built-in support for sparse data given in any matrix in a format
-supported by `scipy.sparse
-<https://docs.scipy.org/doc/scipy/reference/sparse.html>`_. For maximum
-efficiency, however, use the CSR
-matrix format as defined in `scipy.sparse.csr_matrix
-<https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html>`_.
-
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 - :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
 
-Complexity
+التعقيد
 ==========
 
-The major advantage of SGD is its efficiency, which is basically
-linear in the number of training examples. If X is a matrix of size (n, p)
-training has a cost of :math:`O(k n \bar p)`, where k is the number
-of iterations (epochs) and :math:`\bar p` is the average number of
-non-zero attributes per sample.
+الميزة الرئيسية لخوارزمية SGD هي كفاءتها، والتي تكون بشكل أساسي خطية في عدد الأمثلة التدريبية. إذا كانت X مصفوفة ذات حجم (n، p)، فإن التدريب يكون بتكلفة :math:`O(k n \bar p)`، حيث k هو عدد التكرارات (الحقبات) و:math:`\bar p` هو متوسط عدد السمات غير الصفرية لكل عينة.
 
-Recent theoretical results, however, show that the runtime to get some
-desired optimization accuracy does not increase as the training set size increases.
+ومع ذلك، فقد أظهرت النتائج النظرية الحديثة أن وقت التشغيل للحصول على دقة تحسين مرغوبة لا يزيد مع زيادة حجم مجموعة التدريب.
 
-Stopping criterion
+معيار التوقف
 ==================
 
-The classes :class:`SGDClassifier` and :class:`SGDRegressor` provide two
-criteria to stop the algorithm when a given level of convergence is reached:
+يوفر الصنفان :class:`SGDClassifier` و:class:`SGDRegressor` معيارين لوقف الخوارزمية عند الوصول إلى مستوى معين من التقارب:
 
-* With ``early_stopping=True``, the input data is split into a training set
-  and a validation set. The model is then fitted on the training set, and the
-  stopping criterion is based on the prediction score (using the `score`
-  method) computed on the validation set. The size of the validation set
-  can be changed with the parameter ``validation_fraction``.
-* With ``early_stopping=False``, the model is fitted on the entire input data
-  and the stopping criterion is based on the objective function computed on
-  the training data.
+* مع تعيين "early_stopping=True"، يتم تقسيم بيانات الإدخال إلى مجموعة تدريب ومجموعة تحقق. بعد ذلك، يتم ملاءمة النموذج على مجموعة التدريب، ويتم استناد معيار التوقف على نتيجة التنبؤ (باستخدام طريقة "score") المحسوبة على مجموعة التحقق. يمكن تغيير حجم مجموعة التحقق باستخدام معامل "validation_fraction".
 
-In both cases, the criterion is evaluated once by epoch, and the algorithm stops
-when the criterion does not improve ``n_iter_no_change`` times in a row. The
-improvement is evaluated with absolute tolerance ``tol``, and the algorithm
-stops in any case after a maximum number of iteration ``max_iter``.
+* مع تعيين "early_stopping=False"، يتم ملاءمة النموذج على جميع بيانات الإدخال، ويتم استناد معيار التوقف على الدالة الهدف المحسوبة على بيانات التدريب.
 
+في كلتا الحالتين، يتم تقييم المعيار مرة واحدة لكل حقبة، ويتوقف الخوارزم عند عدم تحسن المعيار "n_iter_no_change" مرات متتالية. يتم تقييم التحسن باستخدام تسامح مطلق "tol"، ويتوقف الخوارزم في جميع الحالات بعد عدد أقصى من التكرارات "max_iter".
 
-Tips on Practical Use
+نصائح للاستخدام العملي
 =====================
 
-* Stochastic Gradient Descent is sensitive to feature scaling, so it
-  is highly recommended to scale your data. For example, scale each
-  attribute on the input vector X to [0,1] or [-1,+1], or standardize
-  it to have mean 0 and variance 1. Note that the *same* scaling must be
-  applied to the test vector to obtain meaningful results. This can be easily
-  done using :class:`~sklearn.preprocessing.StandardScaler`::
+* خوارزمية التدرج التنازلي العشوائي حساسة لمقياس الميزة، لذا يوصى بشدة بضبط مقياس بياناتك. على سبيل المثال، قم بضبط كل سمة في متجه الإدخال X إلى المجال [0,1] أو [-1,+1]، أو قم بتوحيدها ليكون متوسطها 0 وانحرافها المعياري 1. لاحظ أنه يجب تطبيق *نفس* الضبط على متجه الاختبار للحصول على نتائج ذات معنى. يمكن القيام بذلك بسهولة باستخدام :class:`~sklearn.preprocessing.StandardScaler`::
 
     from sklearn.preprocessing import StandardScaler
     scaler = StandardScaler()
-    scaler.fit(X_train)  # Don't cheat - fit only on training data
+    scaler.fit(X_train)  # لا تغش - قم بالضبط فقط على بيانات التدريب
     X_train = scaler.transform(X_train)
-    X_test = scaler.transform(X_test)  # apply same transformation to test data
+    X_test = scaler.transform(X_test)  # تطبيق نفس التحويل على بيانات الاختبار
 
-    # Or better yet: use a pipeline!
+    # أو بشكل أفضل: استخدم خط أنابيب!
     from sklearn.pipeline import make_pipeline
     est = make_pipeline(StandardScaler(), SGDClassifier())
     est.fit(X_train)
     est.predict(X_test)
 
-  If your attributes have an intrinsic scale (e.g. word frequencies or
-  indicator features) scaling is not needed.
+  إذا كانت سماتك لها مقياس جوهري (مثل تكرارات الكلمات أو السمات المؤشرة)، فلن تكون هناك حاجة للضبط.
 
-* Finding a reasonable regularization term :math:`\alpha` is
-  best done using automatic hyper-parameter search, e.g.
-  :class:`~sklearn.model_selection.GridSearchCV` or
-  :class:`~sklearn.model_selection.RandomizedSearchCV`, usually in the
-  range ``10.0**-np.arange(1,7)``.
+* أفضل طريقة لإيجاد معامل ضبط مناسب :math:`\alpha` هي باستخدام البحث التلقائي عن أفضل المعاملات، مثل :class:`~sklearn.model_selection.GridSearchCV` أو :class:`~sklearn.model_selection.RandomizedSearchCV`، عادة في النطاق ``10.0**-np.arange(1,7)``.
 
-* Empirically, we found that SGD converges after observing
-  approximately 10^6 training samples. Thus, a reasonable first guess
-  for the number of iterations is ``max_iter = np.ceil(10**6 / n)``,
-  where ``n`` is the size of the training set.
+* وجدنا من الناحية التجريبية أن خوارزمية SGD تتقارب بعد ملاحظة حوالي 10^6 عينة تدريبية. وبالتالي، فإن التخمين المعقول لأول مرة لعدد التكرارات هو ``max_iter = np.ceil(10**6 / n)``، حيث "n" هو حجم مجموعة التدريب.
 
-* If you apply SGD to features extracted using PCA we found that
-  it is often wise to scale the feature values by some constant `c`
-  such that the average L2 norm of the training data equals one.
+* إذا كنت تطبق خوارزمية SGD على سمات مستخرجة باستخدام التحليل العاملي التمييزي (PCA)، فقد وجدنا أنه من الحكمة غالبًا ضبط قيم السمات بواسطة ثابت 'c' بحيث يكون متوسط القيمة L2 المعيارية لبيانات التدريب يساوي واحدًا.
 
-* We found that Averaged SGD works best with a larger number of features
-  and a higher eta0.
+* وجدنا أن خوارزمية SGD ذات المتوسط الحسابي تعمل بشكل أفضل مع عدد أكبر من السمات وقيمة أعلى لـ "eta0".
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* `"Efficient BackProp" <http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf>`_
-  Y. LeCun, L. Bottou, G. Orr, K. Müller - In Neural Networks: Tricks
-  of the Trade 1998.
+* `"Efficient BackProp" <http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf>_`
+  Y. LeCun, L. Bottou, G. Orr, K. Müller - في شبكات عصبية: حيل المهنة 1998.
 
 .. _sgd_mathematical_formulation:
 
-Mathematical formulation
-========================
+الصيغة الرياضية
+فيما يلي نعرض التفاصيل الرياضية لإجراء "سجود" (SGD). يمكن الاطلاع على نظرة عامة جيدة مع معدلات التقارب في [6].
 
-We describe here the mathematical details of the SGD procedure. A good
-overview with convergence rates can be found in [#6]_.
+بالنسبة لمجموعة من الأمثلة التدريبية: (x1, y1)، ...، (xn, yn) حيث xi ∈ R^m و- y_i \in\mathcal{R} (y_i ∈ {-1, 1} للتصنيف)، فإن هدفنا هو تعلم دالة تسجيل خطية: f(x) = w^T x + b مع معلمات النموذج: w ∈ R^m ومعامل الاعتراض: b ∈ R. من أجل عمل تنبؤات للتصنيف الثنائي، ما علينا سوى النظر في علامة f(x). ولإيجاد معلمات النموذج، نقوم بتقليل خطأ التدريب المنتظم المعطى بواسطة:
 
-Given a set of training examples :math:`(x_1, y_1), \ldots, (x_n, y_n)` where
-:math:`x_i \in \mathbf{R}^m` and :math:`y_i \in \mathcal{R}` (:math:`y_i \in
-{-1, 1}` for classification), our goal is to learn a linear scoring function
-:math:`f(x) = w^T x + b` with model parameters :math:`w \in \mathbf{R}^m` and
-intercept :math:`b \in \mathbf{R}`. In order to make predictions for binary
-classification, we simply look at the sign of :math:`f(x)`. To find the model
-parameters, we minimize the regularized training error given by
+E(w,b) = \frac{1}{n}\sum_{i=1}^{n} L(y_i, f(x_i)) + \alpha R(w)
 
-.. math::
+حيث L هي دالة خسارة تقيس مدى ملاءمة (أو عدم ملاءمة) النموذج، وR هي مصطلح المنتظم (المعروف أيضًا باسم العقوبة) الذي يعاقب على تعقيد النموذج؛ α > 0 هو فرط معلم غير سالب يتحكم في قوة التنظيم.
 
-    E(w,b) = \frac{1}{n}\sum_{i=1}^{n} L(y_i, f(x_i)) + \alpha R(w)
+تفاصيل دالات الخسارة:
 
-where :math:`L` is a loss function that measures model (mis)fit and
-:math:`R` is a regularization term (aka penalty) that penalizes model
-complexity; :math:`\alpha > 0` is a non-negative hyperparameter that controls
-the regularization strength.
+تؤدي خيارات مختلفة لـ L إلى مصنفات أو مرجحات مختلفة:
 
-.. dropdown:: Loss functions details
+- هينج (هامش ناعم): ما يعادل تصنيف المتجهات الداعمة.
+  L(y_i, f(x_i)) = \max(0, 1 - y_i f(x_i)).
 
-  Different choices for :math:`L` entail different classifiers or regressors:
+- بيرسيبترون:
+  L(y_i, f(x_i)) = \max(0, - y_i f(x_i)).
 
-  - Hinge (soft-margin): equivalent to Support Vector Classification.
-    :math:`L(y_i, f(x_i)) = \max(0, 1 - y_i f(x_i))`.
-  - Perceptron:
-    :math:`L(y_i, f(x_i)) = \max(0, - y_i f(x_i))`.
-  - Modified Huber:
-    :math:`L(y_i, f(x_i)) = \max(0, 1 - y_i f(x_i))^2` if :math:`y_i f(x_i) >
-    -1`, and :math:`L(y_i, f(x_i)) = -4 y_i f(x_i)` otherwise.
-  - Log Loss: equivalent to Logistic Regression.
-    :math:`L(y_i, f(x_i)) = \log(1 + \exp (-y_i f(x_i)))`.
-  - Squared Error: Linear regression (Ridge or Lasso depending on
-    :math:`R`).
-    :math:`L(y_i, f(x_i)) = \frac{1}{2}(y_i - f(x_i))^2`.
-  - Huber: less sensitive to outliers than least-squares. It is equivalent to
-    least squares when :math:`|y_i - f(x_i)| \leq \varepsilon`, and
-    :math:`L(y_i, f(x_i)) = \varepsilon |y_i - f(x_i)| - \frac{1}{2}
-    \varepsilon^2` otherwise.
-  - Epsilon-Insensitive: (soft-margin) equivalent to Support Vector Regression.
-    :math:`L(y_i, f(x_i)) = \max(0, |y_i - f(x_i)| - \varepsilon)`.
+- هابر المعدل:
+  L(y_i, f(x_i)) = \max(0, 1 - y_i f(x_i))^2 إذا كانت y_i f(x_i) > -1، و L(y_i, f(x_i)) = -4 y_i f(x_i) في ما عدا ذلك.
 
-All of the above loss functions can be regarded as an upper bound on the
-misclassification error (Zero-one loss) as shown in the Figure below.
+- سجل الخسارة: ما يعادل الانحدار اللوجستي.
+  L(y_i, f(x_i)) = \log(1 + \exp (-y_i f(x_i))).
 
-.. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_sgd_loss_functions_001.png
-    :target: ../auto_examples/linear_model/plot_sgd_loss_functions.html
-    :align: center
-    :scale: 75
+- الخطأ التربيعي: الانحدار الخطي (Ridge أو Lasso اعتمادًا على R).
+  L(y_i, f(x_i)) = \frac{1}{2}(y_i - f(x_i))^2.
 
-Popular choices for the regularization term :math:`R` (the `penalty`
-parameter) include:
+- هابر: أقل حساسية للقيم الشاذة من طريقة المربعات الصغرى. وهو ما يعادل المربعات الصغرى عندما |y_i - f(x_i)| ≤ ϵ، و L(y_i, f(x_i)) = ϵ |y_i - f(x_i)| - \frac{1}{2} ϵ^2 في ما عدا ذلك.
 
-- L2 norm: :math:`R(w) := \frac{1}{2} \sum_{j=1}^{m} w_j^2 = ||w||_2^2`,
-- L1 norm: :math:`R(w) := \sum_{j=1}^{m} |w_j|`, which leads to sparse
-  solutions.
-- Elastic Net: :math:`R(w) := \frac{\rho}{2} \sum_{j=1}^{n} w_j^2 +
-  (1-\rho) \sum_{j=1}^{m} |w_j|`, a convex combination of L2 and L1, where
-  :math:`\rho` is given by ``1 - l1_ratio``.
+- إبسيلون-غير حساس: (هامش ناعم) ما يعادل الانحدار باستخدام المتجهات الداعمة.
+  L(y_i, f(x_i)) = \max(0, |y_i - f(x_i)| - ϵ).
 
-The Figure below shows the contours of the different regularization terms
-in a 2-dimensional parameter space (:math:`m=2`) when :math:`R(w) = 1`.
+يمكن اعتبار جميع دالات الخسارة المذكورة أعلاه حدًا أعلى لخطأ التصنيف (خسارة الصفر-واحد) كما هو موضح في الشكل أدناه.
 
-.. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_sgd_penalties_001.png
-    :target: ../auto_examples/linear_model/plot_sgd_penalties.html
-    :align: center
-    :scale: 75
+يمكن أن تشمل الخيارات الشائعة لمصطلح التنظيم R (معلمة "العقوبة") ما يلي:
 
-SGD
----
+- معيار L2: R(w) := \frac{1}{2} \sum_{j=1}^{m} w_j^2 = ||w||_2^2،
 
-Stochastic gradient descent is an optimization method for unconstrained
-optimization problems. In contrast to (batch) gradient descent, SGD
-approximates the true gradient of :math:`E(w,b)` by considering a
-single training example at a time.
+- معيار L1: R(w) := \sum_{j=1}^{m} |w_j|، والذي يؤدي إلى حلول متفرقة.
 
-The class :class:`SGDClassifier` implements a first-order SGD learning
-routine.  The algorithm iterates over the training examples and for each
-example updates the model parameters according to the update rule given by
+- الشبكة المرنة: R(w) := \frac{\rho}{2} \sum_{j=1}^{n} w_j^2 + (1-\rho) \sum_{j=1}^{m} |w_j|، وهو مزيج محدب من L2 وL1، حيث يتم إعطاء ρ بواسطة "1 - l1_ratio".
 
-.. math::
+يوضح الشكل أدناه حدود المصطلحات التنظيمية المختلفة في مساحة المعلمات ثنائية الأبعاد (m=2) عندما R(w) = 1.
 
-    w \leftarrow w - \eta \left[\alpha \frac{\partial R(w)}{\partial w}
-    + \frac{\partial L(w^T x_i + b, y_i)}{\partial w}\right]
+سجود
+-----
 
-where :math:`\eta` is the learning rate which controls the step-size in
-the parameter space.  The intercept :math:`b` is updated similarly but
-without regularization (and with additional decay for sparse matrices, as
-detailed in :ref:`implementation_details`).
+التدرج النسبي العشوائي هو طريقة للتحسين لمشكلات التحسين غير المقيدة. على عكس الانحدار التدرجي (Batch)، يقرب "سجود" التدرج الحقيقي لـ E(w,b) من خلال النظر في مثال تدريبي واحد في كل مرة.
 
-The learning rate :math:`\eta` can be either constant or gradually decaying. For
-classification, the default learning rate schedule (``learning_rate='optimal'``)
-is given by
+تنفذ فئة SGDClassifier روتين تعلم "سجود" من الدرجة الأولى. يقوم الخوارزمية بالمرور عبر الأمثلة التدريبية، ولكل مثال، يقوم بتحديث معلمات النموذج وفقًا لقاعدة التحديث المعطاة بواسطة:
 
-.. math::
+w \leftarrow w - \eta \left[\alpha \frac{\partial R(w)}{\partial w} + \frac{\partial L(w^T x_i + b, y_i)}{\partial w}\right]
 
-    \eta^{(t)} = \frac {1}{\alpha  (t_0 + t)}
+حيث η هو معدل التعلم الذي يتحكم في حجم الخطوة في مساحة المعلمات. يتم تحديث معامل الاعتراض b بشكل مشابه ولكن بدون تنظيم (وبانخفاض إضافي للمصفوفات المتناثرة، كما هو مفصل في قسم "تفاصيل التنفيذ").
 
-where :math:`t` is the time step (there are a total of `n_samples * n_iter`
-time steps), :math:`t_0` is determined based on a heuristic proposed by Léon Bottou
-such that the expected initial updates are comparable with the expected
-size of the weights (this assuming that the norm of the training samples is
-approx. 1). The exact definition can be found in ``_init_t`` in `BaseSGD`.
+يمكن أن يكون معدل التعلم η ثابتًا أو متناقصًا تدريجيًا. بالنسبة للتصنيف، يكون جدول معدلات التعلم الافتراضي (learning_rate='optimal') كما يلي:
 
+\eta^{(t)} = \frac {1}{\alpha  (t_0 + t)}
 
-For regression the default learning rate schedule is inverse scaling
-(``learning_rate='invscaling'``), given by
+حيث t هي خطوة الوقت (هناك ما مجموعه n_samples * n_iter خطوات زمنية)، ويتم تحديد t_0 بناءً على قاعدة إبهام مقترحة بواسطة Léon Bottou بحيث تكون التحديثات الأولية المتوقعة قابلة للمقارنة مع الحجم المتوقع للأوزان (هذا بافتراض أن معيار عينات التدريب يساوي تقريبًا 1). ويمكن العثور على التعريف الدقيق في _init_t في BaseSGD.
 
-.. math::
+بالنسبة للانحدار، يكون جدول معدلات التعلم الافتراضي هو التدرج العكسي (learning_rate='invscaling')، كما هو موضح أدناه:
 
-    \eta^{(t)} = \frac{eta_0}{t^{power\_t}}
+\eta^{(t)} = \frac{eta_0}{t^{power\_t}}
 
-where :math:`eta_0` and :math:`power\_t` are hyperparameters chosen by the
-user via ``eta0`` and ``power_t``, resp.
+حيث eta_0 وpower_t هما معلمات فائقة يختارها المستخدم من خلال eta0 وpower_t، على التوالي.
 
-For a constant learning rate use ``learning_rate='constant'`` and use ``eta0``
-to specify the learning rate.
+بالنسبة لمعدل تعلم ثابت، استخدم learning_rate='constant' وحدد معدل التعلم باستخدام eta0.
 
-For an adaptively decreasing learning rate, use ``learning_rate='adaptive'``
-and use ``eta0`` to specify the starting learning rate. When the stopping
-criterion is reached, the learning rate is divided by 5, and the algorithm
-does not stop. The algorithm stops when the learning rate goes below 1e-6.
+بالنسبة لمعدل تعلم متناقص تكيفيًا، استخدم learning_rate='adaptive' وحدد معدل التعلم الأولي باستخدام eta0. عندما يتم الوصول إلى معيار التوقف، يتم تقسيم معدل التعلم على 5، ولا يتوقف الخوارزم. يتوقف الخوارزم عندما يصبح معدل التعلم أقل من 1e-6.
 
-The model parameters can be accessed through the ``coef_`` and
-``intercept_`` attributes: ``coef_`` holds the weights :math:`w` and
-``intercept_`` holds :math:`b`.
+يمكن الوصول إلى معلمات النموذج من خلال السمات "coef_" و"intercept_": يحتفظ "coef_" بالأوزان w ويحتفظ "intercept_" بـ b.
 
-When using Averaged SGD (with the `average` parameter), `coef_` is set to the
-average weight across all updates:
-`coef_` :math:`= \frac{1}{T} \sum_{t=0}^{T-1} w^{(t)}`,
-where :math:`T` is the total number of updates, found in the `t_` attribute.
+عند استخدام "سجود" المتوسط (مع معلمة "average")، يتم تعيين "coef_" إلى متوسط الوزن عبر جميع التحديثات:
 
-.. _implementation_details:
+coef_ := \frac{1}{T} \sum_{t=0}^{T-1} w^{(t)}،
 
-Implementation details
-======================
+حيث T هو العدد الإجمالي للتحديثات، الموجود في السمة t_.
 
-The implementation of SGD is influenced by the `Stochastic Gradient SVM` of
-[#1]_.
-Similar to SvmSGD,
-the weight vector is represented as the product of a scalar and a vector
-which allows an efficient weight update in the case of L2 regularization.
-In the case of sparse input `X`, the intercept is updated with a
-smaller learning rate (multiplied by 0.01) to account for the fact that
-it is updated more frequently. Training examples are picked up sequentially
-and the learning rate is lowered after each observed example. We adopted the
-learning rate schedule from [#2]_.
-For multi-class classification, a "one versus all" approach is used.
-We use the truncated gradient algorithm proposed in [#3]_
-for L1 regularization (and the Elastic Net).
-The code is written in Cython.
+تفاصيل التنفيذ
+==============
 
-.. rubric:: References
+تأثر تنفيذ "سجود" بـ "SVM Stochastic Gradient" من [1].
 
-.. [#1] `"Stochastic Gradient Descent"
-  <https://leon.bottou.org/projects/sgd>`_ L. Bottou - Website, 2010.
+على غرار SvmSGD، يتم تمثيل متجه الوزن كحاصل ضرب كمية ومقدار، مما يسمح بتحديث الوزن بكفاءة في حالة التنظيم L2.
 
-.. [#2] :doi:`"Pegasos: Primal estimated sub-gradient solver for svm"
-  <10.1145/1273496.1273598>`
-  S. Shalev-Shwartz, Y. Singer, N. Srebro - In Proceedings of ICML '07.
+في حالة الإدخال المتناثر X، يتم تحديث معامل الاعتراض بمعدل تعلم أصغر (مضروبًا بـ 0.01) لمراعاة حقيقة أنه يتم تحديثه بشكل متكرر. يتم التقاط أمثلة التدريب بشكل تسلسلي ويتم تقليل معدل التعلم بعد كل مثال تمت ملاحظته. وقد اعتمدنا جدول معدلات التعلم من [2].
 
-.. [#3] `"Stochastic gradient descent training for l1-regularized
-  log-linear models with cumulative penalty"
-  <https://www.aclweb.org/anthology/P/P09/P09-1054.pdf>`_
-  Y. Tsuruoka, J. Tsujii, S. Ananiadou - In Proceedings of the AFNLP/ACL'09.
+بالنسبة للتصنيف متعدد الفئات، يتم استخدام نهج "واحد مقابل الجميع".
 
-.. [#4] :arxiv:`"Towards Optimal One Pass Large Scale Learning with
-  Averaged Stochastic Gradient Descent"
-  <1107.2490v2>`. Xu, Wei (2011)
+نستخدم خوارزمية التدرج المقطوع المقترحة في [3] للتنظيم L1 (والشبكة المرنة).
 
-.. [#5] :doi:`"Regularization and variable selection via the elastic net"
-  <10.1111/j.1467-9868.2005.00503.x>`
-  H. Zou, T. Hastie - Journal of the Royal Statistical Society Series B,
-  67 (2), 301-320.
+تمت كتابة الكود في Cython.
 
-.. [#6] :doi:`"Solving large scale linear prediction problems using stochastic
-  gradient descent algorithms" <10.1145/1015330.1015332>`
-  T. Zhang - In Proceedings of ICML '04.
+المراجع
+------
+
+[1] "Stochastic Gradient Descent" <https://leon.bottou.org/projects/sgd> L. Bottou - Website, 2010.
+
+[2] "Pegasos: Primal estimated sub-gradient solver for svm" <https://doi.org/10.1145/1273496.1273598> S. Shalev-Shwartz, Y. Singer, N. Srebro - In Proceedings of ICML '07.
+
+[3] "Stochastic gradient descent training for l1-regularized log-linear models with cumulative penalty" <https://www.aclweb.org/anthology/P/P09/P09-1054.pdf> Y. Tsuruoka, J. Tsujii, S. Ananiadou - In Proceedings of the AFNLP/ACL'09.
+
+[4] "Towards Optimal One Pass Large Scale Learning with Averaged Stochastic Gradient Descent" <https://arxiv.org/abs/1107.2490v2> Xu, Wei (2011)
+
+[5] "Regularization and variable selection via the elastic net" <https://doi.org/10.1111/j.1467-9868.2005.00503.x> H. Zou, T. Hastie - Journal of the Royal Statistical Society Series B, 67 (2), 301-320.
+
+[6] "Solving large scale linear prediction problems using stochastic gradient descent algorithms" <https://doi.org/10.1145/1015330.1015332> T. Zhang - In Proceedings of ICML '04.
