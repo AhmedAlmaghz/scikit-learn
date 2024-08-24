@@ -1,20 +1,9 @@
-:html_theme.sidebar_secondary.remove:
-
-.. _ml_map:
-
-Choosing the right estimator
+اختيار المحلل المناسب
 ============================
 
-Often the hardest part of solving a machine learning problem can be finding the right
-estimator for the job. Different estimators are better suited for different types of
-data and different problems.
+غالباً ما يكون أصعب جزء في حل مشكلة تعلم الآلة هو إيجاد المحلل المناسب للمهمة. حيث يكون بعض المحللين أكثر ملاءمة لأنواع معينة من البيانات والمشكلات أكثر من غيرها.
 
-The flowchart below is designed to give users a bit of a rough guide on how to approach
-problems with regard to which estimators to try on your data. Click on any estimator in
-the chart below to see its documentation. The 😭 emoji is to be read as "if this
-estimator does not achieve the desired outcome, then follow the arrow and try the next
-one". Use scroll wheel to zoom in and out, and click and drag to pan around. You can
-also download the chart: :download:`ml_map.svg <images/ml_map.svg>`.
+تم تصميم مخطط التدفق أدناه لتزويد المستخدمين بدليل عام حول كيفية التعامل مع المشكلات فيما يتعلق بالمحللين الذين يجب تجربتهم على بياناتك. انقر على أي محلل في المخطط أدناه لعرض وثائقه. ويجب قراءة رمز الوجه الباكي على أنه "إذا لم يحقق هذا المحلل النتيجة المرجوة، فاتبع السهم وجرب التالي". استخدم عجلة التمرير للتكبير والتصغير، وانقر واسحب للتمرير. يمكنك أيضًا تنزيل المخطط: :download:`ml_map.svg <images/ml_map.svg>`.
 
 .. raw:: html
 
