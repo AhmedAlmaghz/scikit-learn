@@ -1,683 +1,408 @@
-
-.. currentmodule:: sklearn.manifold
-
-.. _manifold:
-
-=================
-Manifold learning
+تعلم المنوال
 =================
 
-.. rst-class:: quote
+"ابحث عن الضروريات الأساسية
+الضروريات البسيطة
+انسَ همومك وصراعك
+أعني الضروريات الأساسية
+وصفات الطبيعة الأم
+التي تجلب ضروريات الحياة الأساسية
 
-                 | Look for the bare necessities
-                 | The simple bare necessities
-                 | Forget about your worries and your strife
-                 | I mean the bare necessities
-                 | Old Mother Nature's recipes
-                 | That bring the bare necessities of life
-                 |
-                 |             -- Baloo's song [The Jungle Book]
+- من أغنية بالو [كتاب الأدغال]
 
+تعلم المنوال هو نهج لخفض الأبعاد غير الخطية.
+تستند الخوارزميات الخاصة بهذه المهمة إلى فكرة أن البعدية للعديد من مجموعات البيانات مرتفع بشكل مصطنع فقط.
 
-
-.. figure:: ../auto_examples/manifold/images/sphx_glr_plot_compare_methods_001.png
-   :target: ../auto_examples/manifold/plot_compare_methods.html
-   :align: center
-   :scale: 70%
-
-.. |manifold_img3| image:: ../auto_examples/manifold/images/sphx_glr_plot_compare_methods_003.png
-  :target: ../auto_examples/manifold/plot_compare_methods.html
-  :scale: 60%
-
-.. |manifold_img4| image:: ../auto_examples/manifold/images/sphx_glr_plot_compare_methods_004.png
-    :target: ../auto_examples/manifold/plot_compare_methods.html
-    :scale: 60%
-
-.. |manifold_img5| image:: ../auto_examples/manifold/images/sphx_glr_plot_compare_methods_005.png
-    :target: ../auto_examples/manifold/plot_compare_methods.html
-    :scale: 60%
-
-.. |manifold_img6| image:: ../auto_examples/manifold/images/sphx_glr_plot_compare_methods_006.png
-    :target: ../auto_examples/manifold/plot_compare_methods.html
-    :scale: 60%
-
-.. centered:: |manifold_img3| |manifold_img4| |manifold_img5| |manifold_img6|
-
-
-Manifold learning is an approach to non-linear dimensionality reduction.
-Algorithms for this task are based on the idea that the dimensionality of
-many data sets is only artificially high.
-
-
-Introduction
+مقدمة
 ============
 
-High-dimensional datasets can be very difficult to visualize.  While data
-in two or three dimensions can be plotted to show the inherent
-structure of the data, equivalent high-dimensional plots are much less
-intuitive.  To aid visualization of the structure of a dataset, the
-dimension must be reduced in some way.
+يمكن أن تكون مجموعات البيانات عالية الأبعاد صعبة للغاية في تصورها. في حين يمكن رسم البيانات
+في بُعدين أو ثلاثة أبعاد لإظهار البنية الأساسية للبيانات، فإن الرسوم البيانية المكافئة عالية الأبعاد
+أقل بديهية. للمساعدة في تصور بنية مجموعة البيانات، يجب تقليل البعد بطريقة ما.
 
-The simplest way to accomplish this dimensionality reduction is by taking
-a random projection of the data.  Though this allows some degree of
-visualization of the data structure, the randomness of the choice leaves much
-to be desired.  In a random projection, it is likely that the more
-interesting structure within the data will be lost.
+أبسط طريقة لتحقيق هذا التخفيض الأبعاد هي عن طريق أخذ
+المشروع العشوائي للبيانات. على الرغم من أن هذا يسمح ببعض درجات
+تصور بنية البيانات، إلا أن عشوائية الاختيار تترك الكثير مما هو مرغوب فيه. في عرض عشوائي،
+من المحتمل أن تضيع البنية الأكثر إثارة للاهتمام داخل البيانات.
 
+للتخفيف من هذا القلق، تم تصميم عدد من الأطر الخطية الخاضعة للإشراف وغير الخاضعة للإشراف
+خفض الأبعاد، مثل التحليل الرئيسي للمكونات (PCA)، وتحليل المكون المستقل،
+التحليل التمييزي الخطي، وغيرها. تحدد هذه الخوارزميات أدلة محددة
+لاختيار عرض "مثير للاهتمام" خطي للبيانات.
+يمكن أن تكون هذه الأساليب قوية، ولكنها غالبًا ما تفقد بنية غير خطية مهمة في البيانات.
 
-.. |digits_img| image:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_001.png
-    :target: ../auto_examples/manifold/plot_lle_digits.html
-    :scale: 50
+يمكن اعتبار تعلم المنوال محاولة لتعميم الأطر الخطية
+مثل PCA ليكون حساسًا للبنية غير الخطية في البيانات. على الرغم من
+توجد متغيرات خاضعة للإشراف، فإن مشكلة تعلم المنوال النموذجية
+غير خاضع للإشراف: فهو يتعلم البنية عالية الأبعاد للبيانات
+من البيانات نفسها، دون استخدام التصنيفات المحددة مسبقًا.
 
-.. |projected_img| image::  ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_002.png
-    :target: ../auto_examples/manifold/plot_lle_digits.html
-    :scale: 50
+أمثلة عملية
+----------------
 
-.. centered:: |digits_img| |projected_img|
+* راجع :ref: `sphx_glr_auto_examples_manifold_plot_lle_digits.py <sphx_glr_auto_examples_manifold_plot_lle_digits.py>` ل
+  مثال على تقليل الأبعاد على الأرقام المكتوبة بخط اليد.
 
+* راجع :ref: `sphx_glr_auto_examples_manifold_plot_compare_methods.py <sphx_glr_auto_examples_manifold_plot_compare_methods.py>` ل
+  مثال على تقليل الأبعاد على مجموعة بيانات "S-curve" اللعبة.
 
-To address this concern, a number of supervised and unsupervised linear
-dimensionality reduction frameworks have been designed, such as Principal
-Component Analysis (PCA), Independent Component Analysis, Linear
-Discriminant Analysis, and others.  These algorithms define specific
-rubrics to choose an "interesting" linear projection of the data.
-These methods can be powerful, but often miss important non-linear
-structure in the data.
-
-
-.. |PCA_img| image:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_003.png
-    :target: ../auto_examples/manifold/plot_lle_digits.html
-    :scale: 50
-
-.. |LDA_img| image::  ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_004.png
-    :target: ../auto_examples/manifold/plot_lle_digits.html
-    :scale: 50
-
-.. centered:: |PCA_img| |LDA_img|
-
-Manifold Learning can be thought of as an attempt to generalize linear
-frameworks like PCA to be sensitive to non-linear structure in data. Though
-supervised variants exist, the typical manifold learning problem is
-unsupervised: it learns the high-dimensional structure of the data
-from the data itself, without the use of predetermined classifications.
-
-
-.. rubric:: Examples
-
-* See :ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py` for an example of
-  dimensionality reduction on handwritten digits.
-
-* See :ref:`sphx_glr_auto_examples_manifold_plot_compare_methods.py` for an example of
-  dimensionality reduction on a toy "S-curve" dataset.
-
-The manifold learning implementations available in scikit-learn are
-summarized below
-
-.. _isomap:
+تنفيذ تعلم المنوال المتاحة في scikit-learn
+ملخصة أدناه
 
 Isomap
 ======
 
-One of the earliest approaches to manifold learning is the Isomap
-algorithm, short for Isometric Mapping.  Isomap can be viewed as an
-extension of Multi-dimensional Scaling (MDS) or Kernel PCA.
-Isomap seeks a lower-dimensional embedding which maintains geodesic
-distances between all points.  Isomap can be performed with the object
-:class:`Isomap`.
+أحد أقدم النهج لتعلم المنوال هو خوارزمية Isomap
+اختصار لـ Isometric Mapping. يمكن اعتبار Isomap امتدادًا لـ
+تعدد الأبعاد (MDS) أو Kernel PCA.
+يسعى Isomap إلى الحصول على تضمين منخفض الأبعاد يحافظ على المسافات الجيوديسية
+بين جميع النقاط. يمكن إجراء Isomap باستخدام الكائن
+:class: `Isomap <isomap>`.
 
-.. figure:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_005.png
-   :target: ../auto_examples/manifold/plot_lle_digits.html
-   :align: center
-   :scale: 50
+تعقيد
+------
 
-.. dropdown:: Complexity
+تتكون خوارزمية Isomap من ثلاث مراحل:
 
-  The Isomap algorithm comprises three stages:
+1. **بحث أقرب جار**. يستخدم Isomap
+:class: `BallTree <sklearn.neighbors.BallTree>` للبحث عن الجيران بكفاءة.
+التكلفة تقريبية :math: `O [D log (k) N log (N)] <isomap_complexity_1>`، لـ :math: `k`
+أقرب جيران :math: `N` النقاط في :math: `D` الأبعاد.
 
-  1. **Nearest neighbor search.**  Isomap uses
-     :class:`~sklearn.neighbors.BallTree` for efficient neighbor search.
-     The cost is approximately :math:`O[D \log(k) N \log(N)]`, for :math:`k`
-     nearest neighbors of :math:`N` points in :math:`D` dimensions.
+2. **بحث الرسم البياني أقصر مسار**. أكثر الخوارزميات المعروفة كفاءة
+لهذه هي *خوارزمية ديكسترا*، والتي تبلغ حوالي
+:math: `O [N^2 (k + log (N))] <isomap_complexity_2>`، أو *خوارزمية فلويد-وارشال*، والتي
+:math: `O [N^3] <isomap_complexity_3>`. يمكن للمستخدم تحديد الخوارزمية
+بـ ``path_method`` الكلمة الرئيسية لـ ``Isomap``. إذا لم يتم تحديده،
+تحاول التعليمات البرمجية اختيار أفضل خوارزمية لبيانات الإدخال.
 
-  2. **Shortest-path graph search.**  The most efficient known algorithms
-     for this are *Dijkstra's Algorithm*, which is approximately
-     :math:`O[N^2(k + \log(N))]`, or the *Floyd-Warshall algorithm*, which
-     is :math:`O[N^3]`.  The algorithm can be selected by the user with
-     the ``path_method`` keyword of ``Isomap``.  If unspecified, the code
-     attempts to choose the best algorithm for the input data.
+3. **التحلل القيمي الجزئي**. التضمين مشفر في
+متجهات القيمة الذاتية المقابلة لـ :math: `d` أكبر القيم الذاتية
+من :math: `N \ times N` نواة isomap. بالنسبة لحل دقيق،
+التكلفة تقريبية :math: `O [d N^2] <isomap_complexity_4>`. يمكن غالبًا تحسين هذه التكلفة
+باستخدام محلل ``ARPACK``. يمكن للمستخدم تحديد محلل القيمة الذاتية
+بـ ``eigen_solver`` الكلمة الرئيسية لـ ``Isomap``. إذا لم يتم تحديده،
+تحاول التعليمات البرمجية اختيار أفضل خوارزمية لبيانات الإدخال.
 
-  3. **Partial eigenvalue decomposition.**  The embedding is encoded in the
-     eigenvectors corresponding to the :math:`d` largest eigenvalues of the
-     :math:`N \times N` isomap kernel.  For a dense solver, the cost is
-     approximately :math:`O[d N^2]`.  This cost can often be improved using
-     the ``ARPACK`` solver.  The eigensolver can be specified by the user
-     with the ``eigen_solver`` keyword of ``Isomap``.  If unspecified, the
-     code attempts to choose the best algorithm for the input data.
+يبلغ التعقيد الإجمالي لـ Isomap
+:math: `O [D log (k) N log (N)] + O [N^2 (k + log (N))] + O [d N^2] <isomap_complexity>`.
 
-  The overall complexity of Isomap is
-  :math:`O[D \log(k) N \log(N)] + O[N^2(k + \log(N))] + O[d N^2]`.
+* :math: `N` : عدد نقاط التدريب
+* :math: `D` : البعد المدخال
+* :math: `k` : عدد الجيران الأقرب
+* :math: `d` : البعد الإخراج
 
-  * :math:`N` : number of training data points
-  * :math:`D` : input dimension
-  * :math:`k` : number of nearest neighbors
-  * :math:`d` : output dimension
+مراجع
+----------
 
-.. rubric:: References
+* "إطار هندسي عالمي لخفض الأبعاد غير الخطية"
+  `<http://science.sciencemag.org/content/290/5500/2319.full>`_
+  تينينباوم، جيه بي؛ دي سيلفا، الخامس؛ و Langford، جيه سي العلوم 290 (5500)
 
-* `"A global geometric framework for nonlinear dimensionality reduction"
-  <http://science.sciencemag.org/content/290/5500/2319.full>`_
-  Tenenbaum, J.B.; De Silva, V.; & Langford, J.C.  Science 290 (5500)
-
-.. _locally_linear_embedding:
-
-Locally Linear Embedding
+التضمين الخطي المحلي
 ========================
 
-Locally linear embedding (LLE) seeks a lower-dimensional projection of the data
-which preserves distances within local neighborhoods.  It can be thought
-of as a series of local Principal Component Analyses which are globally
-compared to find the best non-linear embedding.
+يسعى التضمين الخطي المحلي (LLE) إلى الحصول على عرض منخفض الأبعاد للبيانات
+التي تحافظ على المسافات داخل الأحياء المحلية. يمكن التفكير فيه
+كسلسلة من التحليلات الرئيسية للمكونات المحلية التي تتم مقارنتها عالميًا
+لإيجد أفضل تضمين غير خطي.
 
-Locally linear embedding can be performed with function
-:func:`locally_linear_embedding` or its object-oriented counterpart
-:class:`LocallyLinearEmbedding`.
+يمكن إجراء التضمين الخطي المحلي باستخدام الدالة
+:func: `locally_linear_embedding <locally_linear_embedding>` أو نظيرتها الموجهة نحو الكائنات
+:class: `LocallyLinearEmbedding <locally_linear_embedding>`.
 
-.. figure:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_006.png
-   :target: ../auto_examples/manifold/plot_lle_digits.html
-   :align: center
-   :scale: 50
+تعقيد
+------
 
-.. dropdown:: Complexity
+تتكون خوارزمية LLE القياسية من ثلاث مراحل:
 
-  The standard LLE algorithm comprises three stages:
+1. **بحث أقرب جار**. راجع المناقشة تحت Isomap أعلاه.
 
-  1. **Nearest Neighbors Search**.  See discussion under Isomap above.
+2. **بناء مصفوفة الأوزان**. :math: `O [D N k^3] <lle_complexity_2>`.
+   ينطوي بناء مصفوفة الأوزان LLE على حل معادلة خطية
+:math: `k \ times k` لكل من :math: `N` الأحياء المحلية.
 
-  2. **Weight Matrix Construction**. :math:`O[D N k^3]`.
-     The construction of the LLE weight matrix involves the solution of a
-     :math:`k \times k` linear equation for each of the :math:`N` local
-     neighborhoods.
+3. **التحلل القيمي الجزئي**. راجع المناقشة تحت Isomap أعلاه.
 
-  3. **Partial Eigenvalue Decomposition**. See discussion under Isomap above.
+يبلغ التعقيد الإجمالي لـ LLE القياسي
+:math: `O [D log (k) N log (N)] + O [D N k^3] + O [d N^2] <lle_complexity>`.
 
-  The overall complexity of standard LLE is
-  :math:`O[D \log(k) N \log(N)] + O[D N k^3] + O[d N^2]`.
+* :math: `N` : عدد نقاط التدريب
+* :math: `D` : البعد المدخال
+* :math: `k` : عدد الجيران الأقرب
+* :math: `d` : البعد الإخراج
 
-  * :math:`N` : number of training data points
-  * :math:`D` : input dimension
-  * :math:`k` : number of nearest neighbors
-  * :math:`d` : output dimension
+مراجع
+----------
 
-.. rubric:: References
+* "خفض الأبعاد غير الخطية بواسطة التضمين الخطي المحلي"
+  `<http://www.sciencemag.org/content/290/5500/2323.full>`_
+  رويس، إس و شاول، لام العلوم 290:2323 (2000)
 
-* `"Nonlinear dimensionality reduction by locally linear embedding"
-  <http://www.sciencemag.org/content/290/5500/2323.full>`_
-  Roweis, S. & Saul, L.  Science 290:2323 (2000)
-
-
-Modified Locally Linear Embedding
+التضمين الخطي المحلي المعدل
 =================================
 
-One well-known issue with LLE is the regularization problem.  When the number
-of neighbors is greater than the number of input dimensions, the matrix
-defining each local neighborhood is rank-deficient.  To address this, standard
-LLE applies an arbitrary regularization parameter :math:`r`, which is chosen
-relative to the trace of the local weight matrix.  Though it can be shown
-formally that as :math:`r \to 0`, the solution converges to the desired
-embedding, there is no guarantee that the optimal solution will be found
-for :math:`r > 0`.  This problem manifests itself in embeddings which distort
-the underlying geometry of the manifold.
-
-One method to address the regularization problem is to use multiple weight
-vectors in each neighborhood.  This is the essence of *modified locally
-linear embedding* (MLLE).  MLLE can be  performed with function
-:func:`locally_linear_embedding` or its object-oriented counterpart
-:class:`LocallyLinearEmbedding`, with the keyword ``method = 'modified'``.
-It requires ``n_neighbors > n_components``.
+إحدى المشكلات المعروفة جيدًا في LLE هي مشكلة التنظيم. عندما يكون عدد
+الجيران أكبر من عدد الأبعاد المدخلة، فإن المصفوفة
+تحديد كل حي محلي ناقص الرتبة. لمعالجة هذا، يطبق LLE القياسي
+معامل تنظيم عشوائي :math: `r`، والذي يتم اختياره
+نسبيًا إلى أثر المصفوفة المحلية للأوزان. على الرغم من أنه يمكن إظهار ذلك رسميًا
+بما أن :math: `r \ to 0`، يتقارب الحل مع التضمين المطلوب، لا يوجد ضمان بأن
+سيتم العثور على الحل الأمثل لـ :math: `r> 0`. تتجلى هذه المشكلة في التضمينات التي
+تشوه الهندسة الأساسية للمنوال.
 
-.. figure:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_007.png
-   :target: ../auto_examples/manifold/plot_lle_digits.html
-   :align: center
-   :scale: 50
+إحدى الطرق لمعالجة مشكلة التنظيم هي استخدام أوزان متعددة
+متجهات في كل حي. هذه هي جوهر *التضمين الخطي المحلي المعدل*
+(MLLE). يمكن إجراء MLLE باستخدام الدالة
+:func: `locally_linear_embedding <locally_linear_embedding>` أو نظيرتها الموجهة نحو الكائنات
+:class: `LocallyLinearEmbedding <locally_linear_embedding>`، مع
+``method = 'modified'``. إنه يتطلب ``n_neighbors> n_components``.
 
-.. dropdown:: Complexity
+تعقيد
+------
 
-  The MLLE algorithm comprises three stages:
+تتكون خوارزمية MLLE من ثلاث مراحل:
 
-  1. **Nearest Neighbors Search**.  Same as standard LLE
+1. **بحث أقرب جار**. نفس LLE القياسية
 
-  2. **Weight Matrix Construction**. Approximately
-     :math:`O[D N k^3] + O[N (k-D) k^2]`.  The first term is exactly equivalent
-     to that of standard LLE.  The second term has to do with constructing the
-     weight matrix from multiple weights.  In practice, the added cost of
-     constructing the MLLE weight matrix is relatively small compared to the
-     cost of stages 1 and 3.
+2. **بناء مصفوفة الأوزان**. حوالي
+   :math: `O [D N k^3] + O [N (k-D) k^2] <mlle_complexity_2>`.
+   المصطلح الأول مكافئ تمامًا لذلك الموجود في LLE القياسي.
+   يتعلق المصطلح الثاني ببناء مصفوفة الأوزان من أوزان متعددة. في الممارسة العملية،
+   التكلفة الإضافية لبناء مصفوفة أوزان MLLE صغيرة نسبيًا مقارنة بالتكلفة
+   من المرحلتين 1 و 3.
 
-  3. **Partial Eigenvalue Decomposition**. Same as standard LLE
+3. **التحلل القيمي الجزئي**. نفس LLE القياسية
 
-  The overall complexity of MLLE is
-  :math:`O[D \log(k) N \log(N)] + O[D N k^3] + O[N (k-D) k^2] + O[d N^2]`.
+يبلغ التعقيد الإجمالي لـ MLLE
+:math: `O [D log (k) N log (N)] + O [D N k^3] + O [N (k-D) k^2] + O [d N^2] <mlle_complexity>`.
 
-  * :math:`N` : number of training data points
-  * :math:`D` : input dimension
-  * :math:`k` : number of nearest neighbors
-  * :math:`d` : output dimension
+* :math: `N` : عدد نقاط التدريب
+* :math: `D` : البعد المدخال
+* :math: `k` : عدد الجيران الأقرب
+* :math: `d` : البعد الإخراج
 
-.. rubric:: References
+مراجع
+----------
 
-* `"MLLE: Modified Locally Linear Embedding Using Multiple Weights"
-  <https://citeseerx.ist.psu.edu/doc_view/pid/0b060fdbd92cbcc66b383bcaa9ba5e5e624d7ee3>`_
-  Zhang, Z. & Wang, J.
+* "MLLE: التضمين الخطي المحلي المعدل باستخدام أوزان متعددة"
+  `<https://citeseerx.ist.psu.edu/doc_view/pid/0b060fdbd92cbcc66b383bcaa9ba5e5e624d7ee3>`_
+  تشانغ، ز. ووانغ، ج.
 
+خريطة القيمة الذاتية للهيسية
+طريقة "هيسيان إيغن مابينغ" (المعروفة أيضًا باسم "هيسيان-بيسد إل إل إي": HLLE) هي طريقة أخرى لحل مشكلة التنظيم في طريقة "إل إل إي". تدور هذه الطريقة حول شكل رباعي هيسيان-بيسد في كل حي يتم استخدامه لاستعادة البنية الخطية المحلية. على الرغم من أن التنفيذ الآخر يشير إلى ضعف التوسع مع حجم البيانات، فإن مكتبة "سكيكيت-ليرن" تنفذ بعض التحسينات الخوارزمية التي تجعل تكلفتها مماثلة لتكلفة المتغيرات الأخرى لطريقة "إل إل إي" بالنسبة لأبعاد الإخراج الصغيرة. يمكن تنفيذ طريقة HLLE باستخدام دالة "لوكالي_لاينر_إمبيدينغ" أو نظيرها الموجه نحو الكائنات "لوكالي_لاينر_إمبيدينغ"، مع الكلمة الأساسية "ميثود = 'هيسيان'". تتطلب هذه الطريقة أن تكون "إن_نيجيبرز > إن_كومبونينتس * (إن_كومبونينتس + 3) / 2".
 
-Hessian Eigenmapping
-====================
+تتكون خوارزمية HLLE من ثلاث مراحل:
 
-Hessian Eigenmapping (also known as Hessian-based LLE: HLLE) is another method
-of solving the regularization problem of LLE.  It revolves around a
-hessian-based quadratic form at each neighborhood which is used to recover
-the locally linear structure.  Though other implementations note its poor
-scaling with data size, ``sklearn`` implements some algorithmic
-improvements which make its cost comparable to that of other LLE variants
-for small output dimension.  HLLE can be  performed with function
-:func:`locally_linear_embedding` or its object-oriented counterpart
-:class:`LocallyLinearEmbedding`, with the keyword ``method = 'hessian'``.
-It requires ``n_neighbors > n_components * (n_components + 3) / 2``.
+1. **بحث أقرب الجيران**: نفس طريقة "إل إل إي" القياسية.
+2. **بناء مصفوفة الأوزان**: تقريبًا O[D N k^3] + O[N d^6]. يعكس الحد الأول تكلفة مماثلة لتكلفة طريقة "إل إل إي" القياسية. يأتي الحد الثاني من تحليل QR لمقدّر هيسيان المحلي.
+3. **التحليل الجزئي للقيمة الذاتية**: نفس طريقة "إل إل إي" القياسية.
 
-.. figure:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_008.png
-   :target: ../auto_examples/manifold/plot_lle_digits.html
-   :align: center
-   :scale: 50
+تبلغ التعقيد الكلي لطريقة HLLE القياسية: O[D log(k) N log(N)] + O[D N k^3] + O[N d^6] + O[d N^2].
 
-.. dropdown:: Complexity
+- :math:`N` : عدد نقاط التدريب
+- :math:`D` : البعد المدخَل
+- :math:`k` : عدد أقرب الجيران
+- :math:`d` : بعد الإخراج
 
-The HLLE algorithm comprises three stages:
+**المراجع**:
 
-  1. **Nearest Neighbors Search**.  Same as standard LLE
+* "هيسيان إيغن مابس: تقنيات التضمين الخطي المحلي للبيانات عالية الأبعاد" <http://www.pnas.org/content/100/10/5591> دونوهو، د. وغرايمز، سي. بروك ناتل أكاد سسي الولايات المتحدة الأمريكية. 100:5591 (2003)
 
-  2. **Weight Matrix Construction**. Approximately
-     :math:`O[D N k^3] + O[N d^6]`.  The first term reflects a similar
-     cost to that of standard LLE.  The second term comes from a QR
-     decomposition of the local hessian estimator.
+## التضمين الطيفي
 
-  3. **Partial Eigenvalue Decomposition**. Same as standard LLE
+التضمين الطيفي هو نهج لحساب التضمين غير الخطي. تنفذ مكتبة "سكيكيت-ليرن" طريقة "لابلاسيان إيغن مابس"، والتي تجد تمثيلًا منخفض الأبعاد للبيانات باستخدام التحليل الطيفي لمؤثر لابلاسيان للرسم البياني. يمكن اعتبار الرسم البياني الذي تم إنشاؤه تقريبًا منفصلًا للمتعدد الخطي منخفض الأبعاد في الفضاء عالي الأبعاد. يضمن تقليل دالة تكلفة تستند إلى الرسم البياني أن النقاط القريبة من بعضها البعض على المتعدد الخطي يتم رسمها بالقرب من بعضها البعض في الفضاء منخفض الأبعاد، مما يحافظ على المسافات المحلية. يمكن تنفيذ التضمين الطيفي باستخدام دالة "سبيكترال_إمبيدينغ" أو نظيرها الموجه نحو الكائنات "سبيكترال_إمبيدينغ".
 
-  The overall complexity of standard HLLE is
-  :math:`O[D \log(k) N \log(N)] + O[D N k^3] + O[N d^6] + O[d N^2]`.
+تتكون خوارزمية التضمين الطيفي (خرائط لابلاسيان) من ثلاث مراحل:
 
-  * :math:`N` : number of training data points
-  * :math:`D` : input dimension
-  * :math:`k` : number of nearest neighbors
-  * :math:`d` : output dimension
+1. **بناء الرسم البياني الموزون**: تحويل بيانات الإدخال الخام إلى تمثيل الرسم البياني باستخدام مصفوفة التشابه (المجاور).
+2. **بناء مؤثر لابلاسيان**: يتم بناء مؤثر لابلاسيان غير الموحد على النحو التالي: L = D - A، في حين يتم بناء مؤثر لابلاسيان الموحد على النحو التالي: L = D^{-1/2} (D - A) D^{-1/2}.
+3. **التحليل الجزئي للقيمة الذاتية**: يتم إجراء التحليل القيمي الذاتي على مؤثر لابلاسيان.
 
-.. rubric:: References
+يبلغ التعقيد الكلي للتضمين الطيفي: O[D log(k) N log(N)] + O[D N k^3] + O[d N^2].
 
-* `"Hessian Eigenmaps: Locally linear embedding techniques for
-  high-dimensional data" <http://www.pnas.org/content/100/10/5591>`_
-  Donoho, D. & Grimes, C. Proc Natl Acad Sci USA. 100:5591 (2003)
+- :math:`N` : عدد نقاط التدريب
+- :math:`D` : البعد المدخَل
+- :math:`k` : عدد أقرب الجيران
+- :math:`d` : بعد الإخراج
 
-.. _spectral_embedding:
+**المراجع**:
 
-Spectral Embedding
-====================
+* "خرائط لابلاسيان للتقليل من الأبعاد وتمثيل البيانات" <https://web.cse.ohio-state.edu/~mbelkin/papers/LEM_NC_03.pdf> إم. بيلكين، بي. نييوجي، الحساب العصبي، يونيو 2003؛ 15 (6): 1373-1396
 
-Spectral Embedding is an approach to calculating a non-linear embedding.
-Scikit-learn implements Laplacian Eigenmaps, which finds a low dimensional
-representation of the data using a spectral decomposition of the graph
-Laplacian. The graph generated can be considered as a discrete approximation of
-the low dimensional manifold in the high dimensional space. Minimization of a
-cost function based on the graph ensures that points close to each other on
-the manifold are mapped close to each other in the low dimensional space,
-preserving local distances. Spectral embedding can be  performed with the
-function :func:`spectral_embedding` or its object-oriented counterpart
-:class:`SpectralEmbedding`.
+## محاذاة الفضاء المماس المحلي
 
-.. dropdown:: Complexity
+على الرغم من أن طريقة "محاذاة الفضاء المماس المحلي" (LTSA) ليست من الناحية الفنية إحدى متغيرات طريقة "إل إل إي"، إلا أنها تشبهها خوارزميًا بما يكفي لوضعها في هذه الفئة. بدلاً من التركيز على الحفاظ على مسافات الحي كما هو الحال في طريقة "إل إل إي"، تسعى طريقة LTSA إلى توصيف الهندسة المحلية في كل حي من خلال فضاءها المماس، وتؤدي تحسينًا عالميًا لمحاذاة مساحات المماس هذه لتعلم التضمين. يمكن تنفيذ طريقة LTSA باستخدام دالة "لوكالي_لاينر_إمبيدينغ" أو نظيرها الموجه نحو الكائنات "لوكالي_لاينر_إمبيدينغ"، مع الكلمة الأساسية "ميثود = 'إل تي إس إيه'".
 
-  The Spectral Embedding (Laplacian Eigenmaps) algorithm comprises three stages:
-
-  1. **Weighted Graph Construction**. Transform the raw input data into
-     graph representation using affinity (adjacency) matrix representation.
+تتكون خوارزمية LTSA من ثلاث مراحل:
 
-  2. **Graph Laplacian Construction**. unnormalized Graph Laplacian
-     is constructed as :math:`L = D - A` for and normalized one as
-     :math:`L = D^{-\frac{1}{2}} (D - A) D^{-\frac{1}{2}}`.
+1. **بحث أقرب الجيران**: نفس طريقة "إل إل إي" القياسية.
+2. **بناء مصفوفة الأوزان**: تقريبًا O[D N k^3] + O[k^2 d]. يعكس الحد الأول تكلفة مماثلة لتكلفة طريقة "إل إل إي" القياسية.
+3. **التحليل الجزئي للقيمة الذاتية**: نفس طريقة "إل إل إي" القياسية.
 
-  3. **Partial Eigenvalue Decomposition**. Eigenvalue decomposition is
-     done on graph Laplacian.
+يبلغ التعقيد الكلي لطريقة LTSA القياسية: O[D log(k) N log(N)] + O[D N k^3] + O[k^2 d] + O[d N^2].
 
-  The overall complexity of spectral embedding is
-  :math:`O[D \log(k) N \log(N)] + O[D N k^3] + O[d N^2]`.
+- :math:`N` : عدد نقاط التدريب
+- :math:`D` : البعد المدخَل
+- :math:`k` : عدد أقرب الجيران
+- :math:`d` : بعد الإخراج
 
-  * :math:`N` : number of training data points
-  * :math:`D` : input dimension
-  * :math:`k` : number of nearest neighbors
-  * :math:`d` : output dimension
+**المراجع**:
 
-.. rubric:: References
+* "المنشورات الرئيسية والمنشورات الفرعية والحد من الأبعاد غير الخطية عبر محاذاة الفضاء المماس" <cs/0212008> زانج، ز. وزهو، إتش. مجلة جامعة شانغهاي 8:406 (2004)
 
-* `"Laplacian Eigenmaps for Dimensionality Reduction
-  and Data Representation"
-  <https://web.cse.ohio-state.edu/~mbelkin/papers/LEM_NC_03.pdf>`_
-  M. Belkin, P. Niyogi, Neural Computation, June 2003; 15 (6):1373-1396
+## القياس متعدد الأبعاد (MDS)
 
+يسعى "القياس متعدد الأبعاد" <https://en.wikipedia.org/wiki/Multidimensional_scaling> (MDS) إلى إيجاد تمثيل منخفض الأبعاد للبيانات التي تحترم المسافات في الفضاء عالي الأبعاد الأصلي.
 
-Local Tangent Space Alignment
-=============================
+بشكل عام، تعد طريقة MDS تقنية مستخدمة لتحليل بيانات التشابه أو الاختلاف. فهي تحاول نمذجة بيانات التشابه أو الاختلاف على أنها مسافات في مساحات هندسية. يمكن أن تكون البيانات تصنيفات للتشابه بين الكائنات، أو ترددات التفاعل بين الجزيئات، أو مؤشرات التداول بين البلدان.
 
-Though not technically a variant of LLE, Local tangent space alignment (LTSA)
-is algorithmically similar enough to LLE that it can be put in this category.
-Rather than focusing on preserving neighborhood distances as in LLE, LTSA
-seeks to characterize the local geometry at each neighborhood via its
-tangent space, and performs a global optimization to align these local
-tangent spaces to learn the embedding.  LTSA can be performed with function
-:func:`locally_linear_embedding` or its object-oriented counterpart
-:class:`LocallyLinearEmbedding`, with the keyword ``method = 'ltsa'``.
+هناك نوعان من خوارزميات MDS: المترية وغير المترية. في مكتبة "سكيكيت-ليرن"، تنفذ طريقة MDS كلا النوعين. في طريقة MDS المترية، تنشأ مصفوفة التشابه من مقياس (وبالتالي تحترم عدم المساواة المثلثية)، ويتم بعد ذلك ضبط المسافات بين نقطتين لتكون قريبة قدر الإمكان من بيانات التشابه أو الاختلاف. في الإصدار غير المتري، ستحاول الخوارزميات الحفاظ على ترتيب المسافات، وبالتالي البحث عن علاقة متناسبة بين المسافات في الفضاء المضمن والتشابهات/الاختلافات.
 
-.. figure:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_009.png
-   :target: ../auto_examples/manifold/plot_lle_digits.html
-   :align: center
-   :scale: 50
+دع :math:`S` تكون مصفوفة التشابه، و:math:`X` إحداثيات :math:`n` نقاط الإدخال. الفروق :math:`\hat{d}_{ij}` هي تحويل التشابهات التي يتم اختيارها بطرق مثالية. يتم بعد ذلك تعريف الهدف، والذي يُطلق عليه الإجهاد، على النحو التالي: :math:`\sum_{i < j} d_{ij}(X) - \hat{d}_{ij}(X)`
 
-.. dropdown:: Complexity
+### طريقة MDS المترية
 
-  The LTSA algorithm comprises three stages:
+في أبسط نموذج MDS المتري، والذي يُطلق عليه اسم MDS المطلق، يتم تعريف الفروق على النحو التالي: :math:`\hat{d}_{ij} = S_{ij}`. مع طريقة MDS المطلقة، يجب أن تتوافق القيمة :math:`S_{ij` بشكل دقيق مع المسافة بين النقطتين :math:`i` و:math:`j` في نقطة التضمين.
 
-  1. **Nearest Neighbors Search**.  Same as standard LLE
+في معظم الأحيان، يتم ضبط الفروق على النحو التالي: :math:`\hat{d}_{ij} = b S_{ij}`.
 
-  2. **Weight Matrix Construction**. Approximately
-     :math:`O[D N k^3] + O[k^2 d]`.  The first term reflects a similar
-     cost to that of standard LLE.
+### طريقة MDS غير المترية
 
-  3. **Partial Eigenvalue Decomposition**. Same as standard LLE
+تركز طريقة MDS غير المترية على ترتيب البيانات. إذا كان :math:`S_{ij} > S_{jk}`، فيجب أن يفرض التضمين ما يلي: :math:`d_{ij} < d_{jk}`. لهذا السبب، نناقشها من حيث الاختلافات (:math:`\delta_{ij}`) بدلاً من التشابهات (:math:`S_{ij}`). لاحظ أنه يمكن الحصول على الاختلافات بسهولة من التشابهات من خلال تحويل بسيط، على سبيل المثال: :math:`\delta_{ij}=c_1-c_2 S_{ij}` لبعض الثوابت الحقيقية :math:`c_1, c_2`. إحدى الخوارزميات البسيطة لفرض الترتيب الصحيح هي استخدام الانحدار الأحدبي لـ:math:`d_{ij}` على :math:`\delta_{ij}`، مما يؤدي إلى فروق :math:`\hat{d}_{ij}` بنفس ترتيب :math:`\delta_{ij}`.
 
-  The overall complexity of standard LTSA is
-  :math:`O[D \log(k) N \log(N)] + O[D N k^3] + O[k^2 d] + O[d N^2]`.
+الحل البديهي لهذه المشكلة هو تعيين جميع النقاط على الأصل. لتجنب ذلك، يتم تطبيع الفروق :math:`\hat{d}_{ij}`. لاحظ أنه نظرًا لأننا نهتم فقط بالترتيب النسبي، يجب أن يكون هدفنا غير حساس للترجمة البسيطة والمقياس، ومع ذلك فإن الإجهاد المستخدم في طريقة MDS المترية حساس للمقياس. لمعالجة ذلك، قد تستخدم طريقة MDS غير المترية إجهادًا موحدًا، يُعرف باسم Stress-1، على النحو التالي:
 
-  * :math:`N` : number of training data points
-  * :math:`D` : input dimension
-  * :math:`k` : number of nearest neighbors
-  * :math:`d` : output dimension
+.. math::
+    \sqrt{\frac{\sum_{i < j} (d_{ij} - \hat{d}_{ij})^2}{\sum_{i < j} d_{ij}^2}}.
 
-.. rubric:: References
+يمكن تمكين استخدام Stress-1 الموحد من خلال ضبط `normalized_stress=True`، ولكنه متوافق فقط مع مشكلة MDS غير المترية وسيتم تجاهله في حالة MDS المترية.
 
-* :arxiv:`"Principal manifolds and nonlinear dimensionality reduction via
-  tangent space alignment"
-  <cs/0212008>`
-  Zhang, Z. & Zha, H. Journal of Shanghai Univ. 8:406 (2004)
+**المراجع**:
 
-.. _multidimensional_scaling:
+* "القياس متعدد الأبعاد الحديث - النظرية والتطبيقات" <https://www.springer.com/fr/book/9780387251509> بورغ، آي؛ غرونين بي. سلسلة سبرينغر في الإحصاء (1997)
 
-Multi-dimensional Scaling (MDS)
-===============================
+* "القياس متعدد الأبعاد غير المتري: طريقة رقمية" <http://cda.psych.uiuc.edu/psychometrika_highly_cited_articles/kruskal_1964b.pdf> كروسكال، جي. علم النفس، 29 (1964)
 
-`Multidimensional scaling <https://en.wikipedia.org/wiki/Multidimensional_scaling>`_
-(:class:`MDS`) seeks a low-dimensional
-representation of the data in which the distances respect well the
-distances in the original high-dimensional space.
+* "القياس متعدد الأبعاد عن طريق تحسين ملاءمة الفرضية غير المترية" <http://cda.psych.uiuc.edu/psychometrika_highly_cited_articles/kruskal_1964a.pdf> كروسكال، جي. علم النفس، 29، (1964)
 
-In general, :class:`MDS` is a technique used for analyzing similarity or
-dissimilarity data. It attempts to model similarity or dissimilarity data as
-distances in a geometric spaces. The data can be ratings of similarity between
-objects, interaction frequencies of molecules, or trade indices between
-countries.
+## t-distributed Stochastic Neighbor Embedding (t-SNE)
+يتحول t-SNE (:class:`TSNE`) نقاط البيانات إلى احتمالات.
+وتمثل الاحتمالات المشتركة الغاوسية في الفراغ الأصلي، وتمثل احتمالات طالب t-distributions في الفراغ المدمج. وهذا يجعل t-SNE حساسًا للغاية للبنية المحلية وله عدة مزايا على التقنيات الموجودة:
 
-There exists two types of MDS algorithm: metric and non metric. In
-scikit-learn, the class :class:`MDS` implements both. In Metric MDS, the input
-similarity matrix arises from a metric (and thus respects the triangular
-inequality), the distances between output two points are then set to be as
-close as possible to the similarity or dissimilarity data. In the non-metric
-version, the algorithms will try to preserve the order of the distances, and
-hence seek for a monotonic relationship between the distances in the embedded
-space and the similarities/dissimilarities.
+* كشف البنية على العديد من المقاييس على خريطة واحدة
+* كشف البيانات التي تقع في المنوعات أو المجموعات المختلفة والمتعددة
+* تقليل الميل لتجميع النقاط معًا في الوسط
 
-.. figure:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_010.png
-   :target: ../auto_examples/manifold/plot_lle_digits.html
-   :align: center
-   :scale: 50
-
-
-Let :math:`S` be the similarity matrix, and :math:`X` the coordinates of the
-:math:`n` input points. Disparities :math:`\hat{d}_{ij}` are transformation of
-the similarities chosen in some optimal ways. The objective, called the
-stress, is then defined by :math:`\sum_{i < j} d_{ij}(X) - \hat{d}_{ij}(X)`
-
-
-.. dropdown:: Metric MDS
-
-  The simplest metric :class:`MDS` model, called *absolute MDS*, disparities are defined by
-  :math:`\hat{d}_{ij} = S_{ij}`. With absolute MDS, the value :math:`S_{ij}`
-  should then correspond exactly to the distance between point :math:`i` and
-  :math:`j` in the embedding point.
-
-  Most commonly, disparities are set to :math:`\hat{d}_{ij} = b S_{ij}`.
-
-.. dropdown:: Nonmetric MDS
-
-  Non metric :class:`MDS` focuses on the ordination of the data. If
-  :math:`S_{ij} > S_{jk}`, then the embedding should enforce :math:`d_{ij} <
-  d_{jk}`. For this reason, we discuss it in terms of dissimilarities
-  (:math:`\delta_{ij}`) instead of similarities (:math:`S_{ij}`). Note that
-  dissimilarities can easily be obtained from similarities through a simple
-  transform, e.g. :math:`\delta_{ij}=c_1-c_2 S_{ij}` for some real constants
-  :math:`c_1, c_2`. A simple algorithm to enforce proper ordination is to use a
-  monotonic regression of :math:`d_{ij}` on :math:`\delta_{ij}`, yielding
-  disparities :math:`\hat{d}_{ij}` in the same order as :math:`\delta_{ij}`.
-
-  A trivial solution to this problem is to set all the points on the origin. In
-  order to avoid that, the disparities :math:`\hat{d}_{ij}` are normalized. Note
-  that since we only care about relative ordering, our objective should be
-  invariant to simple translation and scaling, however the stress used in metric
-  MDS is sensitive to scaling. To address this, non-metric MDS may use a
-  normalized stress, known as Stress-1 defined as
-
-  .. math::
-      \sqrt{\frac{\sum_{i < j} (d_{ij} - \hat{d}_{ij})^2}{\sum_{i < j} d_{ij}^2}}.
-
-  The use of normalized Stress-1 can be enabled by setting `normalized_stress=True`,
-  however it is only compatible with the non-metric MDS problem and will be ignored
-  in the metric case.
-
-  .. figure:: ../auto_examples/manifold/images/sphx_glr_plot_mds_001.png
-    :target: ../auto_examples/manifold/plot_mds.html
-    :align: center
-    :scale: 60
-
-.. rubric:: References
-
-* `"Modern Multidimensional Scaling - Theory and Applications"
-  <https://www.springer.com/fr/book/9780387251509>`_
-  Borg, I.; Groenen P. Springer Series in Statistics (1997)
-
-* `"Nonmetric multidimensional scaling: a numerical method"
-  <http://cda.psych.uiuc.edu/psychometrika_highly_cited_articles/kruskal_1964b.pdf>`_
-  Kruskal, J. Psychometrika, 29 (1964)
-
-* `"Multidimensional scaling by optimizing goodness of fit to a nonmetric hypothesis"
-  <http://cda.psych.uiuc.edu/psychometrika_highly_cited_articles/kruskal_1964a.pdf>`_
-  Kruskal, J. Psychometrika, 29, (1964)
-
-.. _t_sne:
-
-t-distributed Stochastic Neighbor Embedding (t-SNE)
-===================================================
-
-t-SNE (:class:`TSNE`) converts affinities of data points to probabilities.
-The affinities in the original space are represented by Gaussian joint
-probabilities and the affinities in the embedded space are represented by
-Student's t-distributions. This allows t-SNE to be particularly sensitive
-to local structure and has a few other advantages over existing techniques:
-
-* Revealing the structure at many scales on a single map
-* Revealing data that lie in multiple, different, manifolds or clusters
-* Reducing the tendency to crowd points together at the center
-
-While Isomap, LLE and variants are best suited to unfold a single continuous
-low dimensional manifold, t-SNE will focus on the local structure of the data
-and will tend to extract clustered local groups of samples as highlighted on
-the S-curve example. This ability to group samples based on the local structure
-might be beneficial to visually disentangle a dataset that comprises several
-manifolds at once as is the case in the digits dataset.
-
-The Kullback-Leibler (KL) divergence of the joint
-probabilities in the original space and the embedded space will be minimized
-by gradient descent. Note that the KL divergence is not convex, i.e.
-multiple restarts with different initializations will end up in local minima
-of the KL divergence. Hence, it is sometimes useful to try different seeds
-and select the embedding with the lowest KL divergence.
-
-The disadvantages to using t-SNE are roughly:
-
-* t-SNE is computationally expensive, and can take several hours on million-sample
-  datasets where PCA will finish in seconds or minutes
-* The Barnes-Hut t-SNE method is limited to two or three dimensional embeddings.
-* The algorithm is stochastic and multiple restarts with different seeds can
-  yield different embeddings. However, it is perfectly legitimate to pick the
-  embedding with the least error.
-* Global structure is not explicitly preserved. This problem is mitigated by
-  initializing points with PCA (using `init='pca'`).
+في حين أن Isomap وLLE والمتغيرات مناسبة بشكل أفضل لتفكيك المنوال المستمر الأحادي البعد، سيركز t-SNE على البنية المحلية للبيانات
+ومن المرجح أن تستخرج مجموعات محلية مجمعة من العينات كما هو موضح في مثال منحنى S. وقد تكون هذه القدرة على تجميع العينات بناءً على البنية المحلية مفيدة لفصل مجموعة بيانات بصريًا تتكون من عدة منوعات في نفس الوقت كما هو الحال في مجموعة بيانات الأرقام.
 
+سيتم تقليل التباعد كولباك-ليبلير (KL) للاحتمالات المشتركة في الفراغ الأصلي والمدمج بواسطة التدرج الهابط. لاحظ أن التباعد KL غير محدب، أي أن عمليات إعادة التشغيل المتعددة باستخدام تهيئات مختلفة ستنتهي في الحد الأدنى المحلي للتباعد KL. وبالتالي، من المفيد في بعض الأحيان تجربة بذور مختلفة واختيار التضمين مع أقل تباعد KL.
+
+العيب في استخدام t-SNE هو تقريبًا:
+
+* t-SNE مكلف حسابياً، ويمكن أن يستغرق عدة ساعات في مجموعات بيانات المليون عينة حيث تنتهي PCA في ثوان أو دقائق
+* تقتصر طريقة Barnes-Hut t-SNE على تضمينات ثنائية أو ثلاثية الأبعاد.
+* الخوارزمية احتمالية ويمكن أن تؤدي عمليات إعادة التشغيل المتعددة باستخدام بذور مختلفة إلى تضمينات مختلفة. ومع ذلك، من المشروع تمامًا اختيار التضمين بأقل خطأ.
+* لا يتم الحفاظ على البنية العالمية بشكل صريح. يتم تخفيف هذه المشكلة عن طريق تهيئة النقاط باستخدام PCA (باستخدام `init='pca'`).
 
 .. figure:: ../auto_examples/manifold/images/sphx_glr_plot_lle_digits_013.png
    :target: ../auto_examples/manifold/plot_lle_digits.html
    :align: center
    :scale: 50
 
-.. dropdown:: Optimizing t-SNE
+.. dropdown:: تحسين t-SNE
 
-  The main purpose of t-SNE is visualization of high-dimensional data. Hence,
-  it works best when the data will be embedded on two or three dimensions.
+  الغرض الرئيسي من t-SNE هو تصور البيانات عالية الأبعاد. وبالتالي، فهو يعمل بشكل أفضل عندما يتم تضمين البيانات في بُعدين أو ثلاثة أبعاد.
 
-  Optimizing the KL divergence can be a little bit tricky sometimes. There are
-  five parameters that control the optimization of t-SNE and therefore possibly
-  the quality of the resulting embedding:
+  يمكن أن يكون تحسين التباعد KL صعبًا بعض الشيء في بعض الأحيان. هناك خمسة معلمات تتحكم في تحسين t-SNE وبالتالي ربما جودة التضمين الناتج:
 
-  * perplexity
-  * early exaggeration factor
-  * learning rate
-  * maximum number of iterations
-  * angle (not used in the exact method)
+  * الحيرة
+  * عامل المبالغة المبكر
+  * معدل التعلم
+  * الحد الأقصى لعدد التكرارات
+  * الزاوية (لا تستخدم في الطريقة الدقيقة)
 
-  The perplexity is defined as :math:`k=2^{(S)}` where :math:`S` is the Shannon
-  entropy of the conditional probability distribution. The perplexity of a
-  :math:`k`-sided die is :math:`k`, so that :math:`k` is effectively the number of
-  nearest neighbors t-SNE considers when generating the conditional probabilities.
-  Larger perplexities lead to more nearest neighbors and less sensitive to small
-  structure. Conversely a lower perplexity considers a smaller number of
-  neighbors, and thus ignores more global information in favour of the
-  local neighborhood. As dataset sizes get larger more points will be
-  required to get a reasonable sample of the local neighborhood, and hence
-  larger perplexities may be required. Similarly noisier datasets will require
-  larger perplexity values to encompass enough local neighbors to see beyond
-  the background noise.
+  يتم تعريف الحيرة على أنها :math:`k=2^{(S)}` حيث :math:`S` هو إنتروبيا شانون لتوزيع الاحتمال الشرطي. الحيرة من
+  :math:`k`-منضدة النرد هو :math:`k`، بحيث :math:`k` هو في الواقع عدد
+  أقرب جيران ينظر إليها t-SNE عند توليد الاحتمالات الشرطية. تؤدي الحيرة الأكبر إلى عدد أكبر من أقرب الجيران وأقل حساسية للبنية الصغيرة. وعلى العكس من ذلك، فإن الحيرة المنخفضة تأخذ في الاعتبار عددًا أقل من الجيران، وبالتالي تتجاهل المعلومات العالمية لصالح
+  الجوار المحلي. مع زيادة أحجام مجموعات البيانات، ستكون هناك حاجة إلى المزيد من النقاط للحصول على عينة معقولة من الجوار المحلي، وبالتالي قد تكون هناك حاجة إلى حيرة أكبر. وبالمثل، فإن مجموعات البيانات الأكثر ضوضاءً ستحتاج إلى قيم حيرة أكبر لتشمل ما يكفي من الجيران المحليين لرؤية ما وراء ضوضاء الخلفية.
 
-  The maximum number of iterations is usually high enough and does not need
-  any tuning. The optimization consists of two phases: the early exaggeration
-  phase and the final optimization. During early exaggeration the joint
-  probabilities in the original space will be artificially increased by
-  multiplication with a given factor. Larger factors result in larger gaps
-  between natural clusters in the data. If the factor is too high, the KL
-  divergence could increase during this phase. Usually it does not have to be
-  tuned. A critical parameter is the learning rate. If it is too low gradient
-  descent will get stuck in a bad local minimum. If it is too high the KL
-  divergence will increase during optimization. A heuristic suggested in
-  Belkina et al. (2019) is to set the learning rate to the sample size
-  divided by the early exaggeration factor. We implement this heuristic
-  as `learning_rate='auto'` argument. More tips can be found in
-  Laurens van der Maaten's FAQ (see references). The last parameter, angle,
-  is a tradeoff between performance and accuracy. Larger angles imply that we
-  can approximate larger regions by a single point, leading to better speed
-  but less accurate results.
+  عادةً ما يكون العدد الأقصى للتكرارات مرتفعًا بدرجة كافية ولا يحتاج إلى أي ضبط. يتكون التحسين من مرحلتين: مرحلة المبالغة المبكرة والتحسين النهائي. خلال المبالغة المبكرة، سيتم زيادة الاحتمالات المشتركة في الفراغ الأصلي بشكل مصطنع عن طريق
+  الضرب في عامل معين. تؤدي العوامل الأكبر إلى فجوات أكبر بين المجموعات الطبيعية في البيانات. إذا كان العامل مرتفعًا جدًا، فقد يزيد التباعد KL خلال هذه المرحلة. عادةً لا يلزم ضبطه. أحد المعلمات الحرجة هو معدل التعلم. إذا كان منخفضًا جدًا، فسيعلق النسب المئوية في الحد الأدنى المحلي السيئ. إذا كان مرتفعًا جدًا، فسوف يزيد التباعد KL أثناء التحسين. تنصح حيلة Belkina et al. (2019) بضبط معدل التعلم على حجم العينة
+  مقسومة على عامل المبالغة المبكر. ننفذ هذه الحيلة كـ `learning_rate='auto'` argument. يمكن العثور على مزيد من النصائح في
+  قائمة الأسئلة الشائعة الخاصة بـ Laurens van der Maaten (راجع المراجع). المعلمة الأخيرة، الزاوية، هي حل وسط بين الأداء والدقة. تشير الزوايا الأكبر إلى أنه يمكننا تقريب مناطق أكبر بواسطة نقطة واحدة، مما يؤدي إلى سرعة أفضل ولكن نتائج أقل دقة.
 
-  `"How to Use t-SNE Effectively" <https://distill.pub/2016/misread-tsne/>`_
-  provides a good discussion of the effects of the various parameters, as well
-  as interactive plots to explore the effects of different parameters.
+  يقدم "كيفية استخدام t-SNE بشكل فعال" <https://distill.pub/2016/misread-tsne/>
+  مناقشة جيدة لآثار المعلمات المختلفة، بالإضافة إلى المخططات التفاعلية لاستكشاف آثار معلمات مختلفة.
 
 .. dropdown:: Barnes-Hut t-SNE
 
-  The Barnes-Hut t-SNE that has been implemented here is usually much slower than
-  other manifold learning algorithms. The optimization is quite difficult
-  and the computation of the gradient is :math:`O[d N log(N)]`, where :math:`d`
-  is the number of output dimensions and :math:`N` is the number of samples. The
-  Barnes-Hut method improves on the exact method where t-SNE complexity is
-  :math:`O[d N^2]`, but has several other notable differences:
+  عادةً ما يكون Barnes-Hut t-SNE، الذي تم تنفيذه هنا، أبطأ بكثير من خوارزميات التعلم الأخرى للمنوال. التحسين صعب للغاية
+  وحساب التدرج هو :math:`O[d N log(N)]`، حيث :math:`d`
+  هو عدد الأبعاد الناتجة و :math:`N` هو عدد العينات. تحسن طريقة Barnes-Hut على الطريقة الدقيقة حيث تكون تعقيد t-SNE
+  :math:`O[d N^2]`، ولكن لها عدة اختلافات ملحوظة أخرى:
 
-  * The Barnes-Hut implementation only works when the target dimensionality is 3
-    or less. The 2D case is typical when building visualizations.
-  * Barnes-Hut only works with dense input data. Sparse data matrices can only be
-    embedded with the exact method or can be approximated by a dense low rank
-    projection for instance using :class:`~sklearn.decomposition.PCA`
-  * Barnes-Hut is an approximation of the exact method. The approximation is
-    parameterized with the angle parameter, therefore the angle parameter is
-    unused when method="exact"
-  * Barnes-Hut is significantly more scalable. Barnes-Hut can be used to embed
-    hundred of thousands of data points while the exact method can handle
-    thousands of samples before becoming computationally intractable
+  * يعمل تنفيذ Barnes-Hut فقط عندما يكون البعد المستهدف 3
+    أو أقل. الحالة ثنائية الأبعاد نموذجية عند إنشاء التصورات.
+  * يعمل Barnes-Hut فقط مع بيانات الإدخال الكثيفة. يمكن تضمين مصفوفات البيانات المتناثرة فقط
+  باستخدام الطريقة الدقيقة أو يمكن تقريبها بواسطة إسقاط كثيف منخفض الترتيب باستخدام :class:`~sklearn.decomposition.PCA`
+  * Barnes-Hut هو تقريب للأسلوب الدقيق. يتم معلمجة التقريب
+  مع معلمة الزاوية، وبالتالي لا يتم استخدام معلمة الزاوية عندما تكون الطريقة="الدقيقة"
+  * Barnes-Hut قابل للتطوير بشكل أكبر. يمكن استخدام Barnes-Hut لتضمين مئات الآلاف من نقاط البيانات في حين أن الطريقة الدقيقة يمكنها التعامل
+  مع آلاف العينات قبل أن تصبح غير قابلة للحساب
 
-  For visualization purpose (which is the main use case of t-SNE), using the
-  Barnes-Hut method is strongly recommended. The exact t-SNE method is useful
-  for checking the theoretically properties of the embedding possibly in higher
-  dimensional space but limit to small datasets due to computational constraints.
+  بالنسبة لهدف التصور (وهو الاستخدام الأساسي لـ t-SNE)، يوصى بشدة باستخدام
+  طريقة Barnes-Hut. تعد طريقة t-SNE الدقيقة مفيدة لفحص الخصائص النظرية للتضمين، ربما في مساحة ذات أبعاد أعلى، ولكنها تقتصر على مجموعات البيانات الصغيرة بسبب القيود الحسابية.
 
-  Also note that the digits labels roughly match the natural grouping found by
-  t-SNE while the linear 2D projection of the PCA model yields a representation
-  where label regions largely overlap. This is a strong clue that this data can
-  be well separated by non linear methods that focus on the local structure (e.g.
-  an SVM with a Gaussian RBF kernel). However, failing to visualize well
-  separated homogeneously labeled groups with t-SNE in 2D does not necessarily
-  imply that the data cannot be correctly classified by a supervised model. It
-  might be the case that 2 dimensions are not high enough to accurately represent
-  the internal structure of the data.
+  لاحظ أيضًا أن تسميات الأرقام تتطابق تقريبًا مع التجميع الطبيعي الذي يجده
+  t-SNE في حين أن الإسقاط الخطي ثنائي الأبعاد لنموذج PCA ينتج تمثيلًا
+  تتداخل فيه مناطق التسمية إلى حد كبير. هذه علامة قوية على أنه يمكن فصل هذه البيانات جيدًا بواسطة طرق غير خطية تركز على البنية المحلية (مثل
+  SVM مع نواة RBF غاوسية). ومع ذلك، فإن الفشل في تصور المجموعات ذات التسميات المتجانسة جيدًا والمفصولة جيدًا باستخدام t-SNE في 2D لا يعني بالضرورة أن البيانات لا يمكن تصنيفها بشكل صحيح بواسطة نموذج إشرافي. قد يكون الأمر أن البعدين غير مرتفعين بما يكفي لتمثيل البنية الداخلية للبيانات بدقة.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* `"Visualizing High-Dimensional Data Using t-SNE"
+* `"تصور البيانات عالية الأبعاد باستخدام t-SNE"
   <https://jmlr.org/papers/v9/vandermaaten08a.html>`_
-  van der Maaten, L.J.P.; Hinton, G. Journal of Machine Learning Research (2008)
+  فان دير مااتين، إل جي بي؛ هينتون، جي. مجلة أبحاث التعلم الآلي (2008)
 
-* `"t-Distributed Stochastic Neighbor Embedding"
-  <https://lvdmaaten.github.io/tsne/>`_ van der Maaten, L.J.P.
+* `"التضمين المجاور العشوائي الموزع t"
+  <https://lvdmaaten.github.io/tsne/>`_ فان دير مااتين، إل جي بي.
 
-* `"Accelerating t-SNE using Tree-Based Algorithms"
+* `"تسريع t-SNE باستخدام الخوارزميات القائمة على الشجرة"
   <https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf>`_
-  van der Maaten, L.J.P.; Journal of Machine Learning Research 15(Oct):3221-3245, 2014.
+  فان دير مااتين، إل جي بي؛ مجلة أبحاث التعلم الآلي 15(أكتوبر): 3221-3245، 2014.
 
-* `"Automated optimized parameters for T-distributed stochastic neighbor
-  embedding improve visualization and analysis of large datasets"
+* `"معلمات محسنة تلقائيًا لتضمين الجار العشوائي الموزع t تحسن من التصور والتحليل لمجموعات البيانات الكبيرة"
   <https://www.nature.com/articles/s41467-019-13055-y>`_
-  Belkina, A.C., Ciccolella, C.O., Anno, R., Halpert, R., Spidlen, J.,
-  Snyder-Cappione, J.E., Nature Communications 10, 5415 (2019).
+  Belkina، AC، Ciccolella، CO، Anno، R.، Halpert، R.، Spidlen، J.،
+  Snyder-Cappione، JE، Nature Communications 10، 5415 (2019).
 
-Tips on practical use
+نصائح للاستخدام العملي
 =====================
 
-* Make sure the same scale is used over all features. Because manifold
-  learning methods are based on a nearest-neighbor search, the algorithm
-  may perform poorly otherwise.  See :ref:`StandardScaler <preprocessing_scaler>`
-  for convenient ways of scaling heterogeneous data.
+* تأكد من استخدام نفس المقياس لجميع الميزات. نظرًا لأن أساليب التعلم المنوال تعتمد على البحث عن أقرب الجيران، فقد يؤدي ذلك إلى أداء ضعيف في حالة عدم القيام بذلك. راجع :ref:`StandardScaler <preprocessing_scaler>`
+  للحصول على طرق ملائمة لقياس البيانات غير المتجانسة.
 
-* The reconstruction error computed by each routine can be used to choose
-  the optimal output dimension.  For a :math:`d`-dimensional manifold embedded
-  in a :math:`D`-dimensional parameter space, the reconstruction error will
-  decrease as ``n_components`` is increased until ``n_components == d``.
+* يمكن استخدام خطأ إعادة البناء الذي يحسبه كل روتين لاختيار
+  البعد الناتج الأمثل. بالنسبة إلى المنوال :math:`d` المضمن
+  في مساحة المعلمات :math:`D` الأبعاد، سينخفض خطأ إعادة البناء
+  مع زيادة ``n_components`` حتى ``n_components == d``.
 
-* Note that noisy data can "short-circuit" the manifold, in essence acting
-  as a bridge between parts of the manifold that would otherwise be
-  well-separated.  Manifold learning on noisy and/or incomplete data is
-  an active area of research.
+* لاحظ أن البيانات الضجيج يمكن أن "تقصر" المنوال، مما يؤدي إلى جسر
+  بين أجزاء المنوال التي ستكون منفصلة بشكل جيد.
+  التعلم المنوال على البيانات الضجيج و/أو غير المكتملة هو
+  مجال نشط للبحث.
 
-* Certain input configurations can lead to singular weight matrices, for
-  example when more than two points in the dataset are identical, or when
-  the data is split into disjointed groups.  In this case, ``solver='arpack'``
-  will fail to find the null space.  The easiest way to address this is to
-  use ``solver='dense'`` which will work on a singular matrix, though it may
-  be very slow depending on the number of input points.  Alternatively, one
-  can attempt to understand the source of the singularity: if it is due to
-  disjoint sets, increasing ``n_neighbors`` may help.  If it is due to
-  identical points in the dataset, removing these points may help.
+* يمكن أن تؤدي بعض تكوينات الإدخال إلى مصفوفات أوزان متساوية، على سبيل المثال عندما يكون أكثر من نقطتين في مجموعة البيانات متطابقة، أو عندما
+  تنقسم البيانات إلى مجموعات منفصلة. في هذه الحالة، سوف
+  تفشل "الحل='arpack'" في العثور على المساحة الخالية. أسهل طريقة للتعامل مع هذا الأمر هي
+  استخدام ``solver='dense'`` الذي سيعمل على مصفوفة متساوية، على الرغم من أنه قد يكون
+  بطيئًا جدًا اعتمادًا على عدد نقاط الإدخال. بدلاً من ذلك، يمكن للمرء
+  محاولة فهم مصدر التساوي: إذا كان بسبب مجموعات منفصلة، فقد يساعد زيادة ``n_neighbors``. إذا كان بسبب نقاط متطابقة في مجموعة البيانات، فقد يساعد إزالة هذه النقاط.
 
 .. seealso::
 
-   :ref:`random_trees_embedding` can also be useful to derive non-linear
-   representations of feature space, also it does not perform
-   dimensionality reduction.
+   :ref:`random_trees_embedding` يمكن أن يكون مفيدًا أيضًا لاستنتاج التمثيلات غير الخطية
+  لمساحة الميزة، كما أنه لا يؤدي
+  تقليل الأبعاد.
