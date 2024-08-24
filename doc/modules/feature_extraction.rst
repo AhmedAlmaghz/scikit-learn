@@ -1,320 +1,247 @@
-.. _feature_extraction:
-
-==================
-Feature extraction
+استخراج الخصائص
 ==================
 
-.. currentmodule:: sklearn.feature_extraction
-
-The :mod:`sklearn.feature_extraction` module can be used to extract
-features in a format supported by machine learning algorithms from datasets
-consisting of formats such as text and image.
+يمكن استخدام وحدة sklearn.feature_extraction لاستخراج الخصائص بتنسيق مدعوم من خوارزميات التعلم الآلي من مجموعات البيانات المكونة من تنسيقات مثل النص والصورة.
 
 .. note::
 
-   Feature extraction is very different from :ref:`feature_selection`:
-   the former consists in transforming arbitrary data, such as text or
-   images, into numerical features usable for machine learning. The latter
-   is a machine learning technique applied on these features.
+   يختلف استخراج الميزات اختلافًا كبيرًا عن اختيار الميزة: يتكون السابق من تحويل البيانات التعسفية، مثل النص أو الصور، إلى ميزات رقمية يمكن استخدامها للتعلم الآلي. هذا الأخير هو تقنية تعلم آلي يتم تطبيقها على هذه الميزات.
 
-.. _dict_feature_extraction:
-
-Loading features from dicts
+تحميل الميزات من القواميس
 ===========================
 
-The class :class:`DictVectorizer` can be used to convert feature
-arrays represented as lists of standard Python ``dict`` objects to the
-NumPy/SciPy representation used by scikit-learn estimators.
+يمكن استخدام فئة DictVectorizer لتحويل صفائف الميزات التي يتم تمثيلها على أنها قوائم من كائنات القاموس Python القياسية إلى تمثيل NumPy/SciPy الذي تستخدمه خوارزميات التعلم الآلي.
 
-While not particularly fast to process, Python's ``dict`` has the
-advantages of being convenient to use, being sparse (absent features
-need not be stored) and storing feature names in addition to values.
+في حين أن معالجة Python ليست سريعة بشكل خاص، فإن لـ "dict" ميزة كونها مريحة للاستخدام، ومتفرقة (لا يلزم تخزين الميزات الغائبة) وتخزين أسماء الميزات بالإضافة إلى القيم.
 
-:class:`DictVectorizer` implements what is called one-of-K or "one-hot"
-coding for categorical (aka nominal, discrete) features. Categorical
-features are "attribute-value" pairs where the value is restricted
-to a list of discrete possibilities without ordering (e.g. topic
-identifiers, types of objects, tags, names...).
+تنفذ DictVectorizer ما يسمى برمز "one-of-K" أو "one-hot" للميزات الفئوية (المعروفة أيضًا باسم الاسمية أو المنفصلة). الميزات الفئوية هي أزواج "attribute-value" حيث تكون القيمة مقيدة بقائمة من الإمكانات المنفصلة دون ترتيب (على سبيل المثال، معرفات الموضوع، وأنواع الكائنات، والعلامات، والأسماء...).
 
-In the following, "city" is a categorical attribute while "temperature"
-is a traditional numerical feature::
+في ما يلي، "المدينة" هي سمة فئوية في حين أن "درجة الحرارة" هي ميزة رقمية تقليدية::
 
-  >>> measurements = [
-  ...     {'city': 'Dubai', 'temperature': 33.},
-  ...     {'city': 'London', 'temperature': 12.},
-  ...     {'city': 'San Francisco', 'temperature': 18.},
+  >>> القياسات = [
+  ...     {'city': 'Dubai', 'temperature': 33.}،
+  ...     {'city': 'London', 'temperature': 12.}،
+  ...     {'city': 'سان فرانسيسكو'، 'درجة الحرارة': 18.}،
   ... ]
 
-  >>> from sklearn.feature_extraction import DictVectorizer
-  >>> vec = DictVectorizer()
+  >>> من sklearn.feature_extraction import DictVectorizer
+  >>> فيك = DictVectorizer ()
 
-  >>> vec.fit_transform(measurements).toarray()
-  array([[ 1.,  0.,  0., 33.],
-         [ 0.,  1.,  0., 12.],
-         [ 0.,  0.,  1., 18.]])
+  >>> vec.fit_transform (القياسات). toarray ()
+  الصفيف ([[1.، 0.، 0.، 33.]،
+          [0.، 1.، 0.، 12.]،
+          [0.، 0.، 1.، 18.]])
 
-  >>> vec.get_feature_names_out()
-  array(['city=Dubai', 'city=London', 'city=San Francisco', 'temperature'], ...)
+  >>> vec.get_feature_names_out ()
+  الصفيف (['city = دبي'، 'city = لندن'، 'city = سان فرانسيسكو'، 'درجة الحرارة']، ...)
 
-:class:`DictVectorizer` accepts multiple string values for one
-feature, like, e.g., multiple categories for a movie.
+تقبل DictVectorizer قيم سلاسل متعددة لميزة واحدة، مثل فئات متعددة لفيلم.
 
-Assume a database classifies each movie using some categories (not mandatories)
-and its year of release.
+نفترض أن قاعدة بيانات تصنف كل فيلم باستخدام بعض الفئات (غير إلزامية) وسنة إصداره.
 
-    >>> movie_entry = [{'category': ['thriller', 'drama'], 'year': 2003},
-    ...                {'category': ['animation', 'family'], 'year': 2011},
+    >>> movie_entry = [{'category': ['thriller', 'drama'], 'year': 2003}،
+    ...                {'category': ['animation', 'family'], 'year': 2011}،
     ...                {'year': 1974}]
-    >>> vec.fit_transform(movie_entry).toarray()
-    array([[0.000e+00, 1.000e+00, 0.000e+00, 1.000e+00, 2.003e+03],
-           [1.000e+00, 0.000e+00, 1.000e+00, 0.000e+00, 2.011e+03],
-           [0.000e+00, 0.000e+00, 0.000e+00, 0.000e+00, 1.974e+03]])
-    >>> vec.get_feature_names_out()
-    array(['category=animation', 'category=drama', 'category=family',
-           'category=thriller', 'year'], ...)
-    >>> vec.transform({'category': ['thriller'],
-    ...                'unseen_feature': '3'}).toarray()
-    array([[0., 0., 0., 1., 0.]])
+    >>> vec.fit_transform (movie_entry). toarray ()
+    الصفيف ([[0.000e+00، 1.000e+00، 0.000e+00، 1.000e+00، 2.003e+03]،
+           [1.000e+00، 0.000e+00، 1.000e+00، 0.000e+00، 2.011e+03]،
+           [0.000e+00، 0.000e+00، 0.000e+00، 0.000e+00، 1.974e+03]])
+    >>> vec.get_feature_names_out ()
+    الصفيف (['category = animation'، 'category = drama'، 'category = family'،
+           'category = thriller'، 'year']، ...)
+    >>> vec.transform ({'category': ['thriller']،
+    ...                'unseen_feature': '3'}). toarray ()
+    الصفيف ([[0.، 0.، 0.، 1.، 0.]])
 
-:class:`DictVectorizer` is also a useful representation transformation
-for training sequence classifiers in Natural Language Processing models
-that typically work by extracting feature windows around a particular
-word of interest.
+DictVectorizer هو أيضًا تحويل تمثيل مفيد
+لتدريب المصنفات التسلسلية في نماذج معالجة اللغة الطبيعية
+التي تعمل عادة عن طريق استخراج نوافذ الميزات حول كلمة معينة ذات أهمية.
 
-For example, suppose that we have a first algorithm that extracts Part of
-Speech (PoS) tags that we want to use as complementary tags for training
-a sequence classifier (e.g. a chunker). The following dict could be
-such a window of features extracted around the word 'sat' in the sentence
-'The cat sat on the mat.'::
+على سبيل المثال، افترض أن لدينا خوارزمية أولى تستخرج علامات جزء من الكلام التي نريد استخدامها كعلامات تكميلية لتدريب مصنف تسلسلي (مثل chunker). يمكن أن يكون القاموس التالي نافذة من الميزات المستخرجة حول كلمة "sat" في الجملة "The cat sat on the mat."::
 
   >>> pos_window = [
   ...     {
-  ...         'word-2': 'the',
-  ...         'pos-2': 'DT',
-  ...         'word-1': 'cat',
-  ...         'pos-1': 'NN',
-  ...         'word+1': 'on',
-  ...         'pos+1': 'PP',
-  ...     },
-  ...     # in a real application one would extract many such dictionaries
+  ...         'word-2': 'the'،
+  ...         'pos-2': 'DT'،
+  ...         'word-1': 'cat'،
+  ...         'pos-1': 'NN'،
+  ...         'word+1': 'on'،
+  ...         'pos+1': 'PP'،
+  ...     }،
+  ...     # في تطبيق حقيقي سيتم استخراج العديد من هذه القواميس
   ... ]
 
-This description can be vectorized into a sparse two-dimensional matrix
-suitable for feeding into a classifier (maybe after being piped into a
-:class:`~text.TfidfTransformer` for normalization)::
+يمكن تحويل هذا الوصف إلى مصفوفة ثنائية الأبعاد متفرقة مناسبة للتغذية في مصنف (ربما بعد أن يتم تمريرها عبر TfidfTransformer للتوحيد)::
 
-  >>> vec = DictVectorizer()
-  >>> pos_vectorized = vec.fit_transform(pos_window)
+  >>> vec = DictVectorizer ()
+  >>> pos_vectorized = vec.fit_transform (pos_window)
   >>> pos_vectorized
-  <Compressed Sparse...dtype 'float64'
-    with 6 stored elements and shape (1, 6)>
-  >>> pos_vectorized.toarray()
-  array([[1., 1., 1., 1., 1., 1.]])
-  >>> vec.get_feature_names_out()
-  array(['pos+1=PP', 'pos-1=NN', 'pos-2=DT', 'word+1=on', 'word-1=cat',
-         'word-2=the'], ...)
+  <Compressed Sparse ... dtype = 'float64'
+    مع 6 عناصر مخزنة وشكل (1، 6)>
+  >>> pos_vectorized. toarray ()
+  الصفيف ([[1.، 1.، 1.، 1.، 1.، 1.]])
+  >>> vec.get_feature_names_out ()
+  الصفيف (['pos+1 = PP'، 'pos-1 = NN'، 'pos-2 = DT'، 'word+1 = on'، 'word-1 = cat'،
+         'word-2 = the']، ...)
 
-As you can imagine, if one extracts such a context around each individual
-word of a corpus of documents the resulting matrix will be very wide
-(many one-hot-features) with most of them being valued to zero most
-of the time. So as to make the resulting data structure able to fit in
-memory the ``DictVectorizer`` class uses a ``scipy.sparse`` matrix by
-default instead of a ``numpy.ndarray``.
+كما يمكنك أن تتخيل، إذا قمت باستخراج مثل هذا السياق حول كل كلمة فردية
+في مجموعة من الوثائق، ستكون المصفوفة الناتجة عريضة جدًا
+(الكثير من الميزات ذات الرمز الواحد) مع معظمها بقيمة صفر في معظم الوقت.
+لذلك، لكي يتمكن هيكل البيانات الناتج من الاحتفاظ بالذاكرة،
+تستخدم فئة DictVectorizer مصفوفة "scipy.sparse" بشكل افتراضي بدلاً من "numpy.ndarray".
 
 
-.. _feature_hashing:
-
-Feature hashing
+تجزئة الميزات
 ===============
 
 .. currentmodule:: sklearn.feature_extraction
 
-The class :class:`FeatureHasher` is a high-speed, low-memory vectorizer that
-uses a technique known as
-`feature hashing <https://en.wikipedia.org/wiki/Feature_hashing>`_,
-or the "hashing trick".
-Instead of building a hash table of the features encountered in training,
-as the vectorizers do, instances of :class:`FeatureHasher`
-apply a hash function to the features
-to determine their column index in sample matrices directly.
-The result is increased speed and reduced memory usage,
-at the expense of inspectability;
-the hasher does not remember what the input features looked like
-and has no ``inverse_transform`` method.
+فئة FeatureHasher هي أداة لتجزئة الميزات عالية السرعة ومنخفضة الذاكرة
+تستخدم تقنية تسمى تجزئة الميزات، أو "حيلة التجزئة".
+بدلاً من بناء جدول تجزئة للميزات التي تمت مواجهتها في التدريب،
+كما تفعل أدوات تجزئة الميزات،
+تطبق مثيلات FeatureHasher دالة تجزئة على الميزات
+لتحديد مؤشر عمودها في مصفوفات العينات مباشرة.
+والنتيجة هي زيادة السرعة وانخفاض استخدام الذاكرة،
+على حساب قابلية الفحص؛
+لا يتذكر المجزئ شكل الميزات المدخلة
+وليس لديه طريقة "inverse_transform".
 
-Since the hash function might cause collisions between (unrelated) features,
-a signed hash function is used and the sign of the hash value
-determines the sign of the value stored in the output matrix for a feature.
-This way, collisions are likely to cancel out rather than accumulate error,
-and the expected mean of any output feature's value is zero. This mechanism
-is enabled by default with ``alternate_sign=True`` and is particularly useful
-for small hash table sizes (``n_features < 10000``). For large hash table
-sizes, it can be disabled, to allow the output to be passed to estimators like
-:class:`~sklearn.naive_bayes.MultinomialNB` or
-:class:`~sklearn.feature_selection.chi2`
-feature selectors that expect non-negative inputs.
+نظرًا لأن دالة التجزئة قد تتسبب في حدوث تصادمات بين الميزات (غير ذات الصلة)،
+يتم استخدام دالة تجزئة موقعة والقيمة الموقعة لدالة التجزئة
+تحديد علامة القيمة المخزنة في المصفوفة الإخراجية لميزة.
+بهذه الطريقة، من المحتمل أن تلغي الاصطدامات بعضها البعض بدلاً من تراكم الأخطاء،
+ومتوسط ​​أي قيمة ميزة إخراجية متوقع هو صفر. يتم تمكين هذه الآلية بشكل افتراضي مع "alternate_sign=True" وهي مفيدة بشكل خاص
+لحجم جدول التجزئة الصغير ("n_features <10000"). بالنسبة لأحجام جداول التجزئة الكبيرة،
+يمكن تعطيله، للسماح بالإخراج ليتم تمريره إلى خوارزميات مثل
+MultinomialNB أو
+خوارزميات اختيار الميزات التي تتوقع مدخلات غير سالبة.
 
-:class:`FeatureHasher` accepts either mappings
-(like Python's ``dict`` and its variants in the ``collections`` module),
-``(feature, value)`` pairs, or strings,
-depending on the constructor parameter ``input_type``.
-Mapping are treated as lists of ``(feature, value)`` pairs,
-while single strings have an implicit value of 1,
-so ``['feat1', 'feat2', 'feat3']`` is interpreted as
-``[('feat1', 1), ('feat2', 1), ('feat3', 1)]``.
-If a single feature occurs multiple times in a sample,
-the associated values will be summed
-(so ``('feat', 2)`` and ``('feat', 3.5)`` become ``('feat', 5.5)``).
-The output from :class:`FeatureHasher` is always a ``scipy.sparse`` matrix
-in the CSR format.
+تقبل FeatureHasher إما الخرائط
+(مثل "dict" في Python ومتغيراته في وحدة "collections")،
+أزواج "(الميزة، القيمة)"، أو السلاسل،
+اعتمادًا على معلمة "input_type" في الباني.
+يتم التعامل مع الخرائط على أنها قوائم من أزواج "(الميزة، القيمة)"،
+في حين أن السلاسل الفردية لها قيمة ضمنية تبلغ 1،
+لذلك يتم تفسير "['feat1'، 'feat2'، 'feat3']" على أنها
+"[(feat1، 1)، (feat2، 1)، (feat3، 1)]".
+إذا حدثت ميزة واحدة متعددة المرات في عينة،
+سيتم جمع القيم المرتبطة
+(لذلك تصبح ("feat"، 2) و ("feat"، 3.5) "feat"، 5.5).
+الإخراج من FeatureHasher هو دائمًا مصفوفة "scipy.sparse"
+في تنسيق CSR.
 
-Feature hashing can be employed in document classification,
-but unlike :class:`~text.CountVectorizer`,
-:class:`FeatureHasher` does not do word
-splitting or any other preprocessing except Unicode-to-UTF-8 encoding;
-see :ref:`hashing_vectorizer`, below, for a combined tokenizer/hasher.
+يمكن استخدام تجزئة الميزات في تصنيف المستندات،
+ولكن على عكس CountVectorizer،
+لا يقوم FeatureHasher بتجزئة الكلمات
+أو أي معالجة مسبقة أخرى باستثناء الترميز Unicode-to-UTF-8؛
+راجع hashing_vectorizer أدناه، لمجزئ/مجزئ مجمع.
 
-As an example, consider a word-level natural language processing task
-that needs features extracted from ``(token, part_of_speech)`` pairs.
-One could use a Python generator function to extract features::
+على سبيل المثال، ضع في اعتبارك مهمة معالجة اللغة الطبيعية على مستوى الكلمات
+التي تحتاج إلى استخراج ميزات من أزواج "(token، part_of_speech)".
+يمكن استخدام دالة مولد Python لاستخراج الميزات::
 
-  def token_features(token, part_of_speech):
+  def token_features(token، part_of_speech):
       if token.isdigit():
           yield "numeric"
       else:
           yield "token={}".format(token.lower())
-          yield "token,pos={},{}".format(token, part_of_speech)
+          yield "token,pos={},{}".format(token، part_of_speech)
       if token[0].isupper():
           yield "uppercase_initial"
       if token.isupper():
           yield "all_uppercase"
       yield "pos={}".format(part_of_speech)
 
-Then, the ``raw_X`` to be fed to ``FeatureHasher.transform``
-can be constructed using::
+بعد ذلك، يمكن بناء "raw_X" ليتم تغذيته في "FeatureHasher.transform"
+يمكن بناؤه باستخدام::
 
-  raw_X = (token_features(tok, pos_tagger(tok)) for tok in corpus)
+  raw_X = (token_features (tok، pos_tagger (tok)) لـ tok في corpus)
 
-and fed to a hasher with::
+وإطعامها إلى مجزئ باستخدام::
 
   hasher = FeatureHasher(input_type='string')
   X = hasher.transform(raw_X)
 
-to get a ``scipy.sparse`` matrix ``X``.
+للحصول على مصفوفة "scipy.sparse" "X".
 
-Note the use of a generator comprehension,
-which introduces laziness into the feature extraction:
-tokens are only processed on demand from the hasher.
+لاحظ استخدام تعبير المولد،
+الذي يقدم الكسل في استخراج الميزات:
+يتم معالجة الرموز فقط عند الطلب من المجزئ.
 
-.. dropdown:: Implementation details
+.. dropdown:: تفاصيل التنفيذ
 
-  :class:`FeatureHasher` uses the signed 32-bit variant of MurmurHash3.
-  As a result (and because of limitations in ``scipy.sparse``),
-  the maximum number of features supported is currently :math:`2^{31} - 1`.
+  تستخدم FeatureHasher متغير MurmurHash3 المكون من 32 بت.
+  ونتيجة لذلك (وبسبب القيود في "scipy.sparse")،
+  فإن الحد الأقصى لعدد الميزات المدعومة حاليًا هو: 2 ^ 31 - 1.
 
-  The original formulation of the hashing trick by Weinberger et al.
-  used two separate hash functions :math:`h` and :math:`\xi`
-  to determine the column index and sign of a feature, respectively.
-  The present implementation works under the assumption
-  that the sign bit of MurmurHash3 is independent of its other bits.
+  استخدمت الصيغة الأصلية لحيلة التجزئة بواسطة Weinberger et al.
+  استخدم دالتين منفصلتين للتجزئة: h و xi
+  لتحديد مؤشر العمود وعلامة ميزة، على التوالي.
+  يفترض التنفيذ الحالي
+  أن بت العلامة في MurmurHash3 مستقل عن بتاته الأخرى.
 
-  Since a simple modulo is used to transform the hash function to a column index,
-  it is advisable to use a power of two as the ``n_features`` parameter;
-  otherwise the features will not be mapped evenly to the columns.
+  نظرًا لأنه يتم استخدام الباقي البسيط لتحويل دالة التجزئة إلى مؤشر عمود،
+  من المستحسن استخدام قوة العدد اثنين كمعلمة "n_features"؛
+  وإلا فلن يتم تعيين الميزات بالتساوي إلى الأعمدة.
 
-  .. rubric:: References
+  .. rubric:: المراجع
 
   * `MurmurHash3 <https://github.com/aappleby/smhasher>`_.
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* Kilian Weinberger, Anirban Dasgupta, John Langford, Alex Smola and
-  Josh Attenberg (2009). `Feature hashing for large scale multitask learning
+* كيليان وينبرجر، أنيربان داسجوبتا، جون لانجفورد، أليكس سمولا وجوش أتينبيرج (2009). `تجزئة الميزات للتعلم متعدد المهام على نطاق واسع
   <https://alex.smola.org/papers/2009/Weinbergeretal09.pdf>`_. Proc. ICML.
 
-.. _text_feature_extraction:
+استخراج ميزات النص
+تمثيل "كيس من الكلمات"
+------------------------------------
 
-Text feature extraction
-=======================
+يعد تحليل النص مجال تطبيق رئيسيًا لخوارزميات التعلم الآلي. ومع ذلك، لا يمكن إدخال البيانات الخام، وهي تسلسل من الرموز، مباشرة إلى الخوارزميات نفسها حيث أن معظمها يتوقع متجهات ميزات رقمية ذات حجم ثابت بدلاً من وثائق النص الخام ذات الطول المتغير.
 
-.. currentmodule:: sklearn.feature_extraction.text
+ولمعالجة هذا الأمر، يوفر scikit-learn وظائف مساعدة لأكثر الطرق شيوعًا لاستخراج الميزات الرقمية من المحتوى النصي، وهي:
 
+- **تجزئة** السلاسل النصية وإعطاء معرف رقمي لكل رمز محتمل، على سبيل المثال باستخدام المسافات البيضاء وعلامات الترقيم كفاصلات للرموز.
 
-The Bag of Words representation
--------------------------------
+- **حساب** عدد مرات ظهور الرموز في كل وثيقة.
 
-Text Analysis is a major application field for machine learning
-algorithms. However the raw data, a sequence of symbols cannot be fed
-directly to the algorithms themselves as most of them expect numerical
-feature vectors with a fixed size rather than the raw text documents
-with variable length.
+- **تطبيع** ووزن الرموز التي تظهر في غالبية العينات/الوثائق وتقليل أهميتها.
 
-In order to address this, scikit-learn provides utilities for the most
-common ways to extract numerical features from text content, namely:
+في هذا المخطط، يتم تعريف الميزات والعينات على النحو التالي:
 
-- **tokenizing** strings and giving an integer id for each possible token,
-  for instance by using white-spaces and punctuation as token separators.
+- يتم التعامل مع كل **تكرار رمز فردي** (سواء كان مطبعيًا أم لا) كميزة **مميزة**.
 
-- **counting** the occurrences of tokens in each document.
+- يتم اعتبار متجه جميع تكرارات الرموز لوثيقة معينة كعينة **متعددة المتغيرات**.
 
-- **normalizing** and weighting with diminishing importance tokens that
-  occur in the majority of samples / documents.
+وبالتالي، يمكن تمثيل مجموعة من الوثائق بمصفوفة تحتوي على صف واحد لكل وثيقة وعمود واحد لكل رمز (مثل الكلمة) يحدث في المجموعة.
 
-In this scheme, features and samples are defined as follows:
+نطلق على **التمثيل الرقمي** العملية العامة لتحويل مجموعة من وثائق النص إلى متجهات ميزات رقمية. وتسمى هذه الاستراتيجية المحددة (تجزئة الكلمات وحسابها وتطبيعها) باسم **كيس من الكلمات** أو تمثيل "كيس من n-grams". يتم وصف الوثائق من خلال تكرار الكلمات مع تجاهل معلومات الموضع النسبي للكلمات في الوثيقة تمامًا.
 
-- each **individual token occurrence frequency** (normalized or not)
-  is treated as a **feature**.
-
-- the vector of all the token frequencies for a given **document** is
-  considered a multivariate **sample**.
-
-A corpus of documents can thus be represented by a matrix with one row
-per document and one column per token (e.g. word) occurring in the corpus.
-
-We call **vectorization** the general process of turning a collection
-of text documents into numerical feature vectors. This specific strategy
-(tokenization, counting and normalization) is called the **Bag of Words**
-or "Bag of n-grams" representation. Documents are described by word
-occurrences while completely ignoring the relative position information
-of the words in the document.
-
-
-Sparsity
+نسبة التخلخل
 --------
 
-As most documents will typically use a very small subset of the words used in
-the corpus, the resulting matrix will have many feature values that are
-zeros (typically more than 99% of them).
+نظرًا لأن معظم الوثائق تستخدم عادةً مجموعة فرعية صغيرة جدًا من الكلمات المستخدمة في المجموعة، فستكون للمصفوفة الناتجة العديد من قيم الميزات التي تساوي الصفر (عادة أكثر من 99% منها).
 
-For instance a collection of 10,000 short text documents (such as emails)
-will use a vocabulary with a size in the order of 100,000 unique words in
-total while each document will use 100 to 1000 unique words individually.
+على سبيل المثال، ستستخدم مجموعة من 10000 وثيقة نصية قصيرة (مثل رسائل البريد الإلكتروني) مفردات بحجم 100000 كلمة فريدة من نوعها في المجموع، بينما ستستخدم كل وثيقة من 100 إلى 1000 كلمة فريدة من نوعها بشكل فردي.
 
-In order to be able to store such a matrix in memory but also to speed
-up algebraic operations matrix / vector, implementations will typically
-use a sparse representation such as the implementations available in the
-``scipy.sparse`` package.
+ولكي يكون من الممكن تخزين مثل هذه المصفوفة في الذاكرة ولكن أيضًا لتسريع العمليات الجبرية للمصفوفة/المتجه، عادة ما تستخدم التطبيقات تمثيلًا متفرقًا مثل التطبيقات المتوفرة في حزمة ``scipy.sparse``.
 
-
-Common Vectorizer usage
+الاستخدام الشائع للتمثيل الرقمي
 -----------------------
 
-:class:`CountVectorizer` implements both tokenization and occurrence
-counting in a single class::
+تنفذ :class:`CountVectorizer` كل من تجزئة الكلمات وحساب التكرارات في فئة واحدة::
 
   >>> from sklearn.feature_extraction.text import CountVectorizer
 
-This model has many parameters, however the default values are quite
-reasonable (please see  the :ref:`reference documentation
-<feature_extraction_ref-from-text>` for the details)::
+يحتوي هذا النموذج على العديد من المعلمات، ولكن القيم الافتراضية معقولة جدًا (يرجى الاطلاع على الوثائق المرجعية <feature_extraction_ref-from-text> للحصول على التفاصيل)::
 
   >>> vectorizer = CountVectorizer()
   >>> vectorizer
   CountVectorizer()
 
-Let's use it to tokenize and count the word occurrences of a minimalistic
-corpus of text documents::
+دعنا نستخدمه لتجزئة مجموعة من وثائق النص وتحديد عدد مرات ظهور الكلمات::
 
   >>> corpus = [
   ...     'This is the first document.',
@@ -324,21 +251,17 @@ corpus of text documents::
   ... ]
   >>> X = vectorizer.fit_transform(corpus)
   >>> X
-  <Compressed Sparse...dtype 'int64'
-    with 19 stored elements and shape (4, 9)>
+  <1x9 sparse matrix of type ''
+    with 19 stored elements at ...>
 
-The default configuration tokenizes the string by extracting words of
-at least 2 letters. The specific function that does this step can be
-requested explicitly::
+يقوم التكوين الافتراضي بتجزئة السلسلة النصية عن طريق استخراج الكلمات التي تتكون من حرفين على الأقل. يمكن طلب الدالة المحددة التي تقوم بهذه الخطوة بشكل صريح::
 
   >>> analyze = vectorizer.build_analyzer()
   >>> analyze("This is a text document to analyze.") == (
   ...     ['this', 'is', 'text', 'document', 'to', 'analyze'])
   True
 
-Each term found by the analyzer during the fit is assigned a unique
-integer index corresponding to a column in the resulting matrix. This
-interpretation of the columns can be retrieved as follows::
+يتم تعيين كل مصطلح يعثر عليه المحلل أثناء التثبيت إلى فهرس رقمي فريد مطابق لعمود في المصفوفة الناتجة. يمكن استرداد هذا التفسير للأعمدة على النحو التالي::
 
   >>> vectorizer.get_feature_names_out()
   array(['and', 'document', 'first', 'is', 'one', 'second', 'the',
@@ -350,23 +273,17 @@ interpretation of the columns can be retrieved as follows::
          [1, 0, 0, 0, 1, 0, 1, 1, 0],
          [0, 1, 1, 1, 0, 0, 1, 0, 1]]...)
 
-The converse mapping from feature name to column index is stored in the
-``vocabulary_`` attribute of the vectorizer::
+يتم تخزين الخريطة العكسية من اسم الميزة إلى فهرس العمود في سمة ``vocabulary_`` للتمثيل الرقمي::
 
   >>> vectorizer.vocabulary_.get('document')
   1
 
-Hence words that were not seen in the training corpus will be completely
-ignored in future calls to the transform method::
+وبالتالي، يتم تجاهل الكلمات التي لم يتم رؤيتها في مجموعة التدريب تمامًا في الاستدعاءات المستقبلية لأسلوب التحويل::
 
   >>> vectorizer.transform(['Something completely new.']).toarray()
   array([[0, 0, 0, 0, 0, 0, 0, 0, 0]]...)
 
-Note that in the previous corpus, the first and the last documents have
-exactly the same words hence are encoded in equal vectors. In particular
-we lose the information that the last document is an interrogative form. To
-preserve some of the local ordering information we can extract 2-grams
-of words in addition to the 1-grams (individual words)::
+لاحظ أنه في المجموعة السابقة، تحتوي الوثيقتان الأولى والأخيرة على نفس الكلمات تمامًا، وبالتالي يتم تشفيرهما في متجهات متطابقة. على وجه الخصوص، نفقد المعلومات التي تشير إلى أن الوثيقة الأخيرة هي صيغة استفهام. للحفاظ على بعض معلومات ترتيب الكلمات المحلية، يمكننا استخراج 2-grams من الكلمات بالإضافة إلى 1-grams (كلمات فردية)::
 
   >>> bigram_vectorizer = CountVectorizer(ngram_range=(1, 2),
   ...                                     token_pattern=r'\b\w+\b', min_df=1)
@@ -375,8 +292,7 @@ of words in addition to the 1-grams (individual words)::
   ...     ['bi', 'grams', 'are', 'cool', 'bi grams', 'grams are', 'are cool'])
   True
 
-The vocabulary extracted by this vectorizer is hence much bigger and
-can now resolve ambiguities encoded in local positioning patterns::
+وبالتالي، فإن المفردات التي يستخرجها هذا التمثيل الرقمي أكبر بكثير ويمكنها الآن حل الغموض المشفر في أنماط الموضع المحلي::
 
   >>> X_2 = bigram_vectorizer.fit_transform(corpus).toarray()
   >>> X_2
@@ -386,8 +302,7 @@ can now resolve ambiguities encoded in local positioning patterns::
          [0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1]]...)
 
 
-In particular the interrogative form "Is this" is only present in the
-last document::
+على وجه الخصوص، فإن الصيغة الاستفهامية "Is this" موجودة فقط في الوثيقة الأخيرة::
 
   >>> feature_index = bigram_vectorizer.vocabulary_.get('is this')
   >>> X_2[:, feature_index]
@@ -395,609 +310,339 @@ last document::
 
 .. _stop_words:
 
-Using stop words
+استخدام كلمات التوقف
 ----------------
 
-Stop words are words like "and", "the", "him", which are presumed to be
-uninformative in representing the content of a text, and which may be
-removed to avoid them being construed as signal for prediction.  Sometimes,
-however, similar words are useful for prediction, such as in classifying
-writing style or personality.
+كلمات التوقف هي كلمات مثل "and" و "the" و "him"، والتي يفترض أنها غير مفيدة في تمثيل محتوى النص، والتي يمكن إزالتها لتجنب اعتبارها إشارة للتنبؤ. ومع ذلك، في بعض الأحيان، تكون الكلمات المماثلة مفيدة للتنبؤ، مثل تصنيف أسلوب الكتابة أو الشخصية.
 
-There are several known issues in our provided 'english' stop word list. It
-does not aim to be a general, 'one-size-fits-all' solution as some tasks
-may require a more custom solution. See [NQY18]_ for more details.
+هناك العديد من المشكلات المعروفة في قائمة كلمات التوقف باللغة الإنجليزية التي نوفرها. لا تهدف إلى أن تكون حلًا عامًا "واحدا يناسب الجميع"، حيث قد تتطلب بعض المهام حلاً مخصصًا أكثر. راجع [NQY18]_ لمزيد من التفاصيل.
 
-Please take care in choosing a stop word list.
-Popular stop word lists may include words that are highly informative to
-some tasks, such as *computer*.
+يرجى توخي الحذر عند اختيار قائمة كلمات التوقف. قد تتضمن قوائم كلمات التوقف الشائعة كلمات تكون مفيدة جدًا لبعض المهام، مثل *الكمبيوتر*.
 
-You should also make sure that the stop word list has had the same
-preprocessing and tokenization applied as the one used in the vectorizer.
-The word *we've* is split into *we* and *ve* by CountVectorizer's default
-tokenizer, so if *we've* is in ``stop_words``, but *ve* is not, *ve* will
-be retained from *we've* in transformed text.  Our vectorizers will try to
-identify and warn about some kinds of inconsistencies.
+يجب أيضًا التأكد من أن قائمة كلمات التوقف قد خضعت لنفس المعالجة والتجزئة المطبقة في التمثيل الرقمي. يتم تقسيم كلمة *we've* إلى *we* و *ve* بواسطة محلل التجزئة الافتراضي لـ CountVectorizer، لذا إذا كانت *we've* موجودة في ``stop_words``، ولكن *ve* غير موجودة، فسيتم الاحتفاظ بـ *ve* من *we've* في النص المحول. ستحاول تمثيلنا الرقمي تحديد بعض أنواع عدم الاتساق والتحذير منها.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [NQY18] J. Nothman, H. Qin and R. Yurchak (2018).
+.. [NQY18] J. Nothman، H. Qin و R. Yurchak (2018).
    `"Stop Word Lists in Free Open-source Software Packages"
    <https://aclweb.org/anthology/W18-2502>`__.
-   In *Proc. Workshop for NLP Open Source Software*.
+   في *وقائع ورشة عمل البرمجيات مفتوحة المصدر لمعالجة اللغات الطبيعية*.
 
 
 .. _tfidf:
 
-Tf–idf term weighting
----------------------
+ترجيح المصطلحات Tf-idf
+في مجموعة كبيرة من النصوص، ستكون بعض الكلمات موجودة بكثرة (على سبيل المثال: "the"، "a"، "is" في اللغة الإنجليزية)، وبالتالي لن تحمل الكثير من المعلومات المفيدة حول المحتوى الفعلي للوثيقة. إذا قمنا بتغذية بيانات العد المباشر مباشرة إلى مصنف، فستحجب هذه المصطلحات الشائعة جداً تكرارات المصطلحات الأندر والأكثر أهمية.
 
-In a large text corpus, some words will be very present (e.g. "the", "a",
-"is" in English) hence carrying very little meaningful information about
-the actual contents of the document. If we were to feed the direct count
-data directly to a classifier those very frequent terms would shadow
-the frequencies of rarer yet more interesting terms.
+ولإعادة وزن ميزات العد إلى قيم ذات نقطة عائمة مناسبة للاستخدام بواسطة مصنف، من الشائع جدًا استخدام تحويل التردد-معكوس للوثيقة (tf-idf).
 
-In order to re-weight the count features into floating point values
-suitable for usage by a classifier it is very common to use the tf–idf
-transform.
+يشير "tf" إلى تردد المصطلح بينما يشير "tf-idf" إلى تردد المصطلح مضروبًا في معكوس تكرار الوثيقة:
 
-Tf means **term-frequency** while tf–idf means term-frequency times
-**inverse document-frequency**:
-:math:`\text{tf-idf(t,d)}=\text{tf(t,d)} \times \text{idf(t)}`.
+:math: 'text{tf-idf(t,d)}=text{tf(t,d)} \times text{idf(t)}'.
 
-Using the ``TfidfTransformer``'s default settings,
-``TfidfTransformer(norm='l2', use_idf=True, smooth_idf=True, sublinear_tf=False)``
-the term frequency, the number of times a term occurs in a given document,
-is multiplied with idf component, which is computed as
+باستخدام الإعدادات الافتراضية لـ "TfidfTransformer"، "TfidfTransformer(norm='l2', use_idf=True, smooth_idf=True, sublinear_tf=False)"، يتم ضرب تردد المصطلح، وهو عدد المرات التي يظهر فيها المصطلح في وثيقة معينة، في المكون "idf"، والذي يتم حسابه على النحو التالي:
 
-:math:`\text{idf}(t) = \log{\frac{1 + n}{1+\text{df}(t)}} + 1`,
+:math: 'text{idf} (t) = log {\frac {1 + n} {1+text{df} (t)}} + 1'
 
-where :math:`n` is the total number of documents in the document set, and
-:math:`\text{df}(t)` is the number of documents in the document set that
-contain term :math:`t`. The resulting tf-idf vectors are then normalized by the
-Euclidean norm:
+حيث :math: 'n' هو العدد الإجمالي للوثائق في مجموعة الوثائق، و:math: 'text{df} (t)' هو عدد الوثائق في مجموعة الوثائق التي تحتوي على المصطلح :math: 't'. يتم بعد ذلك تطبيع المتجهات الناتجة عن طريق القيمة الخاصة بالقاعدة:
 
-:math:`v_{norm} = \frac{v}{||v||_2} = \frac{v}{\sqrt{v{_1}^2 +
-v{_2}^2 + \dots + v{_n}^2}}`.
+:math: 'v_ {norm} = \frac {v} {|| v || _2} = \frac {v} {\sqrt {v_ {1} ^ 2 + v_ {2} ^ 2 + \ dots + v_ {n} ^ 2}}'.
 
-This was originally a term weighting scheme developed for information retrieval
-(as a ranking function for search engines results) that has also found good
-use in document classification and clustering.
+كانت هذه في الأصل خطة ترجيح المصطلحات التي تم تطويرها لاسترجاع المعلومات (كدالة ترتيب لنتائج محركات البحث) والتي وجدت أيضًا استخدامًا جيدًا في تصنيف الوثائق وتجميعها.
 
-The following sections contain further explanations and examples that
-illustrate how the tf-idfs are computed exactly and how the tf-idfs
-computed in scikit-learn's :class:`TfidfTransformer`
-and :class:`TfidfVectorizer` differ slightly from the standard textbook
-notation that defines the idf as
+تحتوي الأقسام التالية على مزيد من التوضيحات والأمثلة التي توضح كيفية حساب قيم "tf-idf" بالضبط، وكيف تختلف قيم "tf-idf" المحسوبة في "scikit-learn's TfidfTransformer" و "TfidfVectorizer" اختلافًا طفيفًا عن الترميز القياسي في الكتب المدرسية الذي يُعرِّف "idf" على النحو التالي:
 
-:math:`\text{idf}(t) = \log{\frac{n}{1+\text{df}(t)}}.`
+:math: 'text{idf} (t) = log {\frac {n} {1+text{df} (t)}}'.
 
 
-In the :class:`TfidfTransformer` and :class:`TfidfVectorizer`
-with ``smooth_idf=False``, the
-"1" count is added to the idf instead of the idf's denominator:
+في "TfidfTransformer" و "TfidfVectorizer" مع "smooth_idf=False"، يتم إضافة العدد "1" إلى "idf" بدلاً من مقام "idf":
 
-:math:`\text{idf}(t) = \log{\frac{n}{\text{df}(t)}} + 1`
+:math: 'text{idf} (t) = log {\frac {n} {text{df} (t)}} + 1'
 
-This normalization is implemented by the :class:`TfidfTransformer`
-class::
+يتم تنفيذ هذا التطبيع بواسطة فئة "TfidfTransformer":
 
-  >>> from sklearn.feature_extraction.text import TfidfTransformer
-  >>> transformer = TfidfTransformer(smooth_idf=False)
-  >>> transformer
-  TfidfTransformer(smooth_idf=False)
+>>> from sklearn.feature_extraction.text import TfidfTransformer
+>>> transformer = TfidfTransformer(smooth_idf=False)
+>>> transformer
+TfidfTransformer(smooth_idf=False)
 
-Again please see the :ref:`reference documentation
-<feature_extraction_ref-from-text>` for the details on all the parameters.
+يرجى الرجوع إلى وثائق المرجع <feature_extraction_ref-from-text> للحصول على التفاصيل حول جميع المعلمات.
 
-.. dropdown:: Numeric example of a tf-idf matrix
+مثال رقمي لمصفوفة "tf-idf"
 
-  Let's take an example with the following counts. The first term is present
-  100% of the time hence not very interesting. The two other features only
-  in less than 50% of the time hence probably more representative of the
-  content of the documents::
+لنأخذ مثالًا باستخدام العد التالي. المصطلح الأول موجود بنسبة 100% من الوقت وبالتالي فهو غير مثير للاهتمام. الميزتان الأخريان موجودتان في أقل من 50% من الوقت وبالتالي من المحتمل أن تكونا أكثر تمثيلاً لمحتوى الوثائق:
 
-    >>> counts = [[3, 0, 1],
-    ...           [2, 0, 0],
-    ...           [3, 0, 0],
-    ...           [4, 0, 0],
-    ...           [3, 2, 0],
-    ...           [3, 0, 2]]
-    ...
-    >>> tfidf = transformer.fit_transform(counts)
-    >>> tfidf
-    <Compressed Sparse...dtype 'float64'
-      with 9 stored elements and shape (6, 3)>
+>>> counts = [[3, 0, 1],
+... [2, 0, 0],
+... [3, 0, 0],
+... [4, 0, 0],
+... [3, 2, 0],
+... [3, 0, 2]]
+...
+>>> tfidf = transformer.fit_transform(counts)
+>>> tfidf
+<Compressed Sparse...dtype 'float64'
+  with 9 stored elements and shape (6, 3)>
 
-    >>> tfidf.toarray()
-    array([[0.81940995, 0.        , 0.57320793],
-          [1.        , 0.        , 0.        ],
-          [1.        , 0.        , 0.        ],
-          [1.        , 0.        , 0.        ],
-          [0.47330339, 0.88089948, 0.        ],
-          [0.58149261, 0.        , 0.81355169]])
+>>> tfidf.toarray()
+array([[0.81940995, 0.، 0.57320793]،
+ [1.، 0.، 0.]،
+ [1.، 0.، 0.]،
+ [1.، 0.، 0.]،
+ [0.47330339، 0.88089948، 0.]،
+ [0.58149261، 0.، 0.81355169]])
 
-  Each row is normalized to have unit Euclidean norm:
+يتم تطبيع كل صف ليصبح له قاعدة القيمة الخاصة به:
 
-  :math:`v_{norm} = \frac{v}{||v||_2} = \frac{v}{\sqrt{v{_1}^2 +
-  v{_2}^2 + \dots + v{_n}^2}}`
+:math: 'v_ {norm} = \frac {v} {|| v || _2} = \frac {v} {\sqrt {v_ {1} ^ 2 + v_ {2} ^ 2 + \ dots + v_ {n} ^ 2}}'
 
-  For example, we can compute the tf-idf of the first term in the first
-  document in the `counts` array as follows:
+على سبيل المثال، يمكننا حساب "tf-idf" للمصطلح الأول في الوثيقة الأولى في مصفوفة "counts" كما يلي:
 
-  :math:`n = 6`
+:math: 'n = 6'
 
-  :math:`\text{df}(t)_{\text{term1}} = 6`
+:math: 'text{df} (t) _ {text {term1}} = 6'
 
-  :math:`\text{idf}(t)_{\text{term1}} =
-  \log \frac{n}{\text{df}(t)} + 1 = \log(1)+1 = 1`
+:math: 'text{idf} (t) _ {text {term1}} = log \ frac {n} {text {df} (t)} + 1 = log (1) + 1 = 1'
 
-  :math:`\text{tf-idf}_{\text{term1}} = \text{tf} \times \text{idf} = 3 \times 1 = 3`
+:math: 'text{tf-idf} _ {text {term1}} = text {tf} \ times text {idf} = 3 \ times 1 = 3'
 
-  Now, if we repeat this computation for the remaining 2 terms in the document,
-  we get
+الآن، إذا كررنا هذا الحساب للمصطلحين المتبقيين في الوثيقة، نحصل على ما يلي:
 
-  :math:`\text{tf-idf}_{\text{term2}} = 0 \times (\log(6/1)+1) = 0`
+:math: 'text{tf-idf} _ {text {term2}} = 0 \ times (\ log (6/1) + 1) = 0'
 
-  :math:`\text{tf-idf}_{\text{term3}} = 1 \times (\log(6/2)+1) \approx 2.0986`
+:math: 'text{tf-idf} _ {text {term3}} = 1 \ times (\ log (6/2) + 1) \ approx 2.0986'
 
-  and the vector of raw tf-idfs:
+ومتجه "tf-idf" الخام:
 
-  :math:`\text{tf-idf}_{\text{raw}} = [3, 0, 2.0986].`
+:math: 'text{tf-idf} _ {text {raw}} = [3، 0، 2.0986].'
 
 
-  Then, applying the Euclidean (L2) norm, we obtain the following tf-idfs
-  for document 1:
+بعد ذلك، من خلال تطبيق قاعدة القيمة (L2)، نحصل على قيم "tf-idf" التالية للوثيقة 1:
 
-  :math:`\frac{[3, 0, 2.0986]}{\sqrt{\big(3^2 + 0^2 + 2.0986^2\big)}}
-  = [ 0.819,  0,  0.573].`
+:math: '\frac { [3، 0، 2.0986]} {\ sqrt {\ big (3 ^ 2 + 0 ^ 2 + 2.0986 ^ 2 \ big)}} = [0.819، 0، 0.573].'
 
-  Furthermore, the default parameter ``smooth_idf=True`` adds "1" to the numerator
-  and  denominator as if an extra document was seen containing every term in the
-  collection exactly once, which prevents zero divisions:
+علاوة على ذلك، تضيف المعلمة الافتراضية "smooth_idf=True" العدد "1" إلى البسط والمقام كما لو كانت هناك وثيقة إضافية تحتوي على كل مصطلح في المجموعة مرة واحدة بالضبط، مما يمنع حدوث انقسامات صفرية:
 
-  :math:`\text{idf}(t) = \log{\frac{1 + n}{1+\text{df}(t)}} + 1`
+:math: 'text{idf} (t) = log {\frac {1 + n} {1+text{df} (t)}} + 1'
 
-  Using this modification, the tf-idf of the third term in document 1 changes to
-  1.8473:
+باستخدام هذا التعديل، يتغير "tf-idf" للمصطلح الثالث في الوثيقة 1 إلى 1.8473:
 
-  :math:`\text{tf-idf}_{\text{term3}} = 1 \times \log(7/3)+1 \approx 1.8473`
+:math: 'text{tf-idf} _ {text {term3}} = 1 \ times log (7/3) + 1 \ approx 1.8473'
 
-  And the L2-normalized tf-idf changes to
+وتتغير قيمة "tf-idf" بعد تطبيق قاعدة القيمة (L2) إلى:
 
-  :math:`\frac{[3, 0, 1.8473]}{\sqrt{\big(3^2 + 0^2 + 1.8473^2\big)}}
-  = [0.8515, 0, 0.5243]`::
+:math: '\frac { [3، 0، 1.8473]} {\ sqrt {\ big (3 ^ 2 + 0 ^ 2 + 1.8473 ^ 2 \ big)}} = [0.8515، 0، 0.5243]'
 
-    >>> transformer = TfidfTransformer()
-    >>> transformer.fit_transform(counts).toarray()
-    array([[0.85151335, 0.        , 0.52433293],
-          [1.        , 0.        , 0.        ],
-          [1.        , 0.        , 0.        ],
-          [1.        , 0.        , 0.        ],
-          [0.55422893, 0.83236428, 0.        ],
-          [0.63035731, 0.        , 0.77630514]])
+>>> transformer = TfidfTransformer()
+>>> transformer.fit_transform(counts).toarray()
+array([[0.85151335، 0.، 0.52433293]،
+ [1.، 0.، 0.]،
+ [1.، 0.، 0.]،
+ [1.، 0.، 0.]،
+ [0.55422893، 0.83236428، 0.]،
+ [0.63035731، 0.، 0.77630514]])
 
-  The weights of each
-  feature computed by the ``fit`` method call are stored in a model
-  attribute::
+يتم تخزين أوزان كل ميزة محسوبة بواسطة طريقة "fit" في خاصية نموذج:
 
-    >>> transformer.idf_
-    array([1. ..., 2.25..., 1.84...])
+>>> transformer.idf_
+array ([1. ...، 2.25 ...، 1.84 ...])
 
-  As tf-idf is very often used for text features, there is also another
-  class called :class:`TfidfVectorizer` that combines all the options of
-  :class:`CountVectorizer` and :class:`TfidfTransformer` in a single model::
+نظرًا لأن "tf-idf" يتم استخدامه غالبًا لميزات النص، هناك أيضًا فئة أخرى تسمى "TfidfVectorizer" تجمع بين جميع خيارات "CountVectorizer" و "TfidfTransformer" في نموذج واحد:
 
-    >>> from sklearn.feature_extraction.text import TfidfVectorizer
-    >>> vectorizer = TfidfVectorizer()
-    >>> vectorizer.fit_transform(corpus)
-    <Compressed Sparse...dtype 'float64'
-      with 19 stored elements and shape (4, 9)>
+>>> from sklearn.feature_extraction.text import TfidfVectorizer
+>>> vectorizer = TfidfVectorizer()
+>>> vectorizer.fit_transform(corpus)
+<Compressed Sparse...dtype 'float64'
+  with 19 stored elements and shape (4, 9)>
 
-  While the tf-idf normalization is often very useful, there might
-  be cases where the binary occurrence markers might offer better
-  features. This can be achieved by using the ``binary`` parameter
-  of :class:`CountVectorizer`. In particular, some estimators such as
-  :ref:`bernoulli_naive_bayes` explicitly model discrete boolean random
-  variables. Also, very short texts are likely to have noisy tf-idf values
-  while the binary occurrence info is more stable.
+في حين أن تطبيع "tf-idf" مفيد جدًا في كثير من الأحيان، فقد تكون هناك حالات تكون فيها مؤشرات التكرار الثنائية أفضل. يمكن تحقيق ذلك باستخدام معلمة "binary" في فئة "CountVectorizer". وعلى وجه الخصوص، تقوم بعض الخوارزميات مثل "bernoulli_naive_bayes" بوضع نماذج للمتغيرات العشوائية الثنائية المنفصلة. أيضًا، من المحتمل أن تحتوي النصوص القصيرة جدًا على قيم "tf-idf" ضوضائية بينما تكون معلومات التكرار الثنائية أكثر استقرارًا.
 
-  As usual the best way to adjust the feature extraction parameters
-  is to use a cross-validated grid search, for instance by pipelining the
-  feature extractor with a classifier:
+وكالعادة، فإن أفضل طريقة لتعديل معلمات استخراج الميزات هي استخدام البحث الشبكي المعبر عن طريق أنابيب ميزة الاستخراج مع مصنف:
 
-  * :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py`
+* :ref: 'sphx_glr_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py'
 
 
-Decoding text files
+فك تشفير ملفات النص
 -------------------
-Text is made of characters, but files are made of bytes. These bytes represent
-characters according to some *encoding*. To work with text files in Python,
-their bytes must be *decoded* to a character set called Unicode.
-Common encodings are ASCII, Latin-1 (Western Europe), KOI8-R (Russian)
-and the universal encodings UTF-8 and UTF-16. Many others exist.
+يتكون النص من أحرف، ولكن تتكون الملفات من بايتات. تمثل هذه البايتات الأحرف وفقًا لبعض الترميزات. للعمل مع ملفات النص في بايثون، يجب "فك تشفير" بايتاتها إلى مجموعة أحرف تسمى يونيكود (Unicode).
+
+تشمل الترميزات الشائعة ASCII، وLatin-1 (أوروبا الغربية)، وKOI8-R (الروسية)، والترميزات العالمية UTF-8 وUTF-16. وهناك العديد من الترميزات الأخرى.
 
 .. note::
-    An encoding can also be called a 'character set',
-    but this term is less accurate: several encodings can exist
-    for a single character set.
+يمكن أيضًا أن يُطلق على الترميز اسم "مجموعة الأحرف"، ولكن هذا المصطلح أقل دقة: فقد توجد عدة ترميزات لمجموعة أحرف واحدة.
 
-The text feature extractors in scikit-learn know how to decode text files,
-but only if you tell them what encoding the files are in.
-The :class:`CountVectorizer` takes an ``encoding`` parameter for this purpose.
-For modern text files, the correct encoding is probably UTF-8,
-which is therefore the default (``encoding="utf-8"``).
+تعرف فئات استخراج ميزات النص في "scikit-learn" كيفية فك تشفير ملفات النص، ولكن فقط إذا أخبرتها بترميز الملفات. تأخذ فئة "CountVectorizer" معلمة "encoding" لهذا الغرض. وبالنسبة لملفات النص الحديثة، يكون الترميز الصحيح على الأرجح هو UTF-8، وهو الترميز الافتراضي (''encoding="utf-8"'').
 
-If the text you are loading is not actually encoded with UTF-8, however,
-you will get a ``UnicodeDecodeError``.
-The vectorizers can be told to be silent about decoding errors
-by setting the ``decode_error`` parameter to either ``"ignore"``
-or ``"replace"``. See the documentation for the Python function
-``bytes.decode`` for more details
-(type ``help(bytes.decode)`` at the Python prompt).
+ومع ذلك، إذا لم يكن النص الذي تقوم بتحميله مشفرًا بـ UTF-8، فستحصل على خطأ "UnicodeDecodeError". يمكن إخبار الفئات المُنشئة بتجاهل أخطاء فك التشفير من خلال تعيين معلمة "decode_error" إما إلى "ignore" أو "replace". راجع وثائق دالة بايثون "bytes.decode" للحصول على مزيد من التفاصيل (اكتب "help(bytes.decode)" في موجه بايثون).
 
-.. dropdown:: Troubleshooting decoding text
+.. dropdown:: استكشاف أخطاء فك تشفير النص وإصلاحها
 
-  If you are having trouble decoding text, here are some things to try:
+إذا كنت تواجه مشكلة في فك تشفير النص، فجرّب ما يلي:
 
-  - Find out what the actual encoding of the text is. The file might come
-    with a header or README that tells you the encoding, or there might be some
-    standard encoding you can assume based on where the text comes from.
+- اكتشف الترميز الفعلي للنص. قد يأتي الملف برأس أو ملف "README" يخبرك بالترميز، أو قد يكون هناك ترميز قياسي يمكنك افتراضه بناءً على مصدر النص.
 
-  - You may be able to find out what kind of encoding it is in general
-    using the UNIX command ``file``. The Python ``chardet`` module comes with
-    a script called ``chardetect.py`` that will guess the specific encoding,
-    though you cannot rely on its guess being correct.
+- قد تتمكن من معرفة نوع الترميز بشكل عام باستخدام أمر UNIX "file". تأتي وحدة بايثون "chardet" مع برنامج نصي يسمى "chardetect.py" يمكنه تخمين الترميز المحدد، على الرغم من أنه لا يمكن الاعتماد على تخمينه الصحيح.
 
-  - You could try UTF-8 and disregard the errors. You can decode byte
-    strings with ``bytes.decode(errors='replace')`` to replace all
-    decoding errors with a meaningless character, or set
-    ``decode_error='replace'`` in the vectorizer. This may damage the
-    usefulness of your features.
+- يمكنك تجربة UTF-8 وتجاهل الأخطاء. يمكنك فك تشفير سلاسل البايتات باستخدام "bytes.decode(errors='replace')" لاستبدال جميع أخطاء فك التشفير بحرف غير ذي معنى، أو يمكنك تعيين "decode_error='replace'" في الفئات المُنشئة. قد يتسبب هذا في تلف ميزاتك.
 
-  - Real text may come from a variety of sources that may have used different
-    encodings, or even be sloppily decoded in a different encoding than the
-    one it was encoded with. This is common in text retrieved from the Web.
-    The Python package `ftfy <https://github.com/LuminosoInsight/python-ftfy>`__
-    can automatically sort out some classes of
-    decoding errors, so you could try decoding the unknown text as ``latin-1``
-    and then using ``ftfy`` to fix errors.
+- قد يأتي النص الفعلي من مجموعة متنوعة من المصادر التي قد تكون قد استخدمت ترميزات مختلفة، أو حتى تم فك تشفيرها بشكل غير صحيح بترميز مختلف عن الترميز الذي تم تشفيره به. وهذا أمر شائع في النص المسترد من الويب. يمكن لحزمة بايثون "ftfy" <https://github.com/LuminosoInsight/python-ftfy> تلقائيًا فرز بعض فئات أخطاء فك التشفير، لذا يمكنك تجربة فك تشفير النص غير المعروف كـ "latin-1" ثم استخدام "ftfy" لإصلاح الأخطاء.
 
-  - If the text is in a mish-mash of encodings that is simply too hard to sort
-    out (which is the case for the 20 Newsgroups dataset), you can fall back on
-    a simple single-byte encoding such as ``latin-1``. Some text may display
-    incorrectly, but at least the same sequence of bytes will always represent
-    the same feature.
+- إذا كان النص مزيجًا من الترميزات يصعب فرزه (كما هو الحال في مجموعة بيانات "20 Newsgroups")، فيمكنك استخدام ترميز أحادي البايت مثل "latin-1" كملاذ أخير. قد يتم عرض بعض النصوص بشكل غير صحيح، ولكن سيمثل تسلسل البايتات نفسه دائمًا نفس الميزة.
 
-  For example, the following snippet uses ``chardet``
-  (not shipped with scikit-learn, must be installed separately)
-  to figure out the encoding of three texts.
-  It then vectorizes the texts and prints the learned vocabulary.
-  The output is not shown here.
+على سبيل المثال، يستخدم المقتطف التالي وحدة "chardet" (غير مضمنة مع "scikit-learn"، يجب تثبيتها بشكل منفصل) لمعرفة ترميز ثلاثة نصوص. ثم تقوم بتمثيل النصوص بشكل شعاعي وطباعة المفردات المكتسبة. لم يتم إظهار الإخراج هنا.
 
-    >>> import chardet    # doctest: +SKIP
-    >>> text1 = b"Sei mir gegr\xc3\xbc\xc3\x9ft mein Sauerkraut"
-    >>> text2 = b"holdselig sind deine Ger\xfcche"
-    >>> text3 = b"\xff\xfeA\x00u\x00f\x00 \x00F\x00l\x00\xfc\x00g\x00e\x00l\x00n\x00 \x00d\x00e\x00s\x00 \x00G\x00e\x00s\x00a\x00n\x00g\x00e\x00s\x00,\x00 \x00H\x00e\x00r\x00z\x00l\x00i\x00e\x00b\x00c\x00h\x00e\x00n\x00,\x00 \x00t\x00r\x00a\x00g\x00 \x00i\x00c\x00h\x00 \x00d\x00i\x00c\x00h\x00 \x00f\x00o\x00r\x00t\x00"
-    >>> decoded = [x.decode(chardet.detect(x)['encoding'])
-    ...            for x in (text1, text2, text3)]        # doctest: +SKIP
-    >>> v = CountVectorizer().fit(decoded).vocabulary_    # doctest: +SKIP
-    >>> for term in v: print(v)                           # doctest: +SKIP
+>>> import chardet    # doctest: +SKIP
+>>> text1 = b"Sei mir gegr\xc3\xbc\xc3\x9ft mein Sauerkraut"
+>>> text2 = b"holdselig sind deine Ger\xfcche"
+>>> text3 = b"\xff\xfeA\x00u\x00f\x00 \x00F\x00l\x00\xfc\x00g\x00e\x00l\x00n\x00 \x00d\x00e\x00s\x00 \x00G\x00e\x00s\x00a\x00n\x00g\x00e\x00s\x00,\x00 \x00H\x00e\x00r\x00z\x00l\x00i\x00e\x00b\x00c\x00h\x00e\x00n\x00,\x00 \x00t\x00r\x00a\x00g\x00 \x00i\x00c\x00h\x00 \x00d\x00i\x00c\x00h\x00 \x00f\x00o\x00r\x00t\x00"
+>>> decoded = [x.decode(chardet.detect(x)['encoding'])
+... for x in (text1, text2, text3)]        # doctest: +SKIP
+>>> v = CountVectorizer().fit(decoded).vocabulary_    # doctest: +SKIP
+>>> for term in v: print(v)                           # doctest: +SKIP
 
-  (Depending on the version of ``chardet``, it might get the first one wrong.)
+(بناءً على إصدار "chardet"، فقد تخطئ في الأول.)
 
-  For an introduction to Unicode and character encodings in general,
-  see Joel Spolsky's `Absolute Minimum Every Software Developer Must Know
-  About Unicode <https://www.joelonsoftware.com/articles/Unicode.html>`_.
+للحصول على مقدمة حول يونيكود وترميزات الأحرف بشكل عام، راجع "Absolute Minimum Every Software Developer Must Know About Unicode" لجويل سبولسكي <https://www.joelonsoftware.com/articles/Unicode.html>.
 
 
-Applications and examples
+التطبيقات والأمثلة
 -------------------------
 
-The bag of words representation is quite simplistic but surprisingly
-useful in practice.
-
-In particular in a **supervised setting** it can be successfully combined
-with fast and scalable linear models to train **document classifiers**,
-for instance:
-
-* :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+تمثيل "Bag of Words" بسيط للغاية ولكنه مفيد جدًا في الممارسة العملية.
 
-In an **unsupervised setting** it can be used to group similar documents
-together by applying clustering algorithms such as :ref:`k_means`:
+على وجه الخصوص، في سياق **الإشراف**، يمكن دمجه بنجاح مع النماذج الخطية السريعة والقابلة للتطوير لتدريب **مصنفات الوثائق**، على سبيل المثال:
 
-* :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py`
-
-Finally it is possible to discover the main topics of a corpus by
-relaxing the hard assignment constraint of clustering, for instance by
-using :ref:`NMF`:
-
-* :ref:`sphx_glr_auto_examples_applications_plot_topics_extraction_with_nmf_lda.py`
-
-
-Limitations of the Bag of Words representation
-----------------------------------------------
-
-A collection of unigrams (what bag of words is) cannot capture phrases
-and multi-word expressions, effectively disregarding any word order
-dependence. Additionally, the bag of words model doesn't account for potential
-misspellings or word derivations.
-
-N-grams to the rescue! Instead of building a simple collection of
-unigrams (n=1), one might prefer a collection of bigrams (n=2), where
-occurrences of pairs of consecutive words are counted.
-
-One might alternatively consider a collection of character n-grams, a
-representation resilient against misspellings and derivations.
-
-For example, let's say we're dealing with a corpus of two documents:
-``['words', 'wprds']``. The second document contains a misspelling
-of the word 'words'.
-A simple bag of words representation would consider these two as
-very distinct documents, differing in both of the two possible features.
-A character 2-gram representation, however, would find the documents
-matching in 4 out of 8 features, which may help the preferred classifier
-decide better::
-
-  >>> ngram_vectorizer = CountVectorizer(analyzer='char_wb', ngram_range=(2, 2))
-  >>> counts = ngram_vectorizer.fit_transform(['words', 'wprds'])
-  >>> ngram_vectorizer.get_feature_names_out()
-  array([' w', 'ds', 'or', 'pr', 'rd', 's ', 'wo', 'wp'], ...)
-  >>> counts.toarray().astype(int)
-  array([[1, 1, 1, 0, 1, 1, 1, 0],
-         [1, 1, 0, 1, 1, 1, 0, 1]])
-
-In the above example, ``char_wb`` analyzer is used, which creates n-grams
-only from characters inside word boundaries (padded with space on each
-side). The ``char`` analyzer, alternatively, creates n-grams that
-span across words::
-
-  >>> ngram_vectorizer = CountVectorizer(analyzer='char_wb', ngram_range=(5, 5))
-  >>> ngram_vectorizer.fit_transform(['jumpy fox'])
-  <Compressed Sparse...dtype 'int64'
-    with 4 stored elements and shape (1, 4)>
-
-  >>> ngram_vectorizer.get_feature_names_out()
-  array([' fox ', ' jump', 'jumpy', 'umpy '], ...)
-
-  >>> ngram_vectorizer = CountVectorizer(analyzer='char', ngram_range=(5, 5))
-  >>> ngram_vectorizer.fit_transform(['jumpy fox'])
-  <Compressed Sparse...dtype 'int64'
-    with 5 stored elements and shape (1, 5)>
-  >>> ngram_vectorizer.get_feature_names_out()
-  array(['jumpy', 'mpy f', 'py fo', 'umpy ', 'y fox'], ...)
-
-The word boundaries-aware variant ``char_wb`` is especially interesting
-for languages that use white-spaces for word separation as it generates
-significantly less noisy features than the raw ``char`` variant in
-that case. For such languages it can increase both the predictive
-accuracy and convergence speed of classifiers trained using such
-features while retaining the robustness with regards to misspellings and
-word derivations.
-
-While some local positioning information can be preserved by extracting
-n-grams instead of individual words, bag of words and bag of n-grams
-destroy most of the inner structure of the document and hence most of
-the meaning carried by that internal structure.
-
-In order to address the wider task of Natural Language Understanding,
-the local structure of sentences and paragraphs should thus be taken
-into account. Many such models will thus be casted as "Structured output"
-problems which are currently outside of the scope of scikit-learn.
-
-
-.. _hashing_vectorizer:
-
-Vectorizing a large text corpus with the hashing trick
-------------------------------------------------------
-
-The above vectorization scheme is simple but the fact that it holds an **in-
-memory mapping from the string tokens to the integer feature indices** (the
-``vocabulary_`` attribute) causes several **problems when dealing with large
-datasets**:
-
-- the larger the corpus, the larger the vocabulary will grow and hence the
-  memory use too,
+* :ref
+مجموعة من الوحدات (ما هي حقيبة الكلمات) لا يمكن أن تلتقط العبارات والتعبيرات متعددة الكلمات، وتتجاهل فعليًا أي اعتماد على ترتيب الكلمات. بالإضافة إلى ذلك، لا يراعي نموذج حقيبة الكلمات الأخطاء الإملائية المحتملة أو اشتقاقات الكلمات.
 
-- fitting requires the allocation of intermediate data structures
-  of size proportional to that of the original dataset.
-
-- building the word-mapping requires a full pass over the dataset hence it is
-  not possible to fit text classifiers in a strictly online manner.
-
-- pickling and un-pickling vectorizers with a large ``vocabulary_`` can be very
-  slow (typically much slower than pickling / un-pickling flat data structures
-  such as a NumPy array of the same size),
-
-- it is not easily possible to split the vectorization work into concurrent sub
-  tasks as the ``vocabulary_`` attribute would have to be a shared state with a
-  fine grained synchronization barrier: the mapping from token string to
-  feature index is dependent on ordering of the first occurrence of each token
-  hence would have to be shared, potentially harming the concurrent workers'
-  performance to the point of making them slower than the sequential variant.
-
-It is possible to overcome those limitations by combining the "hashing trick"
-(:ref:`Feature_hashing`) implemented by the
-:class:`~sklearn.feature_extraction.FeatureHasher` class and the text
-preprocessing and tokenization features of the :class:`CountVectorizer`.
-
-This combination is implementing in :class:`HashingVectorizer`,
-a transformer class that is mostly API compatible with :class:`CountVectorizer`.
-:class:`HashingVectorizer` is stateless,
-meaning that you don't have to call ``fit`` on it::
-
-  >>> from sklearn.feature_extraction.text import HashingVectorizer
-  >>> hv = HashingVectorizer(n_features=10)
-  >>> hv.transform(corpus)
-  <Compressed Sparse...dtype 'float64'
-    with 16 stored elements and shape (4, 10)>
-
-You can see that 16 non-zero feature tokens were extracted in the vector
-output: this is less than the 19 non-zeros extracted previously by the
-:class:`CountVectorizer` on the same toy corpus. The discrepancy comes from
-hash function collisions because of the low value of the ``n_features`` parameter.
-
-In a real world setting, the ``n_features`` parameter can be left to its
-default value of ``2 ** 20`` (roughly one million possible features). If memory
-or downstream models size is an issue selecting a lower value such as ``2 **
-18`` might help without introducing too many additional collisions on typical
-text classification tasks.
-
-Note that the dimensionality does not affect the CPU training time of
-algorithms which operate on CSR matrices (``LinearSVC(dual=True)``,
-``Perceptron``, ``SGDClassifier``, ``PassiveAggressive``) but it does for
-algorithms that work with CSC matrices (``LinearSVC(dual=False)``, ``Lasso()``,
-etc.).
-
-Let's try again with the default setting::
-
-  >>> hv = HashingVectorizer()
-  >>> hv.transform(corpus)
-  <Compressed Sparse...dtype 'float64'
-    with 19 stored elements and shape (4, 1048576)>
-
-We no longer get the collisions, but this comes at the expense of a much larger
-dimensionality of the output space.
-Of course, other terms than the 19 used here
-might still collide with each other.
-
-The :class:`HashingVectorizer` also comes with the following limitations:
-
-- it is not possible to invert the model (no ``inverse_transform`` method),
-  nor to access the original string representation of the features,
-  because of the one-way nature of the hash function that performs the mapping.
-
-- it does not provide IDF weighting as that would introduce statefulness in the
-  model. A :class:`TfidfTransformer` can be appended to it in a pipeline if
-  required.
-
-.. dropdown:: Performing out-of-core scaling with HashingVectorizer
-
-  An interesting development of using a :class:`HashingVectorizer` is the ability
-  to perform `out-of-core`_ scaling. This means that we can learn from data that
-  does not fit into the computer's main memory.
-
-  .. _out-of-core: https://en.wikipedia.org/wiki/Out-of-core_algorithm
-
-  A strategy to implement out-of-core scaling is to stream data to the estimator
-  in mini-batches. Each mini-batch is vectorized using :class:`HashingVectorizer`
-  so as to guarantee that the input space of the estimator has always the same
-  dimensionality. The amount of memory used at any time is thus bounded by the
-  size of a mini-batch. Although there is no limit to the amount of data that can
-  be ingested using such an approach, from a practical point of view the learning
-  time is often limited by the CPU time one wants to spend on the task.
-
-  For a full-fledged example of out-of-core scaling in a text classification
-  task see :ref:`sphx_glr_auto_examples_applications_plot_out_of_core_classification.py`.
-
-
-Customizing the vectorizer classes
-----------------------------------
-
-It is possible to customize the behavior by passing a callable
-to the vectorizer constructor::
-
-  >>> def my_tokenizer(s):
-  ...     return s.split()
-  ...
-  >>> vectorizer = CountVectorizer(tokenizer=my_tokenizer)
-  >>> vectorizer.build_analyzer()(u"Some... punctuation!") == (
-  ...     ['some...', 'punctuation!'])
-  True
-
-In particular we name:
-
-* ``preprocessor``: a callable that takes an entire document as input (as a
-  single string), and returns a possibly transformed version of the document,
-  still as an entire string. This can be used to remove HTML tags, lowercase
-  the entire document, etc.
-
-* ``tokenizer``: a callable that takes the output from the preprocessor
-  and splits it into tokens, then returns a list of these.
-
-* ``analyzer``: a callable that replaces the preprocessor and tokenizer.
-  The default analyzers all call the preprocessor and tokenizer, but custom
-  analyzers will skip this. N-gram extraction and stop word filtering take
-  place at the analyzer level, so a custom analyzer may have to reproduce
-  these steps.
-
-(Lucene users might recognize these names, but be aware that scikit-learn
-concepts may not map one-to-one onto Lucene concepts.)
-
-To make the preprocessor, tokenizer and analyzers aware of the model
-parameters it is possible to derive from the class and override the
-``build_preprocessor``, ``build_tokenizer`` and ``build_analyzer``
-factory methods instead of passing custom functions.
-
-.. dropdown:: Tips and tricks
-  :color: success
-
-  * If documents are pre-tokenized by an external package, then store them in
-    files (or strings) with the tokens separated by whitespace and pass
-    ``analyzer=str.split``
-  * Fancy token-level analysis such as stemming, lemmatizing, compound
-    splitting, filtering based on part-of-speech, etc. are not included in the
-    scikit-learn codebase, but can be added by customizing either the
-    tokenizer or the analyzer.
-    Here's a ``CountVectorizer`` with a tokenizer and lemmatizer using
-    `NLTK <https://www.nltk.org/>`_::
-
-        >>> from nltk import word_tokenize          # doctest: +SKIP
-        >>> from nltk.stem import WordNetLemmatizer # doctest: +SKIP
-        >>> class LemmaTokenizer:
-        ...     def __init__(self):
-        ...         self.wnl = WordNetLemmatizer()
-        ...     def __call__(self, doc):
-        ...         return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
-        ...
-        >>> vect = CountVectorizer(tokenizer=LemmaTokenizer())  # doctest: +SKIP
-
-    (Note that this will not filter out punctuation.)
-
-    The following example will, for instance, transform some British spelling
-    to American spelling::
-
-        >>> import re
-        >>> def to_british(tokens):
-        ...     for t in tokens:
-        ...         t = re.sub(r"(...)our$", r"\1or", t)
-        ...         t = re.sub(r"([bt])re$", r"\1er", t)
-        ...         t = re.sub(r"([iy])s(e$|ing|ation)", r"\1z\2", t)
-        ...         t = re.sub(r"ogue$", "og", t)
-        ...         yield t
-        ...
-        >>> class CustomVectorizer(CountVectorizer):
-        ...     def build_tokenizer(self):
-        ...         tokenize = super().build_tokenizer()
-        ...         return lambda doc: list(to_british(tokenize(doc)))
-        ...
-        >>> print(CustomVectorizer().build_analyzer()(u"color colour"))
-        [...'color', ...'color']
-
-    for other styles of preprocessing; examples include stemming, lemmatization,
-    or normalizing numerical tokens, with the latter illustrated in:
-
-    * :ref:`sphx_glr_auto_examples_bicluster_plot_bicluster_newsgroups.py`
-
-  Customizing the vectorizer can also be useful when handling Asian languages
-  that do not use an explicit word separator such as whitespace.
-
-.. _image_feature_extraction:
-
-Image feature extraction
-========================
-
-.. currentmodule:: sklearn.feature_extraction.image
-
-Patch extraction
+n-grams إلى الإنقاذ! بدلاً من بناء مجموعة بسيطة من الوحدات (n=1)، قد يفضل المرء مجموعة من bigrams (n=2)، حيث يتم حساب تكرار ظهور أزواج من الكلمات المتتالية.
+
+قد يفضل المرء بدلاً من ذلك مجموعة من n-grams المحارف، وهو تمثيل مرن ضد الأخطاء الإملائية والاشتقاقات.
+
+على سبيل المثال، دعنا نقول أننا نتعامل مع مجموعة من الوثائق: "['words'، 'wprds']". تحتوي الوثيقة الثانية على خطأ إملائي في كلمة "words". سيعتبر التمثيل البسيط لحقيبة الكلمات هاتين الوثيقتين مختلفتين تمامًا، حيث تختلفان في السمتين المحتملتين. ومع ذلك، فإن تمثيل n-gram المحارف، سيجد أن الوثيقتين متطابقتان في 4 من 8 سمات، مما قد يساعد المصنف المفضل في اتخاذ قرار أفضل:
+
+في المثال أعلاه، يتم استخدام محلل "char_wb"، والذي يقوم بإنشاء n-grams فقط من المحارف داخل حدود الكلمات (محددة بمسافة على كل جانب). من ناحية أخرى، يقوم المحلل "char" بإنشاء n-grams التي تمتد عبر الكلمات:
+
+يتم استخدام متغير "char_wb" المتوافق مع حدود الكلمات بشكل خاص للغات التي تستخدم المسافات البيضاء لفصل الكلمات حيث يقوم بتوليد سمات أقل تشويشًا بشكل ملحوظ من المتغير "char" الخام في هذه الحالة. بالنسبة لهذه اللغات، يمكن أن يزيد من كل من الدقة التنبؤية وسرعة التقارب للمصنفات المدربة باستخدام هذه الميزات مع الحفاظ على المتانة فيما يتعلق بالأخطاء الإملائية واشتقاقات الكلمات.
+
+في حين يمكن الحفاظ على بعض معلومات الموضع المحلي عن طريق استخراج n-grams بدلاً من الكلمات الفردية، فإن حقيبة الكلمات وحقيبة n-grams تدمر معظم البنية الداخلية للوثيقة وبالتالي معظم المعنى الذي تحمله تلك البنية الداخلية.
+
+من أجل معالجة المهمة الأوسع لفهم اللغة الطبيعية، يجب مراعاة البنية المحلية للجمل والفقرات. وبالتالي، سيتم صياغة العديد من هذه النماذج على أنها مشكلات "إخراج منظم" تقع حاليًا خارج نطاق scikit-learn.
+
+ناقلات تحويل نص كبير باستخدام خدعة التجزئة
+------------------------------------------
+
+مخطط التحويل أعلاه بسيط، ولكن نظرًا لأنه يحتفظ بخريطة ذاكرة **من الرموز التسلسلية إلى مؤشرات ميزات الأعداد الصحيحة** (سمة "vocabulary_")، فإنه يتسبب في حدوث عدة **مشكلات عند التعامل مع مجموعات البيانات الكبيرة**:
+
+- كلما زاد حجم المجموعة، زاد حجم المفردات وبالتالي استخدام الذاكرة.
+
+- يتطلب التجهيز تخصيص هياكل بيانات وسيطة بحجم يتناسب مع حجم المجموعة الأصلية.
+
+- يتطلب بناء خريطة الكلمات تمريرة كاملة عبر المجموعة، وبالتالي لا يمكن ملاءمة المصنفات النصية بطريقة عبر الإنترنت تمامًا.
+
+- قد يكون التخليل والتخليل لمجهزات التحويل التي تحتوي على "vocabulary_" كبيرًا جدًا بطيئًا جدًا (عادةً ما يكون أبطأ بكثير من التخليل / التخليل لهياكل البيانات المسطحة مثل مصفوفة NumPy بنفس الحجم)،
+
+- من الممكن تقسيم عمل التحويل إلى مهام فرعية متزامنة حيث يجب أن تكون سمة "vocabulary_" حالة مشتركة مع حاجز تزامن دقيق جدًا: تعتمد خريطة الرمز التسلسلي إلى مؤشر الميزة على ترتيب أول حدوث لكل رمز، وبالتالي يجب أن تكون مشتركة، مما قد يضر بأداء العمال المتزامنين لدرجة تجعلهم أبطأ من المتغير التسلسلي.
+
+من الممكن التغلب على هذه القيود من خلال الجمع بين "خدعة التجزئة" (Feature_hashing) التي ينفذها :class: sklearn.feature_extraction.FeatureHasher والتحضير المسبق للنص وميزات التمييز في :class: CountVectorizer.
+
+ينفذ هذا المزيج في :class: HashingVectorizer، وهي فئة محول متوافقة إلى حد كبير مع واجهة برمجة التطبيقات :class: CountVectorizer. :class: HashingVectorizer لا تحتوي على حالة، مما يعني أنه لا يلزم استدعاء "fit" عليها:
+
+يمكنك أن ترى أنه تم استخراج 16 رمزًا مميزًا غير صفري في ناقل الإخراج: وهذا أقل من 19 رمزًا غير صفري تم استخراجها سابقًا بواسطة :class: CountVectorizer على نفس مجموعة البيانات التجريبية. يأتي التناقض من اصطدامات دالة التجزئة بسبب القيمة المنخفضة لبارامتر "n_features".
+
+في إعداد العالم الحقيقي، يمكن ترك معلمة "n_features" بقيمتها الافتراضية "2 ** 20" (حوالي مليون ميزة ممكنة). إذا كانت الذاكرة أو حجم النماذج اللاحقة تمثل مشكلة، فيمكن اختيار قيمة أقل مثل "2 ** 18" دون تقديم الكثير من الاصطدامات الإضافية في مهام تصنيف النص النموذجية.
+
+لاحظ أن البعد لا يؤثر على وقت التدريب على وحدة المعالجة المركزية للخوارزميات التي تعمل على مصفوفات CSR (LinearSVC (dual = True))، Perceptron، SGDClassifier، PassiveAggressive)، ولكنه يفعل ذلك للخوارزميات التي تعمل مع مصفوفات CSC (LinearSVC (dual = False)، Lasso ()، إلخ).
+
+دعنا نحاول مرة أخرى مع الإعداد الافتراضي:
+
+لم نعد نحصل على الاصطدامات، ولكن هذا يأتي على حساب زيادة كبيرة في أبعاد مساحة الإخراج.
+
+بالطبع، قد تصطدم مصطلحات أخرى غير المصطلحات التسعة عشر المستخدمة هنا.
+
+تأتي :class: HashingVectorizer أيضًا مع القيود التالية:
+
+- لا يمكن عكس النموذج (لا توجد طريقة "inverse_transform")، ولا يمكن الوصول إلى التمثيل السلسلة الأصلي للميزات، بسبب الطبيعة أحادية الاتجاه لدالة التجزئة التي تقوم بالتعيين.
+
+- لا يوفر ترجيح IDF حيث من شأن ذلك أن يقدم حالة في النموذج. يمكن إضافة :class: TfidfTransformer إلى خط أنابيب إذا لزم الأمر.
+
+يمكن أن يكون تطوير استخدام :class: HashingVectorizer مثيرًا للاهتمام لأنه يتيح إمكانية إجراء التوسع "خارج النواة". وهذا يعني أنه يمكننا التعلم من البيانات التي لا تناسب ذاكرة الكمبيوتر الرئيسية.
+
+تتمثل إحدى الاستراتيجيات لتنفيذ التوسع خارج النواة في بث البيانات إلى المثمن في دفعات صغيرة. يتم تحويل كل دفعة صغيرة باستخدام :class: HashingVectorizer لضمان أن مساحة الإدخال للمصنف لها نفس الأبعاد دائمًا. يتم تحديد مقدار الذاكرة المستخدمة في أي وقت بحجم الدفعة الصغيرة. على الرغم من عدم وجود حد لكمية البيانات التي يمكن تناولها باستخدام هذا النهج، إلا أن وقت التعلم محدود عمليًا بوقت وحدة المعالجة المركزية الذي يرغب المرء في إنفاقه على المهمة.
+
+لمثال كامل على التوسع خارج النواة في مهمة تصنيف النص، راجع :ref: sphx_glr_auto_examples_applications_plot_out_of_core_classification.py.
+
+تخصيص فئات المحول
+---------------------
+
+يمكن تخصيص السلوك عن طريق تمرير دالة قابلة للاستدعاء إلى منشئ المحول::
+
+فيما يلي نسميها على وجه التحديد:
+
+* "preprocessor": دالة قابلة للاستدعاء تأخذ وثيقة كاملة كإدخال (كسلسلة واحدة)، وتعيد إصدارًا محولًا محتملًا للوثيقة، لا يزال كسلسلة واحدة. يمكن استخدام هذا لإزالة علامات HTML، أو تحويل الوثيقة بالكامل إلى أحرف صغيرة، وما إلى ذلك.
+
+* "tokenizer": دالة قابلة للاستدعاء تأخذ الإخراج من المعالج المسبق وتقسمه إلى رموز، ثم تعيد قائمة بهذه الرموز.
+
+* "analyzer": دالة قابلة للاستدعاء تحل محل المعالج المسبق والمعالج. تُطلق برامج التحليل الافتراضية جميع المعالجات المسبقة والمعالجات، ولكن قد يتعين على برامج التحليل المخصصة إعادة إنتاج هذه الخطوات. يتم تنفيذ استخراج n-gram وتصفية الكلمات غير الضرورية على مستوى المحلل.
+
+(قد يتعرف مستخدمو Lucene على هذه الأسماء، ولكن كن على دراية بأن مفاهيم scikit-learn قد لا تتطابق مع مفاهيم Lucene واحدًا لواحد.)
+
+لجعل المعالج المسبق والمعالج وبرامج التحليل على دراية بمعلمات النموذج، يمكن اشتقاقها من الفئة وإعادة كتابة أساليب المصنع "build_preprocessor" و "build_tokenizer" و "build_analyzer" بدلاً من تمرير وظائف مخصصة.
+
+نصائح وحيل
+
+* إذا كانت الوثائق مفهرسة مسبقًا بواسطة حزمة خارجية، فاحفظها في ملفات (أو سلاسل) مع الرموز مفصولة بمسافة بيضاء ومرر "analyzer=str.split".
+
+* التحليل المتقدم على مستوى الرمز، مثل التصريف، والتصريف، والتقسيم المركب، والتصفية بناءً على الجزء من الكلام، وما إلى ذلك، غير مدرج في قاعدة تعليمات برمجة scikit، ولكنه يمكن إضافته عن طريق تخصيص المعالج أو المحلل.
+
+  فيما يلي "CountVectorizer" بمعالج ومشتق باستخدام NLTK::
+
+    >>> from nltk import word_tokenize          # doctest: +SKIP
+    >>> from nltk.stem import WordNetLemmatizer # doctest: +SKIP
+    >>> class LemmaTokenizer:
+    ...     def __init__(self):
+    ...         self.wnl = WordNetLemmatizer()
+    ...     def __call__(self، doc):
+    ...         return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
+    ...
+    >>> vect = CountVectorizer(tokenizer=LemmaTokenizer())  # doctest: +SKIP
+
+  (لاحظ أن هذا لن يقوم بتصفية علامات الترقيم.)
+
+  سيقوم المثال التالي، على سبيل المثال، بتحويل بعض التهجئة البريطانية إلى التهجئة الأمريكية::
+
+    >>> import re
+    >>> def to_british(tokens):
+    ...     for t in tokens:
+    ...         t = re.sub(r"(...)our$", r"\1or"، t)
+    ...         t = re.sub(r"([bt])re$", r"\1er"، t)
+    ...         t = re.sub(r"([iy])s(e$|ing|ation)", r"\1z\2"، t)
+    ...         t = re.sub(r"ogue$", "og"، t)
+    ...         yield t
+    ...
+    >>> class CustomVectorizer(CountVectorizer):
+    ...     def build_tokenizer(self):
+    ...         tokenize = super().build_tokenizer()
+    ...         return lambda doc: list(to_british(tokenize(doc)))
+    ...
+    >>> print(CustomVectorizer().build_analyzer()(u"color colour"))
+    [... 'color'، ... 'color']
+
+  فيما يلي بعض أساليب المعالجة المسبقة الأخرى: التصريف، والتصريف، أو توحيد الرموز العددية، مع توضيح الأخير في:
+
+  * :ref: sphx_glr_auto_examples_bicluster_plot_bicluster_newsgroups.py
+
+يمكن أن يكون تخصيص المحول مفيدًا أيضًا عند التعامل مع اللغات الآسيوية التي لا تستخدم فاصل كلمات صريح مثل المسافة البيضاء.
+
+استخراج ميزات الصورة
+استخراج التصحيح
 ----------------
 
-The :func:`extract_patches_2d` function extracts patches from an image stored
-as a two-dimensional array, or three-dimensional with color information along
-the third axis. For rebuilding an image from all its patches, use
-:func:`reconstruct_from_patches_2d`. For example let us generate a 4x4 pixel
-picture with 3 color channels (e.g. in RGB format)::
+تقوم دالة :func:`extract_patches_2d` باستخراج التصحيحات من صورة مخزنة
+كمصفوفة ثنائية الأبعاد، أو ثلاثية الأبعاد مع معلومات اللون على طول المحور
+الثالث. ولإعادة بناء صورة من جميع تصحيحاتها، استخدم الدالة
+:func:`reconstruct_from_patches_2d`. على سبيل المثال، دعنا نقوم بتوليد صورة
+بكسل 4x4 مع 3 قنوات لونية (على سبيل المثال بتنسيق RGB)::
 
     >>> import numpy as np
     >>> from sklearn.feature_extraction import image
@@ -1026,47 +671,44 @@ picture with 3 color channels (e.g. in RGB format)::
     array([[15, 18],
            [27, 30]])
 
-Let us now try to reconstruct the original image from the patches by averaging
-on overlapping areas::
+دعنا الآن نحاول إعادة بناء الصورة الأصلية من التصحيحات عن طريق حساب المتوسط
+على المناطق المتداخلة::
 
     >>> reconstructed = image.reconstruct_from_patches_2d(patches, (4, 4, 3))
     >>> np.testing.assert_array_equal(one_image, reconstructed)
 
-The :class:`PatchExtractor` class works in the same way as
-:func:`extract_patches_2d`, only it supports multiple images as input. It is
-implemented as a scikit-learn transformer, so it can be used in pipelines. See::
+تعمل فئة :class:`PatchExtractor` بنفس طريقة الدالة :func:`extract_patches_2d`،
+ولكنها تدعم عدة صور كمدخلات. وهي منفذة كمحول scikit-learn، لذلك يمكن استخدامها
+في الأنابيب. انظر::
 
     >>> five_images = np.arange(5 * 4 * 4 * 3).reshape(5, 4, 4, 3)
     >>> patches = image.PatchExtractor(patch_size=(2, 2)).transform(five_images)
     >>> patches.shape
     (45, 2, 2, 3)
 
-Connectivity graph of an image
--------------------------------
+مخطط الاتصال بصورة
+---------------------
 
-Several estimators in the scikit-learn can use connectivity information between
-features or samples. For instance Ward clustering
-(:ref:`hierarchical_clustering`) can cluster together only neighboring pixels
-of an image, thus forming contiguous patches:
+يمكن لبعض التقديرات في scikit-learn استخدام معلومات الاتصال بين الميزات أو
+العينات. على سبيل المثال، يمكن لتجميع Ward (:ref:`hierarchical_clustering`)
+تجميع بكسلات صورة متجاورة فقط، وبالتالي تشكيل تصحيحات متجاورة:
 
 .. figure:: ../auto_examples/cluster/images/sphx_glr_plot_coin_ward_segmentation_001.png
    :target: ../auto_examples/cluster/plot_coin_ward_segmentation.html
    :align: center
    :scale: 40
 
-For this purpose, the estimators use a 'connectivity' matrix, giving
-which samples are connected.
+ولهذا الغرض، تستخدم التقديرات مصفوفة "اتصال" تحدد العينات المتصلة.
 
-The function :func:`img_to_graph` returns such a matrix from a 2D or 3D
-image. Similarly, :func:`grid_to_graph` build a connectivity matrix for
-images given the shape of these image.
+تُعيد دالة :func:`img_to_graph` مثل هذه المصفوفة من صورة ثنائية أو ثلاثية
+الأبعاد. وبالمثل، تقوم دالة :func:`grid_to_graph` ببناء مصفوفة اتصال للصور
+معرفة شكل هذه الصورة.
 
-These matrices can be used to impose connectivity in estimators that use
-connectivity information, such as Ward clustering
-(:ref:`hierarchical_clustering`), but also to build precomputed kernels,
-or similarity matrices.
+يمكن استخدام هذه المصفوفات لفرض الاتصال في التقديرات التي تستخدم معلومات
+الاتصال، مثل تجميع Ward (:ref:`hierarchical_clustering`)، ولكن أيضًا لبناء
+نوى محسوبة مسبقًا، أو مصفوفات تشابه.
 
-.. note:: **Examples**
+.. note:: **أمثلة**
 
    * :ref:`sphx_glr_auto_examples_cluster_plot_coin_ward_segmentation.py`
 
