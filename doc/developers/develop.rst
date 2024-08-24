@@ -1,696 +1,508 @@
-.. _develop:
-
-==================================
-Developing scikit-learn estimators
+تطوير مُقدّرات scikit-learn
 ==================================
 
-Whether you are proposing an estimator for inclusion in scikit-learn,
-developing a separate package compatible with scikit-learn, or
-implementing custom components for your own projects, this chapter
-details how to develop objects that safely interact with scikit-learn
-Pipelines and model selection tools.
+سواء كنت تقترح مُقدّرًا لإدراجه في scikit-learn، أو تطور حزمة منفصلة متوافقة مع scikit-learn، أو تنفذ مكونات مخصصة لمشاريعك الخاصة، يشرح هذا الفصل كيفية تطوير كائنات تتفاعل بأمان مع أنابيب scikit-learn وأدوات اختيار النماذج.
 
 .. currentmodule:: sklearn
 
 .. _api_overview:
 
-APIs of scikit-learn objects
+واجهات برمجة تطبيقات كائنات scikit-learn
 ============================
 
-To have a uniform API, we try to have a common basic API for all the
-objects. In addition, to avoid the proliferation of framework code, we
-try to adopt simple conventions and limit to a minimum the number of
-methods an object must implement.
+للحصول على واجهة برمجة تطبيقات موحدة، نحاول أن يكون لدينا واجهة برمجة تطبيقات أساسية مشتركة لجميع الكائنات. بالإضافة إلى ذلك، لتجنب انتشار كود الإطار، نحاول تبني اتفاقيات بسيطة والحد من عدد الطرق التي يجب أن ينفذها الكائن إلى الحد الأدنى.
 
-Elements of the scikit-learn API are described more definitively in the
-:ref:`glossary`.
+توصف عناصر واجهة برمجة تطبيقات scikit-learn بشكل أكثر تحديدًا في: ref:`glossary`.
 
-Different objects
+كائنات مختلفة
 -----------------
 
-The main objects in scikit-learn are (one class can implement
-multiple interfaces):
+الكائنات الرئيسية في scikit-learn هي (يمكن لفئة واحدة تنفيذ واجهات متعددة):
 
 :Estimator:
 
-    The base object, implements a ``fit`` method to learn from data, either::
+    الكائن الأساسي، ينفذ طريقة "fit" لتعلم البيانات، إما::
 
       estimator = estimator.fit(data, targets)
 
-    or::
+    أو::
 
       estimator = estimator.fit(data)
 
 :Predictor:
 
-    For supervised learning, or some unsupervised problems, implements::
+    للتعلم الخاضع للإشراف، أو بعض المشكلات غير الخاضعة للإشراف، ينفذ::
 
       prediction = predictor.predict(data)
 
-    Classification algorithms usually also offer a way to quantify certainty
-    of a prediction, either using ``decision_function`` or ``predict_proba``::
+    عادة ما توفر خوارزميات التصنيف أيضًا طريقة لقياس مدى التأكد من التنبؤ، إما باستخدام "decision_function" أو "predict_proba"::
 
       probability = predictor.predict_proba(data)
 
 :Transformer:
 
-    For modifying the data in a supervised or unsupervised way (e.g. by adding, changing,
-    or removing columns, but not by adding or removing rows). Implements::
+    لتعديل البيانات بطريقة خاضعة للإشراف أو غير خاضعة للإشراف (على سبيل المثال، عن طريق إضافة أعمدة أو تغييرها أو إزالتها، ولكن ليس عن طريق إضافة صفوف أو إزالتها). ينفذ::
 
       new_data = transformer.transform(data)
 
-    When fitting and transforming can be performed much more efficiently
-    together than separately, implements::
+    عندما يمكن تنفيذ التجهيز والتحويل معًا بكفاءة أكبر من تنفيذهما بشكل منفصل، ينفذ::
 
       new_data = transformer.fit_transform(data)
 
 :Model:
 
-    A model that can give a `goodness of fit <https://en.wikipedia.org/wiki/Goodness_of_fit>`_
-    measure or a likelihood of unseen data, implements (higher is better)::
+    نموذج يمكنه إعطاء مقياس "goodness of fit" أو احتمال حدوث بيانات غير مرئية، ينفذ (الأعلى أفضل)::
 
       score = model.score(data)
 
-Estimators
+المُقدّرات
 ----------
 
-The API has one predominant object: the estimator. An estimator is an
-object that fits a model based on some training data and is capable of
-inferring some properties on new data. It can be, for instance, a
-classifier or a regressor. All estimators implement the fit method::
+لدى واجهة برمجة التطبيقات كائن واحد سائد: المُقدّر. المُقدّر هو كائن يتناسب مع نموذج بناءً على بعض بيانات التدريب وقادر على استنتاج بعض الخصائص على بيانات جديدة. يمكن أن يكون، على سبيل المثال، مصنفًا أو مُرجعًا. تنفذ جميع المُقدّرات طريقة "fit"::
 
     estimator.fit(X, y)
 
-All built-in estimators also have a ``set_params`` method, which sets
-data-independent parameters (overriding previous parameter values passed
-to ``__init__``).
+لدى جميع المُقدّرات المدمجة أيضًا طريقة "set_params"، والتي تقوم بتعيين معلمات مستقلة عن البيانات (باستبدال قيم المعلمات السابقة التي تم تمريرها إلى "__init__").
 
-All estimators in the main scikit-learn codebase should inherit from
-``sklearn.base.BaseEstimator``.
+يجب أن ترث جميع المُقدّرات في شيفرة scikit-learn الأساسية من "sklearn.base.BaseEstimator".
 
-Instantiation
+التهيئة
 ^^^^^^^^^^^^^
 
-This concerns the creation of an object. The object's ``__init__`` method
-might accept constants as arguments that determine the estimator's behavior
-(like the C constant in SVMs). It should not, however, take the actual training
-data as an argument, as this is left to the ``fit()`` method::
+يتعلق هذا الأمر بإنشاء كائن. قد تقبل طريقة "__init__" الخاصة بالكائن ثوابت كوسيطات تحدد سلوك المُقدّر (مثل ثابت "C" في SVMs). ومع ذلك، يجب ألا يأخذ بيانات التدريب الفعلية كوسيط، حيث يتم ترك ذلك لطريقة "fit"::
 
     clf2 = SVC(C=2.3)
-    clf3 = SVC([[1, 2], [2, 3]], [-1, 1]) # WRONG!
+    clf3 = SVC([[1, 2], [2, 3]], [-1, 1]) # خطأ!
 
+يجب أن تكون جميع الوسيطات التي تقبلها "__init__" وسيطات كلمات رئيسية بقيم افتراضية. وبعبارة أخرى، يجب أن يكون المستخدم قادرًا على إنشاء مثيل من المُقدّر دون تمرير أي وسيطات إليه. يجب أن تتوافق الوسيطات جميعها مع معلمات تصف النموذج أو مشكلة التحسين التي يحاول المُقدّر حلها. يتم تذكر هذه الوسيطات الأولية (أو المعلمات) دائمًا بواسطة المُقدّر.
 
-The arguments accepted by ``__init__`` should all be keyword arguments
-with a default value. In other words, a user should be able to instantiate
-an estimator without passing any arguments to it. The arguments should all
-correspond to hyperparameters describing the model or the optimisation
-problem the estimator tries to solve. These initial arguments (or parameters)
-are always remembered by the estimator.
-Also note that they should not be documented under the "Attributes" section,
-but rather under the "Parameters" section for that estimator.
+لاحظ أيضًا أنه لا يجب توثيقها في قسم "Attributes"، ولكن بدلاً من ذلك في قسم "Parameters" لهذا المُقدّر.
 
-In addition, **every keyword argument accepted by** ``__init__`` **should
-correspond to an attribute on the instance**. Scikit-learn relies on this to
-find the relevant attributes to set on an estimator when doing model selection.
+بالإضافة إلى ذلك، يجب أن **يتوافق كل وسيط كلمة رئيسية تقبله** "__init__" **مع خاصية على المثيل**. يعتمد scikit-learn على هذا للعثور على الخصائص ذات الصلة لتعيينها على مُقدّر عند إجراء اختيار النموذج.
 
-To summarize, an ``__init__`` should look like::
+لتلخيص، يجب أن تبدو "__init__" كالتالي::
 
     def __init__(self, param1=1, param2=2):
         self.param1 = param1
         self.param2 = param2
 
-There should be no logic, not even input validation,
-and the parameters should not be changed.
-The corresponding logic should be put where the parameters are used,
-typically in ``fit``.
-The following is wrong::
+لا يجب أن يكون هناك أي منطق، حتى التحقق من صحة الإدخال، ويجب عدم تغيير المعلمات. يجب وضع المنطق المقابل حيث يتم استخدام المعلمات، عادة في "fit".
+
+ما يلي خطأ::
 
     def __init__(self, param1=1, param2=2, param3=3):
-        # WRONG: parameters should not be modified
+        # خطأ: لا يجب تعديل المعلمات
         if param1 > 1:
             param2 += 1
         self.param1 = param1
-        # WRONG: the object's attributes should have exactly the name of
-        # the argument in the constructor
+        # خطأ: يجب أن يكون للخصائص الخاصة بالكائن نفس اسم
+        # الوسيط في الباني
         self.param3 = param2
 
-The reason for postponing the validation is that the same validation
-would have to be performed in ``set_params``,
-which is used in algorithms like ``GridSearchCV``.
+والسبب في تأجيل التحقق من الصحة هو أنه يجب إجراء نفس التحقق من الصحة في "set_params"، والذي يتم استخدامه في خوارزميات مثل "GridSearchCV".
 
-Fitting
+التجهيز
 ^^^^^^^
 
-The next thing you will probably want to do is to estimate some
-parameters in the model. This is implemented in the ``fit()`` method.
+الشيء التالي الذي قد ترغب في فعله هو تقدير بعض المعلمات في النموذج. يتم تنفيذ ذلك في طريقة "fit".
 
-The ``fit()`` method takes the training data as arguments, which can be one
-array in the case of unsupervised learning, or two arrays in the case
-of supervised learning.
+تأخذ طريقة "fit" بيانات التدريب كوسيطات، والتي يمكن أن تكون مصفوفة واحدة في حالة التعلم غير الخاضع للإشراف، أو مصفوفتين في حالة التعلم الخاضع للإشراف.
 
-Note that the model is fitted using ``X`` and ``y``, but the object holds no
-reference to ``X`` and ``y``. There are, however, some exceptions to this, as in
-the case of precomputed kernels where this data must be stored for use by
-the predict method.
+لاحظ أنه يتم تجهيز النموذج باستخدام "X" و "y"، ولكن الكائن لا يحتوي على مرجع إلى "X" و "y". ومع ذلك، هناك بعض الاستثناءات لهذا، كما هو الحال في حالة النواة المحسوبة مسبقًا حيث يجب تخزين هذه البيانات لاستخدامها بواسطة طريقة "predict".
 
 ============= ======================================================
-Parameters
+المعلمات
 ============= ======================================================
-X             array-like of shape (n_samples, n_features)
+X             مصفوفة الشكل (n_samples، n_features)
 
-y             array-like of shape (n_samples,)
+y             مصفوفة الشكل (n_samples،)
 
-kwargs        optional data-dependent parameters
+kwargs        وسيطات اختيارية تعتمد على البيانات
 ============= ======================================================
 
-``X.shape[0]`` should be the same as ``y.shape[0]``. If this requisite
-is not met, an exception of type ``ValueError`` should be raised.
+يجب أن يكون "X.shape[0]" هو نفسه "y.shape[0]". إذا لم يتم استيفاء هذا الشرط، فيجب إثارة استثناء من النوع "ValueError".
 
-``y`` might be ignored in the case of unsupervised learning. However, to
-make it possible to use the estimator as part of a pipeline that can
-mix both supervised and unsupervised transformers, even unsupervised
-estimators need to accept a ``y=None`` keyword argument in
-the second position that is just ignored by the estimator.
-For the same reason, ``fit_predict``, ``fit_transform``, ``score``
-and ``partial_fit`` methods need to accept a ``y`` argument in
-the second place if they are implemented.
+قد يتم تجاهل "y" في حالة التعلم غير الخاضع للإشراف. ومع ذلك، لجعل من الممكن استخدام المُقدّر كجزء من خط أنابيب يمكنه مزج المحولات الخاضعة للإشراف وغير الخاضعة للإشراف، حتى المُقدّرات غير الخاضعة للإشراف تحتاج إلى قبول وسيط "y=None" في
+المركز الثاني الذي يتم تجاهله ببساطة بواسطة المُقدّر. لنفس السبب، تحتاج طرق "fit_predict" و "fit_transform" و "score" و "partial_fit" إلى قبول وسيط "y" في
+المركز الثاني إذا تم تنفيذها.
 
-The method should return the object (``self``). This pattern is useful
-to be able to implement quick one liners in an IPython session such as::
+يجب أن تعيد الطريقة الكائن ( "self"). هذا النمط مفيد ليكون من الممكن تنفيذ عبارات سريعة في جلسة IPython مثل::
 
   y_predicted = SVC(C=100).fit(X_train, y_train).predict(X_test)
 
-Depending on the nature of the algorithm, ``fit`` can sometimes also
-accept additional keywords arguments. However, any parameter that can
-have a value assigned prior to having access to the data should be an
-``__init__`` keyword argument. **fit parameters should be restricted
-to directly data dependent variables**. For instance a Gram matrix or
-an affinity matrix which are precomputed from the data matrix ``X`` are
-data dependent. A tolerance stopping criterion ``tol`` is not directly
-data dependent (although the optimal value according to some scoring
-function probably is).
+اعتمادًا على طبيعة الخوارزمية، يمكن أن تقبل "fit" أيضًا وسيطات كلمات رئيسية إضافية. ومع ذلك، يجب أن تكون أي معلمة يمكن تعيين قيمة لها قبل الوصول إلى البيانات وسيطة "__init__" كلمة رئيسية. يجب تقييد **معلمات التجهيز** لتكون متغيرات تعتمد بشكل مباشر على البيانات. على سبيل المثال، مصفوفة غرام أو مصفوفة تشابه محسوبة مسبقًا من مصفوفة البيانات "X" تعتمد على البيانات. معيار التوقف "tol" ليس مباشرًا
+يعتمد على البيانات (على الرغم من أن القيمة المثالية وفقًا لبعض دالة التقييم ربما تكون كذلك).
 
-When ``fit`` is called, any previous call to ``fit`` should be ignored. In
-general, calling ``estimator.fit(X1)`` and then ``estimator.fit(X2)`` should
-be the same as only calling ``estimator.fit(X2)``. However, this may not be
-true in practice when ``fit`` depends on some random process, see
-:term:`random_state`. Another exception to this rule is when the
-hyper-parameter ``warm_start`` is set to ``True`` for estimators that
-support it. ``warm_start=True`` means that the previous state of the
-trainable parameters of the estimator are reused instead of using the
-default initialization strategy.
+عندما يتم استدعاء "fit"، يجب تجاهل أي استدعاء سابق لـ "fit". بشكل عام، يجب أن يكون استدعاء "estimator.fit(X1)" ثم "estimator.fit(X2)" هو نفسه مثل استدعاء "estimator.fit(X2)" فقط. ومع ذلك، قد لا يكون هذا صحيحًا في الممارسة عندما تعتمد "fit" على بعض العمليات العشوائية، راجع: term:`random_state`. استثناء آخر لهذه القاعدة هو عندما يتم تعيين المعلمة الفائقة "warm_start" إلى "True" للمُقدّرات التي تدعمها. "warm_start=True" يعني أنه يتم إعادة استخدام حالة المعلمات القابلة للتدريب السابقة للمُقدّر بدلاً من استخدام استراتيجية التهيئة الافتراضية.
 
-Estimated Attributes
+الخصائص المقدرة
 ^^^^^^^^^^^^^^^^^^^^
 
-Attributes that have been estimated from the data must always have a name
-ending with trailing underscore, for example the coefficients of
-some regression estimator would be stored in a ``coef_`` attribute after
-``fit`` has been called.
+يجب أن يكون للخصائص المقدرة من البيانات دائمًا اسم ينتهي بشرطة سفلية، على سبيل المثال، سيتم تخزين معاملات بعض مُقدّر الانحدار في خاصية "coef_" بعد استدعاء "fit".
 
-The estimated attributes are expected to be overridden when you call ``fit``
-a second time.
+من المتوقع أن يتم تجاوز الخصائص المقدرة عند استدعاء "fit" للمرة الثانية.
 
-Optional Arguments
+وسيطات اختيارية
 ^^^^^^^^^^^^^^^^^^
 
-In iterative algorithms, the number of iterations should be specified by
-an integer called ``n_iter``.
+في الخوارزميات التكرارية، يجب تحديد عدد التكرارات بواسطة عدد صحيح يسمى "n_iter".
 
-Universal attributes
+الخصائص العالمية
 ^^^^^^^^^^^^^^^^^^^^
 
-Estimators that expect tabular input should set a `n_features_in_`
-attribute at `fit` time to indicate the number of features that the estimator
-expects for subsequent calls to `predict` or `transform`.
-See
+يجب على المُقدّرات التي تتوقع إدخال جدول بيانات تعيين خاصية "n_features_in_" في وقت "fit" للإشارة إلى عدد الميزات التي يتوقعها المُقدّر للمكالمات اللاحقة إلى "predict" أو "transform".
+راجع
 `SLEP010
 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep010/proposal.html>`_
-for details.
+للحصول على التفاصيل.
 
 .. _rolling_your_own_estimator:
 
-Rolling your own estimator
+إنشاء مُقدّرك الخاص
+بالتأكيد! فيما يلي ترجمة لنص ReStructuredText إلى اللغة العربية:
+
 ==========================
-If you want to implement a new estimator that is scikit-learn-compatible,
-whether it is just for you or for contributing it to scikit-learn, there are
-several internals of scikit-learn that you should be aware of in addition to
-the scikit-learn API outlined above. You can check whether your estimator
-adheres to the scikit-learn interface and standards by running
-:func:`~sklearn.utils.estimator_checks.check_estimator` on an instance. The
-:func:`~sklearn.utils.estimator_checks.parametrize_with_checks` pytest
-decorator can also be used (see its docstring for details and possible
-interactions with `pytest`)::
+إذا كنت ترغب في تنفيذ مصدر تقدير متوافق مع scikit-learn، سواء كان ذلك للاستخدام الشخصي أو للمساهمة في scikit-learn، فهناك العديد من التفاصيل الداخلية لـ scikit-learn التي يجب أن تكون على دراية بها بالإضافة إلى واجهة برمجة التطبيقات scikit-learn الموضحة أعلاه. يمكنك التحقق مما إذا كان مصدر التقدير الخاص بك يلتزم بواجهة برمجة التطبيقات والمعايير الخاصة بـ scikit-learn عن طريق تشغيل :func: ~ sklearn.utils.estimator_checks.check_estimator على مثيل. يمكن أيضًا استخدام زخرفة pytest :func: ~ sklearn.utils.estimator_checks.parametrize_with_checks (راجع docstring للتفاصيل والتفاعلات المحتملة مع pytest)::
 
-  >>> from sklearn.utils.estimator_checks import check_estimator
-  >>> from sklearn.svm import LinearSVC
-  >>> check_estimator(LinearSVC())  # passes
+  >>> من sklearn.utils.estimator_checks استيراد check_estimator
+  >>> من sklearn.svm استيراد LinearSVC
+  >>> check_estimator (LinearSVC ()) # يمر
 
-The main motivation to make a class compatible to the scikit-learn estimator
-interface might be that you want to use it together with model evaluation and
-selection tools such as :class:`model_selection.GridSearchCV` and
-:class:`pipeline.Pipeline`.
+قد يكون الدافع الرئيسي لجعل فئة متوافقة مع واجهة مصدر تقدير scikit-learn هو أنك تريد استخدامها مع أدوات تقييم النموذج واختياره مثل :class: model_selection.GridSearchCV و :class: pipeline.Pipeline.
 
-Before detailing the required interface below, we describe two ways to achieve
-the correct interface more easily.
+قبل تفصيل الواجهة المطلوبة أدناه، سنصف طريقتين لتحقيق الواجهة الصحيحة بسهولة أكبر.
 
-.. topic:: Project template:
+.. موضوع:: قالب المشروع:
 
-    We provide a `project template <https://github.com/scikit-learn-contrib/project-template/>`_
-    which helps in the creation of Python packages containing scikit-learn compatible estimators.
-    It provides:
+    نقدم `قالب المشروع <https://github.com/scikit-learn-contrib/project-template/>`_
+    الذي يساعد في إنشاء حزم Python التي تحتوي على مصادر تقدير متوافقة مع scikit-learn.
+    يوفر ما يلي:
 
-    * an initial git repository with Python package directory structure
-    * a template of a scikit-learn estimator
-    * an initial test suite including use of ``check_estimator``
-    * directory structures and scripts to compile documentation and example
-      galleries
-    * scripts to manage continuous integration (testing on Linux and Windows)
-    * instructions from getting started to publishing on `PyPi <https://pypi.org/>`_
+    * مستودع git الأولي به هيكل دليل حزمة Python
+    * قالب مصدر تقدير scikit-learn
+    * جناح اختبار أولي بما في ذلك استخدام "check_estimator"
+    * هياكل الدلائل والنصوص لتجميع الوثائق وصالات العرض التوضيحية
+    * النصوص لإدارة التكامل المستمر (الاختبار على Linux و Windows)
+    * تعليمات من البداية إلى النشر على `PyPi <https://pypi.org/>`_
 
-.. topic:: ``BaseEstimator`` and mixins:
+.. موضوع:: "BaseEstimator" والمزيج:
 
-    We tend to use "duck typing", so building an estimator which follows
-    the API suffices for compatibility, without needing to inherit from or
-    even import any scikit-learn classes.
+    نميل إلى استخدام "duck typing"، لذا فإن بناء مصدر تقدير يتبع
+    تكفي واجهة برمجة التطبيقات للتوافق، دون الحاجة إلى الميراث من أو
+    حتى استيراد أي فئات scikit-learn.
 
-    However, if a dependency on scikit-learn is acceptable in your code,
-    you can prevent a lot of boilerplate code
-    by deriving a class from ``BaseEstimator``
-    and optionally the mixin classes in ``sklearn.base``.
-    For example, below is a custom classifier, with more examples included
-    in the scikit-learn-contrib
-    `project template <https://github.com/scikit-learn-contrib/project-template/blob/master/skltemplate/_template.py>`__.
+    ومع ذلك، إذا كان الاعتماد على scikit-learn مقبولًا في كودك،
+    يمكنك منع الكثير من كود التمهيد
+    عن طريق اشتقاق فئة من "BaseEstimator"
+    وفئات المزج الاختيارية في "sklearn.base".
+    على سبيل المثال، فيما يلي مصنف مخصص، مع تضمين المزيد من الأمثلة
+    في قالب المساهمة scikit-learn
+    `قالب المشروع <https://github.com/scikit-learn-contrib/project-template/blob/master/skltemplate/_template.py>`__.
 
-    It is particularly important to notice that mixins should be "on the left" while
-    the ``BaseEstimator`` should be "on the right" in the inheritance list for proper
-    MRO.
+    من المهم بشكل خاص ملاحظة أن المزيج يجب أن يكون "على اليسار" في حين
+    يجب أن يكون "BaseEstimator" "على اليمين" في قائمة الوراثة لـ MRO الصحيح.
 
-      >>> import numpy as np
-      >>> from sklearn.base import BaseEstimator, ClassifierMixin
-      >>> from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
-      >>> from sklearn.utils.multiclass import unique_labels
-      >>> from sklearn.metrics import euclidean_distances
-      >>> class TemplateClassifier(ClassifierMixin, BaseEstimator):
+      >>> استيراد numpy كالن
+      >>> من sklearn.base استيراد BaseEstimator، ClassifierMixin
+      >>> من sklearn.utils.validation استيراد check_X_y، check_array، check_is_fitted
+      >>> من sklearn.utils.multiclass استيراد unique_labels
+      >>> من sklearn.metrics استيراد euclidean_distances
+      >>> class TemplateClassifier (ClassifierMixin، BaseEstimator):
       ...
-      ...     def __init__(self, demo_param='demo'):
-      ...         self.demo_param = demo_param
+      ... def __init__ (self، demo_param = 'demo'):
+      ... self.demo_param = demo_param
       ...
-      ...     def fit(self, X, y):
+      ... def fit (self، X، y):
       ...
-      ...         # Check that X and y have correct shape
-      ...         X, y = check_X_y(X, y)
-      ...         # Store the classes seen during fit
-      ...         self.classes_ = unique_labels(y)
+      ... # تحقق مما إذا كان X و y لهما الشكل الصحيح
+      ... X، y = check_X_y (X، y)
+      ... # تخزين الفئات التي شوهدت أثناء التثبيت
+      ... self.classes_ = unique_labels (y)
       ...
-      ...         self.X_ = X
-      ...         self.y_ = y
-      ...         # Return the classifier
-      ...         return self
+      ... self.X_ = X
+      ... self.y_ = y
+      ... # إعادة المصنف
+      ... return self
       ...
-      ...     def predict(self, X):
+      ... def predict (self، X):
       ...
-      ...         # Check if fit has been called
-      ...         check_is_fitted(self)
+      ... # تحقق مما إذا كان fit قد تم استدعاؤه
+      ... check_is_fitted (self)
       ...
-      ...         # Input validation
-      ...         X = check_array(X)
+      ... # التحقق من صحة الإدخال
+      ... X = check_array (X)
       ...
-      ...         closest = np.argmin(euclidean_distances(X, self.X_), axis=1)
-      ...         return self.y_[closest]
+      ... الأقرب = np.argmin (euclidean_distances (X، self.X_), axis = 1)
+      ... return self.y_ [الأقرب]
 
 
-get_params and set_params
+احصل على معلمات وحدد معلمات
 -------------------------
-All scikit-learn estimators have ``get_params`` and ``set_params`` functions.
-The ``get_params`` function takes no arguments and returns a dict of the
-``__init__`` parameters of the estimator, together with their values.
+تحتوي جميع مصادر scikit-learn على وظائف "get_params" و "set_params".
+لا تأخذ وظيفة "get_params" أي وسيطات وتعيد قاموسًا لمعلمات "init" الخاصة بالمصدر، إلى جانب قيمها.
 
-It must take one keyword argument, ``deep``, which receives a boolean value
-that determines whether the method should return the parameters of
-sub-estimators (for most estimators, this can be ignored). The default value
-for ``deep`` should be `True`. For instance considering the following
-estimator::
+يجب أن يأخذ وسيطًا واحدًا، "deep"، والذي يتلقى قيمة منطقية
+تحديد ما إذا كان يجب على الطريقة إعادة معلمات
+المقدرات الفرعية (بالنسبة لمعظم المقدرات، يمكن تجاهل هذا). يجب أن تكون القيمة الافتراضية
+من أجل "عميق" `صحيح`. على سبيل المثال بالنظر إلى المقدر التالي::
 
-    >>> from sklearn.base import BaseEstimator
-    >>> from sklearn.linear_model import LogisticRegression
-    >>> class MyEstimator(BaseEstimator):
-    ...     def __init__(self, subestimator=None, my_extra_param="random"):
-    ...         self.subestimator = subestimator
-    ...         self.my_extra_param = my_extra_param
+    >>> من sklearn.base استيراد BaseEstimator
+    >>> من sklearn.linear_model استيراد LogisticRegression
+    >>> class MyEstimator (BaseEstimator):
+    ... def __init__ (self، subestimator = None، my_extra_param = "random"):
+    ... self.subestimator = subestimator
+    ... self.my_extra_param = my_extra_param
 
-The parameter `deep` will control whether or not the parameters of the
-`subestimator` should be reported. Thus when `deep=True`, the output will be::
+سيتحكم المعلمة `deep` فيما إذا كان يجب الإبلاغ عن معلمات
+`subestimator`. وبالتالي عندما `deep = True`، فإن الإخراج سيكون::
 
-    >>> my_estimator = MyEstimator(subestimator=LogisticRegression())
-    >>> for param, value in my_estimator.get_params(deep=True).items():
-    ...     print(f"{param} -> {value}")
+    >>> my_estimator = MyEstimator (subestimator = LogisticRegression ())
+    >>> لكل معلمة، قيمة في my_estimator.get_params (deep = True).items ():
+    ... طباعة (f "{param} -> {value}")
     my_extra_param -> random
     subestimator__C -> 1.0
-    subestimator__class_weight -> None
-    subestimator__dual -> False
-    subestimator__fit_intercept -> True
+    subestimator__class_weight -> لا شيء
+    subestimator__dual -> false
+    subestimator__fit_intercept -> true
     subestimator__intercept_scaling -> 1
-    subestimator__l1_ratio -> None
+    subestimator__l1_ratio -> لا شيء
     subestimator__max_iter -> 100
-    subestimator__multi_class -> deprecated
-    subestimator__n_jobs -> None
+    subestimator__multi_class -> غير مستخدم
+    subestimator__n_jobs -> لا شيء
     subestimator__penalty -> l2
-    subestimator__random_state -> None
+    subestimator__random_state -> لا شيء
     subestimator__solver -> lbfgs
     subestimator__tol -> 0.0001
     subestimator__verbose -> 0
-    subestimator__warm_start -> False
-    subestimator -> LogisticRegression()
+    subestimator__warm_start -> false
+    subestimator -> LogisticRegression ()
 
-Often, the `subestimator` has a name (as e.g. named steps in a
-:class:`~sklearn.pipeline.Pipeline` object), in which case the key should
-become `<name>__C`, `<name>__class_weight`, etc.
+غالبًا ما يكون لـ `subestimator` اسم (كما هو الحال على سبيل المثال الخطوات المسماة في
+:class: ~ sklearn.pipeline.Pipeline` كائن)، في هذه الحالة يجب أن تكون المفتاح
+تصبح `<name> __C`، `<name> __class_weight`، إلخ.
 
-While when `deep=False`, the output will be::
+بينما عندما `deep = False`، فإن الإخراج سيكون::
 
-    >>> for param, value in my_estimator.get_params(deep=False).items():
-    ...     print(f"{param} -> {value}")
+    >>> لكل معلمة، قيمة في my_estimator.get_params (deep = False).items ():
+    ... طباعة (f "{param} -> {value}")
     my_extra_param -> random
-    subestimator -> LogisticRegression()
+    subestimator -> LogisticRegression ()
 
-On the other hand, ``set_params`` takes the parameters of ``__init__``
-as keyword arguments, unpacks them into a dict of the form
-``'parameter': value`` and sets the parameters of the estimator using this dict.
-Return value must be the estimator itself.
+من ناحية أخرى، يأخذ "set_params" معلمات "init"
+كوسيطات الكلمات الرئيسية، وفكها في قاموس من النموذج
+`` 'parameter': value`` ويحدد معلمات المصدر باستخدام هذا القاموس.
+يجب أن تكون قيمة الإرجاع هي المصدر نفسه.
 
-While the ``get_params`` mechanism is not essential (see :ref:`cloning` below),
-the ``set_params`` function is necessary as it is used to set parameters during
-grid searches.
+بينما لا تكون آلية "get_params" ضرورية (راجع: ref: cloning أدناه)،
+تعد وظيفة "set_params" ضرورية حيث يتم استخدامها لتعيين المعلمات أثناء
+عمليات البحث الشبكي.
 
-The easiest way to implement these functions, and to get a sensible
-``__repr__`` method, is to inherit from ``sklearn.base.BaseEstimator``. If you
-do not want to make your code dependent on scikit-learn, the easiest way to
-implement the interface is::
+أسهل طريقة لتنفيذ هذه الوظائف، والحصول على طريقة معقولة
+`` __repr__`` الطريقة، هي الميراث من `` sklearn.base.BaseEstimator``. إذا كنت
+لا تريد جعل الكود الخاص بك يعتمد على scikit-learn، فإن أسهل طريقة لتنفيذ الواجهة هي::
 
-    def get_params(self, deep=True):
-        # suppose this estimator has parameters "alpha" and "recursive"
-        return {"alpha": self.alpha, "recursive": self.recursive}
+    def get_params (self، deep = True):
+        # افترض أن هذا المصدر له معلمات "alpha" و "recursive"
+        return {"alpha": self.alpha، "recursive": self.recursive}
 
-    def set_params(self, **parameters):
-        for parameter, value in parameters.items():
-            setattr(self, parameter, value)
+    def set_params (self، ** parameters):
+        لكل معلمة، قيمة في المعلمات.العناصر ():
+            setattr (self، parameter، value)
         return self
 
 
-Parameters and init
+المعلمات و init
 -------------------
-As :class:`model_selection.GridSearchCV` uses ``set_params``
-to apply parameter setting to estimators,
-it is essential that calling ``set_params`` has the same effect
-as setting parameters using the ``__init__`` method.
-The easiest and recommended way to accomplish this is to
-**not do any parameter validation in** ``__init__``.
-All logic behind estimator parameters,
-like translating string arguments into functions, should be done in ``fit``.
+نظرًا لأن :class: model_selection.GridSearchCV يستخدم "set_params"
+لتطبيق إعداد المعلمات على المقدرات،
+فمن الضروري أن يكون لاستدعاء "set_params" نفس التأثير
+كما هو الحال عند إعداد المعلمات باستخدام طريقة "init".
+أسهل طريقة وأكثرها موثوقية لتحقيق ذلك هي
+**لا تفعل أي تحقق من صحة المعلمة في** `` __init__``.
+كل المنطق وراء معلمات المصدر،
+مثل ترجمة وسيطات السلسلة إلى وظائف، يجب أن يتم في "fit".
 
-Also it is expected that parameters with trailing ``_`` are **not to be set
-inside the** ``__init__`` **method**. All and only the public attributes set by
-fit have a trailing ``_``. As a result the existence of parameters with
-trailing ``_`` is used to check if the estimator has been fitted.
+من المتوقع أيضًا أن المعلمات التي تحتوي على علامة سفلية متبوعة بـ `` _`` **لا يتم تعيينها
+داخل طريقة** `` __init__``. جميع المعلمات العامة الوحيدة التي تم تعيينها بواسطة
+تناسب لها علامة سفلية. ونتيجة لذلك، يتم استخدام وجود معلمات مع
+علامة سفلية للتحقق مما إذا كان المصدر قد تم تثبيته.
 
 .. _cloning:
 
-Cloning
+الاستنساخ
 -------
-For use with the :mod:`~sklearn.model_selection` module,
-an estimator must support the ``base.clone`` function to replicate an estimator.
-This can be done by providing a ``get_params`` method.
-If ``get_params`` is present, then ``clone(estimator)`` will be an instance of
-``type(estimator)`` on which ``set_params`` has been called with clones of
-the result of ``estimator.get_params()``.
+لاستخدامها مع :mod: ~ sklearn.model_selection module،
+يجب أن يدعم المصدر وظيفة "base.clone" لاستنساخ مصدر تقدير.
+يمكن القيام بذلك عن طريق توفير طريقة "get_params".
+إذا كان "get_params" موجودًا، فسيتم "clone (estimator)" مثيلًا لـ
+`` type (estimator)`` على الذي تم استدعاء "set_params" باستخدام استنساخات
+نتيجة "estimator.get_params ()".
 
-Objects that do not provide this method will be deep-copied
-(using the Python standard function ``copy.deepcopy``)
-if ``safe=False`` is passed to ``clone``.
+سيتم نسخ الكائنات التي لا توفر هذه الطريقة بعمق
+(باستخدام وظيفة Python القياسية "copy.deepcopy")
+إذا تم تمرير "safe=False" إلى "clone".
 
-Estimators can customize the behavior of :func:`base.clone` by defining a
-`__sklearn_clone__` method. `__sklearn_clone__` must return an instance of the
-estimator. `__sklearn_clone__` is useful when an estimator needs to hold on to
-some state when :func:`base.clone` is called on the estimator. For example, a
-frozen meta-estimator for transformers can be defined as follows::
+يمكن لمصادر التقدير تخصيص سلوك :func: base.clone عن طريق تعريف
+`__sklearn_clone__` طريقة. يجب أن تعيد طريقة `__sklearn_clone__` مثيلًا من المصدر. `__sklearn_clone__` مفيد عندما يحتاج مصدر تقدير إلى الاحتفاظ ببعض الحالات عند استدعاء :func: base.clone على المصدر. على سبيل المثال، يمكن تعريف محول مجمد على النحو التالي::
 
-    class FrozenTransformer(BaseEstimator):
-        def __init__(self, fitted_transformer):
+    class FrozenTransformer (BaseEstimator):
+        def __init__ (self، fitted_transformer):
             self.fitted_transformer = fitted_transformer
 
-        def __getattr__(self, name):
-            # `fitted_transformer`'s attributes are now accessible
-            return getattr(self.fitted_transformer, name)
+        def __getattr__ (self، name):
+            # أصبحت سمات 'fitted_transformer' الآن قابلة للوصول
+            return getattr (self.fitted_transformer، name)
 
-        def __sklearn_clone__(self):
+        def __sklearn_clone__ (self):
             return self
 
-        def fit(self, X, y):
-            # Fitting does not change the state of the estimator
+        def fit (self، X، y = None):
+            # لا يغير التثبيت حالة المصدر
             return self
 
-        def fit_transform(self, X, y=None):
-            # fit_transform only transforms the data
-            return self.fitted_transformer.transform(X, y)
+        def fit_transform (self، X، y = None):
+            # fit_transform يحول البيانات فقط
+            return self.fitted_transformer.transform (X، y)
 
-Pipeline compatibility
+توافق الأنابيب
 ----------------------
-For an estimator to be usable together with ``pipeline.Pipeline`` in any but the
-last step, it needs to provide a ``fit`` or ``fit_transform`` function.
-To be able to evaluate the pipeline on any data but the training set,
-it also needs to provide a ``transform`` function.
-There are no special requirements for the last step in a pipeline, except that
-it has a ``fit`` function. All ``fit`` and ``fit_transform`` functions must
-take arguments ``X, y``, even if y is not used. Similarly, for ``score`` to be
-usable, the last step of the pipeline needs to have a ``score`` function that
-accepts an optional ``y``.
+لكي يكون مصدر التقدير قابلًا للاستخدام مع "pipeline.Pipeline" في أي شيء بخلاف
+الخطوة الأخيرة، يجب أن توفر وظيفة "fit" أو "fit_transform".
+ليكون قادرًا على تقييم الأنبوب على أي بيانات ولكن مجموعة التدريب،
+يجب أن يوفر أيضًا وظيفة "transform".
+لا توجد متطلبات خاصة للخطوة الأخيرة في الأنبوب، باستثناء أن
+لديها وظيفة "fit". يجب أن تأخذ جميع وظائف "fit" و "fit_transform"
+وسائط "X، y"، حتى إذا لم يتم استخدام y. وبالمثل، لكي يكون "score" قابلًا للاستخدام،
+يجب أن تكون الخطوة الأخيرة في الأنبوب بها وظيفة "score" تقبل "y" اختيارية.
 
-Estimator types
+أنواع المقدرات
 ---------------
-Some common functionality depends on the kind of estimator passed.
-For example, cross-validation in :class:`model_selection.GridSearchCV` and
-:func:`model_selection.cross_val_score` defaults to being stratified when used
-on a classifier, but not otherwise. Similarly, scorers for average precision
-that take a continuous prediction need to call ``decision_function`` for classifiers,
-but ``predict`` for regressors. This distinction between classifiers and regressors
-is implemented using the ``_estimator_type`` attribute, which takes a string value.
-It should be ``"classifier"`` for classifiers and ``"regressor"`` for
-regressors and ``"clusterer"`` for clustering methods, to work as expected.
-Inheriting from ``ClassifierMixin``, ``RegressorMixin`` or ``ClusterMixin``
-will set the attribute automatically.  When a meta-estimator needs to distinguish
-among estimator types, instead of checking ``_estimator_type`` directly, helpers
-like :func:`base.is_classifier` should be used.
+تعتمد بعض الوظائف الشائعة على نوع مصدر التقدير الذي تم تمريره.
+على سبيل المثال، يكون التثليث الافتراضي في :class: model_selection.GridSearchCV و
+:func: model_selection.cross_val_score استراتيجيًا عند استخدامه
+على مصنف، ولكن ليس بخلاف ذلك. وبالمثل، تحتاج درجات الدقة المتوسطة التي تأخذ تنبؤًا مستمرًا إلى استدعاء "decision_function" للمصنفات،
+ولكن "predict" للمرجعين. يتم تنفيذ هذا التمييز بين المصنفات والمراجع
+باستخدام سمة "estimator_type"، والتي تأخذ قيمة سلسلة.
+يجب أن يكون "المصنف" للمصنفات و"regressor" للمراجع و"clusterer" لطرق التجميع، للعمل كما هو متوقع.
+سيؤدي الميراث من "ClassifierMixin" أو "RegressorMixin" أو "ClusterMixin"
+إلى تعيين السمة تلقائيًا. عندما يحتاج مصدر تقدير ميتا إلى التمييز
+بين أنواع مصادر التقدير، بدلاً من التحقق من "estimator_type" مباشرةً، يجب استخدام المساعدين
+مثل :func: base.is_classifier.
 
-Specific models
----------------
+نماذج محددة
+بالتأكيد! فيما يلي ترجمة للنص المحدد بتنسيق ReStructuredText إلى اللغة العربية:
 
-Classifiers should accept ``y`` (target) arguments to ``fit`` that are
-sequences (lists, arrays) of either strings or integers.  They should not
-assume that the class labels are a contiguous range of integers; instead, they
-should store a list of classes in a ``classes_`` attribute or property.  The
-order of class labels in this attribute should match the order in which
-``predict_proba``, ``predict_log_proba`` and ``decision_function`` return their
-values.  The easiest way to achieve this is to put::
+يجب أن تقبل المصنفات حجة "y" (الهدف) إلى "fit" التي تكون تسلسلات (قوائم، مصفوفات) من السلاسل النصية أو الأعداد الصحيحة. يجب ألا تفترض أن تسميات الفئات هي نطاق متصل من الأعداد الصحيحة؛ بدلاً من ذلك، يجب أن تخزن قائمة من الفئات في سمة أو خاصية "classes_". يجب أن يتطابق ترتيب تسميات الفئات في هذه السمة مع الترتيب الذي تعيد به الدوال "predict_proba" و"predict_log_proba" و"decision_function" قيمها. وأسهل طريقة لتحقيق ذلك هي وضع ما يلي في "fit":
 
-    self.classes_, y = np.unique(y, return_inverse=True)
+.. code:: python
 
-in ``fit``.  This returns a new ``y`` that contains class indexes, rather than
-labels, in the range [0, ``n_classes``).
+   self.classes_, y = np.unique(y, return_inverse=True)
 
-A classifier's ``predict`` method should return
-arrays containing class labels from ``classes_``.
-In a classifier that implements ``decision_function``,
-this can be achieved with::
+هذا يعيد "y" جديدة تحتوي على فهارس الفئات، بدلاً من التسميات، في النطاق [0، "n_classes").
 
-    def predict(self, X):
-        D = self.decision_function(X)
-        return self.classes_[np.argmax(D, axis=1)]
+يجب أن تعيد طريقة "predict" في المصنف مصفوفات تحتوي على تسميات الفئات من "classes_". في مصنف ينفذ "decision_function"، يمكن تحقيق ذلك بما يلي:
 
-In linear models, coefficients are stored in an array called ``coef_``, and the
-independent term is stored in ``intercept_``.  ``sklearn.linear_model._base``
-contains a few base classes and mixins that implement common linear model
-patterns.
+.. code:: python
 
-The :mod:`~sklearn.utils.multiclass` module contains useful functions
-for working with multiclass and multilabel problems.
+   def predict(self, X):
+       D = self.decision_function(X)
+       return self.classes_[np.argmax(D, axis=1)]
+
+في النماذج الخطية، يتم تخزين المعاملات في مصفوفة تسمى "coef_"، ويتم تخزين المصطلح المستقل في "intercept_". يحتوي "sklearn.linear_model._base" على بعض الفئات الأساسية وmixins التي تنفذ أنماط النماذج الخطية الشائعة.
+
+يحتوي نموذج "sklearn.utils.multiclass" على وظائف مفيدة للعمل مع مشكلات التصنيف المتعدد والمتعدد التصنيفات.
 
 .. _estimator_tags:
 
-Estimator Tags
+علامات المقدر
 --------------
 .. warning::
 
-    The estimator tags are experimental and the API is subject to change.
+   علامات المقدر تجريبية وواجهة برمجة التطبيقات الخاصة بها عرضة للتغيير.
 
-Scikit-learn introduced estimator tags in version 0.21. These are annotations
-of estimators that allow programmatic inspection of their capabilities, such as
-sparse matrix support, supported output types and supported methods. The
-estimator tags are a dictionary returned by the method ``_get_tags()``. These
-tags are used in the common checks run by the
-:func:`~sklearn.utils.estimator_checks.check_estimator` function and the
-:func:`~sklearn.utils.estimator_checks.parametrize_with_checks` decorator.
-Tags determine which checks to run and what input data is appropriate. Tags
-can depend on estimator parameters or even system architecture and can in
-general only be determined at runtime.
+قدمت Scikit-learn علامات المقدر في الإصدار 0.21. هذه هي علامات المقدرين التي تسمح بالتفتيش البرمجي لقدراتهم، مثل دعم مصفوفة متفرقة، وأنواع الإخراج المدعومة، والطرق المدعومة. علامات المقدر هي قاموس يعيده الأسلوب "_get_tags()". تُستخدم هذه العلامات في الفحوصات الشائعة التي تقوم بها وظيفة "sklearn.utils.estimator_checks.check_estimator" والزخرفة "sklearn.utils.estimator_checks.parametrize_with_checks". تحدد العلامات الفحوصات التي سيتم تشغيلها ومدخلات البيانات المناسبة. يمكن أن تعتمد العلامات على معلمات المقدر أو حتى على بنية النظام ويمكن تحديدها بشكل عام في وقت التشغيل فقط.
 
-The current set of estimator tags are:
+المجموعة الحالية من علامات المقدر هي:
 
 allow_nan (default=False)
-    whether the estimator supports data with missing values encoded as np.nan
+   ما إذا كان المقدر يدعم البيانات التي تحتوي على قيم مفقودة مشفرة كـ np.nan
 
 array_api_support (default=False)
-    whether the estimator supports Array API compatible inputs.
+   ما إذا كان المقدر يدعم المدخلات المتوافقة مع واجهة برمجة تطبيقات المصفوفة.
 
 binary_only (default=False)
-    whether estimator supports binary classification but lacks multi-class
-    classification support.
+   ما إذا كان المقدر يدعم التصنيف الثنائي ولكنه يفتقر إلى دعم التصنيف متعدد الفئات.
 
 multilabel (default=False)
-    whether the estimator supports multilabel output
+   ما إذا كان المقدر يدعم الإخراج متعدد التصنيفات.
 
 multioutput (default=False)
-    whether a regressor supports multi-target outputs or a classifier supports
-    multi-class multi-output.
+   ما إذا كان المقدر يدعم الإخراج متعدد الأهداف.
 
 multioutput_only (default=False)
-    whether estimator supports only multi-output classification or regression.
+   ما إذا كان المقدر يدعم فقط التصنيف أو الانحدار متعدد الإخراج.
 
 no_validation (default=False)
-    whether the estimator skips input-validation. This is only meant for
-    stateless and dummy transformers!
+   ما إذا كان المقدر يتخطى التحقق من صحة الإدخال. هذا مخصص فقط للمحولات عديمة الحالة والاحتياطية!
 
 non_deterministic (default=False)
-    whether the estimator is not deterministic given a fixed ``random_state``
+   ما إذا كان المقدر غير محدد نظرًا لقيمة "random_state" ثابتة
 
 pairwise (default=False)
-    This boolean attribute indicates whether the data (`X`) :term:`fit` and
-    similar methods consists of pairwise measures over samples rather than a
-    feature representation for each sample.  It is usually `True` where an
-    estimator has a `metric` or `affinity` or `kernel` parameter with value
-    'precomputed'. Its primary purpose is to support a :term:`meta-estimator`
-    or a cross validation procedure that extracts a sub-sample of data intended
-    for a pairwise estimator, where the data needs to be indexed on both axes.
-    Specifically, this tag is used by
-    `sklearn.utils.metaestimators._safe_split` to slice rows and
-    columns.
+   يشير هذا السمة المنطقي إلى ما إذا كانت البيانات ("X") :term: تتكون من مقاييس زوجية عبر العينات بدلاً من تمثيل الميزة لكل عينة. عادة ما يكون "صحيح" حيث يكون للمقدر معلمة "metric" أو "affinity" أو "kernel" بقيمة "precomputed". الغرض الأساسي منها هو دعم :term: 'meta-estimator' أو إجراء التحقق من صحة متقاطع يستخرج عينة فرعية من البيانات المقصود بها مقدر زوجي، حيث تحتاج البيانات إلى الفهرسة على كلا المحورين. يتم استخدام هذه العلامة على وجه التحديد بواسطة "sklearn.utils.metaestimators._safe_split" لتقطيع الصفوف والأعمدة.
 
-preserves_dtype (default=``[np.float64]``)
-    applies only on transformers. It corresponds to the data types which will
-    be preserved such that `X_trans.dtype` is the same as `X.dtype` after
-    calling `transformer.transform(X)`. If this list is empty, then the
-    transformer is not expected to preserve the data type. The first value in
-    the list is considered as the default data type, corresponding to the data
-    type of the output when the input data type is not going to be preserved.
+preserves_dtype (default=["np.float64"])
+   ينطبق فقط على المحولات. فهو يقابل أنواع البيانات التي سيتم الحفاظ عليها بحيث تكون "X_trans.dtype" هي نفسها مثل "X.dtype" بعد استدعاء "transformer.transform(X)". إذا كانت هذه القائمة فارغة، فمن المتوقع ألا يحافظ المحول على نوع البيانات. تعتبر القيمة الأولى في القائمة نوع البيانات الافتراضي، والذي يقابل نوع بيانات الإخراج عندما لا يتم الاحتفاظ بنوع بيانات الإدخال.
 
 poor_score (default=False)
-    whether the estimator fails to provide a "reasonable" test-set score, which
-    currently for regression is an R2 of 0.5 on ``make_regression(n_samples=200,
-    n_features=10, n_informative=1, bias=5.0, noise=20, random_state=42)``, and
-    for classification an accuracy of 0.83 on
-    ``make_blobs(n_samples=300, random_state=0)``. These datasets and values
-    are based on current estimators in sklearn and might be replaced by
-    something more systematic.
+   ما إذا كان المقدر يفشل في توفير نتيجة "معقولة" لمجموعة الاختبار، والتي حاليًا بالنسبة للانحدار هي R2 من 0.5 على "make_regression(n_samples=200, n_features=10, n_informative=1, bias=5.0, noise=20, random_state=42)"، وبالنسبة للتصنيف دقة 0.83 على "make_blobs(n_samples=300, random_state=0)". تستند هذه المجموعات والقيم إلى المقدرين الحاليين في sklearn وقد يتم استبدالها بشيء أكثر منهجية.
 
 requires_fit (default=True)
-    whether the estimator requires to be fitted before calling one of
-    `transform`, `predict`, `predict_proba`, or `decision_function`.
+   ما إذا كان المقدر يتطلب التجهيز قبل استدعاء أحد الأساليب "transform" أو "predict" أو "predict_proba" أو "decision_function".
 
 requires_positive_X (default=False)
-    whether the estimator requires positive X.
+   ما إذا كان المقدر يتطلب قيمة إيجابية لـ "X".
 
 requires_y (default=False)
-    whether the estimator requires y to be passed to `fit`, `fit_predict` or
-    `fit_transform` methods. The tag is True for estimators inheriting from
-    `~sklearn.base.RegressorMixin` and `~sklearn.base.ClassifierMixin`.
+   ما إذا كان المقدر يتطلب تمرير "y" إلى أساليب "fit" أو "fit_predict" أو "fit_transform". تكون العلامة "صحيح" للمقدرين الذين يرثون من "~sklearn.base.RegressorMixin" و "~sklearn.base.ClassifierMixin".
 
 requires_positive_y (default=False)
-    whether the estimator requires a positive y (only applicable for regression).
+   ما إذا كان المقدر يتطلب "y" إيجابية (ينطبق فقط على الانحدار).
 
 _skip_test (default=False)
-    whether to skip common tests entirely. Don't use this unless you have a
-    *very good* reason.
+   ما إذا كان سيتم تخطي الاختبارات الشائعة تمامًا. لا تستخدم هذا إلا إذا كان لديك سبب *جيد جدًا*.
 
 _xfail_checks (default=False)
-    dictionary ``{check_name: reason}`` of common checks that will be marked
-    as `XFAIL` for pytest, when using
-    :func:`~sklearn.utils.estimator_checks.parametrize_with_checks`. These
-    checks will be simply ignored and not run by
-    :func:`~sklearn.utils.estimator_checks.check_estimator`, but a
-    `SkipTestWarning` will be raised.
-    Don't use this unless there is a *very good* reason for your estimator
-    not to pass the check.
-    Also note that the usage of this tag is highly subject to change because
-    we are trying to make it more flexible: be prepared for breaking changes
-    in the future.
+   قاموس "{check_name: reason}" من الفحوصات الشائعة التي سيتم وضع علامة عليها كـ "XFAIL" لـ pytest، عند استخدام "sklearn.utils.estimator_checks.parametrize_with_checks". سيتم ببساطة تجاهل هذه الفحوصات ولن يتم تشغيلها بواسطة "sklearn.utils.estimator_checks.check_estimator"، ولكن سيتم رفع تحذير "SkipTestWarning". لا تستخدم هذا إلا إذا كان هناك سبب *جيد جدًا* لعدم مرور المقدر الخاص بك في الفحص. لاحظ أيضًا أن استخدام هذه العلامة عرضة للتغيير حيث نحاول جعلها أكثر مرونة: كن مستعدًا للتغييرات التي قد تحدث في المستقبل.
 
 stateless (default=False)
-    whether the estimator needs access to data for fitting. Even though an
-    estimator is stateless, it might still need a call to ``fit`` for
-    initialization.
+   ما إذا كان المقدر يحتاج إلى الوصول إلى البيانات للتجهيز. حتى إذا كان المقدر عديم الحالة، فقد يحتاج إلى استدعاء "fit" للتهيئة.
 
 X_types (default=['2darray'])
-    Supported input types for X as list of strings. Tests are currently only
-    run if '2darray' is contained in the list, signifying that the estimator
-    takes continuous 2d numpy arrays as input. The default value is
-    ['2darray']. Other possible types are ``'string'``, ``'sparse'``,
-    ``'categorical'``, ``dict``, ``'1dlabels'`` and ``'2dlabels'``. The goal is
-    that in the future the supported input type will determine the data used
-    during testing, in particular for ``'string'``, ``'sparse'`` and
-    ``'categorical'`` data. For now, the test for sparse data do not make use
-    of the ``'sparse'`` tag.
+   أنواع الإدخال المدعومة لـ "X" كقائمة من السلاسل النصية. يتم تشغيل الاختبارات حاليًا فقط إذا كان "2darray" موجودًا في القائمة، مما يشير إلى أن المقدر يأخذ مصفوفات Numpy ثنائية الأبعاد مستمرة كإدخال. القيمة الافتراضية هي ["2darray"]. الأنواع المحتملة الأخرى هي "string" و"sparse" و"categorical" و"dict" و"1dlabels" و"2dlabels". الهدف هو أن نوع الإدخال المدعوم سيحدد البيانات المستخدمة أثناء الاختبار، خاصة بالنسبة لبيانات "string" و"sparse" و"categorical". بالنسبة الآن، لا تستفيد اختبارات البيانات النادرة من علامة "sparse".
 
-It is unlikely that the default values for each tag will suit the needs of your
-specific estimator. Additional tags can be created or default tags can be
-overridden by defining a `_more_tags()` method which returns a dict with the
-desired overridden tags or new tags. For example::
+من غير المحتمل أن تناسب القيم الافتراضية لكل علامة احتياجات المقدر المحدد. يمكن إنشاء علامات إضافية أو يمكن تجاوز العلامات الافتراضية عن طريق تعريف طريقة "_more_tags()" والتي تعيد قاموسًا بالعلامات التي تم تجاوزها أو العلامات الجديدة المرغوبة. على سبيل المثال::
 
-    class MyMultiOutputEstimator(BaseEstimator):
+   class MyMultiOutputEstimator(BaseEstimator):
 
-        def _more_tags(self):
-            return {'multioutput_only': True,
-                    'non_deterministic': True}
+       def _more_tags(self):
+           return {'multioutput_only': True,
+                   'non_deterministic': True}
 
-Any tag that is not in `_more_tags()` will just fall-back to the default values
-documented above.
+ستعود أي علامة غير موجودة في "_more_tags()" ببساطة إلى القيم الافتراضية الموثقة أعلاه.
 
-Even if it is not recommended, it is possible to override the method
-`_get_tags()`. Note however that **all tags must be present in the dict**. If
-any of the keys documented above is not present in the output of `_get_tags()`,
-an error will occur.
+على الرغم من أنه غير موصى به، فمن الممكن تجاوز طريقة "_get_tags()". لاحظ مع ذلك أن **يجب أن تكون جميع العلامات موجودة في القاموس**. إذا كان أي من المفاتيح الموثقة أعلاه غير موجود في إخراج "_get_tags()"، فسيحدث خطأ.
 
-In addition to the tags, estimators also need to declare any non-optional
-parameters to ``__init__`` in the ``_required_parameters`` class attribute,
-which is a list or tuple.  If ``_required_parameters`` is only
-``["estimator"]`` or ``["base_estimator"]``, then the estimator will be
-instantiated with an instance of ``LogisticRegression`` (or
-``RidgeRegression`` if the estimator is a regressor) in the tests. The choice
-of these two models is somewhat idiosyncratic but both should provide robust
-closed-form solutions.
+بالإضافة إلى العلامات، يجب على المقدرين أيضًا الإعلان عن أي معلمات غير اختيارية إلى "__init__" في سمة الفئة "required_parameters"، والتي هي قائمة أو مجموعة. إذا كانت "required_parameters" هي فقط "["estimator"]" أو "["base_estimator"]"، فسيتم إنشاء المقدر في الاختبارات باستخدام مثيل من "LogisticRegression" (أو "RidgeRegression" إذا كان المقدر هو نموذج تنظيمي). اختيار هذه النماذج غريب إلى حد ما ولكن يجب أن توفر حلولًا قوية مغلقة الشكل.
 
 .. _developer_api_set_output:
 
-Developer API for `set_output`
-==============================
+واجهة برمجة تطبيقات المطور لـ "set_output"
+بالتزامن مع "SLEP018"، يقدم سكيت-ليرن واجهة برمجة التطبيقات (API) "set_output" لتهيئة المحولات لإخراج أطر بيانات بانداس. يتم تعريف واجهة برمجة التطبيقات "set_output" تلقائيًا إذا حدد المحول "get_feature_names_out" و"subclasses" لـ "base.TransformerMixin". ويُستخدم "get_feature_names_out" للحصول على أسماء أعمدة إخراج بانداس.
 
-With
-`SLEP018 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep018/proposal.html>`__,
-scikit-learn introduces the `set_output` API for configuring transformers to
-output pandas DataFrames. The `set_output` API is automatically defined if the
-transformer defines :term:`get_feature_names_out` and subclasses
-:class:`base.TransformerMixin`. :term:`get_feature_names_out` is used to get the
-column names of pandas output.
+"base.OneToOneFeatureMixin" و"base.ClassNamePrefixFeaturesOutMixin" هما مزيجان مفيدان لتحديد "get_feature_names_out". "base.OneToOneFeatureMixin" مفيد عندما يكون هناك تطابق واحد لواحد بين ميزات الإدخال والمخرجات في المحول، مثل "preprocessing.StandardScaler". "base.ClassNamePrefixFeaturesOutMixin" مفيد عندما يحتاج المحول إلى إنشاء أسماء ميزاته الخاصة، مثل "decomposition.PCA".
 
-:class:`base.OneToOneFeatureMixin` and
-:class:`base.ClassNamePrefixFeaturesOutMixin` are helpful mixins for defining
-:term:`get_feature_names_out`. :class:`base.OneToOneFeatureMixin` is useful when
-the transformer has a one-to-one correspondence between input features and output
-features, such as :class:`~preprocessing.StandardScaler`.
-:class:`base.ClassNamePrefixFeaturesOutMixin` is useful when the transformer
-needs to generate its own feature names out, such as :class:`~decomposition.PCA`.
-
-You can opt-out of the `set_output` API by setting `auto_wrap_output_keys=None`
-when defining a custom subclass::
+يمكنك إلغاء الاشتراك في واجهة برمجة التطبيقات "set_output" عن طريق تعيين "auto_wrap_output_keys=None" عند تحديد فئة فرعية مخصصة::
 
     class MyTransformer(TransformerMixin, BaseEstimator, auto_wrap_output_keys=None):
 
@@ -701,145 +513,82 @@ when defining a custom subclass::
         def get_feature_names_out(self, input_features=None):
             ...
 
-The default value for `auto_wrap_output_keys` is `("transform",)`, which automatically
-wraps `fit_transform` and `transform`. The `TransformerMixin` uses the
-`__init_subclass__` mechanism to consume `auto_wrap_output_keys` and pass all other
-keyword arguments to it's super class. Super classes' `__init_subclass__` should
-**not** depend on `auto_wrap_output_keys`.
+القيمة الافتراضية لـ "auto_wrap_output_keys" هي "("transform"،)"، والتي تقوم تلقائيًا بتغليف "fit_transform" و"transform". يستخدم "TransformerMixin" آلية "__init_subclass__" لاستهلاك "auto_wrap_output_keys" وتمرير جميع الحجج الكلمة الأخرى إلى فئة المستوى الأعلى الخاصة بها. يجب **عدم** اعتماد "auto_wrap_output_keys" في فئة المستوى الأعلى "__init_subclass__".
 
-For transformers that return multiple arrays in `transform`, auto wrapping will
-only wrap the first array and not alter the other arrays.
+بالنسبة للمحولات التي تعيد مصفوفات متعددة في "transform"، سيقوم التغليف التلقائي بتغليف المصفوفة الأولى فقط ولن يغير المصفوفات الأخرى.
 
-See :ref:`sphx_glr_auto_examples_miscellaneous_plot_set_output.py`
-for an example on how to use the API.
+راجع: ref:`sphx_glr_auto_examples_miscellaneous_plot_set_output.py<sphx_glr_auto_examples_miscellaneous_plot_set_output.py>` للحصول على مثال حول كيفية استخدام واجهة برمجة التطبيقات.
 
 .. _developer_api_check_is_fitted:
 
-Developer API for `check_is_fitted`
+واجهة برمجة التطبيقات للمطورين لـ "check_is_fitted"
 ===================================
 
-By default :func:`~sklearn.utils.validation.check_is_fitted` checks if there
-are any attributes in the instance with a trailing underscore, e.g. `coef_`.
-An estimator can change the behavior by implementing a `__sklearn_is_fitted__`
-method taking no input and returning a boolean. If this method exists,
-:func:`~sklearn.utils.validation.check_is_fitted` simply returns its output.
+بشكل افتراضي، يتحقق "sklearn.utils.validation.check_is_fitted" مما إذا كان هناك أي سمات في المثيل مع شرطة سفلية ختامية، على سبيل المثال "coef_". يمكن لمقدّر تغيير السلوك عن طريق تنفيذ طريقة "__sklearn_is_fitted__" لا تأخذ أي إدخال وتعيد قيمة منطقية. إذا وجدت هذه الطريقة، فإن "sklearn.utils.validation.check_is_fitted" ببساطة تعيد إخراجها.
 
-See :ref:`sphx_glr_auto_examples_developing_estimators_sklearn_is_fitted.py`
-for an example on how to use the API.
+راجع: ref:`sphx_glr_auto_examples_developing_estimators_sklearn_is_fitted.py<sphx_glr_auto_examples_developing_estimators_sklearn_is_fitted.py>` للحصول على مثال حول كيفية استخدام واجهة برمجة التطبيقات.
 
-Developer API for HTML representation
+واجهة برمجة التطبيقات للمطورين للتمثيل HTML
 =====================================
 
 .. warning::
 
-    The HTML representation API is experimental and the API is subject to change.
+    واجهة برمجة التطبيقات لتمثيل HTML تجريبية وقد تخضع للتغيير.
 
-Estimators inheriting from :class:`~sklearn.base.BaseEstimator` display
-a HTML representation of themselves in interactive programming
-environments such as Jupyter notebooks. For instance, we can display this HTML
-diagram::
+تعرض المقدرات التي ترث من "sklearn.base.BaseEstimator" تمثيل HTML لنفسها في بيئات البرمجة التفاعلية مثل دفاتر Jupyter. على سبيل المثال، يمكننا عرض مخطط HTML هذا::
 
     from sklearn.base import BaseEstimator
 
     BaseEstimator()
 
-The raw HTML representation is obtained by invoking the function
-:func:`~sklearn.utils.estimator_html_repr` on an estimator instance.
+يتم الحصول على تمثيل HTML الخام عن طريق استدعاء الدالة "sklearn.utils.estimator_html_repr" على مثيل المقدر.
 
-To customize the URL linking to an estimator's documentation (i.e. when clicking on the
-"?" icon), override the `_doc_link_module` and `_doc_link_template` attributes. In
-addition, you can provide a `_doc_link_url_param_generator` method. Set
-`_doc_link_module` to the name of the (top level) module that contains your estimator.
-If the value does not match the top level module name, the HTML representation will not
-contain a link to the documentation. For scikit-learn estimators this is set to
-`"sklearn"`.
+لتخصيص عنوان URL الذي يرتبط بوثائق المقدر (أي عند النقر فوق أيقونة "؟")، قم بإلغاء تحديد سمات "_doc_link_module" و"_doc_link_template". بالإضافة إلى ذلك، يمكنك توفير طريقة "_doc_link_url_param_generator". قم بتعيين "_doc_link_module" إلى اسم الوحدة النمطية (من المستوى الأعلى) التي تحتوي على المقدر الخاص بك. إذا لم تتطابق القيمة مع اسم الوحدة النمطية من المستوى الأعلى، فلن يحتوي تمثيل HTML على رابط إلى الوثائق. يتم تعيينه على "scikit-learn" لمقدرات scikit-learn.
 
-The `_doc_link_template` is used to construct the final URL. By default, it can contain
-two variables: `estimator_module` (the full name of the module containing the estimator)
-and `estimator_name` (the class name of the estimator). If you need more variables you
-should implement the `_doc_link_url_param_generator` method which should return a
-dictionary of the variables and their values. This dictionary will be used to render the
-`_doc_link_template`.
+يتم استخدام "_doc_link_template" لبناء عنوان URL النهائي. بشكل افتراضي، يمكن أن يحتوي على متغيرين: "estimator_module" (الاسم الكامل للوحدة النمطية التي تحتوي على المقدر) و"estimator_name" (اسم فئة المقدر). إذا كنت بحاجة إلى مزيد من المتغيرات، فيجب عليك تنفيذ طريقة "_doc_link_url_param_generator" التي يجب أن تعيد قاموسًا للمتغيرات وقيمها. سيتم استخدام هذا القاموس لعرض "_doc_link_template".
 
 .. _coding-guidelines:
 
-Coding guidelines
+المبادئ التوجيهية للترميز
 =================
 
-The following are some guidelines on how new code should be written for
-inclusion in scikit-learn, and which may be appropriate to adopt in external
-projects. Of course, there are special cases and there will be exceptions to
-these rules. However, following these rules when submitting new code makes
-the review easier so new code can be integrated in less time.
+فيما يلي بعض الإرشادات حول كيفية كتابة التعليمات البرمجية الجديدة لإدراجها في سكيت-ليرن، والتي قد يكون من المناسب اعتمادها في المشاريع الخارجية. بالطبع، هناك حالات خاصة وسيتم استثناءات لهذه القواعد. ومع ذلك، فإن اتباع هذه القواعد عند تقديم تعليمات برمجية جديدة يجعل المراجعة أسهل، لذا يمكن دمج التعليمات البرمجية الجديدة في وقت أقل.
 
-Uniformly formatted code makes it easier to share code ownership. The
-scikit-learn project tries to closely follow the official Python guidelines
-detailed in `PEP8 <https://www.python.org/dev/peps/pep-0008>`_ that
-detail how code should be formatted and indented. Please read it and
-follow it.
+يجعل تنسيق التعليمات البرمجية الموحد من السهل مشاركة ملكية التعليمات البرمجية. تحاول سكيت-ليرن المشروع اتباع المبادئ التوجيهية الرسمية لـ Python الموضحة بالتفصيل في "PEP8" والتي توضح كيفية تنسيق التعليمات البرمجية وإدراجها. يرجى قراءتها واتباعها.
 
-In addition, we add the following guidelines:
+بالإضافة إلى ذلك، نضيف المبادئ التوجيهية التالية:
 
-* Use underscores to separate words in non class names: ``n_samples``
-  rather than ``nsamples``.
+* استخدم شرطات سفلية للفصل بين الكلمات في أسماء غير الفئات: "n_samples" بدلاً من "nsamples".
 
-* Avoid multiple statements on one line. Prefer a line return after
-  a control flow statement (``if``/``for``).
+* تجنب عدة عبارات في سطر واحد. يفضل العودة إلى سطر بعد عبارة تحكم (إذا/لـ).
 
-* Use relative imports for references inside scikit-learn.
+* استخدم الواردات النسبية للمراجع داخل سكيت-ليرن.
 
-* Unit tests are an exception to the previous rule;
-  they should use absolute imports, exactly as client code would.
-  A corollary is that, if ``sklearn.foo`` exports a class or function
-  that is implemented in ``sklearn.foo.bar.baz``,
-  the test should import it from ``sklearn.foo``.
+* تعد اختبارات الوحدة استثناءً لهذه القاعدة؛ يجب أن تستخدم الواردات المطلقة، تمامًا كما يفعل كود العميل. وبالتالي، إذا تم تصدير فئة أو دالة من "sklearn.foo" يتم تنفيذها في "sklearn.foo.bar.baz"، فيجب أن تستور الاختبار منها "sklearn.foo".
 
-* **Please don't use** ``import *`` **in any case**. It is considered harmful
-  by the `official Python recommendations
-  <https://docs.python.org/3.1/howto/doanddont.html#at-module-level>`_.
-  It makes the code harder to read as the origin of symbols is no
-  longer explicitly referenced, but most important, it prevents
-  using a static analysis tool like `pyflakes
-  <https://divmod.readthedocs.io/en/latest/products/pyflakes.html>`_ to automatically
-  find bugs in scikit-learn.
+* **يرجى عدم استخدام** "import *" **في أي حال**. يعتبر ضارًا من قبل "التوصيات الرسمية لـ Python <https://docs.python.org/3.1/howto/doanddont.html#at-module-level>`_". يجعل الكود أكثر صعوبة في القراءة حيث لم يعد يتم الإشارة إلى أصل الرموز بشكل صريح، ولكن الأهم من ذلك، أنه يمنع استخدام أداة تحليل ثابتة مثل "pyflakes <https://divmod.readthedocs.io/en/latest/products/pyflakes.html>`_" للعثور تلقائيًا على الأخطاء في سكيت-ليرن.
 
-* Use the `numpy docstring standard
-  <https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard>`_
-  in all your docstrings.
+* استخدم "معيار سلسلة وثائق نومبي <https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard>`_" في جميع سلاسل الوثائق الخاصة بك.
 
+يمكن العثور على مثال جيد للكود الذي نفضله هنا `هنا <https://gist.github.com/nateGeorge/5455d2c57fb33c1ae04706f2dc4fee01>`_.
 
-A good example of code that we like can be found `here
-<https://gist.github.com/nateGeorge/5455d2c57fb33c1ae04706f2dc4fee01>`_.
-
-Input validation
+التحقق من صحة الإدخال
 ----------------
 
 .. currentmodule:: sklearn.utils
 
-The module :mod:`sklearn.utils` contains various functions for doing input
-validation and conversion. Sometimes, ``np.asarray`` suffices for validation;
-do *not* use ``np.asanyarray`` or ``np.atleast_2d``, since those let NumPy's
-``np.matrix`` through, which has a different API
-(e.g., ``*`` means dot product on ``np.matrix``,
-but Hadamard product on ``np.ndarray``).
+تحتوي الوحدة النمطية "sklearn.utils" على وظائف مختلفة للتحقق من صحة الإدخال والتحويل. في بعض الأحيان، تكون "np.asarray" كافية للتحقق من الصحة؛ لا تستخدم "np.asanyarray" أو "np.atleast_2d"، لأنها تسمح لـ "np.matrix" من نومبي، والتي لها واجهة برمجة تطبيقات مختلفة (على سبيل المثال، "*" تعني المنتج النقطي على "np.matrix"، ولكن المنتج هادامارد على "np.ndarray").
 
-In other cases, be sure to call :func:`check_array` on any array-like argument
-passed to a scikit-learn API function. The exact parameters to use depends
-mainly on whether and which ``scipy.sparse`` matrices must be accepted.
+في حالات أخرى، تأكد من استدعاء "check_array" على أي وسيط يشبه المصفوفة التي يتم تمريرها إلى دالة واجهة برمجة تطبيقات سكيت-ليرن. تعتمد المعلمات الدقيقة المستخدمة بشكل أساسي على ما إذا كان يجب قبول مصفوفات "scipy.sparse" وأي منها.
 
-For more information, refer to the :ref:`developers-utils` page.
+لمزيد من المعلومات، راجع صفحة: ref:`developers-utils` .
 
-Random Numbers
+الأرقام العشوائية
 --------------
 
-If your code depends on a random number generator, do not use
-``numpy.random.random()`` or similar routines.  To ensure
-repeatability in error checking, the routine should accept a keyword
-``random_state`` and use this to construct a
-``numpy.random.RandomState`` object.
-See :func:`sklearn.utils.check_random_state` in :ref:`developers-utils`.
+إذا كانت التعليمات البرمجية الخاصة بك تعتمد على مولد الأرقام العشوائية، فلا تستخدم "numpy.random.random()" أو الروتينات المماثلة. لضمان إمكانية إعادة الإنتاج في التحقق من الأخطاء، يجب أن تقبل الروتين كلمة أساسية "random_state" واستخدامها لإنشاء كائن "numpy.random.RandomState". راجع: func:`sklearn.utils.check_random_state` في: ref:`developers-utils`.
 
-Here's a simple example of code using some of the above guidelines::
+فيما يلي مثال بسيط للكود الذي يستخدم بعض الإرشادات الموضحة أعلاه::
 
     from sklearn.utils import check_array, check_random_state
 
@@ -866,18 +615,9 @@ Here's a simple example of code using some of the above guidelines::
         i = random_state.randint(X.shape[0])
         return X[i]
 
-If you use randomness in an estimator instead of a freestanding function,
-some additional guidelines apply.
+إذا كنت تستخدم العشوائية في مقدر بدلاً من دالة مستقلة، فتنطبق بعض الإرشادات الإضافية.
 
-First off, the estimator should take a ``random_state`` argument to its
-``__init__`` with a default value of ``None``.
-It should store that argument's value, **unmodified**,
-in an attribute ``random_state``.
-``fit`` can call ``check_random_state`` on that attribute
-to get an actual random number generator.
-If, for some reason, randomness is needed after ``fit``,
-the RNG should be stored in an attribute ``random_state_``.
-The following example should make this clear::
+أولاً، يجب أن يأخذ المقدر وسيط "random_state" في "__init__" مع قيمة افتراضية "None". يجب أن يقوم بتخزين قيمة وسيطه، **بدون تعديل**، في سمة "random_state". يمكن أن يستدعي "fit" "check_random_state" على هذه السمة للحصول على مولد أرقام عشوائية حقيقي. إذا كانت هناك حاجة إلى العشوائية بعد "fit"، فيجب تخزين مولد الأرقام العشوائية في سمة "random_state_". يجب أن يوضح المثال التالي هذا::
 
     class GaussianNoise(BaseEstimator, TransformerMixin):
         """This estimator ignores its input and returns random Gaussian noise.
@@ -898,23 +638,15 @@ The following example should make this clear::
             n_samples = X.shape[0]
             return self.random_state_.randn(n_samples, self.n_components)
 
-The reason for this setup is reproducibility:
-when an estimator is ``fit`` twice to the same data,
-it should produce an identical model both times,
-hence the validation in ``fit``, not ``__init__``.
+والسبب في هذا الإعداد هو إمكانية إعادة الإنتاج: عندما يتم "تناسب" المقدر مرتين مع نفس البيانات، يجب أن ينتج نموذجًا متطابقًا في كلتا الحالتين، وبالتالي يتم التحقق من الصحة في "fit"، وليس "__init__".
 
-Numerical assertions in tests
+التأكيدات العددية في الاختبارات
 -----------------------------
 
-When asserting the quasi-equality of arrays of continuous values,
-do use `sklearn.utils._testing.assert_allclose`.
+عند التأكيد على تكافؤ المصفوفات تقريبًا، استخدم "sklearn.utils._testing.assert_allclose".
 
-The relative tolerance is automatically inferred from the provided arrays
-dtypes (for float32 and float64 dtypes in particular) but you can override
-via ``rtol``.
+يتم استنتاج التسامح النسبي تلقائيًا من مصفوفات dtypes المقدمة (بالنسبة إلى أنواع float32 وfloat64 على وجه الخصوص) ولكن يمكنك تجاوزها عبر "rtol".
 
-When comparing arrays of zero-elements, please do provide a non-zero value for
-the absolute tolerance via ``atol``.
+عند مقارنة المصفوفات ذات العناصر الصفرية، يرجى توفير قيمة غير صفرية للتسامح المطلق عبر "atol".
 
-For more information, please refer to the docstring of
-`sklearn.utils._testing.assert_allclose`.
+لمزيد من المعلومات، يرجى الرجوع إلى سلسلة وثائق "sklearn.utils._testing.assert_allclose".
