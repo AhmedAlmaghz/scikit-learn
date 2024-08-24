@@ -1,29 +1,29 @@
 .. _cython:
 
-Cython Best Practices, Conventions and Knowledge
+أفضل الممارسات والتوجيهات والمعرفة في Cython
 ================================================
 
-This documents tips to develop Cython code in scikit-learn.
+توفر هذه الوثيقة نصائح لتطوير تعليمات برمجية بلغة Cython في scikit-learn.
 
-Tips for developing with Cython in scikit-learn
+نصائح لتطوير التعليمات البرمجية بلغة Cython في scikit-learn
 -----------------------------------------------
 
-Tips to ease development
+نصائح لتسهيل التطوير
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-* Time spent reading `Cython's documentation <https://cython.readthedocs.io/en/latest/>`_ is not time lost.
+* الوقت الذي تقضيه في قراءة `وثائق Cython <https://cython.readthedocs.io/en/latest/>`_ ليس وقتاً ضائعاً.
 
-* If you intend to use OpenMP: On MacOS, system's distribution of ``clang`` does not implement OpenMP.
-  You can install the ``compilers`` package available on ``conda-forge`` which comes with an implementation of OpenMP.
+* إذا كنت تنوي استخدام OpenMP: على نظام MacOS، لا يوفر توزيع النظام لـ ``clang`` OpenMP.
+  يمكنك تثبيت حزمة "المترجمين" المتوفرة في ``conda-forge`` والتي تأتي مع تنفيذ OpenMP.
 
-* Activating `checks <https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87>`_ might help. E.g. for activating boundscheck use:
+* قد يساعد تفعيل `التحققات <https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87>`_. على سبيل المثال، لتفعيل التحقق من الحدود، استخدم ما يلي:
 
   .. code-block:: bash
 
          export SKLEARN_ENABLE_DEBUG_CYTHON_DIRECTIVES=1
 
-* `Start from scratch in a notebook <https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook>`_ to understand how to use Cython and to get feedback on your work quickly.
-  If you plan to use OpenMP for your implementations in your Jupyter Notebook, do add extra compiler and linkers arguments in the Cython magic.
+* `ابدأ من الصفر في دفتر ملاحظات <https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook>`_ لفهم كيفية استخدام Cython والحصول على تعليقات حول عملك بسرعة.
+  إذا كنت تخطط لاستخدام OpenMP لتنفيذك في دفتر ملاحظات Jupyter، قم بإضافة حجج مترجم وارتباطات إضافية في التعويذة السحرية لـ Cython.
 
   .. code-block:: python
 
@@ -32,104 +32,102 @@ Tips to ease development
          # For Microsoft's compilers
          %%cython --compile-args=/openmp --link-args=/openmp
 
-* To debug C code (e.g. a segfault), do use ``gdb`` with:
+* لاستكشاف أخطاء التعليمات البرمجية C وإصلاحها (على سبيل المثال، حدوث خطأ في الإشارة)، استخدم ``gdb`` مع:
 
   .. code-block:: bash
 
          gdb --ex r --args python ./entrypoint_to_bug_reproducer.py
 
-* To have access to some value in place to debug in ``cdef (nogil)`` context, use:
+* للوصول إلى قيمة معينة في المكان لتصحيح الأخطاء في سياق ``cdef (nogil)``، استخدم:
 
   .. code-block:: cython
 
          with gil:
              print(state_to_print)
 
-* Note that Cython cannot parse f-strings with ``{var=}`` expressions, e.g.
+* لاحظ أن Cython لا يمكنه تحليل السلاسل النصية f مع تعبيرات ``{var=}``، على سبيل المثال:
 
   .. code-block:: bash
 
          print(f"{test_val=}")
 
-* scikit-learn codebase has a lot of non-unified (fused) types (re)definitions.
-  There currently is `ongoing work to simplify and unify that across the codebase
+* يحتوي شيفرة scikit-learn على العديد من تعريفات الأنواع غير الموحدة (المدمجة).
+  هناك حاليًا `عمل جارٍ لتبسيط وتوحيد ذلك عبر الشيفرة البرمجية
   <https://github.com/scikit-learn/scikit-learn/issues/25572>`_.
-  For now, make sure you understand which concrete types are used ultimately.
+  في الوقت الحالي، تأكد من فهمك للأنواع الملموسة المستخدمة في النهاية.
 
-* You might find this alias to compile individual Cython extension handy:
+* قد تجد هذا الاسم المستعار لتجميع ملحقات Cython الفردية مفيدًا:
 
   .. code-block::
 
-      # You might want to add this alias to your shell script config.
+      # قد ترغب في إضافة هذا الاسم المستعار إلى تكوين ملف البرنامج النصي الخاص بك.
       alias cythonX="cython -X language_level=3 -X boundscheck=False -X wraparound=False -X initializedcheck=False -X nonecheck=False -X cdivision=True"
 
-      # This generates `source.c` as if you had recompiled scikit-learn entirely.
+      # هذا يولد `source.c` كما لو كنت قد أعدت تجميع scikit-learn بالكامل.
       cythonX --annotate source.pyx
 
-* Using the ``--annotate`` option with this flag allows generating a HTML report of code annotation.
-  This report indicates interactions with the CPython interpreter on a line-by-line basis.
-  Interactions with the CPython interpreter must be avoided as much as possible in
-  the computationally intensive sections of the algorithms.
-  For more information, please refer to `this section of Cython's tutorial <https://cython.readthedocs.io/en/latest/src/tutorial/cython_tutorial.html#primes>`_
+* يسمح استخدام خيار ``--annotate`` مع هذا العلم بتوليد تقرير HTML لتعليمات الشيفرة.
+  يشير هذا التقرير إلى التفاعلات مع مفسر CPython على أساس كل سطر على حدة.
+  يجب تجنب التفاعلات مع مفسر CPython قدر الإمكان في الأقسام كثيرة الاستخدام من الخوارزميات.
+  لمزيد من المعلومات، يرجى الرجوع إلى `هذا القسم من تعليمي Cython <https://cython.readthedocs.io/en/latest/src/tutorial/cython_tutorial.html#primes>`_
 
   .. code-block::
 
-      # This generates a HTML report (`source.html`) for `source.c`.
+      # هذا يولد تقرير HTML (`source.html`) لـ `source.c`.
       cythonX --annotate source.pyx
 
-Tips for performance
+نصائح للأداء
 ^^^^^^^^^^^^^^^^^^^^
 
-* Understand the GIL in context for CPython (which problems it solves, what are its limitations)
-  and get a good understanding of when Cython will be mapped to C code free of interactions with
-  CPython, when it will not, and when it cannot (e.g. presence of interactions with Python
-  objects, which include functions). In this regard, `PEP073 <https://peps.python.org/pep-0703/>`_
-  provides a good overview and context and pathways for removal.
+* افهم GIL في سياق CPython (ما هي المشكلات التي يحلها، وما هي قيودها)
+  واحصل على فهم جيد للوقت الذي سيتم فيه رسم خريطة Cython إلى شيفرة C خالية من التفاعلات مع
+  CPython، وعندما لا يحدث ذلك، وعندما لا يمكن ذلك (على سبيل المثال، وجود تفاعلات مع كائنات Python، والتي تشمل الدوال). وفي هذا الصدد، `PEP073 <https://peps.python.org/pep-0703/>`_
+  يوفر نظرة عامة جيدة وسياقًا ومسارات للإزالة.
 
-* Make sure you have deactivated `checks <https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87>`_.
+* تأكد من تعطيل `التحققات <https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87>`_.
 
-* Always prefer memoryviews instead over ``cnp.ndarray`` when possible: memoryviews are lightweight.
+* يفضل دائمًا استخدام memoryviews بدلاً من ``cnp.ndarray`` عند الإمكان: memoryviews خفيفة الوزن.
 
-* Avoid memoryview slicing: memoryview slicing might be costly or misleading in some cases and
-  we better not use it, even if handling fewer dimensions in some context would be preferable.
+* تجنب تقطيع memoryview: قد يكون تقطيع memoryview مكلفًا أو مضللًا في بعض الحالات
+  ومن الأفضل عدم استخدامه، حتى إذا كان التعامل مع أبعاد أقل في بعض السياقات مفضلًا.
 
-* Decorate final classes or methods with ``@final`` (this allows removing virtual tables when needed)
+* قم بتزيين الفصول أو الطرق النهائية باستخدام ``@final`` (يسمح هذا بإزالة الجداول الافتراضية عند الحاجة)
 
-* Inline methods and function when it makes sense
+* قم بتضمين الطرق والدوال عندما يكون ذلك منطقيًا
 
-* In doubt, read the generated C or C++ code if you can: "The fewer C instructions and indirections
-  for a line of Cython code, the better" is a good rule of thumb.
+* عند الشك، اقرأ الشيفرة C أو C++ المولدة إذا استطعت: "كلما قل عدد تعليمات C والإشارات
+  لخط من شيفرة Cython، كان ذلك أفضل" هي قاعدة جيدة للإبهام.
 
-* ``nogil`` declarations are just hints: when declaring the ``cdef`` functions
-  as nogil, it means that they can be called without holding the GIL, but it does not release
-  the GIL when entering them. You have to do that yourself either by passing ``nogil=True`` to
-  ``cython.parallel.prange`` explicitly, or by using an explicit context manager:
+* تعتبر إعلانات ``nogil`` مجرد تلميحات: عند إعلان دالة ``cdef``
+  على أنها nogil، يعني ذلك أنه يمكن استدعاؤها دون الاحتفاظ بـ GIL، ولكنها لا تطلق
+  GIL عند الدخول إليها. يجب عليك القيام بذلك بنفسك إما عن طريق تمرير ``nogil=True`` إلى
+  ``cython.parallel.prange`` بشكل صريح، أو باستخدام مدير سياق صريح:
 
   .. code-block:: cython
 
       cdef inline void my_func(self) nogil:
 
-          # Some logic interacting with CPython, e.g. allocating arrays via NumPy.
+          # بعض المنطق الذي يتفاعل مع CPython، على سبيل المثال، تخصيص المصفوفات عبر NumPy.
 
           with nogil:
-              # The code here is run as is it were written in C.
+              # يتم تشغيل الشيفرة هنا كما لو كانت مكتوبة في C.
 
           return 0
 
-  This item is based on `this comment from Stéfan's Benhel <https://github.com/cython/cython/issues/2798#issuecomment-459971828>`_
+  يعتمد هذا البند على `هذا التعليق من Stéfan's Benhel <https://github.com/cython/cython/issues/2798#issuecomment-459971828>`_
 
-* Direct calls to BLAS routines are possible via interfaces defined in ``sklearn.utils._cython_blas``.
+* من الممكن إجراء مكالمات مباشرة إلى روتينات BLAS عبر الواجهات المحددة في ``sklearn.utils._cython_blas``.
 
-Using OpenMP
+استخدام OpenMP
 ^^^^^^^^^^^^
 
-Since scikit-learn can be built without OpenMP, it's necessary to protect each
-direct call to OpenMP.
+نظرًا لأنه يمكن بناء scikit-learn بدون OpenMP، فمن الضروري حماية كل
+مكالمة مباشرة إلى OpenMP.
 
-The `_openmp_helpers` module, available in
+تقدم وحدة نمطية `_openmp_helpers`، المتوفرة في
 `sklearn/utils/_openmp_helpers.pyx <https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/utils/_openmp_helpers.pyx>`_
-provides protected versions of the OpenMP routines. To use OpenMP routines, they
-must be ``cimported`` from this module and not from the OpenMP library directly:
+إصدارات محمية من روتينات OpenMP. لاستخدام روتينات OpenMP، يجب
+استيرادها من هذه الوحدة النمطية وليس من مكتبة OpenMP مباشرة:
 
 .. code-block:: cython
 
@@ -137,17 +135,17 @@ must be ``cimported`` from this module and not from the OpenMP library directly:
    max_threads = omp_get_max_threads()
 
 
-The parallel loop, `prange`, is already protected by cython and can be used directly
-from `cython.parallel`.
+تم بالفعل حماية حلقة التكرار المتوازية، `prange`، بواسطة cython ويمكن استخدامها مباشرة
+من `cython.parallel`.
 
-Types
+الأنواع
 ~~~~~
 
-Cython code requires to use explicit types. This is one of the reasons you get a
-performance boost. In order to avoid code duplication, we have a central place
-for the most used types in
+يتطلب شيفرة Cython استخدام أنواع صريحة. هذا هو أحد الأسباب التي تحصل عليها
+تعزيز الأداء. لتجنب ازدواجية الشيفرة، لدينا مكان مركزي
+لأنواع الأكثر استخدامًا في
 `sklearn/utils/_typedefs.pyd <https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/utils/_typedefs.pyd>`_.
-Ideally you start by having a look there and `cimport` types you need, for example
+من الناحية المثالية، تبدأ بالنظر هناك و ``cimport`` الأنواع التي تحتاجها، على سبيل المثال
 
 .. code-block:: cython
 
