@@ -1,159 +1,150 @@
 .. _bug_triaging:
 
-Bug triaging and issue curation
+فرز الأخطاء وإدارة المشكلات
 ===============================
 
-The `issue tracker <https://github.com/scikit-learn/scikit-learn/issues>`_
-is important to the communication in the project: it helps
-developers identify major projects to work on, as well as to discuss
-priorities. For this reason, it is important to curate it, adding labels
-to issues and closing issues that are not necessary.
+تعد `تتبع المشكلات <https://github.com/scikit-learn/scikit-learn/issues>`_
+مهمة للتواصل في المشروع: فهي تساعد
+المطورين على تحديد المشاريع الرئيسية للعمل عليها، بالإضافة إلى مناقشة
+الأولويات. ولهذا السبب، من المهم تنظيمها، وإضافة العلامات
+إلى المشكلات وإغلاق المشكلات التي ليست ضرورية.
 
-Working on issues to improve them
+العمل على المشكلات لتحسينها
 ---------------------------------
 
-Improving issues increases their chances of being successfully resolved.
-Guidelines on submitting good issues can be found :ref:`here
+يزيد تحسين المشكلات من فرص حلها بنجاح.
+يمكن العثور على إرشادات حول تقديم المشكلات الجيدة هنا :ref:`هنا
 <filing_bugs>`.
-A third party can give useful feedback or even add
-comments on the issue.
-The following actions are typically useful:
+يمكن لطرف ثالث تقديم تعليقات مفيدة أو حتى
+إضافة تعليقات على المشكلة.
+فيما يلي الإجراءات النموذجية المفيدة:
 
-- documenting issues that are missing elements to reproduce the problem
-  such as code samples
+- توثيق المشكلات التي تفتقد إلى العناصر اللازمة لإعادة إنتاج المشكلة
+  مثل عينات التعليمات البرمجية
 
-- suggesting better use of code formatting
+- اقتراح استخدام أفضل لتنسيق التعليمات البرمجية
 
-- suggesting to reformulate the title and description to make them more
-  explicit about the problem to be solved
+- اقتراح إعادة صياغة العنوان والوصف لجعلهما أكثر
+  وضوحًا حول المشكلة التي يتعين حلها
 
-- linking to related issues or discussions while briefly describing how
-  they are related, for instance "See also #xyz for a similar attempt
-  at this" or "See also #xyz where the same thing happened in
-  SomeEstimator" provides context and helps the discussion.
+- ربط المشكلات أو المناقشات ذات الصلة مع وصف موجز لكيفية
+  ارتباطها، على سبيل المثال "راجع أيضًا #xyz لمحاولة مماثلة
+  في هذا" أو "راجع أيضًا #xyz حيث حدث نفس الشيء في
+  SomeEstimator" يوفر السياق ويساعد في المناقشة.
 
-.. topic:: Fruitful discussions
+.. topic:: مناقشات مثمرة
 
-   Online discussions may be harder than it seems at first glance, in
-   particular given that a person new to open-source may have a very
-   different understanding of the process than a seasoned maintainer.
+   قد تكون المناقشات عبر الإنترنت أكثر صعوبة مما تبدو للوهلة الأولى، خاصة
+   بالنظر إلى أن شخصًا جديدًا في المصادر المفتوحة قد يكون لديه فهم مختلف جدًا
+   للعملية عن الشخص المحنك.
 
-   Overall, it is useful to stay positive and assume good will. `The
-   following article
-   <https://gael-varoquaux.info/programming/technical-discussions-are-hard-a-few-tips.html>`_
-   explores how to lead online discussions in the context of open source.
+   بشكل عام، من المفيد أن تظل إيجابيًا وتفترض النوايا الحسنة. `تستكشف المقالة
+   التالية <https://gael-varoquaux.info/programming/technical-discussions-are-hard-a-few-tips.html>`_
+   كيفية قيادة المناقشات عبر الإنترنت في سياق المصادر المفتوحة.
 
-Working on PRs to help review
+العمل على طلبات السحب للمساعدة في المراجعة
 -----------------------------
 
-Reviewing code is also encouraged. Contributors and users are welcome to
-participate to the review process following our :ref:`review guidelines
-<code_review>`.
+يتم أيضًا تشجيع مراجعة التعليمات البرمجية. يُرحب بالمساهمين والمستخدمين للمشاركة
+في عملية المراجعة باتباع إرشادات المراجعة الخاصة بنا :ref:`<code_review>`.
 
-Triaging operations for members of the core and contributor experience teams
+عمليات الفرز لأعضاء فريق النواة وفريق خبرة المساهمين
 ----------------------------------------------------------------------------
 
-In addition to the above, members of the core team and the contributor experience team
-can do the following important tasks:
+بالإضافة إلى ما سبق، يمكن لأعضاء فريق النواة وفريق خبرة المساهمين
+القيام بالمهام المهمة التالية:
 
-- Update :ref:`labels for issues and PRs <issue_tracker_tags>`: see the list of
-  the `available github labels
+- تحديث :ref:`علامات للمشكلات وطلبات السحب <issue_tracker_tags>`: راجع قائمة
+  `علامات جيثب المتاحة
   <https://github.com/scikit-learn/scikit-learn/labels>`_.
 
-- :ref:`Determine if a PR must be relabeled as stalled <stalled_pull_request>`
-  or needs help (this is typically very important in the context
-  of sprints, where the risk is to create many unfinished PRs)
+- :ref:`تحديد ما إذا كان يجب إعادة تسمية طلب السحب على أنه متوقف <stalled_pull_request>`
+  أو يحتاج إلى مساعدة (هذا مهم جدًا في سياق
+  الرشقات، حيث يكمن الخطر في إنشاء العديد من طلبات السحب غير المكتملة)
 
-- If a stalled PR is taken over by a newer PR, then label the stalled PR as
-  "Superseded", leave a comment on the stalled PR linking to the new PR, and
-  likely close the stalled PR.
+- إذا تم الاستيلاء على طلب السحب المتوقف بواسطة طلب سحب أحدث، فقم بتسمية طلب السحب المتوقف باسم
+  "متجاوز"، واترك تعليقًا على طلب السحب المتوقف مع رابط إلى طلب السحب الجديد، ومن
+  المحتمل إغلاق طلب السحب المتوقف.
 
-- Triage issues:
+- فرز المشكلات:
 
-  - **close usage questions** and politely point the reporter to use
-    Stack Overflow instead.
+  - **إغلاق أسئلة الاستخدام** وأشر بلطف إلى المبلغ لاستخدام
+    Stack Overflow بدلاً من ذلك.
 
-  - **close duplicate issues**, after checking that they are
-    indeed duplicate. Ideally, the original submitter moves the
-    discussion to the older, duplicate issue
+  - **إغلاق المشكلات المكررة**، بعد التحقق من أنها
+    في الواقع مكررة. في الوضع المثالي، ينقل مقدم الطلب الأصلي
+    المناقشة إلى المشكلة الأقدم المكررة
 
-  - **close issues that cannot be replicated**, after leaving time (at
-    least a week) to add extra information
+  - **إغلاق المشكلات التي لا يمكن إعادة إنتاجها**، بعد ترك الوقت (على
+    الأقل أسبوع) لإضافة معلومات إضافية
 
-:ref:`Saved replies <saved_replies>` are useful to gain time and yet be
-welcoming and polite when triaging.
+:ref:`الردود المحفوظة <saved_replies>` مفيدة لتوفير الوقت ومع ذلك تكون
+مرحبة ومهذبة عند الفرز.
 
-See the github description for `roles in the organization
+راجع وصف جيثب لأدوار في المنظمة
 <https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization>`_.
 
-.. topic:: Closing issues: a tough call
+.. topic:: إغلاق المشكلات: قرار صعب
 
-    When uncertain on whether an issue should be closed or not, it is
-    best to strive for consensus with the original poster, and possibly
-    to seek relevant expertise. However, when the issue is a usage
-    question, or when it has been considered as unclear for many years it
-    should be closed.
+    عندما يكون هناك شك في ما إذا كان يجب إغلاق المشكلة أم لا، فمن الأفضل
+    السعي إلى تحقيق الإجماع مع الشخص الذي نشرها في الأصل، وربما
+    طلب الخبرة ذات الصلة. ومع ذلك، عندما تكون المشكلة سؤالًا عن الاستخدام، أو عندما
+    يتم اعتبارها غير واضحة لسنوات عديدة، فيجب إغلاقها.
 
-A typical workflow for triaging issues
+سير عمل نموذجي لفرز المشكلات
 --------------------------------------
 
-The following workflow [1]_ is a good way to approach issue triaging:
+سير العمل التالي [1]_ هو طريقة جيدة لفرز المشكلات:
 
-#. Thank the reporter for opening an issue
+#. شكر المبلغ عن فتح مشكلة
 
-   The issue tracker is many people's first interaction with the
-   scikit-learn project itself, beyond just using the library. As such,
-   we want it to be a welcoming, pleasant experience.
+   يعد تعقب المشكلات أول تفاعل للعديد من الأشخاص مع
+   مشروع scikit-learn نفسه، إلى جانب استخدام المكتبة فقط. لذلك،
+   نريد أن تكون تجربة ممتعة ومرحبة.
 
-#. Is this a usage question? If so close it with a polite message
-   (:ref:`here is an example <saved_replies>`).
+#. هل هذا سؤال عن الاستخدام؟ إذا كان الأمر كذلك، فأغلقه برسالة مهذبة
+   (:ref:`هنا مثال <saved_replies>`).
 
-#. Is the necessary information provided?
+#. هل تم توفير المعلومات اللازمة؟
 
-   If crucial information (like the version of scikit-learn used), is
-   missing feel free to ask for that and label the issue with "Needs
-   info".
+   إذا كانت المعلومات الحاسمة (مثل إصدار scikit-learn المستخدم)
+   مفقودة، فلا تتردد في طلب ذلك ووضع علامة على المشكلة باسم "تحتاج
+   إلى معلومات".
 
-#. Is this a duplicate issue?
+#. هل هذه مشكلة مكررة؟
 
-   We have many open issues. If a new issue seems to be a duplicate,
-   point to the original issue. If it is a clear duplicate, or consensus
-   is that it is redundant, close it. Make sure to still thank the
-   reporter, and encourage them to chime in on the original issue, and
-   perhaps try to fix it.
+   لدينا العديد من المشكلات المفتوحة. إذا بدت مشكلة جديدة مكررة،
+   فأشر إلى المشكلة الأصلية. إذا كانت مكررة بشكل واضح، أو كان هناك إجماع
+   على أنها زائدة عن الحاجة، فأغلقها. تأكد من شكر المبلغ
+   على أي حال، وشجعهم على المشاركة في المناقشة الأصلية، وربما حاول إصلاحها.
 
-   If the new issue provides relevant information, such as a better or
-   slightly different example, add it to the original issue as a comment
-   or an edit to the original post.
+   إذا قدمت المشكلة الجديدة معلومات ذات صلة، مثل مثال أفضل أو
+   مختلف قليلاً، فأضفه إلى المشكلة الأصلية كتعليق أو تعديل على المشاركة الأصلية.
 
-#. Make sure that the title accurately reflects the issue. If you have the
-   necessary permissions edit it yourself if it's not clear.
+#. تأكد من أن العنوان يعكس المشكلة بدقة. إذا كان لديك
+   الأذونات اللازمة فقم بتحريرها بنفسك إذا لم يكن الأمر واضحًا.
 
-#. Is the issue minimal and reproducible?
+#. هل المشكلة بسيطة ويمكن إعادة إنتاجها؟
 
-   For bug reports, we ask that the reporter provide a minimal
-   reproducible example. See `this useful post
+   بالنسبة لتقارير الأخطاء، نطلب من المبلغ توفير مثال يمكن إعادة إنتاجه. راجع `هذه المشاركة المفيدة
    <https://matthewrocklin.com/blog/work/2018/02/28/minimal-bug-reports>`_
-   by Matthew Rocklin for a good explanation. If the example is not
-   reproducible, or if it's clearly not minimal, feel free to ask the reporter
-   if they can provide and example or simplify the provided one.
-   Do acknowledge that writing minimal reproducible examples is hard work.
-   If the reporter is struggling, you can try to write one yourself.
+   بواسطة ماثيو روكلين للحصول على تفسير جيد. إذا لم يكن المثال قابلاً لإعادة الإنتاج، أو
+   إذا لم يكن بسيطًا بشكل واضح، فلا تتردد في طلب ما إذا كان بإمكان المبلغ توفير مثال أو تبسيط المثال المقدم.
+   اعترف بأن كتابة أمثلة يمكن إعادة إنتاجها أمر شاق. إذا كان المبلغ يواجه صعوبة، فيمكنك محاولة كتابة مثال بنفسك.
 
-   If a reproducible example is provided, but you see a simplification,
-   add your simpler reproducible example.
+   إذا تم توفير مثال يمكن إعادة إنتاجه، ولكنك ترى تبسيطًا،
+   أضف مثالك البسيط الذي يمكن إعادة إنتاجه.
 
-#. Add the relevant labels, such as "Documentation" when the issue is
-   about documentation, "Bug" if it is clearly a bug, "Enhancement" if it
-   is an enhancement request, ...
+#. أضف العلامات ذات الصلة، مثل "الوثائق" عندما تكون
+   المشكلة متعلقة بالوثائق، "خطأ" إذا كان من الواضح أنه خطأ، "تحسين" إذا كان
+   طلب تحسين، ...
 
-   If the issue is clearly defined and the fix seems relatively
-   straightforward, label the issue as “Good first issue”.
+   إذا كانت المشكلة محددة بوضوح ويبدو الإصلاح بسيطًا نسبيًا، فقم بوضع علامة على المشكلة باسم "Good first issue".
 
-   An additional useful step can be to tag the corresponding module e.g.
-   `sklearn.linear_models` when relevant.
+   يمكن أن تكون الخطوة الإضافية المفيدة هي وضع علامة على الوحدة النمطية المقابلة، على سبيل المثال
+   `sklearn.linear_models` عند الاقتضاء.
 
-#. Remove the "Needs Triage" label from the issue if the label exists.
+#. أزل علامة "تحتاج إلى فرز" من المشكلة إذا كانت العلامة موجودة.
 
-.. [1] Adapted from the pandas project `maintainers guide
+.. [1] تم التكييف من دليل مسؤولي مشروع الباندا `
        <https://pandas.pydata.org/docs/development/maintaining.html>`_
