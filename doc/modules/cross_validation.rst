@@ -1,120 +1,62 @@
-
-.. _cross_validation:
-
-===================================================
-Cross-validation: evaluating estimator performance
+التدقيق المتقاطع: تقييم أداء أداة التقدير
 ===================================================
 
-.. currentmodule:: sklearn.model_selection
+تعلم معلمات دالة التنبؤ واختبارها على نفس البيانات هو خطأ منهجي: فالنموذج الذي يكرر فقط تسميات العينات التي رآها للتو سيحصل على نتيجة مثالية ولكنه سيفشل في التنبؤ بأي شيء مفيد على البيانات التي لم يسبق رؤيتها. يُطلق على هذا الوضع اسم **الإفراط في التكييف**.
 
-Learning the parameters of a prediction function and testing it on the
-same data is a methodological mistake: a model that would just repeat
-the labels of the samples that it has just seen would have a perfect
-score but would fail to predict anything useful on yet-unseen data.
-This situation is called **overfitting**.
-To avoid it, it is common practice when performing
-a (supervised) machine learning experiment
-to hold out part of the available data as a **test set** ``X_test, y_test``.
-Note that the word "experiment" is not intended
-to denote academic use only,
-because even in commercial settings
-machine learning usually starts out experimentally.
-Here is a flowchart of typical cross validation workflow in model training.
-The best parameters can be determined by
-:ref:`grid search <grid_search>` techniques.
+لتجنب ذلك، من الشائع عند إجراء تجربة تعلم آلي (مُشرف) الاحتفاظ بجزء من البيانات المتاحة كمجموعة **اختبار** ``X_test, y_test``.
 
-.. image:: ../images/grid_search_workflow.png
-   :width: 400px
-   :height: 240px
-   :alt: Grid Search Workflow
-   :align: center
+تجدر الإشارة إلى أن كلمة "تجربة" لا يقصد بها الاستخدام الأكاديمي فقط، لأن التعلم الآلي غالبًا ما يبدأ بشكل تجريبي حتى في الإعدادات التجارية.
 
-In scikit-learn a random split into training and test sets
-can be quickly computed with the :func:`train_test_split` helper function.
-Let's load the iris data set to fit a linear support vector machine on it::
+فيما يلي مخطط تدفق لسير عمل التحقق المتقاطع النموذجي في تدريب النموذج. يمكن تحديد أفضل المعلمات من خلال تقنيات "البحث الشبكي" <grid_search>`.
 
-  >>> import numpy as np
-  >>> from sklearn.model_selection import train_test_split
-  >>> from sklearn import datasets
-  >>> from sklearn import svm
+في سكيت-ليرن، يمكن إجراء تقسيم عشوائي إلى مجموعات تدريب واختبار بسرعة باستخدام دالة المساعدة `train_test_split`.
 
-  >>> X, y = datasets.load_iris(return_X_y=True)
-  >>> X.shape, y.shape
-  ((150, 4), (150,))
+دعنا نحمل مجموعة بيانات Iris لتناسب آلة المتجهات الداعمة الخطية عليها::
 
-We can now quickly sample a training set while holding out 40% of the
-data for testing (evaluating) our classifier::
+  >>> استيراد نومبي كالنومبي
+  >>> من sklearn.model_selection استيراد train_test_split
+  >>> من sklearn استيراد مجموعات البيانات
+  >>> من sklearn استيراد SVM
 
-  >>> X_train, X_test, y_train, y_test = train_test_split(
-  ...     X, y, test_size=0.4, random_state=0)
+  >>> X، y = datasets.load_iris (return_X_y = True)
+  >>> X.shape، y.shape
+  ((150، 4)، (150،))
 
-  >>> X_train.shape, y_train.shape
-  ((90, 4), (90,))
-  >>> X_test.shape, y_test.shape
-  ((60, 4), (60,))
+الآن يمكننا أخذ عينة من مجموعة التدريب بسرعة مع الاحتفاظ بنسبة 40% من البيانات لاختبار (تقييم) مصنفنا::
 
-  >>> clf = svm.SVC(kernel='linear', C=1).fit(X_train, y_train)
-  >>> clf.score(X_test, y_test)
-  0.96...
+  >>> X_train، X_test، y_train، y_test = train_test_split (
+  ... X، y، test_size = 0.4، random_state = 0)
 
-When evaluating different settings ("hyperparameters") for estimators,
-such as the ``C`` setting that must be manually set for an SVM,
-there is still a risk of overfitting *on the test set*
-because the parameters can be tweaked until the estimator performs optimally.
-This way, knowledge about the test set can "leak" into the model
-and evaluation metrics no longer report on generalization performance.
-To solve this problem, yet another part of the dataset can be held out
-as a so-called "validation set": training proceeds on the training set,
-after which evaluation is done on the validation set,
-and when the experiment seems to be successful,
-final evaluation can be done on the test set.
+  >>> X_train.shape، y_train.shape
+  ((90، 4)، (90،))
+  >>> X_test.shape، y_test.shape
+  ((60، 4)، (60،))
 
-However, by partitioning the available data into three sets,
-we drastically reduce the number of samples
-which can be used for learning the model,
-and the results can depend on a particular random choice for the pair of
-(train, validation) sets.
+  >>> clf = svm.SVC (kernel = 'linear'، C = 1).fit (X_train، y_train)
+  >>> clf.score (X_test، y_test)
+  0.96 ...
 
-A solution to this problem is a procedure called
-`cross-validation <https://en.wikipedia.org/wiki/Cross-validation_(statistics)>`_
-(CV for short).
-A test set should still be held out for final evaluation,
-but the validation set is no longer needed when doing CV.
-In the basic approach, called *k*-fold CV,
-the training set is split into *k* smaller sets
-(other approaches are described below,
-but generally follow the same principles).
-The following procedure is followed for each of the *k* "folds":
+عند تقييم الإعدادات المختلفة ("المعلمات") لأدوات التقدير، مثل إعداد "C" الذي يجب تعيينه يدويًا لآلة المتجهات الداعمة، لا يزال هناك خطر الإفراط في التكييف *على مجموعة الاختبار* لأن المعلمات يمكن ضبطها حتى تعمل أداة التقدير بشكل مثالي. بهذه الطريقة، يمكن "تسريب" معرفة مجموعة الاختبار إلى النموذج وقد لا تعكس مقاييس التقييم بعد الآن أداء التعميم.
 
-* A model is trained using :math:`k-1` of the folds as training data;
-* the resulting model is validated on the remaining part of the data
-  (i.e., it is used as a test set to compute a performance measure
-  such as accuracy).
+لحل هذه المشكلة، يمكن الاحتفاظ بجزء آخر من مجموعة البيانات كمجموعة "تحقق" بحيث يستمر التدريب على مجموعة التدريب، ثم يتم إجراء التقييم على مجموعة التحقق، وعندما تبدو التجربة ناجحة، يمكن إجراء التقييم النهائي على مجموعة الاختبار.
 
-The performance measure reported by *k*-fold cross-validation
-is then the average of the values computed in the loop.
-This approach can be computationally expensive,
-but does not waste too much data
-(as is the case when fixing an arbitrary validation set),
-which is a major advantage in problems such as inverse inference
-where the number of samples is very small.
+ومع ذلك، من خلال تقسيم البيانات المتاحة إلى ثلاث مجموعات، فإننا نخفض بشكل كبير عدد العينات التي يمكن استخدامها لتعلم النموذج، وقد تعتمد النتائج على اختيار عشوائي معين لمجموعة (التدريب، التحقق).
 
-.. image:: ../images/grid_search_cross_validation.png
-   :width: 500px
-   :height: 300px
-   :alt: A depiction of a 5 fold cross validation on a training set, while holding out a test set.
-   :align: center
+حل هذه المشكلة هو إجراء يسمى
+`التدقيق المتقاطع <https://en.wikipedia.org/wiki/Cross-validation_(statistics)>`_
+(CV اختصارًا). لا تزال هناك حاجة إلى الاحتفاظ بمجموعة اختبار منفصلة للتقييم النهائي، ولكن لم تعد هناك حاجة إلى مجموعة التحقق عند إجراء CV.
 
-Computing cross-validated metrics
-=================================
+في النهج الأساسي، المسمى CV بطي *k*، يتم تقسيم مجموعة التدريب إلى *k* مجموعات أصغر (يتم وصف النهج الأخرى أدناه، ولكنها تتبع نفس المبادئ بشكل عام). يتم اتباع الإجراء التالي لكل من *k* "طي":
 
-The simplest way to use cross-validation is to call the
-:func:`cross_val_score` helper function on the estimator and the dataset.
+* يتم تدريب نموذج باستخدام :math:`k-1` من الطيات كبيانات تدريب؛
+* يتم التحقق من صحة النموذج الناتج على الجزء المتبقي من البيانات (أي أنه يستخدم كمجموعة اختبار لحساب مقياس الأداء مثل الدقة).
 
-The following example demonstrates how to estimate the accuracy of a linear
-kernel support vector machine on the iris dataset by splitting the data, fitting
-a model and computing the score 5 consecutive times (with different splits each
-time)::
+مقياس الأداء الذي يبلغ عنه التحقق المتقاطع بطي *k* هو متوسط القيم المحسوبة في الحلقة. يمكن أن يكون هذا النهج مكلفًا من الناحية الحسابية، ولكنه لا يهدر الكثير من البيانات (كما هو الحال عند تثبيت مجموعة تحقق تعسفية)، وهي ميزة رئيسية في المشكلات مثل الاستدلال العكسي حيث يكون عدد العينات صغيرًا جدًا.
+
+حساب المقاييس المعتمدة على التدقيق المتقاطع
+أبسط طريقة لاستخدام التحقق المتقاطع هي استدعاء دالة المساعدة :func:`cross_val_score` على المحلل والمجموعة البيانات.
+
+يوضح المثال التالي كيفية تقدير دقة آلة المتجهات الداعمة ذات النواة الخطية على مجموعة بيانات Iris من خلال تقسيم البيانات، وتناسب نموذج وحساب النتيجة 5 مرات متتالية (مع تقسيمات مختلفة في كل مرة)::
 
   >>> from sklearn.model_selection import cross_val_score
   >>> clf = svm.SVC(kernel='linear', C=1, random_state=42)
@@ -122,14 +64,14 @@ time)::
   >>> scores
   array([0.96..., 1. , 0.96..., 0.96..., 1. ])
 
-The mean score and the standard deviation are hence given by::
+وبالتالي، فإن متوسط النتيجة والانحراف المعياري هما::
 
   >>> print("%0.2f accuracy with a standard deviation of %0.2f" % (scores.mean(), scores.std()))
   0.98 accuracy with a standard deviation of 0.02
 
-By default, the score computed at each CV iteration is the ``score``
-method of the estimator. It is possible to change this by using the
-scoring parameter::
+بشكل افتراضي، تكون النتيجة المحسوبة في كل تكرار CV هي طريقة "النتيجة"
+من المحلل. من الممكن تغيير هذا باستخدام
+معلمة التسجيل::
 
   >>> from sklearn import metrics
   >>> scores = cross_val_score(
@@ -137,17 +79,15 @@ scoring parameter::
   >>> scores
   array([0.96..., 1.  ..., 0.96..., 0.96..., 1.        ])
 
-See :ref:`scoring_parameter` for details.
-In the case of the Iris dataset, the samples are balanced across target
-classes hence the accuracy and the F1-score are almost equal.
+راجع :ref:`scoring_parameter` للحصول على التفاصيل.
+في حالة مجموعة بيانات Iris، تكون العينات متوازنة عبر فئات الهدف، وبالتالي فإن الدقة وF1-score متساويان تقريبًا.
 
-When the ``cv`` argument is an integer, :func:`cross_val_score` uses the
-:class:`KFold` or :class:`StratifiedKFold` strategies by default, the latter
-being used if the estimator derives from :class:`ClassifierMixin
+عندما تكون حجة "cv" عددًا صحيحًا، يستخدم :func:`cross_val_score`
+استراتيجيات :class:`KFold` أو :class:`StratifiedKFold` بشكل افتراضي، ويتم استخدام الأخير
+إذا كان المحلل مشتقًا من :class:`ClassifierMixin
 <sklearn.base.ClassifierMixin>`.
 
-It is also possible to use other cross validation strategies by passing a cross
-validation iterator instead, for instance::
+من الممكن أيضًا استخدام استراتيجيات التحقق من صحة متقاطعة أخرى عن طريق تمرير برنامج تقسيم التحقق من صحة متقاطع بدلاً من ذلك، على سبيل المثال::
 
   >>> from sklearn.model_selection import ShuffleSplit
   >>> n_samples = X.shape[0]
@@ -155,8 +95,8 @@ validation iterator instead, for instance::
   >>> cross_val_score(clf, X, y, cv=cv)
   array([0.977..., 0.977..., 1.  ..., 0.955..., 1.        ])
 
-Another option is to use an iterable yielding (train, test) splits as arrays of
-indices, for example::
+الخيار الآخر هو استخدام iterable ينتج تقسيمات (train، test) كمصفوفات من
+الفهارس، على سبيل المثال::
 
   >>> def custom_cv_2folds(X):
   ...     n = X.shape[0]
@@ -170,12 +110,12 @@ indices, for example::
   >>> cross_val_score(clf, X, y, cv=custom_cv)
   array([1.        , 0.973...])
 
-.. dropdown:: Data transformation with held-out data
+.. dropdown:: تحويل البيانات مع البيانات المحجوزة
 
-  Just as it is important to test a predictor on data held-out from
-  training, preprocessing (such as standardization, feature selection, etc.)
-  and similar :ref:`data transformations <data-transforms>` similarly should
-  be learnt from a training set and applied to held-out data for prediction::
+  كما أنه من المهم اختبار أداة التنبؤ على البيانات المحجوزة من
+  التدريب، فإن المعالجة المسبقة (مثل التوحيد، واختيار الميزات، وما إلى ذلك)
+  وتحويلات البيانات المماثلة :ref:`data transformations <data-transforms>` يجب
+  أن تتعلم أيضًا من مجموعة بيانات التدريب وتطبق على البيانات المحجوزة للتنبؤ::
 
     >>> from sklearn import preprocessing
     >>> X_train, X_test, y_train, y_test = train_test_split(
@@ -187,47 +127,46 @@ indices, for example::
     >>> clf.score(X_test_transformed, y_test)
     0.9333...
 
-  A :class:`Pipeline <sklearn.pipeline.Pipeline>` makes it easier to compose
-  estimators, providing this behavior under cross-validation::
+  يجعل :class:`Pipeline <sklearn.pipeline.Pipeline>` من السهل تكوين
+  المحللون، وتوفير هذا السلوك في ظل التحقق من صحة متقاطعة::
 
     >>> from sklearn.pipeline import make_pipeline
     >>> clf = make_pipeline(preprocessing.StandardScaler(), svm.SVC(C=1))
     >>> cross_val_score(clf, X, y, cv=cv)
     array([0.977..., 0.933..., 0.955..., 0.933..., 0.977...])
 
-  See :ref:`combining_estimators`.
+  راجع :ref:`combining_estimators`.
 
 
 .. _multimetric_cross_validation:
 
-The cross_validate function and multiple metric evaluation
+دالة cross_validate وتقييم المتري المتعدد
 ----------------------------------------------------------
 
-The :func:`cross_validate` function differs from :func:`cross_val_score` in
-two ways:
+تختلف دالة :func:`cross_validate` عن :func:`cross_val_score` في
+طريقتان:
 
-- It allows specifying multiple metrics for evaluation.
+- يسمح بتحديد مقاييس متعددة للتقييم.
 
-- It returns a dict containing fit-times, score-times
-  (and optionally training scores, fitted estimators, train-test split indices)
-  in addition to the test score.
+- يعيد قاموسًا يحتوي على أوقات التثبيت والنتيجة
+  (وبشكل اختياري درجات التدريب، والمحللون المناسبين، وفصل التدريب-الاختبار
+  المؤشرات) بالإضافة إلى النتيجة الاختبارية.
 
-For single metric evaluation, where the scoring parameter is a string,
-callable or None, the keys will be - ``['test_score', 'fit_time', 'score_time']``
+بالنسبة لتقييم المتري الفردي، حيث تكون معلمة التسجيل سلسلة أو
+قابل للاستدعاء أو لا شيء، ستكون المفاتيح - ``['test_score', 'fit_time', 'score_time']``
 
-And for multiple metric evaluation, the return value is a dict with the
-following keys -
+وبالنسبة لتقييم المتري المتعدد، تكون قيمة الإرجاع عبارة عن قاموس بالمفاتيح التالية -
 ``['test_<scorer1_name>', 'test_<scorer2_name>', 'test_<scorer...>', 'fit_time', 'score_time']``
 
-``return_train_score`` is set to ``False`` by default to save computation time.
-To evaluate the scores on the training set as well you need to set it to
-``True``. You may also retain the estimator fitted on each training set by
-setting ``return_estimator=True``. Similarly, you may set
-`return_indices=True` to retain the training and testing indices used to split
-the dataset into train and test sets for each cv split.
+يتم تعيين ``return_train_score`` إلى ``False`` بشكل افتراضي لتوفير وقت الحساب.
+لتقييم الدرجات على مجموعة التدريب أيضًا، يجب تعيينها على
+``True``. يمكنك أيضًا الاحتفاظ بالمحلل المناسب على كل مجموعة تدريب عن طريق
+تعيين ``return_estimator=True``. وبالمثل، يمكنك تعيين
+`return_indices=True` للاحتفاظ بالمؤشرات التدريب والاختبار المستخدمة لتقسيم
+مجموعة البيانات إلى مجموعات بيانات التدريب والاختبار لكل تقسيم cv.
 
-The multiple metrics can be specified either as a list, tuple or set of
-predefined scorer names::
+يمكن تحديد المقاييس المتعددة إما على أنها قائمة أو مجموعة أو مجموعة من
+أسماء المسجلين المحددين مسبقًا::
 
     >>> from sklearn.model_selection import cross_validate
     >>> from sklearn.metrics import recall_score
@@ -239,7 +178,7 @@ predefined scorer names::
     >>> scores['test_recall_macro']
     array([0.96..., 1.  ..., 0.96..., 0.96..., 1.        ])
 
-Or as a dict mapping scorer name to a predefined or custom scoring function::
+أو كقاموس يرسم اسم المسجل إلى دالة تسجيل محددة مسبقًا أو مخصصة::
 
     >>> from sklearn.metrics import make_scorer
     >>> scoring = {'prec_macro': 'precision_macro',
@@ -252,7 +191,7 @@ Or as a dict mapping scorer name to a predefined or custom scoring function::
     >>> scores['train_rec_macro']
     array([0.97..., 0.97..., 0.99..., 0.98..., 0.98...])
 
-Here is an example of ``cross_validate`` using a single metric::
+فيما يلي مثال على استخدام ``cross_validate`` باستخدام مقياس واحد::
 
     >>> scores = cross_validate(clf, X, y,
     ...                         scoring='precision_macro', cv=5,
@@ -261,383 +200,274 @@ Here is an example of ``cross_validate`` using a single metric::
     ['estimator', 'fit_time', 'score_time', 'test_score']
 
 
-Obtaining predictions by cross-validation
+الحصول على تنبؤات عن طريق التحقق من صحة متقاطعة
 -----------------------------------------
 
-The function :func:`cross_val_predict` has a similar interface to
-:func:`cross_val_score`, but returns, for each element in the input, the
-prediction that was obtained for that element when it was in the test set. Only
-cross-validation strategies that assign all elements to a test set exactly once
-can be used (otherwise, an exception is raised).
+لدالة :func:`cross_val_predict` واجهة مماثلة لـ :func:`cross_val_score`، ولكنها تعيد، لكل عنصر في الإدخال،
+التنبؤ الذي تم الحصول عليه لذلك العنصر عندما كان في مجموعة الاختبار. يمكن فقط
+استخدام استراتيجيات التحقق من الصحة المتقاطعة التي تعين جميع العناصر إلى مجموعة اختبار مرة واحدة
+(وإلا، يتم إلقاء استثناء).
 
 
-.. warning:: Note on inappropriate usage of cross_val_predict
+.. warning:: ملاحظة حول الاستخدام غير المناسب لـ cross_val_predict
 
-    The result of :func:`cross_val_predict` may be different from those
-    obtained using :func:`cross_val_score` as the elements are grouped in
-    different ways. The function :func:`cross_val_score` takes an average
-    over cross-validation folds, whereas :func:`cross_val_predict` simply
-    returns the labels (or probabilities) from several distinct models
-    undistinguished. Thus, :func:`cross_val_predict` is not an appropriate
-    measure of generalization error.
+    قد تختلف نتيجة :func:`cross_val_predict` عن تلك
+    التي تم الحصول عليها باستخدام :func:`cross_val_score` نظرًا لأن العناصر مجمعة بطرق مختلفة.
+    تقوم دالة :func:`cross_val_score` بإجراء متوسط
+    عبر طيات التحقق من الصحة المتقاطعة، في حين أن :func:`cross_val_predict` ببساطة
+    إرجاع التسميات (أو الاحتمالات) من عدة نماذج متميزة. وبالتالي، فإن :func:`cross_val_predict` ليس مقياسًا مناسبًا لخطأ التعميم.
 
 
-The function :func:`cross_val_predict` is appropriate for:
-  - Visualization of predictions obtained from different models.
-  - Model blending: When predictions of one supervised estimator are used to
-    train another estimator in ensemble methods.
+دالة :func:`cross_val_predict` مناسبة لما يلي:
+  - تصور التنبؤات التي تم الحصول عليها من نماذج مختلفة.
+  - مزج النماذج: عندما يتم استخدام تنبؤات أحد المحللين الخاضعين للإشراف لتدريب
+    محلل آخر في أساليب التجميع.
 
 
-The available cross validation iterators are introduced in the following
-section.
+يتم تقديم برامج تحقق صحة متقاطعة المتاحة في القسم التالي.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_model_selection_plot_roc_crossval.py`,
-* :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`,
-* :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_digits.py`,
-* :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py`,
-* :ref:`sphx_glr_auto_examples_model_selection_plot_cv_predict.py`,
+* :ref:`sphx_glr_auto_examples_model_selection_plot_roc_crossval.py`،
+* :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`،
+* :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_digits.py`،
+* :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py`،
+* :ref:`sphx_glr_auto_examples_model_selection_plot_cv_predict.py`،
 * :ref:`sphx_glr_auto_examples_model_selection_plot_nested_cross_validation_iris.py`.
 
-Cross validation iterators
-==========================
+برامج تحقق صحة متقاطعة
+فيما يلي أقسام تسرد المرافق لإنشاء مؤشرات يمكن استخدامها لإنشاء تقسيمات لمجموعة البيانات وفقًا لاستراتيجيات التحقق من الصلاحية المتقاطعة المختلفة.
 
-The following sections list utilities to generate indices
-that can be used to generate dataset splits according to different cross
-validation strategies.
+عبور التحقق من صحة المؤشرات للبيانات المحددة بشكل مستقل ومتطابق (i.i.d)
+افتراض أن بعض البيانات مستقلة ومتطابقة (i.i.d) يعني الافتراض بأن جميع العينات تنبع من نفس العملية التوليدية وأن العملية التوليدية يفترض ألا يكون لها أي سجل للعينات المولدة سابقًا.
 
-.. _iid_cv:
+يمكن استخدام أدوات التحقق من الصحة المتقاطعة التالية في مثل هذه الحالات.
 
-Cross-validation iterators for i.i.d. data
-------------------------------------------
+ملاحظة:
 
-Assuming that some data is Independent and Identically Distributed (i.i.d.) is
-making the assumption that all samples stem from the same generative process
-and that the generative process is assumed to have no memory of past generated
-samples.
+على الرغم من أن البيانات المحددة بشكل مستقل ومتطابق (i.i.d) هي افتراض شائع في نظرية التعلم الآلي، إلا أنه نادرًا ما يحدث في الممارسة العملية. إذا كان المرء يعرف أن العينات تم إنشاؤها باستخدام عملية تعتمد على الوقت، فمن الآمن استخدام مخطط التحقق من الصحة المتقاطع على دراية بالتسلسل الزمني. وبالمثل، إذا كنا نعرف أن للعملية التوليدية هيكل مجموعة (عينات تم جمعها من مواضيع أو تجارب أو أجهزة قياس مختلفة)، فمن الآمن استخدام التحقق من الصحة المتقاطع على مستوى المجموعة.
 
-The following cross-validators can be used in such cases.
+ك-فولد
+تقسم فئة KFold جميع العينات إلى k مجموعات من العينات، تسمى الطيات (إذا كانت k = n، فهذا يعادل استراتيجية "ترك واحد خارجًا")، بأحجام متساوية (إذا أمكن). يتم تعلم دالة التنبؤ باستخدام k - 1 طيات، ويتم استخدام الطية المتروكة للاختبار.
 
-.. note::
+مثال على التحقق من الصحة المتقاطع 2-fold لمجموعة بيانات تحتوي على 4 عينات:
 
-  While i.i.d. data is a common assumption in machine learning theory, it rarely
-  holds in practice. If one knows that the samples have been generated using a
-  time-dependent process, it is safer to
-  use a :ref:`time-series aware cross-validation scheme <timeseries_cv>`.
-  Similarly, if we know that the generative process has a group structure
-  (samples collected from different subjects, experiments, measurement
-  devices), it is safer to use :ref:`group-wise cross-validation <group_cv>`.
+X = ["a"، "b"، "c"، "d"]
 
-.. _k_fold:
-
-K-fold
-^^^^^^
-
-:class:`KFold` divides all the samples in :math:`k` groups of samples,
-called folds (if :math:`k = n`, this is equivalent to the *Leave One
-Out* strategy), of equal sizes (if possible). The prediction function is
-learned using :math:`k - 1` folds, and the fold left out is used for test.
-
-Example of 2-fold cross-validation on a dataset with 4 samples::
+kf = KFold(n_splits=2)
 
-  >>> import numpy as np
-  >>> from sklearn.model_selection import KFold
+for train، test in kf.split(X):
 
-  >>> X = ["a", "b", "c", "d"]
-  >>> kf = KFold(n_splits=2)
-  >>> for train, test in kf.split(X):
-  ...     print("%s %s" % (train, test))
-  [2 3] [0 1]
-  [0 1] [2 3]
-
-Here is a visualization of the cross-validation behavior. Note that
-:class:`KFold` is not affected by classes or groups.
-
-.. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_cv_indices_006.png
-   :target: ../auto_examples/model_selection/plot_cv_indices.html
-   :align: center
-   :scale: 75%
-
-Each fold is constituted by two arrays: the first one is related to the
-*training set*, and the second one to the *test set*.
-Thus, one can create the training/test sets using numpy indexing::
-
-  >>> X = np.array([[0., 0.], [1., 1.], [-1., -1.], [2., 2.]])
-  >>> y = np.array([0, 1, 0, 1])
-  >>> X_train, X_test, y_train, y_test = X[train], X[test], y[train], y[test]
-
-.. _repeated_k_fold:
+طباعة ("% s٪s"٪ (train، test))
 
-Repeated K-Fold
-^^^^^^^^^^^^^^^
-
-:class:`RepeatedKFold` repeats K-Fold n times. It can be used when one
-requires to run :class:`KFold` n times, producing different splits in
-each repetition.
-
-Example of 2-fold K-Fold repeated 2 times::
-
-  >>> import numpy as np
-  >>> from sklearn.model_selection import RepeatedKFold
-  >>> X = np.array([[1, 2], [3, 4], [1, 2], [3, 4]])
-  >>> random_state = 12883823
-  >>> rkf = RepeatedKFold(n_splits=2, n_repeats=2, random_state=random_state)
-  >>> for train, test in rkf.split(X):
-  ...     print("%s %s" % (train, test))
-  ...
-  [2 3] [0 1]
-  [0 1] [2 3]
-  [0 2] [1 3]
-  [1 3] [0 2]
-
-
-Similarly, :class:`RepeatedStratifiedKFold` repeats Stratified K-Fold n times
-with different randomization in each repetition.
-
-.. _leave_one_out:
+[2 3] [0 1]
 
-Leave One Out (LOO)
-^^^^^^^^^^^^^^^^^^^
-
-:class:`LeaveOneOut` (or LOO) is a simple cross-validation. Each learning
-set is created by taking all the samples except one, the test set being
-the sample left out. Thus, for :math:`n` samples, we have :math:`n` different
-training sets and :math:`n` different tests set. This cross-validation
-procedure does not waste much data as only one sample is removed from the
-training set::
-
-  >>> from sklearn.model_selection import LeaveOneOut
-
-  >>> X = [1, 2, 3, 4]
-  >>> loo = LeaveOneOut()
-  >>> for train, test in loo.split(X):
-  ...     print("%s %s" % (train, test))
-  [1 2 3] [0]
-  [0 2 3] [1]
-  [0 1 3] [2]
-  [0 1 2] [3]
-
-
-Potential users of LOO for model selection should weigh a few known caveats.
-When compared with :math:`k`-fold cross validation, one builds :math:`n` models
-from :math:`n` samples instead of :math:`k` models, where :math:`n > k`.
-Moreover, each is trained on :math:`n - 1` samples rather than
-:math:`(k-1) n / k`. In both ways, assuming :math:`k` is not too large
-and :math:`k < n`, LOO is more computationally expensive than :math:`k`-fold
-cross validation.
-
-In terms of accuracy, LOO often results in high variance as an estimator for the
-test error. Intuitively, since :math:`n - 1` of
-the :math:`n` samples are used to build each model, models constructed from
-folds are virtually identical to each other and to the model built from the
-entire training set.
-
-However, if the learning curve is steep for the training size in question,
-then 5- or 10- fold cross validation can overestimate the generalization error.
-
-As a general rule, most authors, and empirical evidence, suggest that 5- or 10-
-fold cross validation should be preferred to LOO.
-
-.. dropdown:: References
-
-  * `<http://www.faqs.org/faqs/ai-faq/neural-nets/part3/section-12.html>`_;
-  * T. Hastie, R. Tibshirani, J. Friedman,  `The Elements of Statistical Learning
-    <https://web.stanford.edu/~hastie/ElemStatLearn/>`_, Springer 2009
-  * L. Breiman, P. Spector `Submodel selection and evaluation in regression: The X-random case
-    <https://digitalassets.lib.berkeley.edu/sdtr/ucb/text/197.pdf>`_, International Statistical Review 1992;
-  * R. Kohavi, `A Study of Cross-Validation and Bootstrap for Accuracy Estimation and Model Selection
-    <https://www.ijcai.org/Proceedings/95-2/Papers/016.pdf>`_, Intl. Jnt. Conf. AI
-  * R. Bharat Rao, G. Fung, R. Rosales, `On the Dangers of Cross-Validation. An Experimental Evaluation
-    <https://people.csail.mit.edu/romer/papers/CrossVal_SDM08.pdf>`_, SIAM 2008;
-  * G. James, D. Witten, T. Hastie, R Tibshirani, `An Introduction to
-    Statistical Learning <https://www.statlearning.com>`_, Springer 2013.
-
-.. _leave_p_out:
-
-Leave P Out (LPO)
-^^^^^^^^^^^^^^^^^
-
-:class:`LeavePOut` is very similar to :class:`LeaveOneOut` as it creates all
-the possible training/test sets by removing :math:`p` samples from the complete
-set. For :math:`n` samples, this produces :math:`{n \choose p}` train-test
-pairs. Unlike :class:`LeaveOneOut` and :class:`KFold`, the test sets will
-overlap for :math:`p > 1`.
-
-Example of Leave-2-Out on a dataset with 4 samples::
-
-  >>> from sklearn.model_selection import LeavePOut
-
-  >>> X = np.ones(4)
-  >>> lpo = LeavePOut(p=2)
-  >>> for train, test in lpo.split(X):
-  ...     print("%s %s" % (train, test))
-  [2 3] [0 1]
-  [1 3] [0 2]
-  [1 2] [0 3]
-  [0 3] [1 2]
-  [0 2] [1 3]
-  [0 1] [2 3]
-
-
-.. _ShuffleSplit:
-
-Random permutations cross-validation a.k.a. Shuffle & Split
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The :class:`ShuffleSplit` iterator will generate a user defined number of
-independent train / test dataset splits. Samples are first shuffled and
-then split into a pair of train and test sets.
-
-It is possible to control the randomness for reproducibility of the
-results by explicitly seeding the ``random_state`` pseudo random number
-generator.
-
-Here is a usage example::
-
-  >>> from sklearn.model_selection import ShuffleSplit
-  >>> X = np.arange(10)
-  >>> ss = ShuffleSplit(n_splits=5, test_size=0.25, random_state=0)
-  >>> for train_index, test_index in ss.split(X):
-  ...     print("%s %s" % (train_index, test_index))
-  [9 1 6 7 3 0 5] [2 8 4]
-  [2 9 8 0 6 7 4] [3 5 1]
-  [4 5 1 0 6 9 7] [2 3 8]
-  [2 7 5 8 0 3 4] [6 1 9]
-  [4 1 0 6 8 9 3] [5 2 7]
-
-Here is a visualization of the cross-validation behavior. Note that
-:class:`ShuffleSplit` is not affected by classes or groups.
-
-.. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_cv_indices_008.png
-   :target: ../auto_examples/model_selection/plot_cv_indices.html
-   :align: center
-   :scale: 75%
-
-:class:`ShuffleSplit` is thus a good alternative to :class:`KFold` cross
-validation that allows a finer control on the number of iterations and
-the proportion of samples on each side of the train / test split.
-
-.. _stratification:
-
-Cross-validation iterators with stratification based on class labels
---------------------------------------------------------------------
-
-Some classification problems can exhibit a large imbalance in the distribution
-of the target classes: for instance there could be several times more negative
-samples than positive samples. In such cases it is recommended to use
-stratified sampling as implemented in :class:`StratifiedKFold` and
-:class:`StratifiedShuffleSplit` to ensure that relative class frequencies is
-approximately preserved in each train and validation fold.
-
-.. _stratified_k_fold:
-
-Stratified k-fold
-^^^^^^^^^^^^^^^^^
-
-:class:`StratifiedKFold` is a variation of *k-fold* which returns *stratified*
-folds: each set contains approximately the same percentage of samples of each
-target class as the complete set.
-
-Here is an example of stratified 3-fold cross-validation on a dataset with 50 samples from
-two unbalanced classes.  We show the number of samples in each class and compare with
-:class:`KFold`.
-
-  >>> from sklearn.model_selection import StratifiedKFold, KFold
-  >>> import numpy as np
-  >>> X, y = np.ones((50, 1)), np.hstack(([0] * 45, [1] * 5))
-  >>> skf = StratifiedKFold(n_splits=3)
-  >>> for train, test in skf.split(X, y):
-  ...     print('train -  {}   |   test -  {}'.format(
-  ...         np.bincount(y[train]), np.bincount(y[test])))
-  train -  [30  3]   |   test -  [15  2]
-  train -  [30  3]   |   test -  [15  2]
-  train -  [30  4]   |   test -  [15  1]
-  >>> kf = KFold(n_splits=3)
-  >>> for train, test in kf.split(X, y):
-  ...     print('train -  {}   |   test -  {}'.format(
-  ...         np.bincount(y[train]), np.bincount(y[test])))
-  train -  [28  5]   |   test -  [17]
-  train -  [28  5]   |   test -  [17]
-  train -  [34]   |   test -  [11  5]
-
-We can see that :class:`StratifiedKFold` preserves the class ratios
-(approximately 1 / 10) in both train and test dataset.
-
-Here is a visualization of the cross-validation behavior.
-
-.. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_cv_indices_009.png
-   :target: ../auto_examples/model_selection/plot_cv_indices.html
-   :align: center
-   :scale: 75%
-
-:class:`RepeatedStratifiedKFold` can be used to repeat Stratified K-Fold n times
-with different randomization in each repetition.
-
-.. _stratified_shuffle_split:
-
-Stratified Shuffle Split
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-:class:`StratifiedShuffleSplit` is a variation of *ShuffleSplit*, which returns
-stratified splits, *i.e* which creates splits by preserving the same
-percentage for each target class as in the complete set.
-
-Here is a visualization of the cross-validation behavior.
-
-.. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_cv_indices_012.png
-   :target: ../auto_examples/model_selection/plot_cv_indices.html
-   :align: center
-   :scale: 75%
-
-.. _predefined_split:
-
-Predefined fold-splits / Validation-sets
-----------------------------------------
-
-For some datasets, a pre-defined split of the data into training- and
-validation fold or into several cross-validation folds already
-exists. Using :class:`PredefinedSplit` it is possible to use these folds
-e.g. when searching for hyperparameters.
-
-For example, when using a validation set, set the ``test_fold`` to 0 for all
-samples that are part of the validation set, and to -1 for all other samples.
-
-.. _group_cv:
-
-Cross-validation iterators for grouped data
--------------------------------------------
-
-The i.i.d. assumption is broken if the underlying generative process yield
-groups of dependent samples.
-
-Such a grouping of data is domain specific. An example would be when there is
-medical data collected from multiple patients, with multiple samples taken from
-each patient. And such data is likely to be dependent on the individual group.
-In our example, the patient id for each sample will be its group identifier.
-
-In this case we would like to know if a model trained on a particular set of
-groups generalizes well to the unseen groups. To measure this, we need to
-ensure that all the samples in the validation fold come from groups that are
-not represented at all in the paired training fold.
-
-The following cross-validation splitters can be used to do that.
-The grouping identifier for the samples is specified via the ``groups``
-parameter.
-
-.. _group_k_fold:
+[0 1] [2 3]
+
+فيما يلي توضيح لسلوك التحقق من الصحة المتقاطع. لاحظ أن فئة KFold لا تتأثر بالطبقات أو المجموعات.
+
+يتم تشكيل كل طية بواسطة مصفوفتين: الأولى تتعلق بمجموعة "التدريب"، والثانية بمجموعة "الاختبار". وبالتالي، يمكن إنشاء مجموعات التدريب/الاختبار باستخدام الفهرسة النيبية:
+
+X = np.array ([[0.، 0.]، [1.، 1.]، [-1.، -1.]، [2.، 2.]])
+
+y = np.array ([0، 1، 0، 1])
+
+X_train، X_test، y_train، y_test = X [train]، X [test]، y [train]، y [test]
+
+كرر K-فولد
+
+تكرر فئة RepeatedKFold K-Fold n مرات. يمكن استخدامه عندما يحتاج المرء إلى تشغيل KFold n مرات، وإنتاج تقسيمات مختلفة في كل تكرار.
+
+مثال على K-Fold 2-fold مكررة مرتين:
+
+X = np.array ([[1، 2]، [3، 4]، [1، 2]، [3، 4]])
+
+random_state = 12883823
+
+rkf = RepeatedKFold(n_splits=2، n_repeats=2، random_state=random_state)
+
+for train، test in rkf.split(X):
+
+طباعة ("% s٪s"٪ (train، test))
+
+[2 3] [0 1]
+
+[0 1] [2 3]
+
+[0 2] [1 3]
+
+[1 3] [0 2]
+
+وبالمثل، تكرر فئة RepeatedStratifiedKFold استراتيجية K-Fold الموزونة n مرات بتعشيش مختلف في كل تكرار.
+
+اترك واحد خارج (LOO)
+
+LeaveOneOut (أو LOO) هو تحقق بسيط من الصحة المتقاطعة. يتم إنشاء كل مجموعة تعلم عن طريق أخذ جميع العينات باستثناء واحدة، ومجموعة الاختبار هي العينة المتروكة. وبالتالي، بالنسبة إلى n عينة، لدينا n مجموعات تدريب و n مجموعات اختبار مختلفة. لا يهدر هذا الإجراء للتحقق من الصحة المتقاطع الكثير من البيانات حيث تتم إزالة عينة واحدة فقط من مجموعة التدريب:
+
+X = [1، 2، 3، 4]
+
+loo = LeaveOneOut()
+
+for train، test in loo.split(X):
+
+طباعة ("% s٪s"٪ (train، test))
+
+[1 2 3] [0]
+
+[0 2 3] [1]
+
+[0 1 3] [2]
+
+[0 1 2] [3]
+
+يجب أن يزن المستخدمون المحتملون لـ LOO لاختيار النماذج بعض التحذيرات المعروفة. عند مقارنته بالتحقق من الصحة المتقاطع K-fold، يقوم المرء ببناء n نماذج من n عينة بدلاً من k نماذج، حيث n > k. علاوة على ذلك، يتم تدريب كل منها على n - 1 عينة بدلاً من (k-1) n / k. في كلا الاتجاهين، طالما أن k ليست كبيرة جدًا وk <n، فإن LOO أكثر تكلفة من الناحية الحسابية من التحقق من الصحة المتقاطع K-fold.
+
+من حيث الدقة، غالبًا ما يؤدي LOO إلى تباين عالٍ كمقدّر لخطأ الاختبار. بديهياً، نظرًا لأن n - 1 من n عينة يتم استخدامها لبناء كل نموذج، فإن النماذج المشتقة من الطيات متطابقة فعليًا مع بعضها البعض ومع النموذج المشتق من مجموعة التدريب بالكامل.
+
+ومع ذلك، إذا كان منحنى التعلم حادًا لحجم التدريب قيد البحث، فقد يبالغ التحقق من الصحة المتقاطع 5 أو 10 في خطأ التعميم.
+
+كقاعدة عامة، يقترح معظم المؤلفين والأدلة التجريبية أن التحقق من الصحة المتقاطع 5 أو 10 يجب أن يكون مفضلًا على LOO.
+
+مراجع
+
+- <http://www.faqs.org/faqs/ai-faq/neural-nets/part3/section-12.html>؛
+- تي هاستي، آر تيبشراني، جي فريدمان، عناصر التعلم الإحصائي، سبرينجر 2009
+- إل بريمان، بي سبيكتور، اختيار النموذج الفرعي وتقييمه في الانحدار: حالة X-random، المراجعة الإحصائية الدولية 1992؛
+- ر. كوهافي، دراسة للتحقق من الصحة المتقاطع والتمهيد لتقدير الدقة واختيار النموذج، مؤتمر IJCAI الدولي
+- ر. بهارات راو، جي فونج، آر روزاليس، حول مخاطر التحقق من الصحة المتقاطع. تقييم تجريبي، SIAM 2008؛
+- جي جيمس، دي ويتن، تي هاستي، آر تيبشراني، مقدمة في التعلم الإحصائي، سبرينجر 2013.
+
+اترك P خارج (LPO)
+
+تتشابه فئة LeavePOut كثيرًا مع فئة LeaveOneOut حيث تقوم بإنشاء جميع مجموعات التدريب/الاختبار الممكنة عن طريق إزالة p عينات من المجموعة الكاملة. بالنسبة إلى n عينة، ينتج عن هذا {n \ choose p} أزواج التدريب/الاختبار. على عكس LeaveOneOut وKFold، ستتداخل مجموعات الاختبار لـ p > 1.
+
+مثال على Leave-2-Out على مجموعة بيانات تحتوي على 4 عينات:
+
+X = np.ones (4)
+
+lpo = LeavePOut(p=2)
+
+for train، test in lpo.split(X):
+
+طباعة ("% s٪s"٪ (train، test))
+
+[2 3] [0 1]
+
+[1 3] [0 2]
+
+[1 2] [0 3]
+
+[0 3] [1 2]
+
+[0 2] [1 3]
+
+[0 1] [2 3]
+
+التقسيم العشوائي، المعروف أيضًا باسم Shuffle & Split
+
+سينشئ مؤشر ShuffleSplit عددًا محددًا من المستخدمين من تقسيمات مجموعات التدريب/الاختبار المستقلة. يتم خلط العينات أولاً ثم تقسيمها إلى زوج من مجموعات التدريب والاختبار.
+
+من الممكن التحكم في العشوائية لإمكانية إعادة إنتاج النتائج عن طريق البذر الصريح لمولد الأرقام العشوائية "random_state".
+
+فيما يلي مثال على الاستخدام:
+
+X = np.arange (10)
+
+ss = ShuffleSplit(n_splits=5، test_size=0.25، random_state=0)
+
+for train_index، test_index in ss.split(X):
+
+طباعة ("% s٪s"٪ (train_index، test_index))
+
+[9 1 6 7 3 0 5] [2 8 4]
+
+[2 9 8 0 6 7 4] [3 5 1]
+
+[4 5 1 0 6 9 7] [2 3 8]
+
+[2 7 5 8 0 3 4] [6 1 9]
+
+[4 1 0 6 8 9 3] [5 2 7]
+
+فيما يلي توضيح لسلوك التحقق من الصحة المتقاطع. لاحظ أن فئة ShuffleSplit لا تتأثر بالطبقات أو المجموعات.
+
+لذلك، فإن ShuffleSplit بديل جيد للتحقق من الصحة المتقاطع K-fold الذي يسمح بمزيد من التحكم الدقيق في عدد التكرارات ونسبة العينات على جانبي الانقسام التدريبي/الاختباري.
+
+مؤشرات التحقق من الصحة المتقاطع مع الاسترات طبقة على أساس التسميات
+
+يمكن لبعض مشكلات التصنيف أن تظهر اختلالًا كبيرًا في توزيع فئات الهدف: على سبيل المثال، قد يكون هناك عدة مرات أكثر من العينات السلبية مقارنة بالعينات الإيجابية. في مثل هذه الحالات، يوصى باستخدام الاسترات طبقة كما هو مطبق في StratifiedKFold وStratifiedShuffleSplit لضمان الحفاظ على الترددات النسبية لفئة الهدف تقريبًا في كل طية تدريب وتحقق من الصحة.
+
+ك-فولد الموزون
+
+StratifiedKFold هو تنوع من k-fold الذي يعيد الطيات الموزونة: تحتوي كل مجموعة على نفس النسبة المئوية تقريبًا من عينات كل فئة هدف مثل المجموعة الكاملة.
+
+فيما يلي مثال على التحقق من الصحة المتقاطع 3-fold الموزون على مجموعة بيانات تحتوي على 50 عينة من فئتين غير متوازنتين. نحن نعرض عدد العينات في كل فئة ونقارنها مع KFold:
+
+X، y = np.ones ((50، 1))، np.hstack (([0] * 45، [1] * 5))
+
+skf = StratifiedKFold(n_splits=3)
+
+for train، test in skf.split(X، y):
+
+طباعة ('التدريب - {} | اختبار - {} '. تنسيق (
+
+np.bincount (y [train]، np.bincount (y [test])))
+
+التدريب - [30 3] | الاختبار - [15 2]
+
+التدريب - [30 3] | الاختبار - [15 2]
+
+التدريب - [30 4] | الاختبار - [15 1]
+
+kf = KFold(n_splits=3)
+
+for train، test in kf.split(X، y):
+
+طباعة ('التدريب - {} | اختبار - {} '. تنسيق (
+
+np.bincount (y [train]، np.bincount (y [test])))
+
+التدريب - [28 5] | الاختبار - [17]
+
+التدريب - [28 5] | الاختبار - [17]
+
+التدريب - [34] | الاختبار - [11 5]
+
+يمكننا أن نرى أن فئة StratifiedKFold تحافظ على نسب الفئات (تقريبًا 1/10) في كل من مجموعة التدريب ومجموعة الاختبار.
+
+فيما يلي توضيح لسلوك التحقق من الصحة المتقاطع.
+
+يمكن استخدام RepeatedStratifiedKFold لتكرار استراتيجية K-Fold الموزونة n مرات بتعشيش مختلف في كل تكرار.
+
+تقسيم التبديل الموزون
+
+StratifiedShuffleSplit هو تنوع من ShuffleSplit، والذي يعيد تقسيمات الموزون، أي أنه يقوم بإنشاء تقسيمات عن طريق الحفاظ على نفس النسبة المئوية لكل فئة هدف كما هو الحال في المجموعة الكاملة.
+
+فيما يلي توضيح لسلوك التحقق من الصحة المتقاطع.
+
+تقسيمات الطيات المسبقة التعريف/مجموعات التحقق
+
+بالنسبة لبعض مجموعات البيانات، يوجد بالفعل تقسيم مسبق التعريف للبيانات إلى طية تدريب وتحقق أو إلى عدة طيات تحقق من الصحة المتقاطعة. باستخدام فئة PredefinedSplit، من الممكن استخدام هذه الطيات، على سبيل المثال، عند البحث عن أفضل المعلمات.
+
+على سبيل المثال، عند استخدام مجموعة تحقق، قم بتعيين "test_fold" إلى 0 لجميع العينات التي تعد جزءًا من مجموعة التحقق، وإلى -1 لجميع العينات الأخرى.
+
+مؤشرات التحقق من الصحة المتقاطعة للبيانات المجمعة
+يتم كسر افتراض i.i.d إذا أدت عملية التوليد الأساسية إلى مجموعات من العينات المعتمدة.
+
+إن تجميع هذه البيانات خاص بالنطاق. على سبيل المثال، عندما تكون هناك بيانات طبية تم جمعها من مرضى متعددين، مع أخذ عينات متعددة من كل مريض. ومن المرجح أن تعتمد هذه البيانات على المجموعة الفردية. في مثالنا، سيكون معرف المريض لكل عينة هو معرف المجموعة الخاص بها.
+
+في هذه الحالة، نريد أن نعرف ما إذا كان النموذج المدرب على مجموعة معينة من المجموعات يتم تعميمه جيدًا على المجموعات غير المرئية. لقياس ذلك، نحتاج إلى التأكد من أن جميع العينات في طية التحقق من الصحة تأتي من مجموعات غير ممثلة على الإطلاق في طية التدريب المقترنة.
+
+يمكن استخدام برامج تقسيم التحقق من صحة التقاطع التالية للقيام بذلك.
+
+يتم تحديد معرف المجموعة للنماذج عبر معلمة "المجموعات".
 
 Group k-fold
 ^^^^^^^^^^^^
 
-:class:`GroupKFold` is a variation of k-fold which ensures that the same group is
-not represented in both testing and training sets. For example if the data is
-obtained from different subjects with several samples per-subject and if the
-model is flexible enough to learn from highly person specific features it
-could fail to generalize to new subjects. :class:`GroupKFold` makes it possible
-to detect this kind of overfitting situations.
+:class:`GroupKFold` هو تباين من k-fold والذي يضمن أن المجموعة نفسها غير ممثلة في كل من مجموعات الاختبار والتدريب. على سبيل المثال، إذا تم الحصول على البيانات من مواضيع مختلفة مع عدة عينات لكل موضوع، وإذا كان النموذج مرنًا بدرجة كافية للتعلم من الميزات المحددة للشخص، فقد يفشل في التعميم على مواضيع جديدة. :class:`GroupKFold` يجعل من الممكن اكتشاف هذا النوع من حالات الإفراط في التكيّف.
 
-Imagine you have three subjects, each with an associated number from 1 to 3::
+تخيل أن لديك ثلاثة مواضيع، لكل منها رقم مرتبط من 1 إلى 3::
 
   >>> from sklearn.model_selection import GroupKFold
 
@@ -652,35 +482,23 @@ Imagine you have three subjects, each with an associated number from 1 to 3::
   [0 1 2 6 7 8 9] [3 4 5]
   [3 4 5 6 7 8 9] [0 1 2]
 
-Each subject is in a different testing fold, and the same subject is never in
-both testing and training. Notice that the folds do not have exactly the same
-size due to the imbalance in the data. If class proportions must be balanced
-across folds, :class:`StratifiedGroupKFold` is a better option.
+يوجد كل موضوع في طية اختبار مختلفة، ولا يوجد أبدًا نفس الموضوع في الاختبار والتدريب. لاحظ أن الطيات لا تحتوي على نفس الحجم تمامًا بسبب عدم التوازن في البيانات. إذا كان يجب موازنة نسب الفئات عبر الطيات، فإن :class:`StratifiedGroupKFold` هو خيار أفضل.
 
-Here is a visualization of the cross-validation behavior.
+فيما يلي توضيح لسلوك التحقق من الصحة عبر الدورات.
 
 .. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_cv_indices_007.png
    :target: ../auto_examples/model_selection/plot_cv_indices.html
    :align: center
    :scale: 75%
 
-Similar to :class:`KFold`, the test sets from :class:`GroupKFold` will form a
-complete partition of all the data. Unlike :class:`KFold`, :class:`GroupKFold`
-is not randomized at all, whereas :class:`KFold` is randomized when
-``shuffle=True``.
-
-.. _stratified_group_k_fold:
+على غرار :class:`KFold`، ستشكل مجموعات الاختبار من :class:`GroupKFold` تقسيمًا كاملاً لجميع البيانات. على عكس :class:`KFold`، فإن :class:`GroupKFold` ليس عشوائيًا على الإطلاق، في حين أن :class:`KFold` يكون عشوائيًا عندما ``shuffle=True``.
 
 StratifiedGroupKFold
 ^^^^^^^^^^^^^^^^^^^^
 
-:class:`StratifiedGroupKFold` is a cross-validation scheme that combines both
-:class:`StratifiedKFold` and :class:`GroupKFold`. The idea is to try to
-preserve the distribution of classes in each split while keeping each group
-within a single split. That might be useful when you have an unbalanced
-dataset so that using just :class:`GroupKFold` might produce skewed splits.
+:class:`StratifiedGroupKFold` هو مخطط للتحقق من الصحة عبر الدورات يجمع بين :class:`StratifiedKFold` و:class:`GroupKFold`. الفكرة هي محاولة الحفاظ على توزيع الفئات في كل تقسيم مع الحفاظ على كل مجموعة داخل تقسيم واحد. قد يكون ذلك مفيدًا عندما يكون لديك مجموعة بيانات غير متوازنة بحيث قد يؤدي استخدام :class:`GroupKFold` فقط إلى إنتاج تقسيمات منحرفة.
 
-Example::
+مثال::
 
   >>> from sklearn.model_selection import StratifiedGroupKFold
   >>> X = list(range(18))
@@ -693,52 +511,33 @@ Example::
   [ 0  1  4  5  6  7  8  9 11 12 13 14] [ 2  3 10 15 16 17]
   [ 1  2  3  8  9 10 12 13 14 15 16 17] [ 0  4  5  6  7 11]
 
-.. dropdown:: Implementation notes
+.. dropdown:: ملاحظات التنفيذ
 
-  - With the current implementation full shuffle is not possible in most
-    scenarios. When shuffle=True, the following happens:
+  - مع التنفيذ الحالي، لا يكون الخلط الكامل ممكنًا في معظم السيناريوهات. عندما يكون shuffle=True، يحدث ما يلي:
 
-    1. All groups are shuffled.
-    2. Groups are sorted by standard deviation of classes using stable sort.
-    3. Sorted groups are iterated over and assigned to folds.
+    1. يتم خلط جميع المجموعات.
+    2. يتم فرز المجموعات حسب الانحراف المعياري للفئات باستخدام الفرز المستقر.
+    3. يتم فحص المجموعات المرتبة وتعيينها إلى الطيات.
 
-    That means that only groups with the same standard deviation of class
-    distribution will be shuffled, which might be useful when each group has only
-    a single class.
-  - The algorithm greedily assigns each group to one of n_splits test sets,
-    choosing the test set that minimises the variance in class distribution
-    across test sets. Group assignment proceeds from groups with highest to
-    lowest variance in class frequency, i.e. large groups peaked on one or few
-    classes are assigned first.
-  - This split is suboptimal in a sense that it might produce imbalanced splits
-    even if perfect stratification is possible. If you have relatively close
-    distribution of classes in each group, using :class:`GroupKFold` is better.
+    وهذا يعني أنه يتم خلط المجموعات التي لها نفس الانحراف المعياري لتوزيع الفئات فقط، والذي قد يكون مفيدًا عندما تحتوي كل مجموعة على فئة واحدة فقط.
+  - يقوم الخوارزمية بشكل جشع بتعيين كل مجموعة إلى واحدة من مجموعات الاختبار n_splits، واختيار مجموعة الاختبار التي تقلل من التباين في توزيع الفئات عبر مجموعات الاختبار. تتقدم عملية تعيين المجموعة من المجموعات ذات أعلى تباين إلى أدنى تباين في تردد الفئات، أي أن المجموعات الكبيرة التي تركز على فئة واحدة أو عدد قليل من الفئات يتم تعيينها أولاً.
+  - هذا التقسيم دون المستوى الأمثل بمعنى أنه قد ينتج تقسيمات غير متوازنة حتى إذا كان من الممكن تحقيق الاستراتيجية المثالية. إذا كان لديك توزيع قريب نسبيًا للفئات في كل مجموعة، فإن استخدام :class:`GroupKFold` أفضل.
 
-
-Here is a visualization of cross-validation behavior for uneven groups:
+فيما يلي توضيح لسلوك التحقق من الصحة عبر الدورات للمجموعات غير المتساوية:
 
 .. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_cv_indices_005.png
    :target: ../auto_examples/model_selection/plot_cv_indices.html
    :align: center
    :scale: 75%
 
-.. _leave_one_group_out:
-
 Leave One Group Out
 ^^^^^^^^^^^^^^^^^^^
 
-:class:`LeaveOneGroupOut` is a cross-validation scheme where each split holds
-out samples belonging to one specific group. Group information is
-provided via an array that encodes the group of each sample.
+:class:`LeaveOneGroupOut` هو مخطط للتحقق من الصحة عبر الدورات حيث يحتفظ كل تقسيم بالعينات التي تنتمي إلى مجموعة محددة واحدة. يتم توفير معلومات المجموعة عبر مصفوفة ترميز مجموعة كل عينة.
 
-Each training set is thus constituted by all the samples except the ones
-related to a specific group. This is the same as :class:`LeavePGroupsOut` with
-`n_groups=1` and the same as :class:`GroupKFold` with `n_splits` equal to the
-number of unique labels passed to the `groups` parameter.
+وبالتالي، يتم تشكيل كل مجموعة تدريب من جميع العينات باستثناء تلك المتعلقة بمجموعة محددة واحدة. هذا مشابه لـ :class:`LeavePGroupsOut` مع `n_groups=1` ونفس :class:`GroupKFold` مع `n_splits` يساوي عدد التسميات الفريدة التي تم تمريرها إلى معلمة "المجموعات".
 
-For example, in the cases of multiple experiments, :class:`LeaveOneGroupOut`
-can be used to create a cross-validation based on the different experiments:
-we create a training set using the samples of all the experiments except one::
+على سبيل المثال، في حالات التجارب المتعددة، يمكن استخدام :class:`LeaveOneGroupOut` لإنشاء تحقق من الصحة عبر الدورات يعتمد على التجارب المختلفة: نقوم بإنشاء مجموعة تدريب باستخدام عينات من جميع التجارب باستثناء واحدة::
 
   >>> from sklearn.model_selection import LeaveOneGroupOut
 
@@ -752,21 +551,14 @@ we create a training set using the samples of all the experiments except one::
   [0 1 4 5 6] [2 3]
   [0 1 2 3] [4 5 6]
 
-Another common application is to use time information: for instance the
-groups could be the year of collection of the samples and thus allow
-for cross-validation against time-based splits.
-
-.. _leave_p_groups_out:
+هناك تطبيق شائع آخر وهو استخدام معلومات الوقت: على سبيل المثال، يمكن أن تكون المجموعات هي سنة جمع العينات، وبالتالي السماح بالتحقق من الصحة عبر التقسيمات القائمة على الوقت.
 
 Leave P Groups Out
 ^^^^^^^^^^^^^^^^^^
 
-:class:`LeavePGroupsOut` is similar as :class:`LeaveOneGroupOut`, but removes
-samples related to :math:`P` groups for each training/test set. All possible
-combinations of :math:`P` groups are left out, meaning test sets will overlap
-for :math:`P>1`.
+:class:`LeavePGroupsOut` مشابه لـ :class:`LeaveOneGroupOut`، ولكنه يزيل العينات المتعلقة بـ :math:`P` groups لكل مجموعة تدريب/اختبار. يتم ترك جميع المجموعات الممكنة من :math:`P` groups، مما يعني أن مجموعات الاختبار ستتداخل لـ :math:`P>1`.
 
-Example of Leave-2-Group Out::
+مثال على ترك 2 مجموعة::
 
   >>> from sklearn.model_selection import LeavePGroupsOut
 
@@ -780,18 +572,12 @@ Example of Leave-2-Group Out::
   [2 3] [0 1 4 5]
   [0 1] [2 3 4 5]
 
-.. _group_shuffle_split:
-
 Group Shuffle Split
 ^^^^^^^^^^^^^^^^^^^
 
-The :class:`GroupShuffleSplit` iterator behaves as a combination of
-:class:`ShuffleSplit` and :class:`LeavePGroupsOut`, and generates a
-sequence of randomized partitions in which a subset of groups are held
-out for each split. Each train/test split is performed independently meaning
-there is no guaranteed relationship between successive test sets.
+يتصرف مولد :class:`GroupShuffleSplit` كمزيج من :class:`ShuffleSplit` و:class:`LeavePGroupsOut`، وينشئ تسلسلًا من التقسيمات العشوائية التي يتم فيها الاحتفاظ بمجموعة فرعية من المجموعات لكل تقسيم. يتم إجراء كل تقسيم تدريب/اختبار بشكل مستقل، مما يعني أنه لا توجد علاقة مضمونة بين مجموعات الاختبار المتتالية.
 
-Here is a usage example::
+فيما يلي مثال على الاستخدام::
 
   >>> from sklearn.model_selection import GroupShuffleSplit
 
@@ -807,32 +593,21 @@ Here is a usage example::
   [2 3 4 5] [0 1 6 7]
   [4 5 6 7] [0 1 2 3]
 
-Here is a visualization of the cross-validation behavior.
+فيما يلي توضيح لسلوك التحقق من الصحة عبر الدورات.
 
 .. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_cv_indices_011.png
    :target: ../auto_examples/model_selection/plot_cv_indices.html
    :align: center
    :scale: 75%
 
-This class is useful when the behavior of :class:`LeavePGroupsOut` is
-desired, but the number of groups is large enough that generating all
-possible partitions with :math:`P` groups withheld would be prohibitively
-expensive. In such a scenario, :class:`GroupShuffleSplit` provides
-a random sample (with replacement) of the train / test splits
-generated by :class:`LeavePGroupsOut`.
+تعد هذه الفئة مفيدة عندما يكون سلوك :class:`LeavePGroupsOut` مرغوبًا، ولكن يكون عدد المجموعات كبيرًا بدرجة كافية بحيث يكون إنشاء جميع التقسيمات الممكنة باستخدام :math:`P` groups مكلفًا للغاية. في مثل هذا السيناريو، يوفر :class:`GroupShuffleSplit` عينة عشوائية (مع الاستبدال) من تقسيمات التدريب/الاختبار التي تم إنشاؤها بواسطة :class:`LeavePGroupsOut`.
 
-Using cross-validation iterators to split train and test
+استخدام برامج التحقق من الصحة عبر الدورات لتقسيم التدريب والاختبار
 --------------------------------------------------------
 
-The above group cross-validation functions may also be useful for splitting a
-dataset into training and testing subsets. Note that the convenience
-function :func:`train_test_split` is a wrapper around :func:`ShuffleSplit`
-and thus only allows for stratified splitting (using the class labels)
-and cannot account for groups.
+قد تكون وظائف التحقق من الصحة عبر الدورات للمجموعات المذكورة أعلاه مفيدة أيضًا لتقسيم مجموعة من البيانات إلى مجموعات فرعية للتدريب والاختبار. لاحظ أن وظيفة الملاءمة :func:`train_test_split` عبارة عن غلاف حول :func:`ShuffleSplit` وبالتالي فهي تسمح فقط بالتقسيم الاستراتيجي (باستخدام تسميات الفئات) ولا يمكنها التعامل مع المجموعات.
 
-To perform the train and test split, use the indices for the train and test
-subsets yielded by the generator output by the `split()` method of the
-cross-validation splitter. For example::
+لإجراء تقسيم التدريب والاختبار، استخدم المؤشرات الخاصة بمجموعات التدريب والاختبار التي تم إنتاجها بواسطة مخرجات المولد من طريقة `split()` لمقسم التحقق من الصحة عبر الدورات. على سبيل المثال::
 
   >>> import numpy as np
   >>> from sklearn.model_selection import GroupShuffleSplit
@@ -850,38 +625,21 @@ cross-validation splitter. For example::
   >>> np.unique(groups[train_indx]), np.unique(groups[test_indx])
   (array([1, 2, 4]), array([3]))
 
-.. _timeseries_cv:
-
 Cross validation of time series data
 ------------------------------------
 
-Time series data is characterized by the correlation between observations
-that are near in time (*autocorrelation*). However, classical
-cross-validation techniques such as :class:`KFold` and
-:class:`ShuffleSplit` assume the samples are independent and
-identically distributed, and would result in unreasonable correlation
-between training and testing instances (yielding poor estimates of
-generalization error) on time series data. Therefore, it is very important
-to evaluate our model for time series data on the "future" observations
-least like those that are used to train the model. To achieve this, one
-solution is provided by :class:`TimeSeriesSplit`.
-
-.. _time_series_split:
+تتميز بيانات السلاسل الزمنية بالارتباط بين الملاحظات القريبة في الوقت (*autocorrelation*). ومع ذلك، تفترض تقنيات التحقق من الصحة عبر الدورات الكلاسيكية مثل :class:`KFold` و:class:`ShuffleSplit` أن العينات مستقلة ومتطابقة في التوزيع، وقد يؤدي ذلك إلى ارتباط غير معقول بين مثيلات التدريب والاختبار (مما يؤدي إلى تقديرات سيئة لخطأ التعميم) في بيانات السلاسل الزمنية. لذلك، من المهم جدًا تقييم نموذجنا لبيانات السلاسل الزمنية على الملاحظات "المستقبلية" الأقل تشابهاً مع تلك المستخدمة لتدريب النموذج. ولتحقيق ذلك، يقدم :class:`TimeSeriesSplit` حلاً واحدًا.
 
 Time Series Split
 ^^^^^^^^^^^^^^^^^
 
-:class:`TimeSeriesSplit` is a variation of *k-fold* which
-returns first :math:`k` folds as train set and the :math:`(k+1)` th
-fold as test set. Note that unlike standard cross-validation methods,
-successive training sets are supersets of those that come before them.
-Also, it adds all surplus data to the first training partition, which
-is always used to train the model.
+:class:`TimeSeriesSplit` هو تباين من *k-fold* والذي يعيد أول :math:`k` folds كمجموعة تدريب والطي :math:`(k+1)` th كمجموعة اختبار. لاحظ أنه على عكس طرق التحقق من الصحة عبر الدورات القياسية، فإن مجموعات التدريب المتعاقبة هي مجموعات فرعية من تلك التي تأتي قبلها.
 
-This class can be used to cross-validate time series data samples
-that are observed at fixed time intervals.
+يضيف هذا الفصل أيضًا جميع البيانات الفائضة إلى أول قسم تدريب، والذي يتم استخدامه دائمًا لتدريب النموذج.
 
-Example of 3-split time series cross-validation on a dataset with 6 samples::
+يمكن استخدام هذه الفئة للتحقق من صحة بيانات السلاسل الزمنية التي تتم ملاحظتها بفترات زمنية ثابتة.
+
+مثال على التحقق من الصحة عبر الدورات للسلاسل الزمنية المكونة من 3 تقسيمات على مجموعة بيانات بها 6 عينات::
 
   >>> from sklearn.model_selection import TimeSeriesSplit
 
@@ -896,105 +654,72 @@ Example of 3-split time series cross-validation on a dataset with 6 samples::
   [0 1 2 3] [4]
   [0 1 2 3 4] [5]
 
-Here is a visualization of the cross-validation behavior.
+فيما يلي توضيح لسلوك التحقق من الصحة عبر الدورات.
 
 .. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_cv_indices_013.png
    :target: ../auto_examples/model_selection/plot_cv_indices.html
    :align: center
-   :scale: 75%
+   :scale: 7
+إذا لم يكن ترتيب البيانات عشوائيًا (على سبيل المثال، إذا كانت العينات ذات التسمية الطبقية نفسها متجاورة)، فقد يكون من الضروري خلطها أولاً للحصول على نتيجة صحيحة للتحقق من الصحة. ومع ذلك، قد يكون العكس صحيحًا إذا لم تكن العينات موزعة بشكل مستقل ومتطابق. على سبيل المثال، إذا كانت العينات المقابلة لمقالات الأخبار، ومرتبة حسب وقت النشر، فإن خلط البيانات سيؤدي على الأرجح إلى نموذج مفرط في التكيف ودرجة تحقق من الصحة منتفخة: فسيتم اختباره على عينات مشابهة بشكل مصطنع (قريبة في الوقت) لعينات التدريب.
 
-A note on shuffling
-===================
+تتوفر بعض برامج تشغيل التحقق من الصحة المتقاطع، مثل :class:`KFold`، على خيار مدمج لخلط مؤشرات البيانات قبل تقسيمها. لاحظ ما يلي:
 
-If the data ordering is not arbitrary (e.g. samples with the same class label
-are contiguous), shuffling it first may be essential to get a meaningful cross-
-validation result. However, the opposite may be true if the samples are not
-independently and identically distributed. For example, if samples correspond
-to news articles, and are ordered by their time of publication, then shuffling
-the data will likely lead to a model that is overfit and an inflated validation
-score: it will be tested on samples that are artificially similar (close in
-time) to training samples.
+* تستهلك هذه الطريقة ذاكرة أقل من خلط البيانات مباشرة.
+* بشكل افتراضي، لا يحدث أي خلط، بما في ذلك للطي (الاستراتيفي) K للتحقق من الصحة المتقاطع الذي يتم إجراؤه عن طريق تحديد "cv=some_integer" إلى :func:`cross_val_score`، والبحث الشبكي، وما إلى ذلك. ضع في اعتبارك أن :func:`train_test_split` لا يزال يعيد تقسيمًا عشوائيًا.
+* يُعيّن معيار "random_state" افتراضيًا إلى "None"، مما يعني أن الخلط سيكون مختلفًا في كل مرة يتم فيها تشغيل "KFold(..., shuffle=True)". ومع ذلك، سيستخدم "GridSearchCV" نفس الخلط لكل مجموعة من المعلمات التي يتم التحقق من صحتها عن طريق استدعاء واحد لأسلوب "fit".
+* للحصول على نتائج متطابقة لكل تقسيم، قم بتعيين "random_state" إلى رقم صحيح.
 
-Some cross validation iterators, such as :class:`KFold`, have an inbuilt option
-to shuffle the data indices before splitting them. Note that:
+للاطلاع على مزيد من التفاصيل حول كيفية التحكم في العشوائية لبرامج التقسيم المتقاطع وتجنب المشكلات الشائعة، راجع :ref:`randomness`.
 
-* This consumes less memory than shuffling the data directly.
-* By default no shuffling occurs, including for the (stratified) K fold cross-
-  validation performed by specifying ``cv=some_integer`` to
-  :func:`cross_val_score`, grid search, etc. Keep in mind that
-  :func:`train_test_split` still returns a random split.
-* The ``random_state`` parameter defaults to ``None``, meaning that the
-  shuffling will be different every time ``KFold(..., shuffle=True)`` is
-  iterated. However, ``GridSearchCV`` will use the same shuffling for each set
-  of parameters validated by a single call to its ``fit`` method.
-* To get identical results for each split, set ``random_state`` to an integer.
-
-For more details on how to control the randomness of cv splitters and avoid
-common pitfalls, see :ref:`randomness`.
-
-Cross validation and model selection
+التحقق من صحة المتقاطع واختيار النموذج
 ====================================
 
-Cross validation iterators can also be used to directly perform model
-selection using Grid Search for the optimal hyperparameters of the
-model. This is the topic of the next section: :ref:`grid_search`.
+يمكن أيضًا استخدام برامج تشغيل التحقق من الصحة المتقاطع لأداء اختيار النموذج مباشرةً باستخدام البحث الشبكي لأفضل المعلمات المفرطة للنموذج. هذا هو موضوع القسم التالي: :ref:`grid_search`.
 
 .. _permutation_test_score:
 
-Permutation test score
+نتيجة اختبار التبديل
 ======================
 
-:func:`~sklearn.model_selection.permutation_test_score` offers another way
-to evaluate the performance of classifiers. It provides a permutation-based
-p-value, which represents how likely an observed performance of the
-classifier would be obtained by chance. The null hypothesis in this test is
-that the classifier fails to leverage any statistical dependency between the
-features and the labels to make correct predictions on left out data.
-:func:`~sklearn.model_selection.permutation_test_score` generates a null
-distribution by calculating `n_permutations` different permutations of the
-data. In each permutation the labels are randomly shuffled, thereby removing
-any dependency between the features and the labels. The p-value output
-is the fraction of permutations for which the average cross-validation score
-obtained by the model is better than the cross-validation score obtained by
-the model using the original data. For reliable results ``n_permutations``
-should typically be larger than 100 and ``cv`` between 3-10 folds.
+:func:`~sklearn.model_selection.permutation_test_score` يقدم طريقة أخرى
+لتقييم أداء المصنفات. فهو يوفر قيمة p قائمة على التبديل، والتي تمثل مدى احتمال الحصول على أداء المُصنِّف المُلاحظ عن طريق الصدفة. الفرضية الصفرية في هذا الاختبار هي أن المُصنِّف لا يستفيد من أي تبعية إحصائية بين الميزات والعلامات للتنبؤ الصحيح بالبيانات المستبعدة. :func:`~sklearn.model_selection.permutation_test_score` ينشئ توزيعًا صفريًا عن طريق حساب `n_permutations` تبديلات مختلفة للبيانات. في كل تبديل، يتم خلط العلامات بشكل عشوائي، مما يؤدي إلى إزالة أي تبعية بين الميزات والعلامات. نتيجة p-value
+هي نسبة التبديلات التي يكون فيها متوسط درجات التحقق من الصحة المتقاطع التي يحصل عليها النموذج أفضل من نتيجة التحقق من الصحة المتقاطع التي يحصل عليها النموذج باستخدام البيانات الأصلية. للحصول على نتائج موثوقة، يجب أن يكون "n_permutations" عادةً أكبر من 100 و"cv" بين 3-10 طيات.
 
-A low p-value provides evidence that the dataset contains real dependency
-between features and labels and the classifier was able to utilize this
-to obtain good results. A high p-value could be due to a lack of dependency
-between features and labels (there is no difference in feature values between
-the classes) or because the classifier was not able to use the dependency in
-the data. In the latter case, using a more appropriate classifier that
-is able to utilize the structure in the data, would result in a lower
-p-value.
+تقدم قيمة p منخفضة دليلاً على أن مجموعة البيانات تحتوي على تبعية حقيقية
+بين الميزات والعلامات وأن المُصنِّف كان قادرًا على الاستفادة من ذلك
+للحصول على نتائج جيدة. قد تكون قيمة p المرتفعة بسبب عدم وجود تبعية
+بين الميزات والعلامات (لا يوجد اختلاف في قيم الميزات بين الفئات) أو
+لأن المُصنِّف لم يتمكن من استخدام التبعية في البيانات. في الحالة
+الأخيرة، فإن استخدام مُصنِّف أكثر ملاءمة قادر على الاستفادة من
+الهيكل الموجود في البيانات، سيؤدي إلى قيمة p أقل.
 
-Cross-validation provides information about how well a classifier generalizes,
-specifically the range of expected errors of the classifier. However, a
-classifier trained on a high dimensional dataset with no structure may still
-perform better than expected on cross-validation, just by chance.
-This can typically happen with small datasets with less than a few hundred
-samples.
-:func:`~sklearn.model_selection.permutation_test_score` provides information
-on whether the classifier has found a real class structure and can help in
-evaluating the performance of the classifier.
+يوفر التحقق من الصحة المتقاطع معلومات حول مدى تعميم المُصنِّف جيدًا،
+وبالتحديد نطاق أخطاء المُصنِّف المتوقعة. ومع ذلك، فإن المُصنِّف الذي
+تم تدريبه على مجموعة بيانات عالية الأبعاد بدون هيكل قد يؤدي
+مع ذلك إلى أداء أفضل من المتوقع في التحقق من الصحة المتقاطع، فقط عن
+طريق الصدفة. يمكن أن يحدث هذا عادةً مع مجموعات البيانات الصغيرة التي
+تحتوي على أقل من بضع مئات من العينات. :func:`~sklearn.model_selection.permutation_test_score`
+يوفر معلومات حول ما إذا كان المُصنِّف قد وجد هيكل فئة حقيقيًا ويمكن أن
+يساعد في تقييم أداء المُصنِّف.
 
-It is important to note that this test has been shown to produce low
-p-values even if there is only weak structure in the data because in the
-corresponding permutated datasets there is absolutely no structure. This
-test is therefore only able to show when the model reliably outperforms
-random guessing.
+من المهم ملاحظة أن هذا الاختبار قد أثبت أنه ينتج قيم p منخفضة حتى إذا
+كان هناك هيكل ضعيف فقط في البيانات لأن مجموعات البيانات المقابلة
+التي تم تبديلها لا تحتوي على أي هيكل على الإطلاق. لذلك، لا يمكن
+لهذا الاختبار سوى إظهار عندما يتفوق النموذج بشكل موثوق على التخمين
+العشوائي.
 
-Finally, :func:`~sklearn.model_selection.permutation_test_score` is computed
-using brute force and internally fits ``(n_permutations + 1) * n_cv`` models.
-It is therefore only tractable with small datasets for which fitting an
-individual model is very fast.
+أخيرًا، يتم حساب :func:`~sklearn.model_selection.permutation_test_score`
+باستخدام القوة الغاشمة، ويتم تثبيت "n_permutations" داخليًا
+"*(n_permutations + 1) * n_cv" من النماذج. لذلك، فهو ممكن فقط مع
+مجموعات البيانات الصغيرة التي يكون فيها تثبيت نموذج فردي سريعًا
+جداً.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_model_selection_plot_permutation_tests_for_classification.py`
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * Ojala and Garriga. `Permutation Tests for Studying Classifier Performance
+  * أويالا وغارريجا. `اختبارات التبديل لدراسة أداء المُصنِّف
     <http://www.jmlr.org/papers/volume11/ojala10a/ojala10a.pdf>`_.
     J. Mach. Learn. Res. 2010.
