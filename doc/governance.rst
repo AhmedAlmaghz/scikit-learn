@@ -1,198 +1,96 @@
 .. _governance:
 
 ===========================================
-Scikit-learn governance and decision-making
+حوكمة Scikit-learn وعملية صنع القرار
 ===========================================
 
-The purpose of this document is to formalize the governance process used by the
-scikit-learn project, to clarify how decisions are made and how the various
-elements of our community interact.
-This document establishes a decision-making structure that takes into account
-feedback from all members of the community and strives to find consensus, while
-avoiding any deadlocks.
+الغرض من هذه الوثيقة هو إضفاء الطابع الرسمي على عملية الحوكمة التي يستخدمها مشروع Scikit-learn، لتوضيح كيفية اتخاذ القرارات وكيفية تفاعل مختلف عناصر مجتمعنا.
+تنشئ هذه الوثيقة هيكلًا لصنع القرار يأخذ في الاعتبار التعليقات من جميع أعضاء المجتمع ويسعى إلى تحقيق الإجماع، مع تجنب أي طريق مسدود.
 
-This is a meritocratic, consensus-based community project. Anyone with an
-interest in the project can join the community, contribute to the project
-design and participate in the decision making process. This document describes
-how that participation takes place and how to set about earning merit within
-the project community.
+هذا مشروع مجتمعي قائم على الجدارة والإجماع. يمكن لأي شخص مهتم بالمشروع الانضمام إلى المجتمع والمساهمة في تصميم المشروع والمشاركة في عملية صنع القرار. تصف هذه الوثيقة كيفية حدوث هذه المشاركة وكيفية البدء في اكتساب الجدارة داخل مجتمع المشروع.
 
-Roles And Responsibilities
+الأدوار والمسؤوليات
 ==========================
 
-We distinguish between contributors, core contributors, and the technical
-committee. A key distinction between them is their voting rights: contributors
-have no voting rights, whereas the other two groups all have voting rights,
-as well as permissions to the tools relevant to their roles.
+نحن نميز بين المساهمين والمساهمين الأساسيين واللجنة الفنية. يتمثل أحد الفروق الرئيسية بينها في حقوق التصويت: لا يتمتع المساهمون بحقوق التصويت، في حين أن المجموعتين الأخريين تتمتعان بحقوق التصويت، بالإضافة إلى الأذونات الخاصة بالأدوات ذات الصلة بأدوارهم.
 
-Contributors
+المساهمون
 ------------
 
-Contributors are community members who contribute in concrete ways to the
-project. Anyone can become a contributor, and contributions can take many forms
-– not only code – as detailed in the :ref:`contributors guide <contributing>`.
-There is no process to become a contributor: once somebody contributes to the
-project in any way, they are a contributor.
+المساهمون هم أعضاء في المجتمع يساهمون بطرق ملموسة في المشروع. يمكن لأي شخص أن يصبح مساهمًا، ويمكن أن تتخذ المساهمات أشكالًا عديدة - وليس فقط التعليمات البرمجية - كما هو مفصل في :ref: `دليل المساهمين <contributing>`.
+لا توجد عملية لتصبح مساهمًا: بمجرد أن يساهم شخص ما في المشروع بأي طريقة، يصبح مساهمًا.
 
-Core Contributors
+المساهمون الأساسيون
 -----------------
 
-All core contributor members have the same voting rights and right to propose
-new members to any of the roles listed below. Their membership is represented
-as being an organization member on the scikit-learn `GitHub organization
-<https://github.com/orgs/scikit-learn/people>`_.
+يتمتع جميع أعضاء المساهمين الأساسيين بنفس حقوق التصويت والحق في اقتراح أعضاء جدد في أي من الأدوار المذكورة أدناه. يتم تمثيل عضويتهم على أنها عضو في منظمة Scikit-learn على `GitHub <https://github.com/orgs/scikit-learn/people>`_.
 
-They are also welcome to join our `monthly core contributor meetings
+كما أنهم مدعوون للانضمام إلى `اجتماعات المساهمين الأساسية الشهرية
 <https://github.com/scikit-learn/administrative/tree/master/meeting_notes>`_.
 
-New members can be nominated by any existing member. Once they have been
-nominated, there will be a vote by the current core contributors. Voting on new
-members is one of the few activities that takes place on the project's private
-mailing list. While it is expected that most votes will be unanimous, a
-two-thirds majority of the cast votes is enough. The vote needs to be open for
-at least 1 week.
+يمكن لأي عضو موجود ترشيح أعضاء جدد. بمجرد ترشيحهم، سيتم إجراء تصويت من قبل المساهمين الأساسيين الحاليين. يعد التصويت على الأعضاء الجدد أحد الأنشطة القليلة التي تتم في قائمة البريد الإلكتروني الخاصة بالمشروع. في حين من المتوقع أن تكون معظم الأصوات بالإجماع، فإن أغلبية الثلثين من الأصوات المدلى بها كافية. يجب أن يكون التصويت مفتوحًا لمدة أسبوع واحد على الأقل.
 
-Core contributors that have not contributed to the project, corresponding to
-their role, in the past 12 months will be asked if they want to become emeritus
-members and recant their rights until they become active again. The list of
-members, active and emeritus (with dates at which they became active) is public
-on the scikit-learn website.
+سيُطلب من المساهمين الأساسيين الذين لم يسهموا في المشروع، بما يتوافق مع دورهم، في الأشهر الـ 12 الماضية ما إذا كانوا يرغبون في أن يصبحوا أعضاء فخريين والتخلي عن حقوقهم حتى يصبحوا نشطين مرة أخرى. قائمة الأعضاء، النشطين والفخريين (مع تواريخ أصبحوا نشطين فيها) متاحة للجمهور على موقع Scikit-learn الإلكتروني.
 
-The following teams form the core contributors group:
+تشكل الفرق التالية مجموعة المساهمين الأساسيين:
 
-* **Contributor Experience Team**
-  The contributor experience team improves the experience of contributors by
-  helping with the triage of issues and pull requests, as well as noticing any
-  repeating patterns where people might struggle, and to help with improving
-  those aspects of the project.
+* **فريق تجربة المساهمين**
+  يعمل فريق تجربة المساهمين على تحسين تجربة المساهمين من خلال المساعدة في فرز المشكلات وطلبات السحب، بالإضافة إلى ملاحظة أي أنماط متكررة قد يواجه فيها الأشخاص صعوبات، والمساعدة في تحسين تلك الجوانب من المشروع.
 
-  To this end, they have the required permissions on github to label and close
-  issues. :ref:`Their work <bug_triaging>` is crucial to improve the
-  communication in the project and limit the crowding of the issue tracker.
+  لتحقيق هذه الغاية، لديهم الأذونات المطلوبة على GitHub لوضع علامات على المشكلات وإغلاقها. :ref: `عملهم <bug_triaging>` ضروري لتحسين التواصل في المشروع والحد من ازدحام نظام تتبع المشكلات.
 
   .. _communication_team:
 
-* **Communication Team**
-  Members of the communication team help with outreach and communication
-  for scikit-learn. The goal of the team is to develop public awareness of
-  scikit-learn, of its features and usage, as well as branding.
+* **فريق التواصل**
+  يساعد أعضاء فريق التواصل في التوعية والتواصل من أجل Scikit-learn. هدف الفريق هو زيادة الوعي العام بـ Scikit-learn، وميزاته واستخدامه، بالإضافة إلى العلامة التجارية.
 
-  For this, they can operate the scikit-learn accounts on various social networks
-  and produce materials. They also have the required rights to our blog
-  repository and other relevant accounts and platforms.
+  لهذا الغرض، يمكنهم تشغيل حسابات Scikit-learn على مختلف الشبكات الاجتماعية وإنتاج المواد. لديهم أيضًا الحقوق المطلوبة لمدونتنا ومستودعات الحسابات والمنصات الأخرى ذات الصلة.
 
-* **Documentation Team**
-  Members of the documentation team engage with the documentation of the project
-  among other things. They might also be involved in other aspects of the
-  project, but their reviews on documentation contributions are considered
-  authoritative, and can merge such contributions.
+* **فريق التوثيق**
+  يشارك أعضاء فريق التوثيق في توثيق المشروع، من بين أمور أخرى. قد يكونون أيضًا متورطين في جوانب أخرى من المشروع، لكن مراجعاتهم حول مساهمات التوثيق تعتبر موثوقة، ويمكنهم دمج هذه المساهمات.
 
-  To this end, they have permissions to merge pull requests in scikit-learn's
-  repository.
+  ولهذه الغاية، لديهم أذونات لدمج طلبات السحب في مستودع Scikit-learn.
 
-* **Maintainers Team**
-  Maintainers are community members who have shown that they are dedicated to the
-  continued development of the project through ongoing engagement with the
-  community. They have shown they can be trusted to maintain scikit-learn with
-  care. Being a maintainer allows contributors to more easily carry on with their
-  project related activities by giving them direct access to the project's
-  repository. Maintainers are expected to review code contributions, merge
-  approved pull requests, cast votes for and against merging a pull-request,
-  and to be involved in deciding major changes to the API.
+* **فريق المُصنِّعين**
+  المُصنِّعون هم أعضاء في المجتمع أظهروا أنهم مكرسون للتطوير المستمر للمشروع من خلال المشاركة المستمرة مع المجتمع. لقد أظهروا أنه يمكن الوثوق بهم للحفاظ على Scikit-learn برعاية. يتيح كونك مُصنِّعًا للمساهمين الاستمرار بسهولة أكبر في أنشطتهم المتعلقة بالمشروع من خلال منحهم حق الوصول المباشر إلى مستودع المشروع. يُتوقع من المُصنِّعين مراجعة مساهمات التعليمات البرمجية، ودمج طلبات السحب المعتمدة، والإدلاء بأصواتهم بالموافقة أو الرفض لدمج طلب سحب، والمشاركة في اتخاذ القرارات بشأن التغييرات الرئيسية في واجهة برمجة التطبيقات.
 
-Technical Committee
+اللجنة الفنية
 -------------------
 
-The Technical Committee (TC) members are maintainers who have additional
-responsibilities to ensure the smooth running of the project. TC members are
-expected to participate in strategic planning, and approve changes to the
-governance model. The purpose of the TC is to ensure a smooth progress from the
-big-picture perspective. Indeed changes that impact the full project require a
-synthetic analysis and a consensus that is both explicit and informed. In cases
-that the core contributor community (which includes the TC members) fails to
-reach such a consensus in the required time frame, the TC is the entity to
-resolve the issue. Membership of the TC is by nomination by a core contributor.
-A nomination will result in discussion which cannot take more than a month and
-then a vote by the core contributors which will stay open for a week. TC
-membership votes are subject to a two-third majority of all cast votes as well
-as a simple majority approval of all the current TC members. TC members who do
-not actively engage with the TC duties are expected to resign.
+أعضاء اللجنة الفنية (TC) هم مُصنِّعون يتحملون مسؤوليات إضافية لضمان التشغيل السلس للمشروع. يُتوقع من أعضاء اللجنة الفنية المشاركة في التخطيط الاستراتيجي والموافقة على التغييرات في نموذج الحوكمة. الغرض من اللجنة الفنية هو ضمان التقدم السلس من منظور الصورة الكبيرة. في الواقع، تتطلب التغييرات التي تؤثر على المشروع بأكمله تحليلًا تركيبيًا وإجماعًا يكون صريحًا ومستنيرًا. في الحالات التي يفشل فيها مجتمع المساهمين الأساسيين (بما في ذلك أعضاء اللجنة الفنية) في التوصل إلى مثل هذا الإجماع في الإطار الزمني المطلوب، فإن اللجنة الفنية هي الكيان الذي يحل المشكلة. يتم الانضمام إلى عضوية اللجنة الفنية عن طريق ترشيح مساهم أساسي.
+سيؤدي الترشيح إلى مناقشة لا يمكن أن تستمر لأكثر من شهر، ثم تصويت من قبل المساهمين الأساسيين والذي سيظل مفتوحًا لمدة أسبوع. تخضع أصوات عضوية اللجنة الفنية لأغلبية الثلثين من جميع الأصوات المدلى بها بالإضافة إلى موافقة الأغلبية البسيطة لجميع أعضاء اللجنة الفنية الحاليين. يُتوقع من أعضاء اللجنة الفنية الذين لا يشاركون بنشاط في واجبات اللجنة الفنية الاستقالة.
 
-The Technical Committee of scikit-learn consists of :user:`Thomas Fan
-<thomasjpfan>`, :user:`Alexandre Gramfort <agramfort>`, :user:`Olivier Grisel
-<ogrisel>`, :user:`Adrin Jalali <adrinjalali>`, :user:`Andreas Müller
-<amueller>`, :user:`Joel Nothman <jnothman>` and :user:`Gaël Varoquaux
-<GaelVaroquaux>`.
+تتكون اللجنة الفنية لـ Scikit-learn من: :user: `Thomas Fan <thomasjpfan>`، :user: `Alexandre Gramfort <agramfort>`، :user: `Olivier Grisel <ogrisel>`، :user: `Adrin Jalali <adrinjalali>`، :user: `Andreas Müller <amueller>`، :user: `Joel Nothman <jnothman>`، و:user: `Gaël Varoquaux <GaelVaroquaux>`.
 
-Decision Making Process
+عملية صنع القرار
 =======================
-Decisions about the future of the project are made through discussion with all
-members of the community. All non-sensitive project management discussion takes
-place on the project contributors' `mailing list <mailto:scikit-learn@python.org>`_
-and the `issue tracker <https://github.com/scikit-learn/scikit-learn/issues>`_.
-Occasionally, sensitive discussion occurs on a private list.
+يتم اتخاذ القرارات بشأن مستقبل المشروع من خلال المناقشة مع جميع أعضاء المجتمع. تجري جميع مناقشات إدارة المشاريع غير الحساسة على قائمة البريد الإلكتروني للمساهمين في المشروع ` <mailto:scikit-learn@python.org>`_
+و `تتبع المشكلات <https://github.com/scikit-learn/scikit-learn/issues>`_.
+في بعض الأحيان، تحدث مناقشات حساسة في قائمة خاصة.
 
-Scikit-learn uses a "consensus seeking" process for making decisions. The group
-tries to find a resolution that has no open objections among core contributors.
-At any point during the discussion, any core contributor can call for a vote,
-which will conclude one month from the call for the vote. Most votes have to be
-backed by a :ref:`SLEP <slep>`. If no option can gather two thirds of the votes
-cast, the decision is escalated to the TC, which in turn will use consensus
-seeking with the fallback option of a simple majority vote if no consensus can
-be found within a month. This is what we hereafter may refer to as "**the
-decision making process**".
+يستخدم Scikit-learn عملية "البحث عن الإجماع" لاتخاذ القرارات. تحاول المجموعة إيجاد حل لا توجد اعتراضات مفتوحة عليه من المساهمين الأساسيين. في أي وقت خلال المناقشة، يمكن لأي مساهم أساسي الدعوة إلى إجراء تصويت، والذي سيستمر لمدة شهر واحد من الدعوة للتصويت. يجب دعم معظم الأصوات باقتراح تحسين Scikit-learn (SLEP). إذا لم يتمكن أي خيار من جمع ثلثي الأصوات المدلى بها، يتم تصعيد القرار إلى اللجنة الفنية، والتي تستخدم بدورها البحث عن الإجماع مع خيار الوقوع في التصويت بالأغلبية البسيطة إذا لم يتم التوصل إلى إجماع خلال شهر. هذا ما قد نشير إليه فيما بعد باسم "**عملية صنع القرار**".
 
-Decisions (in addition to adding core contributors and TC membership as above)
-are made according to the following rules:
+يتم اتخاذ القرارات (بالإضافة إلى إضافة المساهمين الأساسيين وعضوية اللجنة الفنية كما هو موضح أعلاه) وفقًا للقواعد التالية:
 
-* **Minor Documentation changes**, such as typo fixes, or addition / correction
-  of a sentence, but no change of the ``scikit-learn.org`` landing page or the
-  “about” page: Requires +1 by a maintainer, no -1 by a maintainer (lazy
-  consensus), happens on the issue or pull request page. Maintainers are
-  expected to give “reasonable time” to others to give their opinion on the
-  pull request if they're not confident others would agree.
+* **تغييرات طفيفة في التوثيق**، مثل إصلاح الأخطاء المطبعية، أو إضافة / تصحيح جملة، ولكن لا يوجد تغيير في صفحة "scikit-learn.org" أو صفحة "حول": يتطلب +1 من قبل المُصنِّع، ولا يوجد -1 من قبل المُصنِّع (الإجماع الكسول)، يحدث على صفحة المشكلة أو طلب السحب. يُتوقع من المُصنِّعين إعطاء "وقت معقول" للآخرين لإبداء رأيهم في طلب السحب إذا لم يكونوا واثقين من موافقتهم.
 
-* **Code changes and major documentation changes**
-  require +1 by two maintainers, no -1 by a maintainer (lazy
-  consensus), happens on the issue of pull-request page.
+* **تغييرات التعليمات البرمجية وتغييرات التوثيق الرئيسية**
+  تتطلب +1 من قبل مُصنِّعين، ولا يوجد -1 من قبل مُصنِّع (الإجماع الكسول)، يحدث على صفحة المشكلة أو طلب السحب.
 
-* **Changes to the API principles and changes to dependencies or supported
-  versions** happen via a :ref:`slep` and follows the decision-making process
-  outlined above.
+* **تغييرات في مبادئ واجهة برمجة التطبيقات والتغييرات في التبعيات أو الإصدارات المدعومة** تحدث عبر :ref: `SLEP` وتتبع عملية صنع القرار الموضحة أعلاه.
 
-* **Changes to the governance model** follow the process outlined in `SLEP020
-  <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep020/proposal.html>`__.
+* **تغييرات على نموذج الحوكمة** تتبع العملية المحددة في `SLEP020 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep020/proposal.html>`__.
 
-If a veto -1 vote is cast on a lazy consensus, the proposer can appeal to the
-community and maintainers and the change can be approved or rejected using
-the decision making procedure outlined above.
+إذا تم الإدلاء بصوت -1 على إجماع كسول، يمكن لمقترح الاقتراح الاستئناف لدى المجتمع والمُصنِّعين ويمكن الموافقة على التغيير أو رفضه باستخدام إجراء صنع القرار الموضح أعلاه.
 
-Governance Model Changes
+تغييرات نموذج الحوكمة
 ------------------------
 
-Governance model changes occur through an enhancement proposal or a GitHub Pull
-Request. An enhancement proposal will go through "**the decision-making process**"
-described in the previous section. Alternatively, an author may propose a change
-directly to the governance model with a GitHub Pull Request. Logistically, an
-author can open a Draft Pull Request for feedback and follow up with a new
-revised Pull Request for voting. Once that author is happy with the state of the
-Pull Request, they can call for a vote on the public mailing list. During the
-one-month voting period, the Pull Request can not change. A Pull Request
-Approval will count as a positive vote, and a "Request Changes" review will
-count as a negative vote. If two-thirds of the cast votes are positive, then
-the governance model change is accepted.
+تحدث تغييرات نموذج الحوكمة من خلال اقتراح تحسين أو طلب سحب GitHub. سيمر اقتراح التحسين "**بعملية صنع القرار**" الموضحة في القسم السابق. بدلاً من ذلك، قد يقترح المؤلف تغييرًا مباشرًا على نموذج الحوكمة باستخدام طلب سحب GitHub. من الناحية اللوجستية، يمكن للمؤلف فتح طلب سحب مسودة للحصول على تعليقات ومتابعتها باستخدام طلب سحب منقح جديد للتصويت. بمجرد أن يكون المؤلف سعيدًا بحالة طلب السحب، يمكنه الدعوة إلى إجراء تصويت على قائمة البريد الإلكتروني العامة. خلال فترة التصويت التي تستمر لمدة شهر واحد، لا يمكن تغيير طلب السحب. سيعتبر طلب السحب المعتمد بمثابة تصويت إيجابي، وسيتم اعتبار مراجعة "طلب التغييرات" تصويتًا سلبيًا. إذا حصل ثلثا الأصوات المدلى بها على أصوات إيجابية، يتم قبول تغيير نموذج الحوكمة.
 
 .. _slep:
 
-Enhancement proposals (SLEPs)
+اقتراحات التحسين (SLEPs)
 ==============================
-For all votes, a proposal must have been made public and discussed before the
-vote. Such proposal must be a consolidated document, in the form of a
-"Scikit-Learn Enhancement Proposal" (SLEP), rather than a long discussion on an
-issue. A SLEP must be submitted as a pull-request to `enhancement proposals
-<https://scikit-learn-enhancement-proposals.readthedocs.io>`_ using the `SLEP
-template
-<https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep_template.html>`_.
-`SLEP000
-<https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep000/proposal.html>`__
-describes the process in more detail.
+بالنسبة لجميع الأصوات، يجب أن يكون الاقتراح قد تم إعلانه ومناقشته قبل التصويت. يجب أن يكون هذا الاقتراح وثيقة موحدة، في شكل "اقتراح تحسين Scikit-Learn" (SLEP)، بدلاً من مناقشة طويلة حول مشكلة. يجب تقديم SLEP كطلب سحب إلى `اقتراحات التحسين <https://scikit-learn-enhancement-proposals.readthedocs.io>`_ باستخدام `قالب SLEP <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep_template.html>`_.
+يصف `SLEP000 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep000/proposal.html>`__ العملية بمزيد من التفصيل.
