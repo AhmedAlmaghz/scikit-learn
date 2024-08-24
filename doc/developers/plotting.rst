@@ -1,34 +1,11 @@
-.. _plotting_api:
+يُعرِّف سكايت-ليرن واجهة برمجة تطبيقات (API) بسيطة لإنشاء الرسوم البيانية لتعلم الآلة. وتتمثل الميزات الرئيسية لهذه الواجهة في إجراء الحسابات مرة واحدة والمرونة في تعديل الرسوم البيانية بعد ذلك. هذا القسم مخصص للمطورين الذين يرغبون في تطوير أو صيانة أدوات إنشاء الرسوم البيانية. وللاستخدام، يجب أن يرجع المستخدمون إلى دليل المستخدم.
 
-================================
-Developing with the Plotting API
-================================
+نظرة عامة على واجهة برمجة التطبيقات للرسم البياني
+-------------------------------------------------
 
-Scikit-learn defines a simple API for creating visualizations for machine
-learning. The key features of this API is to run calculations once and to have
-the flexibility to adjust the visualizations after the fact. This section is
-intended for developers who wish to develop or maintain plotting tools. For
-usage, users should refer to the :ref:`User Guide <visualizations>`.
+يتم تضمين هذا المنطق في كائن عرض حيث يتم تخزين البيانات المحسوبة ويتم إجراء الرسم البياني في طريقة "رسم". تحتوي طريقة "__init__" الخاصة بكائن العرض فقط على البيانات اللازمة لإنشاء الرسم البياني. وتأخذ طريقة "رسم" كمعلمات تلك التي لها علاقة فقط بالرسم البياني، مثل محاور matplotlib. ستقوم طريقة "رسم" بتخزين كائنات matplotlib الفنية كسمات، مما يسمح بتعديلات الأسلوب من خلال كائن العرض. يجب أن تحدد فئة "العرض" طريقة أو كلا الطريقتين: "من_المُقدِّر" و "من_التنبؤات". تسمح هذه الطرق بإنشاء كائن "العرض" من المُقدِّر وبعض البيانات أو من القيم الحقيقية والمتنبأ بها. بعد أن تقوم هذه الطرق بإنشاء كائن العرض بالقيم المحسوبة، يتم استدعاء طريقة عرض "رسم". لاحظ أن طريقة "رسم" تحدد سمات تتعلق بـ matplotlib، مثل كائن الخط. يسمح هذا بالتخصيصات بعد استدعاء طريقة "رسم".
 
-Plotting API Overview
----------------------
-
-This logic is encapsulated into a display object where the computed data is
-stored and the plotting is done in a `plot` method. The display object's
-`__init__` method contains only the data needed to create the visualization.
-The `plot` method takes in parameters that only have to do with visualization,
-such as a matplotlib axes. The `plot` method will store the matplotlib artists
-as attributes allowing for style adjustments through the display object. The
-`Display` class should define one or both class methods: `from_estimator` and
-`from_predictions`. These methods allows to create the `Display` object from
-the estimator and some data or from the true and predicted values. After these
-class methods create the display object with the computed values, then call the
-display's plot method. Note that the `plot` method defines attributes related
-to matplotlib, such as the line artist. This allows for customizations after
-calling the `plot` method.
-
-For example, the `RocCurveDisplay` defines the following methods and
-attributes::
+على سبيل المثال، يحدد "RocCurveDisplay" الطرق والسمات التالية::
 
    class RocCurveDisplay:
        def __init__(self, fpr, tpr, roc_auc, estimator_name):
@@ -40,13 +17,13 @@ attributes::
 
        @classmethod
        def from_estimator(cls, estimator, X, y):
-           # get the predictions
+           # الحصول على التنبؤات
            y_pred = estimator.predict_proba(X)[:, 1]
            return cls.from_predictions(y, y_pred, estimator.__class__.__name__)
 
        @classmethod
        def from_predictions(cls, y, y_pred, estimator_name):
-           # do ROC computation from y and y_pred
+           # إجراء حساب ROC من y و y_pred
            fpr, tpr, roc_auc = ...
            viz = RocCurveDisplay(fpr, tpr, roc_auc, estimator_name)
            return viz.plot()
@@ -57,22 +34,15 @@ attributes::
            self.ax_ = ax
            self.figure_ = ax.figure_
 
-Read more in :ref:`sphx_glr_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py`
-and the :ref:`User Guide <visualizations>`.
+اقرأ المزيد في :ref:sphx_glr_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py` ودليل المستخدم <visualizations>.
 
-Plotting with Multiple Axes
----------------------------
+الرسم البياني باستخدام محاور متعددة
+----------------------------------
 
-Some of the plotting tools like
-:func:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` and
-:class:`~sklearn.inspection.PartialDependenceDisplay` support plotting on
-multiple axes. Two different scenarios are supported:
+تدعم بعض أدوات إنشاء الرسوم البيانية، مثل :func:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` و :class:`~sklearn.inspection.PartialDependenceDisplay`، الرسم البياني على محاور متعددة. يتم دعم سيناريوهين مختلفين:
 
-1. If a list of axes is passed in, `plot` will check if the number of axes is
-consistent with the number of axes it expects and then draws on those axes. 2.
-If a single axes is passed in, that axes defines a space for multiple axes to
-be placed. In this case, we suggest using matplotlib's
-`~matplotlib.gridspec.GridSpecFromSubplotSpec` to split up the space::
+1. إذا تم تمرير قائمة من المحاور، فسيتحقق "رسم" مما إذا كان عدد المحاور متوافقًا مع عدد المحاور التي يتوقعها، ثم يقوم بالرسم على تلك المحاور.
+2. إذا تم تمرير محور واحد، فإن هذا المحور يحدد مساحة لمحاور متعددة ليتم وضعها. في هذه الحالة، نقترح استخدام matplotlib's'~matplotlib.gridspec.GridSpecFromSubplotSpec` لتقسيم المساحة::
 
    import matplotlib.pyplot as plt
    from matplotlib.gridspec import GridSpecFromSubplotSpec
@@ -84,14 +54,6 @@ be placed. In this case, we suggest using matplotlib's
    ax_top_right = fig.add_subplot(gs[0, 1])
    ax_bottom = fig.add_subplot(gs[1, :])
 
-By default, the `ax` keyword in `plot` is `None`. In this case, the single
-axes is created and the gridspec api is used to create the regions to plot in.
+بشكل افتراضي، تكون كلمة "ax" الأساسية في طريقة "رسم" هي "لا شيء". في هذه الحالة، يتم إنشاء محور واحد ويتم استخدام واجهة برمجة تطبيقات "gridspec" لإنشاء مناطق للرسم فيها.
 
-See for example, :meth:`~sklearn.inspection.PartialDependenceDisplay.from_estimator`
-which plots multiple lines and contours using this API. The axes defining the
-bounding box is saved in a `bounding_ax_` attribute. The individual axes
-created are stored in an `axes_` ndarray, corresponding to the axes position on
-the grid. Positions that are not used are set to `None`. Furthermore, the
-matplotlib Artists are stored in `lines_` and `contours_` where the key is the
-position on the grid. When a list of axes is passed in, the `axes_`, `lines_`,
-and `contours_` is a 1d ndarray corresponding to the list of axes passed in.
+على سبيل المثال، قم بزيارة :meth:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` الذي يقوم برسم خطوط وخطوط محيط متعددة باستخدام واجهة برمجة التطبيقات هذه. يتم حفظ المحور الذي يحدد حدود الصندوق في سمة "bounding_ax_". يتم تخزين المحاور الفردية التي تم إنشاؤها في مصفوفة "axes_"، والتي تتوافق مع موضع المحور على الشبكة. يتم تعيين المواضع التي لا يتم استخدامها إلى "لا شيء". علاوة على ذلك، يتم تخزين كائنات matplotlib الفنية في "lines_" و "contours_" حيث يكون المفتاح هو الموضع على الشبكة. عندما يتم تمرير قائمة من المحاور، تكون "axes_" و "lines_" و "contours_" عبارة عن مصفوفة أحادية الأبعاد تتوافق مع قائمة المحاور التي تم تمريرها.
