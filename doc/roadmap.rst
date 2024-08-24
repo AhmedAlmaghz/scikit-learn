@@ -1,272 +1,187 @@
-.. |ss| raw:: html
+خارطة الطريق
+================
 
-   <strike>
-
-.. |se| raw:: html
-
-   </strike>
-
-.. _roadmap:
-
-Roadmap
-=======
-
-Purpose of this document
+الغرض من هذه الوثيقة
 ------------------------
-This document list general directions that core contributors are interested
-to see developed in scikit-learn. The fact that an item is listed here is in
-no way a promise that it will happen, as resources are limited. Rather, it
-is an indication that help is welcomed on this topic.
+هذه الوثيقة قائمة بالتوجهات العامة التي يهتم المساهمون الأساسيون برؤيتها مطورة في سكيت-ليرن. إن إدراج بند ما هنا لا يعد بأي حال من الأحوال وعدًا بتنفيذه، حيث إن الموارد محدودة. بل هو إشارة إلى أن المساعدة في هذا الموضوع موضع ترحيب.
 
-Statement of purpose: Scikit-learn in 2018
+بيان الغرض: سكيت-ليرن في عام 2018
 ------------------------------------------
-Eleven years after the inception of Scikit-learn, much has changed in the
-world of machine learning. Key changes include:
+بعد أحد عشر عامًا من ظهور سكيت-ليرن، تغير الكثير في عالم تعلم الآلة. تشمل التغييرات الرئيسية ما يلي:
 
-* Computational tools: The exploitation of GPUs, distributed programming
-  frameworks like Scala/Spark, etc.
-* High-level Python libraries for experimentation, processing and data
-  management: Jupyter notebook, Cython, Pandas, Dask, Numba...
-* Changes in the focus of machine learning research: artificial intelligence
-  applications (where input structure is key) with deep learning,
-  representation learning, reinforcement learning, domain transfer, etc.
+* الأدوات الحسابية: استغلال وحدات معالجة الرسوميات، وأطر البرمجة الموزعة مثل Scala/Spark، وما إلى ذلك.
+* المكتبات عالية المستوى في بايثون للتجريب ومعالجة البيانات وإدارتها: Jupyter notebook، وCython، وPandas، وDask، وNumba، إلخ.
+* التغييرات في تركيز أبحاث تعلم الآلة: تطبيقات الذكاء الاصطناعي (حيث يكون هيكل الإدخال هو المفتاح) مع التعلم العميق، وتعلم التمثيل، والتعلم التعزيزي، ونقل المجال، وما إلى ذلك.
 
-A more subtle change over the last decade is that, due to changing interests
-in ML, PhD students in machine learning are more likely to contribute to
-PyTorch, Dask, etc. than to Scikit-learn, so our contributor pool is very
-different to a decade ago.
+هناك تغيير أكثر دقة على مدى العقد الماضي، وهو أنه بسبب تغير الاهتمامات في مجال تعلم الآلة، من المحتمل أن يساهم طلاب الدكتوراه في مجال تعلم الآلة في مشاريع مثل PyTorch وDask، أكثر من سكيت-ليرن، لذا فإن مجموعة المساهمين لدينا مختلفة جدًا عما كانت عليه منذ عقد مضى.
 
-Scikit-learn remains very popular in practice for trying out canonical
-machine learning techniques, particularly for applications in experimental
-science and in data science. A lot of what we provide is now very mature.
-But it can be costly to maintain, and we cannot therefore include arbitrary
-new implementations. Yet Scikit-learn is also essential in defining an API
-framework for the development of interoperable machine learning components
-external to the core library.
+لا يزال سكيت-ليرن شائعًا جدًا في الممارسة العملية لتجربة تقنيات تعلم الآلة الكنسية، خاصة لتطبيقات العلوم التجريبية وعلوم البيانات. الكثير مما نقدمه الآن ناضج جدًا. ولكن يمكن أن يكون مكلفًا للصيانة، وبالتالي لا يمكننا تضمين التنفيذ الجديد التعسفي. ومع ذلك، فإن سكيت-ليرن ضروري أيضًا لتحديد إطار عمل API لتطوير مكونات تعلم الآلة القابلة للتشغيل البيني خارج المكتبة الأساسية.
 
-**Thus our main goals in this era are to**:
+**لذلك تتمثل أهدافنا الرئيسية في هذا العصر فيما يلي**:
 
-* continue maintaining a high-quality, well-documented collection of canonical
-  tools for data processing and machine learning within the current scope
-  (i.e. rectangular data largely invariant to column and row order;
-  predicting targets with simple structure)
-* improve the ease for users to develop and publish external components
-* improve interoperability with modern data science tools (e.g. Pandas, Dask)
-  and infrastructures (e.g. distributed processing)
+* الاستمرار في صيانة مجموعة عالية الجودة وموثقة جيدًا من الأدوات الكنسية لمعالجة البيانات وتعلم الآلة ضمن النطاق الحالي (أي البيانات المستطيلة التي لا تتغير بشكل كبير مع ترتيب الأعمدة والصفوف؛ التنبؤ بالأهداف ذات البنية البسيطة)
+* تحسين سهولة تطوير المستخدمين للمكونات الخارجية ونشرها
+* تحسين قابلية التشغيل البيني مع أدوات علوم البيانات الحديثة (مثل Pandas وDask) والبنى التحتية (مثل المعالجة الموزعة)
 
-Many of the more fine-grained goals can be found under the `API tag
-<https://github.com/scikit-learn/scikit-learn/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3AAPI>`_
-on the issue tracker.
+يمكن العثور على العديد من الأهداف الأكثر تفصيلاً تحت علامة "API tag" في متتبع القضايا.
 
-Architectural / general goals
+الأهداف المعمارية/العامة
 -----------------------------
-The list is numbered not as an indication of the order of priority, but to
-make referring to specific points easier. Please add new entries only at the
-bottom. Note that the crossed out entries are already done, and we try to keep
-the document up to date as we work on these issues.
+ترقم القائمة ليس كإشارة إلى ترتيب الأولويات، ولكن لتسهيل الإشارة إلى نقاط محددة. يرجى إضافة إدخالات جديدة في الأسفل فقط. لاحظ أن الإدخالات المشطوبة مكتملة، ونحاول تحديث الوثيقة أثناء عملنا على هذه القضايا.
 
+1. تحسين التعامل مع أطر بيانات بانداس
 
-#. Improved handling of Pandas DataFrames
-
-   * document current handling
-   * column reordering issue :issue:`7242`
-   * avoiding unnecessary conversion to ndarray |ss| :issue:`12147` |se|
-   * returning DataFrames from transformers :issue:`5523`
-   * getting DataFrames from dataset loaders |ss| :issue:`10733` |se|,
+   * توثيق التعامل الحالي
+   * مشكلة إعادة ترتيب الأعمدة: :issue:`7242`
+   * تجنب التحويل غير الضروري إلى ndarray |ss| :issue:`12147` |se|
+   * إعادة أطر البيانات من المحولات :issue:`5523`
+   * الحصول على أطر البيانات من محملات مجموعات البيانات |ss| :issue:`10733` |se|،
      |ss| :issue:`13902` |se|
-   * Sparse currently not considered |ss| :issue:`12800` |se|
+   * Sparse غير مدرج حاليًا |ss| :issue:`12800` |se|
 
-#. Improved handling of categorical features
+2. تحسين التعامل مع الميزات الفئوية
 
-   * Tree-based models should be able to handle both continuous and categorical
-     features :issue:`12866` and |ss| :issue:`15550` |se|.
-   * |ss| In dataset loaders :issue:`13902` |se|
-   * As generic transformers to be used with ColumnTransforms (e.g. ordinal
-     encoding supervised by correlation with target variable) :issue:`5853`,
+   * يجب أن تكون النماذج القائمة على الشجرة قادرة على التعامل مع الميزات المستمرة والفئوية على حد سواء: :issue:`12866` و |ss| :issue:`15550` |se|.
+   * |ss| في محملات مجموعات البيانات :issue:`13902` |se|
+   * كمحولات عامة لاستخدامها مع ColumnTransforms (مثل الترميز الترتيبي الذي يشرف عليه الارتباط مع متغير الهدف) :issue:`5853`،
      :issue:`11805`
-   * Handling mixtures of categorical and continuous variables
+   * التعامل مع الخلطات من الميزات الفئوية والمستمرة
 
-#. Improved handling of missing data
+3. تحسين التعامل مع البيانات المفقودة
 
-   * Making sure meta-estimators are lenient towards missing data,
+   * التأكد من أن الميتا-مقدّرات متساهلة تجاه البيانات المفقودة،
      |ss| :issue:`15319` |se|
-   * Non-trivial imputers |ss| :issue:`11977`, :issue:`12852` |se|
-   * Learners directly handling missing data |ss| :issue:`13911` |se|
-   * An amputation sample generator to make parts of a dataset go missing
+   * معالجات غير تافهة |ss| :issue:`11977`، :issue:`12852` |se|
+   * المتعلمون الذين يتعاملون مباشرة مع البيانات المفقودة |ss| :issue:`13911` |se|
+   * مولد عينات البتر لجعل أجزاء من مجموعة البيانات مفقودة
      :issue:`6284`
 
-#. More didactic documentation
+4. وثائق أكثر تعليمية
 
-   * More and more options have been added to scikit-learn. As a result, the
-     documentation is crowded which makes it hard for beginners to get the big
-     picture. Some work could be done in prioritizing the information.
+   * أضيفت المزيد والمزيد من الخيارات إلى سكيت-ليرن. ونتيجة لذلك، فإن الوثائق مزدحمة، مما يجعل من الصعب على المبتدئين الحصول على الصورة الكبيرة. يمكن القيام ببعض العمل في ترتيب المعلومات حسب الأولوية.
 
-#. Passing around information that is not (X, y): Sample properties
+5. تمرير المعلومات التي ليست (X، y): خصائص العينة
 
-   * We need to be able to pass sample weights to scorers in cross validation.
-   * We should have standard/generalised ways of passing sample-wise properties
-     around in meta-estimators. :issue:`4497` :issue:`7646`
+   * نحتاج إلى القدرة على تمرير أوزان العينات إلى المسجلين في التحقق من صحة البيانات.
+   * يجب أن تكون لدينا طرق قياسية/عامة لتمرير الخصائص الخاصة بالعينة في الميتا-مقدّرات. :issue:`4497` :issue:`7646`
 
-#. Passing around information that is not (X, y): Feature properties
+6. تمرير المعلومات التي ليست (X، y): خصائص الميزة
 
-   * Feature names or descriptions should ideally be available to fit for, e.g.
-     . :issue:`6425` :issue:`6424`
-   * Per-feature handling (e.g. "is this a nominal / ordinal / English language
-     text?") should also not need to be provided to estimator constructors,
-     ideally, but should be available as metadata alongside X. :issue:`8480`
+   * يجب أن تكون أسماء الميزات أو الأوصاف متاحة بشكل مثالي للتناسب، على سبيل المثال. :issue:`6425` :issue:`6424`
+   * يجب ألا تحتاج المعالجة لكل ميزة (على سبيل المثال، "هل هذا ترتيب/ترتيب/نص باللغة الإنجليزية؟") أيضًا إلى توفيرها لمُنشئي المُقدّر، ولكن يجب أن تكون متاحة كبيانات وصفية بجانب X. :issue:`8480`
 
-#. Passing around information that is not (X, y): Target information
+7. تمرير المعلومات التي ليست (X، y): معلومات الهدف
 
-   * We have problems getting the full set of classes to all components when
-     the data is split/sampled. :issue:`6231` :issue:`8100`
-   * We have no way to handle a mixture of categorical and continuous targets.
+   * لدينا مشاكل في الحصول على المجموعة الكاملة من الفئات لجميع المكونات عندما تكون البيانات مقسمة/معينة. :issue:`6231` :issue:`8100`
+   * لا توجد طريقة للتعامل مع مزيج من الأهداف الفئوية والمستمرة.
 
-#. Make it easier for external users to write Scikit-learn-compatible
-   components
+8. تسهيل الأمر على المستخدمين الخارجيين لكتابة مكونات متوافقة مع سكيت-ليرن
 
-   * More flexible estimator checks that do not select by estimator name
+   * فحوصات المُقدّر الأكثر مرونة التي لا يتم تحديدها بواسطة اسم المُقدّر
      |ss| :issue:`6599` |se| :issue:`6715`
-   * Example of how to develop an estimator or a meta-estimator,
+   * مثال على كيفية تطوير مُقدّر أو ميتا-مُقدّر،
      |ss| :issue:`14582` |se|
-   * More self-sufficient running of scikit-learn-contrib or a similar resource
+   * تشغيل أكثر اكتفاءًا ذاتيًا لـ scikit-learn-contrib أو مورد مماثل
 
-#. Support resampling and sample reduction
+9. دعم إعادة أخذ العينات وتقليل العينات
 
-   * Allow subsampling of majority classes (in a pipeline?) :issue:`3855`
-   * Implement random forests with resampling :issue:`13227`
+   * السماح بالاستعانة بعينات فرعية من الفئات الرئيسية (في خط أنابيب؟) :issue:`3855`
+   * تنفيذ الغابات العشوائية مع إعادة أخذ العينات :issue:`13227`
 
-#. Better interfaces for interactive development
+10. واجهات أفضل للتطوير التفاعلي
 
-   * |ss| __repr__ and HTML visualisations of estimators
-     :issue:`6323` and :pr:`14180` |se|.
-   * Include plotting tools, not just as examples. :issue:`9173`
+   * |ss| __repr__ وتصورات HTML للمُقدّرات
+     :issue:`6323` و :pr:`14180` |se|.
+   * تضمين أدوات التخطيط، وليس فقط كأمثلة. :issue:`9173`
 
-#. Improved tools for model diagnostics and basic inference
+11. أدوات محسنة لتشخيص النماذج والاستدلال الأساسي
 
-   * |ss| alternative feature importances implementations, :issue:`13146` |se|
-   * better ways to handle validation sets when fitting
-   * better ways to find thresholds / create decision rules :issue:`8614`
+   * |ss| بدائل لتنفيذ أهمية الميزة، :issue:`13146` |se|
+   * طرق أفضل للتعامل مع مجموعات التحقق عند التجهيز
+   * طرق أفضل للعثور على العتبات / إنشاء قواعد القرار :issue:`8614`
 
-#. Better tools for selecting hyperparameters with transductive estimators
+12. أدوات أفضل لاختيار فرط المعلمات مع المُقدّرات الاستقرائية
 
-   * Grid search and cross validation are not applicable to most clustering
-     tasks. Stability-based selection is more relevant.
+   * لا ينطبق البحث الشبكي والتحقق من صحة البيانات على معظم مهام التجميع. يعد الاختيار القائم على الاستقرار أكثر ملاءمة.
 
-#. Better support for manual and automatic pipeline building
+13. دعم أفضل لبناء خطوط الأنابيب يدويًا وتلقائيًا
 
-   * Easier way to construct complex pipelines and valid search spaces
+   * طريقة أسهل لبناء خطوط أنابيب ومعلمات بحث معقدة
      :issue:`7608` :issue:`5082` :issue:`8243`
-   * provide search ranges for common estimators??
-   * cf. `searchgrid <https://searchgrid.readthedocs.io/en/latest/>`_
+   * توفير نطاقات البحث للمُقدّرات الشائعة؟؟
+   * راجع `searchgrid <https://searchgrid.readthedocs.io/en/latest/>`_
 
-#. Improved tracking of fitting
+14. تحسين تتبع التجهيز
 
-   * Verbose is not very friendly and should use a standard logging library
-     :issue:`6929`, :issue:`78`
-   * Callbacks or a similar system would facilitate logging and early stopping
+   * لا يعد الوضع المفصل وديًا جدًا، ويجب أن يستخدم مكتبة تسجيل قياسية
+     :issue:`6929`، :issue:`78`
+   * من شأن الاستدعاءات أو نظام مماثل أن يسهل التسجيل والتوقف المبكر
 
-#. Distributed parallelism
+15. التوزيع المتوازي
 
-   * Accept data which complies with ``__array_function__``
+   * قبول البيانات المتوافقة مع ``__array_function__``
 
-#. A way forward for more out of core
+16. طريقة للمضي قدمًا في المزيد من خارج النواة
 
-   * Dask enables easy out-of-core computation. While the Dask model probably
-     cannot be adaptable to all machine-learning algorithms, most machine
-     learning is on smaller data than ETL, hence we can maybe adapt to very
-     large scale while supporting only a fraction of the patterns.
+    * تمكن Dask من الحساب خارج النواة بسهولة. في حين أن نموذج Dask ربما لا يمكن تكييفه مع جميع خوارزميات التعلم الآلي، فإن معظم التعلم الآلي يتم على بيانات أصغر من ETL، وبالتالي يمكننا ربما التكيف مع النطاق الكبير جدًا مع دعم جزء فقط من الأنماط.
 
-#. Support for working with pre-trained models
+17. دعم العمل مع النماذج المُدربة مسبقًا
 
-   * Estimator "freezing". In particular, right now it's impossible to clone a
-     `CalibratedClassifierCV` with prefit. :issue:`8370`. :issue:`6451`
+   * "تجميد" المُقدّر. على وجه الخصوص، من المستحيل حاليًا استنساخ "CalibratedClassifierCV" مع prefit. :issue:`8370`. :issue:`6451`
 
-#. Backwards-compatible de/serialization of some estimators
+18. التسلسل/فك التسلسل المتوافق مع الإصدارات السابقة لبعض المُقدّرات
 
-   * Currently serialization (with pickle) breaks across versions. While we may
-     not be able to get around other limitations of pickle re security etc, it
-     would be great to offer cross-version safety from version 1.0. Note: Gael
-     and Olivier think that this can cause heavy maintenance burden and we
-     should manage the trade-offs. A possible alternative is presented in the
-     following point.
+   * حاليًا، يتسبب التسلسل (مع pickle) في حدوث أخطاء عبر الإصدارات. في حين أنه قد لا نتمكن من التغلب على القيود الأخرى لـ pickle re security، فسيكون من الرائع تقديم الأمان عبر الإصدارات بدءًا من الإصدار 1.0. ملاحظة: يعتقد غاييل وأوليفييه أن هذا يمكن أن يسبب عبئًا ثقيلًا على الصيانة ويجب علينا إدارة المقايضات. بديل ممكن مقدم في النقطة التالية.
 
-#. Documentation and tooling for model lifecycle management
+19. وثائق وأدوات لإدارة دورة حياة النموذج
 
-   * Document good practices for model deployments and lifecycle: before
-     deploying a model: snapshot the code versions (numpy, scipy, scikit-learn,
-     custom code repo), the training script and an alias on how to retrieve
-     historical training data + snapshot a copy of a small validation set +
-     snapshot of the predictions (predicted probabilities for classifiers)
-     on that validation set.
-   * Document and tools to make it easy to manage upgrade of scikit-learn
-     versions:
+   * توثيق الممارسات الجيدة لنشر النماذج ودورة حياتها: قبل نشر نموذج: لقطة لنسخ رموز الإصدارات (numpy، scipy، scikit-learn، مستودع التعليمات البرمجية المخصصة)، وسيناريو التدريب واسم مستعار حول كيفية استرداد بيانات التدريب التاريخية + لقطة من مجموعة التحقق الصغيرة + لقطة من التوقعات (احتمالات التنبؤ لمصنفات)
+     على مجموعة التحقق تلك.
+   * توثيق الأدوات وجعل من السهل إدارة ترقية إصدارات scikit-learn:
 
-     * Try to load the old pickle, if it works, use the validation set
-       prediction snapshot to detect that the serialized model still behave
-       the same;
-     * If joblib.load / pickle.load not work, use the versioned control
-       training script + historical training set to retrain the model and use
-       the validation set prediction snapshot to assert that it is possible to
-       recover the previous predictive performance: if this is not the case
-       there is probably a bug in scikit-learn that needs to be reported.
+     * حاول تحميل pickle القديم، إذا نجح، استخدم لقطة تنبؤات مجموعة التحقق للكشف عن أن النموذج المسلسل لا يزال يتصرف بنفس الطريقة؛
+     * إذا لم ينجح joblib.load / pickle.load، استخدم سيناريو التدريب المُسيطر على الإصدارات + مجموعة التدريب التاريخية لإعادة تدريب النموذج واستخدم لقطة تنبؤات مجموعة التحقق للتأكيد على أنه من الممكن استعادة الأداء التنبئي السابق: إذا لم يكن الأمر كذلك، فمن المحتمل أن يكون هناك خطأ في scikit-learn يحتاج إلى الإبلاغ عنه.
 
-#. Everything in Scikit-learn should probably conform to our API contract.
-   We are still in the process of making decisions on some of these related
-   issues.
+20. يجب أن يتوافق كل شيء في سكيت-ليرن على الأرجح مع عقد API الخاص بنا.
+    لا نزال في طور اتخاذ القرارات بشأن بعض هذه القضايا ذات الصلة.
 
-   * `Pipeline <pipeline.Pipeline>` and `FeatureUnion` modify their input
-     parameters in fit. Fixing this requires making sure we have a good
-     grasp of their use cases to make sure all current functionality is
-     maintained. :issue:`8157` :issue:`7382`
+   * `Pipeline <pipeline.Pipeline>` و`FeatureUnion` تعديل معلمات الإدخال الخاصة بهم في التجهيز. يتطلب إصلاح هذا التأكد من أن لدينا فهمًا جيدًا لحالات الاستخدام الخاصة بهم للتأكد من الحفاظ على جميع الوظائف الحالية. :issue:`8157` :issue:`7382`
 
-#. (Optional) Improve scikit-learn common tests suite to make sure that (at
-   least for frequently used) models have stable predictions across-versions
-   (to be discussed);
+21. (اختياري) تحسين مجموعة الاختبارات الشائعة في سكيت-ليرن للتأكد من أن (على الأقل للنماذج المستخدمة بشكل متكرر) تنبؤات مستقرة عبر الإصدارات (للمناقشة)؛
 
-   * Extend documentation to mention how to deploy models in Python-free
-     environments for instance `ONNX <https://github.com/onnx/sklearn-onnx>`_.
-     and use the above best practices to assess predictive consistency between
-     scikit-learn and ONNX prediction functions on validation set.
-   * Document good practices to detect temporal distribution drift for deployed
-     model and good practices for re-training on fresh data without causing
-     catastrophic predictive performance regressions.
+   * توسيع الوثائق لذكر كيفية نشر النماذج في بيئات خالية من بايثون، على سبيل المثال `ONNX <https://github.com/onnx/sklearn-onnx>`_.
+     واستخدام أفضل الممارسات المذكورة أعلاه لتقييم الاتساق التنبئي بين وظائف التنبؤ في scikit-learn وONNX على مجموعة التحقق.
+   * توثيق الممارسات الجيدة للكشف عن الانحراف في التوزيع الزمني للنموذج المنشور والممارسات الجيدة لإعادة التدريب على البيانات الجديدة دون التسبب في حدوث تراجعات كبيرة في الأداء التنبئي.
 
-
-Subpackage-specific goals
+الأهداف المحددة للبرنامج الفرعي
 -------------------------
 
 :mod:`sklearn.ensemble`
 
-* |ss| a stacking implementation, :issue:`11047` |se|
+* |ss| تنفيذ التكديس، :issue:`11047` |se|
 
 :mod:`sklearn.cluster`
 
-* kmeans variants for non-Euclidean distances, if we can show these have
-  benefits beyond hierarchical clustering.
+* متغيرات kmeans للمسافات غير الإقليدية، إذا تمكنا من إظهار هذه الفوائد التي تتجاوز التجميع الهرمي.
 
 :mod:`sklearn.model_selection`
 
-* |ss| multi-metric scoring is slow :issue:`9326` |se|
-* perhaps we want to be able to get back more than multiple metrics
-* the handling of random states in CV splitters is a poor design and
-  contradicts the validation of similar parameters in estimators,
-  `SLEP011 <https://github.com/scikit-learn/enhancement_proposals/pull/24>`_
-* exploit warm-starting and path algorithms so the benefits of `EstimatorCV`
-  objects can be accessed via `GridSearchCV` and used in Pipelines.
-  :issue:`1626`
-* Cross-validation should be able to be replaced by OOB estimates whenever a
-  cross-validation iterator is used.
-* Redundant computations in pipelines should be avoided (related to point
-  above) cf `dask-ml
-  <https://ml.dask.org/hyper-parameter-search.html#avoid-repeated-work>`_
+* |ss| التسجيل متعدد المقاييس بطيء :issue:`9326` |se|
+* ربما نريد أن نتمكن من الحصول على أكثر من مقاييس متعددة
+* التعامل مع حالات التوقف العشوائية في قواطع CV هو تصميم فقير ويتناقض مع التحقق من صحة معلمات مماثلة في المُقدّرات،
+     `SLEP011 <https://github.com/scikit-learn/enhancement_proposals/pull/24>`_
+* استغلال البدء الدافئ وخوارزميات المسار بحيث يمكن الوصول إلى فوائد كائنات `EstimatorCV`
+     عبر `GridSearchCV` واستخدامها في خطوط الأنابيب.
+     :issue:`1626`
+* يجب أن يكون من الممكن استبدال التحقق من صحة البيانات بتقديرات OOB كلما تم استخدام مكرر التحقق من صحة البيانات.
+* يجب تجنب الحسابات المكررة في خطوط الأنابيب (ذات صلة بالنقطة أعلاه) راجع `dask-ml
+     <https://ml.dask.org/hyper-parameter-search.html#avoid-repeated-work>`_
 
 :mod:`sklearn.neighbors`
 
-* |ss| Ability to substitute a custom/approximate/precomputed nearest neighbors
-  implementation for ours in all/most contexts that nearest neighbors are used
-  for learning. :issue:`10463` |se|
+* |ss| القدرة على استبدال تنفيذ nearest neighbors المخصص/التقريبي/المحسوب مسبقًا لدينا في جميع/معظم السياقات التي تستخدم فيها nearest neighbors للتعلم. :issue:`10463` |se|
 
 :mod:`sklearn.pipeline`
 
-* Performance issues with `Pipeline.memory`
-* see "Everything in Scikit-learn should conform to our API contract" above
+* مشكلات الأداء مع `Pipeline.memory`
+* راجع "يجب أن يتوافق كل شيء في سكيت-ليرن مع عقد API الخاص بنا" أعلاه
