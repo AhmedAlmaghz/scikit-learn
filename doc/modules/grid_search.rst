@@ -1,333 +1,180 @@
+ضبط المعلمات فائقة المعلمات التي لا يتم تعلمها مباشرة داخل المعلمات.
+في scikit-learn يتم تمريرها كحجج إلى منشئ فئات المعلمات. تشمل الأمثلة النموذجية "C" و "kernel" و "gamma"
+لتصنيف الدعم الموجه، "alpha" لLasso، وما إلى ذلك.
 
+من الممكن والموصى به البحث في مساحة المعلمة فائقة للحصول على أفضل نتيجة
+نتيجة التحقق من صحة متقاطعة.
 
-.. currentmodule:: sklearn.model_selection
+يمكن تحسين أي معلمة مقدمة أثناء إنشاء معلمة بهذه الطريقة. على وجه التحديد، للعثور على أسماء والقيم الحالية لجميع
+المعلمات لمعلمة معينة، استخدم:
 
-.. _grid_search:
+معلمة (معلمة. get_params ())
 
-===========================================
-Tuning the hyper-parameters of an estimator
-===========================================
+يتكون البحث مما يلي:
 
-Hyper-parameters are parameters that are not directly learnt within estimators.
-In scikit-learn they are passed as arguments to the constructor of the
-estimator classes. Typical examples include ``C``, ``kernel`` and ``gamma``
-for Support Vector Classifier, ``alpha`` for Lasso, etc.
+- معلمة (مرجع أو مصنف مثل "sklearn.svm.SVC ()")؛
+- مساحة المعلمات؛
+- طريقة للبحث أو أخذ عينات المرشحين؛
+- مخطط التحقق من الصحة المتقاطع؛ و
+- دالة النتيجة: ref:` <gridsearch_scoring>`.
 
-It is possible and recommended to search the hyper-parameter space for the
-best :ref:`cross validation <cross_validation>` score.
+يوفر scikit-learn نهجين عامين للبحث عن المعلمات: بالنسبة للقيم المعطاة، ينظر GridSearchCV بشكل شامل
+جميع مجموعات المعلمات، في حين أن RandomizedSearchCV يمكن أن تعين عينة
+عدد معين من المرشحين من مساحة المعلمات مع توزيع محدد. كلا من هذه الأدوات لها نظائرها النصفية المتعاقبة
+HalvingGridSearchCV و HalvingRandomSearchCV، والتي يمكن أن تكون
+أسرع بكثير في العثور على مجموعة جيدة من المعلمات.
 
-Any parameter provided when constructing an estimator may be optimized in this
-manner. Specifically, to find the names and current values for all parameters
-for a given estimator, use::
+بعد وصف هذه الأدوات، نقدم تفاصيل حول أفضل الممارسات
+ممارسات <grid_search_tips> المطبقة على هذه الأساليب. تسمح بعض النماذج باستراتيجيات بحث متخصصة وفعالة عن المعلمات،
+مخطط لها في التحقق من صحة بديل.
 
-  estimator.get_params()
+لاحظ أنه من الشائع أن تؤثر مجموعة فرعية صغيرة من تلك المعلمات بشكل كبير على أداء التنبؤ أو الحساب للنموذج في حين يمكن ترك الآخرين
+قيمها الافتراضية. يُنصح بقراءة docstring لفئة المعلمة للحصول على فهم أدق لسلوكها المتوقع،
+ربما عن طريق قراءة المرجع المضمن إلى الأدبيات.
 
-A search consists of:
-
-- an estimator (regressor or classifier such as ``sklearn.svm.SVC()``);
-- a parameter space;
-- a method for searching or sampling candidates;
-- a cross-validation scheme; and
-- a :ref:`score function <gridsearch_scoring>`.
-
-Two generic approaches to parameter search are provided in
-scikit-learn: for given values, :class:`GridSearchCV` exhaustively considers
-all parameter combinations, while :class:`RandomizedSearchCV` can sample a
-given number of candidates from a parameter space with a specified
-distribution. Both these tools have successive halving counterparts
-:class:`HalvingGridSearchCV` and :class:`HalvingRandomSearchCV`, which can be
-much faster at finding a good parameter combination.
-
-After describing these tools we detail :ref:`best practices
-<grid_search_tips>` applicable to these approaches. Some models allow for
-specialized, efficient parameter search strategies, outlined in
-:ref:`alternative_cv`.
-
-Note that it is common that a small subset of those parameters can have a large
-impact on the predictive or computation performance of the model while others
-can be left to their default values. It is recommended to read the docstring of
-the estimator class to get a finer understanding of their expected behavior,
-possibly by reading the enclosed reference to the literature.
-
-Exhaustive Grid Search
+البحث الشامل عن الشبكة
 ======================
 
-The grid search provided by :class:`GridSearchCV` exhaustively generates
-candidates from a grid of parameter values specified with the ``param_grid``
-parameter. For instance, the following ``param_grid``::
+تولد شبكة البحث التي يوفرها GridSearchCV بشكل شامل المرشحين من شبكة من قيم المعلمات المحددة باستخدام
+معلمة "param_grid". على سبيل المثال، فإن "param_grid" التالية::
 
   param_grid = [
     {'C': [1, 10, 100, 1000], 'kernel': ['linear']},
     {'C': [1, 10, 100, 1000], 'gamma': [0.001, 0.0001], 'kernel': ['rbf']},
    ]
 
-specifies that two grids should be explored: one with a linear kernel and
-C values in [1, 10, 100, 1000], and the second one with an RBF kernel,
-and the cross-product of C values ranging in [1, 10, 100, 1000] and gamma
-values in [0.001, 0.0001].
+تحدد أنه يجب استكشاف شبكتين: واحدة ذات نواة خطية
+وقيم "C" في [1، 10، 100، 1000]، والثانية ذات نواة RBF،
+والجدول الضمني لقيم "C" التي تتراوح في [1، 10، 100، 1000] وقيم "gamma" في [0.001، 0.0001].
 
-The :class:`GridSearchCV` instance implements the usual estimator API: when
-"fitting" it on a dataset all the possible combinations of parameter values are
-evaluated and the best combination is retained.
-
-.. currentmodule:: sklearn.model_selection
-
-.. rubric:: Examples
-
-- See :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_digits.py` for an example of
-  Grid Search computation on the digits dataset.
-
-- See :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py` for an example
-  of Grid Search coupling parameters from a text documents feature
-  extractor (n-gram count vectorizer and TF-IDF transformer) with a
-  classifier (here a linear SVM trained with SGD with either elastic
-  net or L2 penalty) using a :class:`~sklearn.pipeline.Pipeline` instance.
-
-- See :ref:`sphx_glr_auto_examples_model_selection_plot_nested_cross_validation_iris.py`
-  for an example of Grid Search within a cross validation loop on the iris
-  dataset. This is the best practice for evaluating the performance of a
-  model with grid search.
-
-- See :ref:`sphx_glr_auto_examples_model_selection_plot_multi_metric_evaluation.py`
-  for an example of :class:`GridSearchCV` being used to evaluate multiple
-  metrics simultaneously.
-
-- See :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_refit_callable.py`
-  for an example of using ``refit=callable`` interface in
-  :class:`GridSearchCV`. The example shows how this interface adds certain
-  amount of flexibility in identifying the "best" estimator. This interface
-  can also be used in multiple metrics evaluation.
-
-- See :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py`
-  for an example of how to do a statistical comparison on the outputs of
-  :class:`GridSearchCV`.
+يحتوي مثيل GridSearchCV على واجهة برمجة التطبيقات المعتادة للمعلمات: عند
+"تناسبها" على مجموعة بيانات يتم تقييم جميع مجموعات قيم المعلمات والاحتفاظ بأفضل مجموعة.
 
 .. _randomized_parameter_search:
 
-Randomized Parameter Optimization
-=================================
-While using a grid of parameter settings is currently the most widely used
-method for parameter optimization, other search methods have more
-favorable properties.
-:class:`RandomizedSearchCV` implements a randomized search over parameters,
-where each setting is sampled from a distribution over possible parameter values.
-This has two main benefits over an exhaustive search:
+تحسين المعلمة العشوائي
+=====================
+في حين أن استخدام شبكة من إعدادات المعلمات هو حاليًا الطريقة الأكثر استخدامًا على نطاق واسع
+لتحسين المعلمات، فإن طرق البحث الأخرى لها خصائص أكثر ملاءمة.
+ينفذ RandomizedSearchCV بحثًا عشوائيًا عبر المعلمات، حيث يتم أخذ كل إعداد كعينة من
+توزيع على قيم المعلمات المحتملة. يوفر هذا فوائد رئيسية على البحث الشامل:
 
-* A budget can be chosen independent of the number of parameters and possible values.
-* Adding parameters that do not influence the performance does not decrease efficiency.
+* يمكن اختيار ميزانية مستقلة عن عدد المعلمات والقيم المحتملة.
+* إضافة معلمات لا تؤثر على الأداء لا تقلل من الكفاءة.
 
-Specifying how parameters should be sampled is done using a dictionary, very
-similar to specifying parameters for :class:`GridSearchCV`. Additionally,
-a computation budget, being the number of sampled candidates or sampling
-iterations, is specified using the ``n_iter`` parameter.
-For each parameter, either a distribution over possible values or a list of
-discrete choices (which will be sampled uniformly) can be specified::
+يتم تحديد كيفية أخذ عينات المعلمات باستخدام قاموس، مشابه جدًا لتحديد المعلمات لـ
+GridSearchCV. بالإضافة إلى ذلك، يتم تحديد ميزانية الحساب، والتي تكون عدد المرشحين المعينين أو
+تكرار العينات، باستخدام معلمة "n_iter".
+بالنسبة لكل معلمة، يمكن تحديد توزيع على القيم الممكنة أو قائمة
+الخيارات المنفصلة (التي سيتم أخذ عينات منها بالتساوي)::
 
   {'C': scipy.stats.expon(scale=100), 'gamma': scipy.stats.expon(scale=.1),
     'kernel': ['rbf'], 'class_weight':['balanced', None]}
 
-This example uses the ``scipy.stats`` module, which contains many useful
-distributions for sampling parameters, such as ``expon``, ``gamma``,
-``uniform``, ``loguniform`` or ``randint``.
+يستخدم هذا المثال وحدة "scipy.stats"، والتي تحتوي على العديد من التوزيعات المفيدة
+لأخذ عينات المعلمات، مثل "expon"، و "gamma"، و "uniform"، و "loguniform"، أو "randint".
 
-In principle, any function can be passed that provides a ``rvs`` (random
-variate sample) method to sample a value. A call to the ``rvs`` function should
-provide independent random samples from possible parameter values on
-consecutive calls.
+من حيث المبدأ، يمكن تمرير أي دالة توفر طريقة "rvs" (عينة عشوائية) لعينة
+قيمة. يجب أن يوفر استدعاء دالة "rvs" عينات عشوائية مستقلة من قيم المعلمات المحتملة
+على المكالمات المتتالية.
 
 .. warning::
 
-    The distributions in ``scipy.stats`` prior to version scipy 0.16
-    do not allow specifying a random state. Instead, they use the global
-    numpy random state, that can be seeded via ``np.random.seed`` or set
-    using ``np.random.set_state``. However, beginning scikit-learn 0.18,
-    the :mod:`sklearn.model_selection` module sets the random state provided
-    by the user if scipy >= 0.16 is also available.
+    لا تسمح التوزيعات في "scipy.stats" قبل إصدار scipy 0.16 بتحديد حالة عشوائية. بدلاً من ذلك، فإنها تستخدم
+حالة numpy العشوائية العالمية، والتي يمكن بذرها عبر "np.random.seed" أو تعيينها
+باستخدام "np.random.set_state". ومع ذلك، بدءًا من الإصدار 0.18 من scikit-learn،
+تعيين وحدة sklearn.model_selection حالة عشوائية التي يوفرها المستخدم إذا كان scipy >= 0.16 متاح أيضًا.
 
-For continuous parameters, such as ``C`` above, it is important to specify
-a continuous distribution to take full advantage of the randomization. This way,
-increasing ``n_iter`` will always lead to a finer search.
+بالنسبة للمعلمات المستمرة، مثل "C" أعلاه، من المهم تحديد
+توزيع مستمر للاستفادة الكاملة من العشوائية. بهذه الطريقة،
+سيؤدي زيادة "n_iter" دائمًا إلى بحث أكثر دقة.
 
-A continuous log-uniform random variable is the continuous version of
-a log-spaced parameter. For example to specify the equivalent of ``C`` from above,
-``loguniform(1, 100)`` can be used instead of ``[1, 10, 100]``.
+تعد المتغير العشوائي المستمر والموحد بشكل لوغاريتمي إصدارًا مستمرًا من
+معلمة متباعدة لوغاريتميًا. على سبيل المثال، لتحديد ما يعادل "C" من أعلاه،
+يمكن استخدام "loguniform (1، 100)" بدلاً من "[1، 10، 100]".
 
-Mirroring the example above in grid search, we can specify a continuous random
-variable that is log-uniformly distributed between ``1e0`` and ``1e3``::
+انعكاسًا للمثال أعلاه في البحث الشبكي، يمكننا تحديد متغير عشوائي مستمر
+موزعة بشكل لوغاريتمي بين "1e0" و "1e3"::
 
-  from sklearn.utils.fixes import loguniform
+  من sklearn.utils.fixes import loguniform
   {'C': loguniform(1e0, 1e3),
    'gamma': loguniform(1e-4, 1e-3),
    'kernel': ['rbf'],
    'class_weight':['balanced', None]}
 
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_model_selection_plot_randomized_search.py` compares the usage and efficiency
-  of randomized search and grid search.
-
-.. rubric:: References
-
-* Bergstra, J. and Bengio, Y.,
-  Random search for hyper-parameter optimization,
-  The Journal of Machine Learning Research (2012)
-
 .. _successive_halving_user_guide:
 
-Searching for optimal parameters with successive halving
-========================================================
+البحث عن المعلمات المثلى مع التخفيض المتتالي
+يوفر Scikit-learn أيضًا أداتي التقدير HalvingGridSearchCV و HalvingRandomSearchCV اللتين يمكن استخدامهما للبحث في مساحة المعلمات باستخدام التخفيض المتعاقب [1] [2]. التخفيض المتعاقب (SH) يشبه بطولة بين مجموعات معلمات المرشحين. SH هي عملية اختيار تكرارية يتم فيها تقييم جميع المرشحين (مجموعات المعلمات) باستخدام كمية صغيرة من الموارد في التكرار الأول. يتم اختيار بعض فقط من هؤلاء المرشحين للتكرار التالي، والذي سيتم تخصيص المزيد من الموارد له. بالنسبة لضبط المعلمات، فإن المورد هو عادةً عدد عينات التدريب، ولكنه يمكن أن يكون أيضًا معلمة رقمية تعسفية مثل n_estimators في غابة عشوائية.
 
-Scikit-learn also provides the :class:`HalvingGridSearchCV` and
-:class:`HalvingRandomSearchCV` estimators that can be used to
-search a parameter space using successive halving [1]_ [2]_. Successive
-halving (SH) is like a tournament among candidate parameter combinations.
-SH is an iterative selection process where all candidates (the
-parameter combinations) are evaluated with a small amount of resources at
-the first iteration. Only some of these candidates are selected for the next
-iteration, which will be allocated more resources. For parameter tuning, the
-resource is typically the number of training samples, but it can also be an
-arbitrary numeric parameter such as `n_estimators` in a random forest.
+.. note::
 
-.. note:: 
+   يجب أن تكون الزيادة في الموارد المختارة كبيرة بما يكفي بحيث يتم الحصول على تحسن كبير في الدرجات عند مراعاة الدلالة الإحصائية.
 
-    The resource increase chosen should be large enough so that a large improvement
-    in scores is obtained when taking into account statistical significance.
-
-As illustrated in the figure below, only a subset of candidates
-'survive' until the last iteration. These are the candidates that have
-consistently ranked among the top-scoring candidates across all iterations.
-Each iteration is allocated an increasing amount of resources per candidate,
-here the number of samples.
+كما هو موضح في الشكل أدناه، لا "ينجو" سوى مجموعة فرعية من المرشحين حتى التكرار الأخير. هؤلاء هم المرشحون الذين تم تصنيفهم باستمرار ضمن أفضل المرشحين الحاصلين على الدرجات عبر جميع التكرارات. يتم تخصيص كمية متزايدة من الموارد لكل مرشح، وهنا عدد العينات، في كل تكرار.
 
 .. figure:: ../auto_examples/model_selection/images/sphx_glr_plot_successive_halving_iterations_001.png
    :target: ../auto_examples/model_selection/plot_successive_halving_iterations.html
    :align: center
 
-We here briefly describe the main parameters, but each parameter and their
-interactions are described in more details in the sections below. The
-``factor`` (> 1) parameter controls the rate at which the resources grow, and
-the rate at which the number of candidates decreases. In each iteration, the
-number of resources per candidate is multiplied by ``factor`` and the number
-of candidates is divided by the same factor. Along with ``resource`` and
-``min_resources``, ``factor`` is the most important parameter to control the
-search in our implementation, though a value of 3 usually works well.
-``factor`` effectively controls the number of iterations in
-:class:`HalvingGridSearchCV` and the number of candidates (by default) and
-iterations in :class:`HalvingRandomSearchCV`. ``aggressive_elimination=True``
-can also be used if the number of available resources is small. More control
-is available through tuning the ``min_resources`` parameter.
+نقوم هنا بوصف المعلمات الرئيسية بإيجاز، ولكن يتم وصف كل معلمة وتفاعلاتها بالتفصيل في الأقسام أدناه. تتحكم معلمة "العامل" (> 1) في معدل نمو الموارد، ومعدل انخفاض عدد المرشحين. في كل تكرار، يتم ضرب عدد الموارد لكل مرشح في "العامل" ويتم قسمة عدد المرشحين على نفس العامل. إلى جانب "الموارد" و "min_resources"، فإن "العامل" هو أهم معلمة للتحكم في البحث في تنفيذنا، على الرغم من أن القيمة 3 تعمل بشكل جيد عادةً. يتحكم "العامل" بشكل فعال في عدد التكرارات في HalvingGridSearchCV وعدد المرشحين (بشكل افتراضي) والتكرارات في HalvingRandomSearchCV. يمكن أيضًا استخدام aggressive_elimination=True إذا كان عدد الموارد المتاحة صغيرًا. تتوفر إمكانية التحكم بشكل أكبر من خلال ضبط معلمة min_resources.
 
-These estimators are still **experimental**: their predictions
-and their API might change without any deprecation cycle. To use them, you
-need to explicitly import ``enable_halving_search_cv``::
+هذه التقديرات لا تزال **تجريبية**: قد تتغير تنبؤاتها وواجهة برمجة التطبيقات الخاصة بها دون أي دورة إهمال. لاستخدامها، يجب عليك استيراد enable_halving_search_cv بشكل صريح::
 
-  >>> # explicitly require this experimental feature
+  >>> # تطلب صراحةً هذه الميزة التجريبية
   >>> from sklearn.experimental import enable_halving_search_cv  # noqa
-  >>> # now you can import normally from model_selection
+  >>> # الآن يمكنك الاستيراد بشكل طبيعي من model_selection
   >>> from sklearn.model_selection import HalvingGridSearchCV
   >>> from sklearn.model_selection import HalvingRandomSearchCV
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
-* :ref:`sphx_glr_auto_examples_model_selection_plot_successive_halving_heatmap.py`
-* :ref:`sphx_glr_auto_examples_model_selection_plot_successive_halving_iterations.py`
+* :ref: sphx_glr_auto_examples_model_selection_plot_successive_halving_heatmap.py
+* :ref: sphx_glr_auto_examples_model_selection_plot_successive_halving_iterations.py
 
-Choosing ``min_resources`` and the number of candidates
--------------------------------------------------------
+اختيار "min_resources" وعدد المرشحين
+------------------------------------
 
-Beside ``factor``, the two main parameters that influence the behaviour of a
-successive halving search are the ``min_resources`` parameter, and the
-number of candidates (or parameter combinations) that are evaluated.
-``min_resources`` is the amount of resources allocated at the first
-iteration for each candidate. The number of candidates is specified directly
-in :class:`HalvingRandomSearchCV`, and is determined from the ``param_grid``
-parameter of :class:`HalvingGridSearchCV`.
+بجانب "العامل"، هناك معلمتان رئيسيتان تؤثران على سلوك البحث بالتخفيض المتعاقب هما معلمة "min_resources"، وعدد المرشحين (أو مجموعات المعلمات) التي يتم تقييمها. "min_resources" هي كمية الموارد المخصصة في التكرار الأول لكل مرشح. يتم تحديد عدد المرشحين مباشرة في HalvingRandomSearchCV، ويتم تحديده من معلمة "param_grid" في HalvingGridSearchCV.
 
-Consider a case where the resource is the number of samples, and where we
-have 1000 samples. In theory, with ``min_resources=10`` and ``factor=2``, we
-are able to run **at most** 7 iterations with the following number of
-samples: ``[10, 20, 40, 80, 160, 320, 640]``.
+لنأخذ حالة تكون فيها الموارد هي عدد العينات، ولدينا 1000 عينة. من الناحية النظرية، مع "min_resources=10" و "factor=2"، يمكننا تشغيل **كحد أقصى** 7 تكرارات بعدد العينات التالي: "[10، 20، 40، 80، 160، 320، 640]".
 
-But depending on the number of candidates, we might run less than 7
-iterations: if we start with a **small** number of candidates, the last
-iteration might use less than 640 samples, which means not using all the
-available resources (samples). For example if we start with 5 candidates, we
-only need 2 iterations: 5 candidates for the first iteration, then
-`5 // 2 = 2` candidates at the second iteration, after which we know which
-candidate performs the best (so we don't need a third one). We would only be
-using at most 20 samples which is a waste since we have 1000 samples at our
-disposal. On the other hand, if we start with a **high** number of
-candidates, we might end up with a lot of candidates at the last iteration,
-which may not always be ideal: it means that many candidates will run with
-the full resources, basically reducing the procedure to standard search.
+ولكن اعتمادًا على عدد المرشحين، قد نقوم بتشغيل أقل من 7 تكرارات: إذا بدأنا بعدد **صغير** من المرشحين، فقد يستخدم التكرار الأخير أقل من 640 عينة، مما يعني عدم استخدام جميع الموارد المتاحة (العينات). على سبيل المثال، إذا بدأنا بخمسة مرشحين، فسنحتاج إلى تكرارين فقط: 5 مرشحين للتكرار الأول، ثم "5 // 2 = 2" مرشحين في التكرار الثاني، وبعد ذلك نعرف أي مرشح يؤدي أفضل أداء (لذلك لا نحتاج إلى ثالث). سنستخدم ما لا يزيد عن 20 عينة فقط، وهو أمر غير فعال حيث لدينا 1000 عينة تحت تصرفنا. من ناحية أخرى، إذا بدأنا بعدد **مرتفع** من المرشحين، فقد ينتهي بنا الأمر بعدد كبير من المرشحين في التكرار الأخير، وهو ما قد لا يكون مثاليًا دائمًا: وهذا يعني أن العديد من المرشحين سيتم تشغيلهم بالموارد الكاملة، مما يقلل فعليًا الإجراء إلى البحث القياسي.
 
-In the case of :class:`HalvingRandomSearchCV`, the number of candidates is set
-by default such that the last iteration uses as much of the available
-resources as possible. For :class:`HalvingGridSearchCV`, the number of
-candidates is determined by the `param_grid` parameter. Changing the value of
-``min_resources`` will impact the number of possible iterations, and as a
-result will also have an effect on the ideal number of candidates.
+في حالة HalvingRandomSearchCV، يتم تعيين عدد المرشحين افتراضيًا بحيث يستخدم التكرار الأخير أكبر قدر ممكن من الموارد المتاحة. بالنسبة لـ HalvingGridSearchCV، يتم تحديد عدد المرشحين بواسطة معلمة "param_grid". سيؤثر تغيير قيمة "min_resources" على عدد التكرارات الممكنة، ونتيجة لذلك، سيكون له أيضًا تأثير على العدد المثالي للمرشحين.
 
-Another consideration when choosing ``min_resources`` is whether or not it
-is easy to discriminate between good and bad candidates with a small amount
-of resources. For example, if you need a lot of samples to distinguish
-between good and bad parameters, a high ``min_resources`` is recommended. On
-the other hand if the distinction is clear even with a small amount of
-samples, then a small ``min_resources`` may be preferable since it would
-speed up the computation.
+هناك اعتبار آخر عند اختيار "min_resources" وهو ما إذا كان من السهل التمييز بين المرشحين الجيدين والسيئين باستخدام كمية صغيرة من الموارد. على سبيل المثال، إذا كنت بحاجة إلى الكثير من العينات للتمييز بين المعلمات الجيدة والسيئة، فيوصى باستخدام "min_resources" عالية. من ناحية أخرى، إذا كان التمييز واضحًا حتى بعدد صغير من العينات، فقد يكون "min_resources" الصغير مفضلًا لأنه سيسرع الحساب.
 
-Notice in the example above that the last iteration does not use the maximum
-amount of resources available: 1000 samples are available, yet only 640 are
-used, at most. By default, both :class:`HalvingRandomSearchCV` and
-:class:`HalvingGridSearchCV` try to use as many resources as possible in the
-last iteration, with the constraint that this amount of resources must be a
-multiple of both `min_resources` and `factor` (this constraint will be clear
-in the next section). :class:`HalvingRandomSearchCV` achieves this by
-sampling the right amount of candidates, while :class:`HalvingGridSearchCV`
-achieves this by properly setting `min_resources`. Please see
-:ref:`exhausting_the_resources` for details.
+لاحظ في المثال أعلاه أن التكرار الأخير لا يستخدم الحد الأقصى من الموارد المتاحة: هناك 1000 عينة متاحة، ومع ذلك يتم استخدام 640 عينة كحد أقصى. بشكل افتراضي، يحاول كل من HalvingRandomSearchCV و HalvingGridSearchCV استخدام أكبر عدد ممكن من الموارد في التكرار الأخير، بشرط أن يكون مقدار الموارد هذا مضاعفًا لكل من "min_resources" و "factor" (سيصبح هذا القيد واضحًا في القسم التالي). يحقق HalvingRandomSearchCV ذلك عن طريق أخذ عينات من العدد الصحيح من المرشحين، بينما يحقق HalvingGridSearchCV ذلك عن طريق ضبط "min_resources" بشكل صحيح. يرجى الاطلاع على القسم exhausting_the_resources للحصول على التفاصيل.
 
 .. _amount_of_resource_and_number_of_candidates:
 
-Amount of resource and number of candidates at each iteration
--------------------------------------------------------------
+كمية الموارد وعدد المرشحين في كل تكرار
+---------------------------------------------
 
-At any iteration `i`, each candidate is allocated a given amount of resources
-which we denote `n_resources_i`. This quantity is controlled by the
-parameters ``factor`` and ``min_resources`` as follows (`factor` is strictly
-greater than 1)::
+في أي تكرار i، يتم تخصيص كمية معينة من الموارد لكل مرشح والتي نطلق عليها اسم n_resources_i. يتم التحكم في هذه الكمية بواسطة معلمتي "العامل" و "min_resources" كما يلي (يكون "العامل" أكبر بشكل صارم من 1)::
 
-    n_resources_i = factor**i * min_resources,
+    n_resources_i = factor ** i * min_resources،
 
-or equivalently::
+أو ما يعادله::
 
-    n_resources_{i+1} = n_resources_i * factor
+    n_resources_ {i+1} = n_resources_i * factor
 
-where ``min_resources == n_resources_0`` is the amount of resources used at
-the first iteration. ``factor`` also defines the proportions of candidates
-that will be selected for the next iteration::
+حيث "min_resources == n_resources_0" هي كمية الموارد المستخدمة في التكرار الأول. يحدد "العامل" أيضًا نسب المرشحين الذين سيتم اختيارهم للتكرار التالي::
 
     n_candidates_i = n_candidates // (factor ** i)
 
-or equivalently::
+أو ما يعادله::
 
     n_candidates_0 = n_candidates
-    n_candidates_{i+1} = n_candidates_i // factor
+    n_candidates_ {i+1} = n_candidates_i // factor
 
-So in the first iteration, we use ``min_resources`` resources
-``n_candidates`` times. In the second iteration, we use ``min_resources *
-factor`` resources ``n_candidates // factor`` times. The third again
-multiplies the resources per candidate and divides the number of candidates.
-This process stops when the maximum amount of resource per candidate is
-reached, or when we have identified the best candidate. The best candidate
-is identified at the iteration that is evaluating `factor` or less candidates
-(see just below for an explanation).
+لذلك، في التكرار الأول، نستخدم موارد "min_resources" عدد مرات "n_candidates". في التكرار الثاني، نستخدم موارد "min_resources * factor" عدد مرات "n_candidates // factor". التكرار الثالث يضاعف مرة أخرى الموارد لكل مرشح ويقسم عدد المرشحين. تتوقف هذه العملية عندما يتم الوصول إلى الحد الأقصى لمقدار الموارد لكل مرشح، أو عندما نحدد أفضل مرشح. يتم تحديد أفضل مرشح في التكرار الذي يقيم "العامل" أو أقل من المرشحين (انظر التفسير أدناه).
 
-Here is an example with ``min_resources=3`` and ``factor=2``, starting with
-70 candidates:
+هنا مثال على "min_resources=3" و "factor=2"، بدءًا من 70 مرشحًا:
 
 +-----------------------+-----------------------+
-| ``n_resources_i``     | ``n_candidates_i``    |
+| "n_resources_i"     | "n_candidates_i"    |
 +=======================+=======================+
 | 3 (=min_resources)    | 70 (=n_candidates)    |
 +-----------------------+-----------------------+
@@ -342,30 +189,17 @@ Here is an example with ``min_resources=3`` and ``factor=2``, starting with
 | 48 * 2 = 96           | 4 // 2 = 2            |
 +-----------------------+-----------------------+
 
-We can note that:
+يمكننا ملاحظة ما يلي:
 
-- the process stops at the first iteration which evaluates `factor=2`
-  candidates: the best candidate is the best out of these 2 candidates. It
-  is not necessary to run an additional iteration, since it would only
-  evaluate one candidate (namely the best one, which we have already
-  identified). For this reason, in general, we want the last iteration to
-  run at most ``factor`` candidates. If the last iteration evaluates more
-  than `factor` candidates, then this last iteration reduces to a regular
-  search (as in :class:`RandomizedSearchCV` or :class:`GridSearchCV`).
-- each ``n_resources_i`` is a multiple of both ``factor`` and
-  ``min_resources`` (which is confirmed by its definition above).
+- تتوقف العملية في التكرار الأول الذي يقيم "العامل=2" من المرشحين: أفضل مرشح هو الأفضل من بين هذين المرشحين. ليس من الضروري تشغيل تكرار إضافي، حيث أنه سيقيم مرشحًا واحدًا فقط (وهو أفضل مرشح، والذي حددناه بالفعل). لهذا السبب، نريد بشكل عام أن يستخدم التكرار الأخير عددًا من المرشحين لا يزيد عن "العامل". إذا قام التكرار الأخير بتقييم أكثر من "العامل" من المرشحين، فإن هذا التكرار الأخير يصبح مثل البحث العادي (كما هو الحال في RandomizedSearchCV أو GridSearchCV).
+- كل "n_resources_i" هو مضاعف لكل من "العامل" و "min_resources" (وهو ما تؤكده تعريفه أعلاه).
 
-The amount of resources that is used at each iteration can be found in the
-`n_resources_` attribute.
+يمكن العثور على كمية الموارد المستخدمة في كل تكرار في سمة "n_resources_".
 
-Choosing a resource
--------------------
+اختيار مورد
+-------------
 
-By default, the resource is defined in terms of number of samples. That is,
-each iteration will use an increasing amount of samples to train on. You can
-however manually specify a parameter to use as the resource with the
-``resource`` parameter. Here is an example where the resource is defined in
-terms of the number of estimators of a random forest::
+بشكل افتراضي، يتم تعريف المورد من حيث عدد العينات. أي أن كل تكرار سيستخدم عددًا متزايدًا من العينات للتدريب عليها. ومع ذلك، يمكنك تحديد معلمة لاستخدامها كمورد يدويًا باستخدام معلمة "resource". فيما يلي مثال يتم فيه تعريف المورد من حيث عدد المُقدّرات في غابة عشوائية::
 
     >>> from sklearn.datasets import make_classification
     >>> from sklearn.ensemble import RandomForestClassifier
@@ -377,227 +211,116 @@ terms of the number of estimators of a random forest::
     ...               'min_samples_split': [2, 5, 10]}
     >>> base_estimator = RandomForestClassifier(random_state=0)
     >>> X, y = make_classification(n_samples=1000, random_state=0)
-    >>> sh = HalvingGridSearchCV(base_estimator, param_grid, cv=5,
-    ...                          factor=2, resource='n_estimators',
-    ...                          max_resources=30).fit(X, y)
+    >>> sh = HalvingGridSearchCV(base_estimator، param_grid، cv=5،
+    ...                          factor=2، resource='n_estimators'،
+    ...                          max_resources=30).fit(X، y)
     >>> sh.best_estimator_
-    RandomForestClassifier(max_depth=5, n_estimators=24, random_state=0)
+    RandomForestClassifier(max_depth=5، n_estimators=24، random_state=0)
 
-Note that it is not possible to budget on a parameter that is part of the
-parameter grid.
+لاحظ أنه لا يمكن وضع ميزانية لمعلمة تكون جزءًا من شبكة المعلمات.
 
 .. _exhausting_the_resources:
 
-Exhausting the available resources
-----------------------------------
+استنفاد الموارد المتاحة
+كما ذكر أعلاه، يعتمد عدد الموارد المستخدمة في كل تكرار على معلمة "min_resources". إذا كان لديك الكثير من الموارد المتاحة ولكنك تبدأ بعدد قليل من الموارد، فقد يتم هدر بعضها (أي عدم استخدامها).
 
-As mentioned above, the number of resources that is used at each iteration
-depends on the `min_resources` parameter.
-If you have a lot of resources available but start with a low number of
-resources, some of them might be wasted (i.e. not used)::
+تعتمد عملية البحث على 80 مورد كحد أقصى، في حين أن الحد الأقصى لعدد الموارد المتاحة لدينا هو "n_samples=1000". هنا، لدينا "min_resources = r_0 = 20".
 
-    >>> from sklearn.datasets import make_classification
-    >>> from sklearn.svm import SVC
-    >>> from sklearn.experimental import enable_halving_search_cv  # noqa
-    >>> from sklearn.model_selection import HalvingGridSearchCV
-    >>> import pandas as pd
-    >>> param_grid= {'kernel': ('linear', 'rbf'),
-    ...              'C': [1, 10, 100]}
-    >>> base_estimator = SVC(gamma='scale')
-    >>> X, y = make_classification(n_samples=1000)
-    >>> sh = HalvingGridSearchCV(base_estimator, param_grid, cv=5,
-    ...                          factor=2, min_resources=20).fit(X, y)
-    >>> sh.n_resources_
-    [20, 40, 80]
+بالنسبة لـ "HalvingGridSearchCV"، يتم ضبط معلمة "min_resources" افتراضيًا على "exhaust". وهذا يعني أن "min_resources" يتم ضبطها تلقائيًا بحيث يمكن للتكرار الأخير استخدام أكبر عدد ممكن من الموارد، ضمن حد "max_resources".
 
-The search process will only use 80 resources at most, while our maximum
-amount of available resources is ``n_samples=1000``. Here, we have
-``min_resources = r_0 = 20``.
+بالنسبة لـ "HalvingRandomSearchCV"، يمكن استنفاد الموارد بطريقتين:
 
-For :class:`HalvingGridSearchCV`, by default, the `min_resources` parameter
-is set to 'exhaust'. This means that `min_resources` is automatically set
-such that the last iteration can use as many resources as possible, within
-the `max_resources` limit::
+- عن طريق ضبط "min_resources='exhaust'"، تمامًا مثل "HalvingGridSearchCV".
+- عن طريق ضبط "n_candidates='exhaust'".
 
-    >>> sh = HalvingGridSearchCV(base_estimator, param_grid, cv=5,
-    ...                          factor=2, min_resources='exhaust').fit(X, y)
-    >>> sh.n_resources_
-    [250, 500, 1000]
+الخياران متنافيان: يتطلب استخدام "min_resources='exhaust'" معرفة عدد المرشحين، وبالمثل، يتطلب استخدام "n_candidates='exhaust'" معرفة "min_resources".
 
-`min_resources` was here automatically set to 250, which results in the last
-iteration using all the resources. The exact value that is used depends on
-the number of candidate parameter, on `max_resources` and on `factor`.
+وبشكل عام، يؤدي استنفاد العدد الإجمالي للموارد إلى الحصول على أفضل معلمة مرشحة نهائية، وهو أكثر كثافة في الوقت قليلاً.
 
-For :class:`HalvingRandomSearchCV`, exhausting the resources can be done in 2
-ways:
+## القضاء العدواني على المرشحين
 
-- by setting `min_resources='exhaust'`, just like for
-  :class:`HalvingGridSearchCV`;
-- by setting `n_candidates='exhaust'`.
+في الوضع المثالي، نريد أن يقوم التكرار الأخير بتقييم "factor" من المرشحين (راجع: كمية الموارد وعدد المرشحين). بعد ذلك، كل ما علينا فعله هو اختيار الأفضل. عندما يكون عدد الموارد المتاحة صغيرًا مقارنة بعدد المرشحين، فقد يضطر التكرار الأخير إلى تقييم أكثر من "factor" من المرشحين.
 
-Both options are mutually exclusive: using `min_resources='exhaust'` requires
-knowing the number of candidates, and symmetrically `n_candidates='exhaust'`
-requires knowing `min_resources`.
+نظرًا لأنه لا يمكننا استخدام أكثر من "max_resources=40" من الموارد، يجب أن تتوقف العملية عند التكرار الثاني الذي يقيم أكثر من "factor=2" من المرشحين.
 
-In general, exhausting the total number of resources leads to a better final
-candidate parameter, and is slightly more time-intensive.
+باستخدام معلمة "aggressive_elimination"، يمكنك إجبار عملية البحث على الانتهاء بأقل من "factor" من المرشحين في التكرار الأخير. للقيام بذلك، ستعمل العملية على القضاء على أكبر عدد ممكن من المرشحين باستخدام موارد "min_resources".
 
-.. _aggressive_elimination:
+لاحظ أننا ننهي بمرشحين اثنين في التكرار الأخير لأننا قضينا على عدد كافٍ من المرشحين خلال التكرارات الأولى، باستخدام "n_resources = min_resources = 20".
 
-Aggressive elimination of candidates
-------------------------------------
+## تحليل النتائج باستخدام صفة "cv_results_"
 
-Ideally, we want the last iteration to evaluate ``factor`` candidates (see
-:ref:`amount_of_resource_and_number_of_candidates`). We then just have to
-pick the best one. When the number of available resources is small with
-respect to the number of candidates, the last iteration may have to evaluate
-more than ``factor`` candidates::
+تحتوي صفة "cv_results_" على معلومات مفيدة لتحليل نتائج البحث. يمكن تحويلها إلى إطار بيانات بن بانداس باستخدام "df = pd.DataFrame(est.cv_results_)". إن صفة "cv_results_" لكل من "HalvingGridSearchCV" و"HalvingRandomSearchCV" مشابهة لصفة "GridSearchCV" و"RandomizedSearchCV"، مع معلومات إضافية تتعلق بعملية التخفيض المتعاقب.
 
-    >>> from sklearn.datasets import make_classification
-    >>> from sklearn.svm import SVC
-    >>> from sklearn.experimental import enable_halving_search_cv  # noqa
-    >>> from sklearn.model_selection import HalvingGridSearchCV
-    >>> import pandas as pd
-    >>>
-    >>>
-    >>> param_grid = {'kernel': ('linear', 'rbf'),
-    ...               'C': [1, 10, 100]}
-    >>> base_estimator = SVC(gamma='scale')
-    >>> X, y = make_classification(n_samples=1000)
-    >>> sh = HalvingGridSearchCV(base_estimator, param_grid, cv=5,
-    ...                          factor=2, max_resources=40,
-    ...                          aggressive_elimination=False).fit(X, y)
-    >>> sh.n_resources_
-    [20, 40]
-    >>> sh.n_candidates_
-    [6, 3]
+هنا مثال على بعض أعمدة إطار البيانات (المقتطع):
 
-Since we cannot use more than ``max_resources=40`` resources, the process
-has to stop at the second iteration which evaluates more than ``factor=2``
-candidates.
+==== ====== =============== ================= ========================================================================================
+.. iter n_resources mean_test_score params
+==== ====== =============== ================= ========================================================================================
+0 0 125 0.983667 {'criterion': 'log_loss', 'max_depth': None, 'max_features': 9, 'min_samples_split': 5}
+1 0 125 0.983667 {'criterion': 'gini', 'max_depth': None, 'max_features': 8, 'min_samples_split': 7}
+2 0 125 0.983667 {'criterion': 'gini', 'max_depth': None, 'max_features': 10, 'min_samples_split': 10}
+3 0 125 0.983667 {'criterion': 'log_loss', 'max_depth': None, 'max_features': 6, 'min_samples_split': 6}
+... ... ... ... ...
+15 2 500 0.951958 {'criterion': 'log_loss', 'max_depth': None, 'max_features': 9, 'min_samples_split': 10}
+16 2 500 0.947958 {'criterion': 'gini', 'max_depth': None, 'max_features': 10, 'min_samples_split': 10}
+17 2 500 0.951958 {'criterion': 'gini', 'max_depth': None, 'max_features': 10, 'min_samples_split': 4}
+18 3 1000 0.961009 {'criterion': 'log_loss', 'max_depth': None, 'max_features': 9, 'min_samples_split': 10}
+19 3 1000 0.955989 {'criterion': 'gini', 'max_depth': None, 'max_features': 10, 'min_samples_split': 4}
+==== ====== =============== ================= ========================================================================================
 
-Using the ``aggressive_elimination`` parameter, you can force the search
-process to end up with less than ``factor`` candidates at the last
-iteration. To do this, the process will eliminate as many candidates as
-necessary using ``min_resources`` resources::
+يمثل كل صف مجموعة معينة من المعلمات (مرشح) وتكرار معين. يعطى التكرار بواسطة عمود "iter". ويخبرك عمود "n_resources" بعدد الموارد المستخدمة.
 
-    >>> sh = HalvingGridSearchCV(base_estimator, param_grid, cv=5,
-    ...                            factor=2,
-    ...                            max_resources=40,
-    ...                            aggressive_elimination=True,
-    ...                            ).fit(X, y)
-    >>> sh.n_resources_
-    [20, 20,  40]
-    >>> sh.n_candidates_
-    [6, 3, 2]
+في المثال أعلاه، أفضل مجموعة من المعلمات هي " {'criterion': 'log_loss', 'max_depth': None, 'max_features': 9, 'min_samples_split': 10}" لأنها وصلت إلى التكرار الأخير (3) بأعلى درجة: 0.96.
 
-Notice that we end with 2 candidates at the last iteration since we have
-eliminated enough candidates during the first iterations, using ``n_resources =
-min_resources = 20``.
+## المراجع
 
-.. _successive_halving_cv_results:
+[1] K. Jamieson, A. Talwalkar, Non-stochastic Best Arm Identification and Hyperparameter Optimization, in proc. of Machine Learning Research, 2016.
 
-Analyzing results with the `cv_results_` attribute
---------------------------------------------------
+[2] L. Li, K. Jamieson, G. DeSalvo, A. Rostamizadeh, A. Talwalkar, Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization, in Machine Learning Research 18, 2018.
 
-The ``cv_results_`` attribute contains useful information for analyzing the
-results of a search. It can be converted to a pandas dataframe with ``df =
-pd.DataFrame(est.cv_results_)``. The ``cv_results_`` attribute of
-:class:`HalvingGridSearchCV` and :class:`HalvingRandomSearchCV` is similar
-to that of :class:`GridSearchCV` and :class:`RandomizedSearchCV`, with
-additional information related to the successive halving process.
+## نصائح للبحث عن المعلمات
+هذا هو نص RST مترجم إلى اللغة العربية مع اتباع التعليمات المحددة:
 
-Here is an example with some of the columns of a (truncated) dataframe:
-
-====  ======  ===============  =================  ========================================================================================
-  ..    iter      n_resources    mean_test_score  params
-====  ======  ===============  =================  ========================================================================================
-   0       0              125           0.983667  {'criterion': 'log_loss', 'max_depth': None, 'max_features': 9, 'min_samples_split': 5}
-   1       0              125           0.983667  {'criterion': 'gini', 'max_depth': None, 'max_features': 8, 'min_samples_split': 7}
-   2       0              125           0.983667  {'criterion': 'gini', 'max_depth': None, 'max_features': 10, 'min_samples_split': 10}
-   3       0              125           0.983667  {'criterion': 'log_loss', 'max_depth': None, 'max_features': 6, 'min_samples_split': 6}
- ...     ...              ...                ...  ...
-  15       2              500           0.951958  {'criterion': 'log_loss', 'max_depth': None, 'max_features': 9, 'min_samples_split': 10}
-  16       2              500           0.947958  {'criterion': 'gini', 'max_depth': None, 'max_features': 10, 'min_samples_split': 10}
-  17       2              500           0.951958  {'criterion': 'gini', 'max_depth': None, 'max_features': 10, 'min_samples_split': 4}
-  18       3             1000           0.961009  {'criterion': 'log_loss', 'max_depth': None, 'max_features': 9, 'min_samples_split': 10}
-  19       3             1000           0.955989  {'criterion': 'gini', 'max_depth': None, 'max_features': 10, 'min_samples_split': 4}
-====  ======  ===============  =================  ========================================================================================
-
-Each row corresponds to a given parameter combination (a candidate) and a given
-iteration. The iteration is given by the ``iter`` column. The ``n_resources``
-column tells you how many resources were used.
-
-In the example above, the best parameter combination is ``{'criterion':
-'log_loss', 'max_depth': None, 'max_features': 9, 'min_samples_split': 10}``
-since it has reached the last iteration (3) with the highest score:
-0.96.
-
-.. rubric:: References
-
-.. [1] K. Jamieson, A. Talwalkar,
-   `Non-stochastic Best Arm Identification and Hyperparameter
-   Optimization <http://proceedings.mlr.press/v51/jamieson16.html>`_, in
-   proc. of Machine Learning Research, 2016.
-
-.. [2] L. Li, K. Jamieson, G. DeSalvo, A. Rostamizadeh, A. Talwalkar,
-   :arxiv:`Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization
-   <1603.06560>`, in Machine Learning Research 18, 2018.
-
-.. _grid_search_tips:
-
-Tips for parameter search
 =========================
 
-.. _gridsearch_scoring:
-
-Specifying an objective metric
+تحديد مقياس موضوعي
 ------------------------------
 
-By default, parameter search uses the ``score`` function of the estimator
-to evaluate a parameter setting. These are the
-:func:`sklearn.metrics.accuracy_score` for classification and
-:func:`sklearn.metrics.r2_score` for regression.  For some applications,
-other scoring functions are better suited (for example in unbalanced
-classification, the accuracy score is often uninformative). An alternative
-scoring function can be specified via the ``scoring`` parameter of most
-parameter search tools. See :ref:`scoring_parameter` for more details.
+بشكل افتراضي، يستخدم البحث عن المعلمات دالة "score" في المثمن لتقييم إعداد المعلمة. هذه هي
+:func:`sklearn.metrics.accuracy_score` للتصنيف و
+:func:`sklearn.metrics.r2_score` للانحدار.  بالنسبة لبعض التطبيقات،
+تكون دالات التسجيل الأخرى أكثر ملاءمة (على سبيل المثال، في التصنيف غير المتوازن، تكون درجة الدقة غير مفيدة في كثير من الأحيان). يمكن تحديد دالة تسجيل بديلة عبر
+معلمة "التسجيل" في معظم أدوات البحث عن المعلمات. راجع :ref:`scoring_parameter` لمزيد من التفاصيل.
 
 .. _multimetric_grid_search:
 
-Specifying multiple metrics for evaluation
+تحديد مقاييس متعددة للتقييم
 ------------------------------------------
 
-:class:`GridSearchCV` and :class:`RandomizedSearchCV` allow specifying
-multiple metrics for the ``scoring`` parameter.
+:class:`GridSearchCV` و :class:`RandomizedSearchCV` تسمح بتحديد
+مقاييس متعددة لمعلمة "التسجيل".
 
-Multimetric scoring can either be specified as a list of strings of predefined
-scores names or a dict mapping the scorer name to the scorer function and/or
-the predefined scorer name(s). See :ref:`multimetric_scoring` for more details.
+يمكن تحديد التسجيل متعدد المقاييس إما على أنه قائمة من السلاسل لمعرفات الأسماء المحددة مسبقًا أو قاموس يقوم بتعيين اسم المسجل إلى دالة المسجل و/أو اسم (أسماء) المسجل المحدد مسبقًا. راجع :ref:`multimetric_scoring` لمزيد من التفاصيل.
 
-When specifying multiple metrics, the ``refit`` parameter must be set to the
-metric (string) for which the ``best_params_`` will be found and used to build
-the ``best_estimator_`` on the whole dataset. If the search should not be
-refit, set ``refit=False``. Leaving refit to the default value ``None`` will
-result in an error when using multiple metrics.
+عند تحديد مقاييس متعددة، يجب تعيين معلمة "refit" على المقياس (سلسلة) الذي سيتم من خلاله العثور على "best_params_" واستخدامه لبناء "best_estimator_" على مجموعة البيانات بأكملها. إذا لم يكن البحث يجب أن يعاد ضبطه، فحدد "refit=False". سيؤدي ترك إعادة الضبط إلى قيمة افتراضية "None" إلى حدوث خطأ عند استخدام مقاييس متعددة.
 
-See :ref:`sphx_glr_auto_examples_model_selection_plot_multi_metric_evaluation.py`
-for an example usage.
+راجع :ref:`sphx_glr_auto_examples_model_selection_plot_multi_metric_evaluation.py`
+لمثال على الاستخدام.
 
-:class:`HalvingRandomSearchCV` and :class:`HalvingGridSearchCV` do not support
-multimetric scoring.
+:class:`HalvingRandomSearchCV` و :class:`HalvingGridSearchCV` لا تدعم
+التسجيل متعدد المقاييس.
 
 .. _composite_grid_search:
 
-Composite estimators and parameter spaces
+المثمنات المركبة ومساحات المعلمات
 -----------------------------------------
-:class:`GridSearchCV` and :class:`RandomizedSearchCV` allow searching over
-parameters of composite or nested estimators such as
-:class:`~sklearn.pipeline.Pipeline`,
-:class:`~sklearn.compose.ColumnTransformer`,
-:class:`~sklearn.ensemble.VotingClassifier` or
-:class:`~sklearn.calibration.CalibratedClassifierCV` using a dedicated
-``<estimator>__<parameter>`` syntax::
+:class:`GridSearchCV` و :class:`RandomizedSearchCV` تسمح بالبحث في
+معلمات المثمنات المركبة أو المضمنة مثل
+:class:`~sklearn.pipeline.Pipeline`،
+:class:`~sklearn.compose.ColumnTransformer`،
+:class:`~sklearn.ensemble.VotingClassifier` أو
+:class:`~sklearn.calibration.CalibratedClassifierCV` باستخدام بناء جملة مخصص
+``<estimator>__<parameter>``::
 
   >>> from sklearn.model_selection import GridSearchCV
   >>> from sklearn.calibration import CalibratedClassifierCV
@@ -614,12 +337,12 @@ parameters of composite or nested estimators such as
                estimator=CalibratedClassifierCV(...),
                param_grid={'estimator__max_depth': [2, 4, 6, 8]})
 
-Here, ``<estimator>`` is the parameter name of the nested estimator,
-in this case ``estimator``.
-If the meta-estimator is constructed as a collection of estimators as in
-`pipeline.Pipeline`, then ``<estimator>`` refers to the name of the estimator,
-see :ref:`pipeline_nested_parameters`. In practice, there can be several
-levels of nesting::
+هنا، ``<estimator>`` هو اسم معلمة المثمن المضمن،
+في هذه الحالة "المثمن".
+إذا تم بناء المثمن الفوقي كمجموعة من المثمنات كما هو الحال في
+`pipeline.Pipeline`، فإن ``<estimator>`` يشير إلى اسم المثمن،
+راجع :ref:`pipeline_nested_parameters`. في الممارسة العملية، يمكن أن يكون هناك عدة
+مستويات من التضمين::
 
   >>> from sklearn.pipeline import Pipeline
   >>> from sklearn.feature_selection import SelectKBest
@@ -631,61 +354,53 @@ levels of nesting::
   ...    'model__estimator__max_depth': [2, 4, 6, 8]}
   >>> search = GridSearchCV(pipe, param_grid, cv=5).fit(X, y)
 
-Please refer to :ref:`pipeline` for performing parameter searches over
-pipelines.
+يرجى الرجوع إلى :ref:`pipeline` لإجراء عمليات بحث عن المعلمات عبر الأنابيب.
 
-Model selection: development and evaluation
+اختيار النموذج: التطوير والتقييم
 -------------------------------------------
 
-Model selection by evaluating various parameter settings can be seen as a way
-to use the labeled data to "train" the parameters of the grid.
+يمكن اعتبار اختيار النموذج عن طريق تقييم إعدادات المعلمات المختلفة كطريقة
+لاستخدام البيانات الموسومة لتدريب معلمات الشبكة.
 
-When evaluating the resulting model it is important to do it on
-held-out samples that were not seen during the grid search process:
-it is recommended to split the data into a **development set** (to
-be fed to the :class:`GridSearchCV` instance) and an **evaluation set**
-to compute performance metrics.
+عند تقييم النموذج الناتج، من المهم القيام بذلك على
+عينات محجوزة لم يتم رؤيتها أثناء عملية البحث في الشبكة:
+من المستحسن تقسيم البيانات إلى مجموعة **تطوير** (لتغذية
+مثيل :class:`GridSearchCV`) ومجموعة **تقييم**
+لحساب مقاييس الأداء.
 
-This can be done by using the :func:`train_test_split`
-utility function.
+يمكن القيام بذلك باستخدام دالة المساعدة :func:`train_test_split`.
 
-Parallelism
+التوازي
 -----------
 
-The parameter search tools evaluate each parameter combination on each data
-fold independently. Computations can be run in parallel by using the keyword
-``n_jobs=-1``. See function signature for more details, and also the Glossary
-entry for :term:`n_jobs`.
+تقوم أدوات البحث عن المعلمات بتقييم كل مجموعة من المعلمات على كل طية من طيات البيانات
+بشكل مستقل. يمكن تشغيل الحسابات بالتوازي عن طريق استخدام الكلمة الأساسية "n_jobs=-1". راجع توقيع الدالة لمزيد من التفاصيل، وكذلك إدخال مسرد المصطلحات لـ :term:`n_jobs`.
 
-Robustness to failure
+الصلابة ضد الفشل
 ---------------------
 
-Some parameter settings may result in a failure to ``fit`` one or more folds
-of the data.  By default, this will cause the entire search to fail, even if
-some parameter settings could be fully evaluated. Setting ``error_score=0``
-(or `=np.nan`) will make the procedure robust to such failure, issuing a
-warning and setting the score for that fold to 0 (or `nan`), but completing
-the search.
+قد تؤدي بعض إعدادات المعلمات إلى فشل "fit" في طية واحدة أو أكثر من طيات البيانات.
+بافتراضياً، سيؤدي هذا إلى فشل البحث بأكمله، حتى إذا كان من الممكن تقييم بعض إعدادات المعلمات بشكل كامل. يؤدي تعيين "error_score=0"
+(أو `=np.nan`) إلى جعل الإجراء صلبًا ضد مثل هذا الفشل، وإصدار تحذير وتعيين درجة الطية إلى 0 (أو "نان")، ولكن إكمال البحث.
 
 .. _alternative_cv:
 
-Alternatives to brute force parameter search
+بدائل للبحث المعلمي بالقوة الغاشمة
 ============================================
 
-Model specific cross-validation
+التصنيف المتقاطع المحدد للنموذج
 -------------------------------
 
 
-Some models can fit data for a range of values of some parameter almost
-as efficiently as fitting the estimator for a single value of the
-parameter. This feature can be leveraged to perform a more efficient
-cross-validation used for model selection of this parameter.
+يمكن لبعض النماذج ملاءمة البيانات لنطاق من القيم لبعض المعلمات بنفس الكفاءة تقريبًا
+كما هو الحال في ملاءمة المثمن لقيمة واحدة من المعلمة. يمكن الاستفادة من هذه الميزة لإجراء
+تصنيف متقاطع أكثر كفاءة يستخدم لاختيار نموذج لهذه المعلمة.
 
-The most common parameter amenable to this strategy is the parameter
-encoding the strength of the regularizer. In this case we say that we
-compute the **regularization path** of the estimator.
+المعلمة الأكثر شيوعًا التي يمكنها استيعاب هذه الاستراتيجية هي المعلمة
+ترميز قوة المنظم. في هذه الحالة نقول أننا
+حساب **مسار التنظيم** للمثمن.
 
-Here is the list of such models:
+فيما يلي قائمة بهذه النماذج:
 
 .. currentmodule:: sklearn
 
@@ -703,16 +418,13 @@ Here is the list of such models:
    linear_model.RidgeClassifierCV
 
 
-Information Criterion
+معيار المعلومات
 ---------------------
 
-Some models can offer an information-theoretic closed-form formula of the
-optimal estimate of the regularization parameter by computing a single
-regularization path (instead of several when using cross-validation).
+يمكن لبعض النماذج تقديم صيغة مغلقة نظرية للمعلومات لمعامل التنظيم الأمثل عن طريق حساب
+مسار التنظيم الفردي (بدلاً من عدة مسارات عند استخدام التصنيف المتقاطع).
 
-Here is the list of models benefiting from the Akaike Information
-Criterion (AIC) or the Bayesian Information Criterion (BIC) for automated
-model selection:
+فيما يلي قائمة بالنماذج التي تستفيد من معيار المعلومات أكايكي (AIC) أو معيار المعلومات الخليجية (BIC) لاختيار النموذج التلقائي:
 
 .. autosummary::
 
@@ -721,20 +433,17 @@ model selection:
 
 .. _out_of_bag:
 
-Out of Bag Estimates
+تقديرات خارج الحقيبة
 --------------------
 
-When using ensemble methods base upon bagging, i.e. generating new
-training sets using sampling with replacement, part of the training set
-remains unused.  For each classifier in the ensemble, a different part
-of the training set is left out.
+عند استخدام أساليب التجميع المستندة إلى التجميع، أي إنشاء مجموعات تدريب جديدة باستخدام
+العينات مع الاستبدال، يظل جزء من مجموعة التدريب غير مستخدم.  بالنسبة لكل مصنف في المجموعة،
+يتم ترك جزء مختلف من مجموعة التدريب.
 
-This left out portion can be used to estimate the generalization error
-without having to rely on a separate validation set.  This estimate
-comes "for free" as no additional data is needed and can be used for
-model selection.
+يمكن استخدام هذا الجزء المتروك لتقدير خطأ التعميم
+دون الحاجة إلى الاعتماد على مجموعة تحقق صحة منفصلة.  يأتي هذا التقدير "مجانًا" حيث لا توجد بيانات إضافية مطلوبة ويمكن استخدامه لاختيار النموذج.
 
-This is currently implemented in the following classes:
+هذا منفذ حاليًا في الفئات التالية:
 
 .. autosummary::
 
