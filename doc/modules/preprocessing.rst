@@ -1,51 +1,28 @@
-.. _preprocessing:
-
-==================
-Preprocessing data
+معالجة البيانات الأولية
 ==================
 
-.. currentmodule:: sklearn.preprocessing
+توفر حزمة ``sklearn.preprocessing`` العديد من وظائف المنفعة الشائعة وفئات المحول لتغيير متجهات الميزات الأولية إلى تمثيل أكثر ملاءمة للمقدّرات النهائية.
 
-The ``sklearn.preprocessing`` package provides several common
-utility functions and transformer classes to change raw feature vectors
-into a representation that is more suitable for the downstream estimators.
-
-In general, many learning algorithms such as linear models benefit from standardization of the data set
-(see :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py`).
-If some outliers are present in the set, robust scalers or other transformers can
-be more appropriate. The behaviors of the different scalers, transformers, and
-normalizers on a dataset containing marginal outliers is highlighted in
+بشكل عام، يستفيد العديد من خوارزميات التعلم، مثل النماذج الخطية، من توحيد مجموعة البيانات
+(راجع: ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py`).
+إذا كانت هناك بعض القيم الشاذة في المجموعة، فقد يكون استخدام المقيّمين المتينين أو محولات أخرى أكثر ملاءمة. يتم تسليط الضوء على سلوك المقاييس والمحولات والمطبعين المختلفين على مجموعة بيانات تحتوي على قيم شاذة هامشية في
 :ref:`sphx_glr_auto_examples_preprocessing_plot_all_scaling.py`.
 
 
-.. _preprocessing_scaler:
-
-Standardization, or mean removal and variance scaling
+توحيد البيانات، أو إزالة المتوسط وتقييم التباين
 =====================================================
 
-**Standardization** of datasets is a **common requirement for many
-machine learning estimators** implemented in scikit-learn; they might behave
-badly if the individual features do not more or less look like standard
-normally distributed data: Gaussian with **zero mean and unit variance**.
+**توحيد** مجموعات البيانات هو **متطلب شائع للعديد من
+مقدرات التعلم الآلي** المطبقة في scikit-learn؛ فقد لا تعمل بشكل جيد إذا لم تكن الميزات الفردية أكثر أو أقل تشابهاً مع البيانات العادية الموزعة بشكل طبيعي: غاوسي مع **صفر متوسط وانحراف معياري واحد**.
 
-In practice we often ignore the shape of the distribution and just
-transform the data to center it by removing the mean value of each
-feature, then scale it by dividing non-constant features by their
-standard deviation.
+في الممارسة العملية، غالبًا ما نتجاهل شكل التوزيع ونحول البيانات فقط لمركزها عن طريق إزالة القيمة المتوسطة لكل ميزة، ثم قياسها عن طريق قسمة الميزات غير الثابتة على انحرافها المعياري.
 
-For instance, many elements used in the objective function of
-a learning algorithm (such as the RBF kernel of Support Vector
-Machines or the l1 and l2 regularizers of linear models) may assume that
-all features are centered around zero or have variance in the same
-order. If a feature has a variance that is orders of magnitude larger
-than others, it might dominate the objective function and make the
-estimator unable to learn from other features correctly as expected.
+على سبيل المثال، قد تفترض العديد من العناصر المستخدمة في الدالة الهدف
+لخوارزمية التعلم (مثل نواة RBF لآلات المتجهات الداعمة أو المنظمين l1 وl2 للنماذج الخطية) أن جميع الميزات تتمحور حول الصفر أو لها تباين بنفس الترتيب. إذا كان لميزة ما تباين أكبر بعدة أوامر من الحجم من الآخرين، فقد تهيمن على الدالة الهدف وتجعل المقدر غير قادر على التعلم بشكل صحيح من الميزات الأخرى كما هو متوقع.
 
 
-The :mod:`~sklearn.preprocessing` module provides the
-:class:`StandardScaler` utility class, which is a quick and
-easy way to perform the following operation on an array-like
-dataset::
+توفر الوحدة النمطية :mod:`~sklearn.preprocessing` فئة
+:class:`StandardScaler` ، والتي تعد طريقة سريعة وسهلة لأداء العملية التالية على مجموعة بيانات تشبه المصفوفة::
 
   >>> from sklearn import preprocessing
   >>> import numpy as np
@@ -73,7 +50,7 @@ dataset::
         >>> print_options = np.get_printoptions()
         >>> np.set_printoptions(suppress=True)
 
-Scaled data has zero mean and unit variance::
+تكون للبيانات المُدرجة صفر متوسط وانحراف معياري واحد::
 
   >>> X_scaled.mean(axis=0)
   array([0., 0., 0.])
@@ -83,10 +60,8 @@ Scaled data has zero mean and unit variance::
 
 ..    >>> print_options = np.set_printoptions(print_options)
 
-This class implements the ``Transformer`` API to compute the mean and
-standard deviation on a training set so as to be able to later re-apply the
-same transformation on the testing set. This class is hence suitable for
-use in the early steps of a :class:`~sklearn.pipeline.Pipeline`::
+تنفذ هذه الفئة واجهة برمجة التطبيقات "المحول" (Transformer API) لحساب المتوسط والانحراف المعياري لمجموعة تدريب بحيث يمكن إعادة تطبيق نفس التحويل لاحقًا على مجموعة الاختبار. وبالتالي، فإن هذه الفئة مناسبة
+للاستخدام في الخطوات الأولى من :class:`~sklearn.pipeline.Pipeline`::
 
   >>> from sklearn.datasets import make_classification
   >>> from sklearn.linear_model import LogisticRegression
@@ -97,31 +72,30 @@ use in the early steps of a :class:`~sklearn.pipeline.Pipeline`::
   >>> X, y = make_classification(random_state=42)
   >>> X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
   >>> pipe = make_pipeline(StandardScaler(), LogisticRegression())
-  >>> pipe.fit(X_train, y_train)  # apply scaling on training data
+  >>> pipe.fit(X_train, y_train)  # تطبيق التوحيد على بيانات التدريب
   Pipeline(steps=[('standardscaler', StandardScaler()),
                   ('logisticregression', LogisticRegression())])
 
-  >>> pipe.score(X_test, y_test)  # apply scaling on testing data, without leaking training data.
+  >>> pipe.score(X_test, y_test)  # تطبيق التوحيد على بيانات الاختبار، دون تسريب بيانات التدريب.
   0.96
 
-It is possible to disable either centering or scaling by either
-passing ``with_mean=False`` or ``with_std=False`` to the constructor
-of :class:`StandardScaler`.
+من الممكن تعطيل التمركيز أو التقييم عن طريق تمرير إما
+``with_mean=False`` أو ``with_std=False`` إلى منشئ
+:class:`StandardScaler`.
 
 
-Scaling features to a range
+تقييم الميزات إلى نطاق
 ---------------------------
 
-An alternative standardization is scaling features to
-lie between a given minimum and maximum value, often between zero and one,
-or so that the maximum absolute value of each feature is scaled to unit size.
-This can be achieved using :class:`MinMaxScaler` or :class:`MaxAbsScaler`,
-respectively.
+يتمثل التوحيد البديل في تقييم الميزات بحيث
+تقع ضمن نطاق قيمة دنيا وقصوى معين، وغالبًا ما يكون بين الصفر والواحد،
+أو بحيث يتم تقييم القيمة المطلقة القصوى لكل ميزة إلى الحجم الوحيد.
+يمكن تحقيق ذلك باستخدام :class:`MinMaxScaler` أو :class:`MaxAbsScaler`،
+على التوالي.
 
-The motivation to use this scaling include robustness to very small
-standard deviations of features and preserving zero entries in sparse data.
+ويشمل الدافع لاستخدام هذا التقييم المرونة تجاه الانحرافات المعيارية الصغيرة جدًا للميزات والحفاظ على الإدخالات الصفرية في البيانات المتناثرة.
 
-Here is an example to scale a toy data matrix to the ``[0, 1]`` range::
+فيما يلي مثال على تقييم مصفوفة بيانات تجريبية إلى النطاق ``[0، 1]``::
 
   >>> X_train = np.array([[ 1., -1.,  2.],
   ...                     [ 2.,  0.,  0.],
@@ -134,17 +108,17 @@ Here is an example to scale a toy data matrix to the ``[0, 1]`` range::
          [1.        , 0.5       , 0.33333333],
          [0.        , 1.        , 0.        ]])
 
-The same instance of the transformer can then be applied to some new test data
-unseen during the fit call: the same scaling and shifting operations will be
-applied to be consistent with the transformation performed on the train data::
+يمكن بعد ذلك تطبيق نفس مثيل المحول على بعض بيانات الاختبار الجديدة
+غير المرئية أثناء مكالمة التثبيت: سيتم تطبيق نفس عمليات التقييم والتحويل
+للحفاظ على الاتساق مع التحويل الذي تم إجراؤه على بيانات التدريب::
 
   >>> X_test = np.array([[-3., -1.,  4.]])
   >>> X_test_minmax = min_max_scaler.transform(X_test)
   >>> X_test_minmax
   array([[-1.5       ,  0.        ,  1.66666667]])
 
-It is possible to introspect the scaler attributes to find about the exact
-nature of the transformation learned on the training data::
+من الممكن فحص سمات المقيّم لمعرفة الطبيعة الدقيقة
+للتحويل الذي تم تعلمه على بيانات التدريب::
 
   >>> min_max_scaler.scale_
   array([0.5       , 0.5       , 0.33...])
@@ -152,19 +126,17 @@ nature of the transformation learned on the training data::
   >>> min_max_scaler.min_
   array([0.        , 0.5       , 0.33...])
 
-If :class:`MinMaxScaler` is given an explicit ``feature_range=(min, max)`` the
-full formula is::
+إذا تم إعطاء :class:`MinMaxScaler` نطاق ميزة صريح ``(min، max)`` فإن
+الصيغة الكاملة هي::
 
     X_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
 
     X_scaled = X_std * (max - min) + min
 
-:class:`MaxAbsScaler` works in a very similar fashion, but scales in a way
-that the training data lies within the range ``[-1, 1]`` by dividing through
-the largest maximum value in each feature. It is meant for data
-that is already centered at zero or sparse data.
+يعمل :class:`MaxAbsScaler` بطريقة مشابهة جدًا، ولكنه يقيّم بحيث تقع بيانات التدريب ضمن النطاق ``[-1، 1]`` عن طريق القسمة على القيمة القصوى القصوى في كل ميزة. القصد منه هو للبيانات
+التي تتمحور بالفعل حول الصفر أو البيانات المتناثرة.
 
-Here is how to use the toy data from the previous example with this scaler::
+فيما يلي كيفية استخدام بيانات اللعب من المثال السابق مع هذا المقيّم::
 
   >>> X_train = np.array([[ 1., -1.,  2.],
   ...                     [ 2.,  0.,  0.],
@@ -184,156 +156,122 @@ Here is how to use the toy data from the previous example with this scaler::
   array([2.,  1.,  2.])
 
 
-Scaling sparse data
+تقييم البيانات المتناثرة
 -------------------
-Centering sparse data would destroy the sparseness structure in the data, and
-thus rarely is a sensible thing to do. However, it can make sense to scale
-sparse inputs, especially if features are on different scales.
 
-:class:`MaxAbsScaler` was specifically designed for scaling
-sparse data, and is the recommended way to go about this.
-However, :class:`StandardScaler` can accept ``scipy.sparse``
-matrices  as input, as long as ``with_mean=False`` is explicitly passed
-to the constructor. Otherwise a ``ValueError`` will be raised as
-silently centering would break the sparsity and would often crash the
-execution by allocating excessive amounts of memory unintentionally.
-:class:`RobustScaler` cannot be fitted to sparse inputs, but you can use
-the ``transform`` method on sparse inputs.
+قد يؤدي تركز البيانات المتناثرة إلى تدمير بنية التبعثر في البيانات، وبالتالي نادرًا ما يكون إجراءً منطقيًا. ومع ذلك، قد يكون من المنطقي تقييم الإدخالات المتناثرة، خاصة إذا كانت الميزات على مقاييس مختلفة.
 
-Note that the scalers accept both Compressed Sparse Rows and Compressed
-Sparse Columns format (see ``scipy.sparse.csr_matrix`` and
-``scipy.sparse.csc_matrix``). Any other sparse input will be **converted to
-the Compressed Sparse Rows representation**.  To avoid unnecessary memory
-copies, it is recommended to choose the CSR or CSC representation upstream.
+تم تصميم :class:`MaxAbsScaler` خصيصًا لتقييم
+البيانات المتناثرة، وهي الطريقة الموصى بها للقيام بذلك.
+ومع ذلك، يمكن لـ :class:`StandardScaler` قبول المصفوفات "scipy.sparse"
+كإدخال، طالما يتم تمرير ``with_mean=False`` بشكل صريح
+إلى المنشئ. وإلا، فسيتم إلقاء ``ValueError`` لأن التمركيز الصامت سيكسر التبعثر وقد يؤدي إلى تعطل التنفيذ عن طريق تخصيص كميات مفرطة من الذاكرة عن غير قصد. لا يمكن لـ :class:`RobustScaler` التلاؤم مع الإدخالات المتناثرة، ولكن يمكنك استخدام
+طريقة "التحويل" على الإدخالات المتناثرة.
 
-Finally, if the centered data is expected to be small enough, explicitly
-converting the input to an array using the ``toarray`` method of sparse matrices
-is another option.
+لاحظ أن المقاييس تقبل تنسيقات الصفوف المتناثرة والعمود المتناثر (راجع ``scipy.sparse.csr_matrix`` و
+``scipy.sparse.csc_matrix``). سيتم **تحويل أي إدخال متناثر آخر إلى
+تمثيل الصفوف المتناثرة**. لتجنب عمليات نسخ الذاكرة غير الضرورية، يوصى باختيار تمثيل CSR أو CSC أعلى.
+
+أخيرًا، إذا كان من المتوقع أن تكون البيانات المركزة صغيرة بما يكفي، فإن التحويل الصريح للإدخال إلى مصفوفة باستخدام طريقة "toarray" للمصفوفات المتناثرة هو خيار آخر.
 
 
-Scaling data with outliers
+تقييم البيانات بالقيم الشاذة
 --------------------------
 
-If your data contains many outliers, scaling using the mean and variance
-of the data is likely to not work very well. In these cases, you can use
-:class:`RobustScaler` as a drop-in replacement instead. It uses
-more robust estimates for the center and range of your data.
+إذا كانت بياناتك تحتوي على العديد من القيم الشاذة، فمن المحتمل ألا يعمل التقييم باستخدام المتوسط والانحراف المعياري للبيانات بشكل جيد. في هذه الحالات، يمكنك استخدام
+:class:`RobustScaler` كبديل جاهز للاستخدام بدلاً من ذلك. فهو يستخدم
+تقديرات أكثر متانة لمركز ونطاق بياناتك.
 
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  Further discussion on the importance of centering and scaling data is
-  available on this FAQ: `Should I normalize/standardize/rescale the data?
+  تتوفر مناقشة أخرى حول أهمية مركز البيانات وتقييمها في هذا الدليل: `هل يجب أن أطبّع/أوحّد/أعيد تصعيد البيانات؟
   <http://www.faqs.org/faqs/ai-faq/neural-nets/part2/section-16.html>`_
 
-.. dropdown:: Scaling vs Whitening
+.. dropdown:: التقييم مقابل التبييض
 
-  It is sometimes not enough to center and scale the features
-  independently, since a downstream model can further make some assumption
-  on the linear independence of the features.
+  في بعض الأحيان، لا يكفي مركز الميزات وتقييمها بشكل مستقل، حيث يمكن أن يفترض نموذج أسفل البئر أيضًا بعض الافتراضات
+حول الاستقلال الخطي للميزات.
 
-  To address this issue you can use :class:`~sklearn.decomposition.PCA` with
-  ``whiten=True`` to further remove the linear correlation across features.
+  لمعالجة هذه المشكلة، يمكنك استخدام :class:`~sklearn.decomposition.PCA` مع
+``whiten=True`` لإزالة الارتباط الخطي عبر الميزات بشكل أكبر.
 
 
 .. _kernel_centering:
 
-Centering kernel matrices
+مركز مصفوفات النواة
 -------------------------
 
-If you have a kernel matrix of a kernel :math:`K` that computes a dot product
-in a feature space (possibly implicitly) defined by a function
-:math:`\phi(\cdot)`, a :class:`KernelCenterer` can transform the kernel matrix
-so that it contains inner products in the feature space defined by :math:`\phi`
-followed by the removal of the mean in that space. In other words,
-:class:`KernelCenterer` computes the centered Gram matrix associated to a
-positive semidefinite kernel :math:`K`.
+إذا كان لديك مصفوفة نواة لنواة :math:`K` تقوم بحساب ناتج القسمة
+في مساحة الميزة (محددة ضمنيًا) بواسطة دالة
+:math:`\phi(\cdot)`، فيمكن لـ :class:`KernelCenterer` تحويل مصفوفة النواة
+بحيث تحتوي على نواتج القسمة في مساحة الميزة المحددة بواسطة :math:`\phi`
+تليها إزالة المتوسط في تلك المساحة. وبعبارة أخرى،
+:class:`KernelCenterer` يحسب مصفوفة غرام المركزية المرتبطة بنواة إيجابية شبه محددة :math:`K`.
 
-.. dropdown:: Mathematical formulation
+.. dropdown:: الصيغة الرياضية
 
-  We can have a look at the mathematical formulation now that we have the
-  intuition. Let :math:`K` be a kernel matrix of shape `(n_samples, n_samples)`
-  computed from :math:`X`, a data matrix of shape `(n_samples, n_features)`,
-  during the `fit` step. :math:`K` is defined by
+  يمكننا إلقاء نظرة على الصيغة الرياضية الآن بعد أن حصلنا على الحدس. دع :math:`K` تكون مصفوفة نواة الشكل `(n_samples، n_samples)`
+محسوب من :math:`X`، مصفوفة بيانات الشكل `(n_samples، n_features)`،
+خلال الخطوة `fit`. يتم تعريف :math:`K` بواسطة
 
   .. math::
-    K(X, X) = \phi(X) . \phi(X)^{T}
+    K(X، X) = \phi(X) . \phi(X)^{T}
 
-  :math:`\phi(X)` is a function mapping of :math:`X` to a Hilbert space. A
-  centered kernel :math:`\tilde{K}` is defined as:
+  :math:`\phi(X)` عبارة عن رسم خريطة لـ :math:`X` إلى فضاء هيلبرت. يتم تعريف النواة المركزية :math:`\tilde{K}` على النحو التالي:
 
   .. math::
-    \tilde{K}(X, X) = \tilde{\phi}(X) . \tilde{\phi}(X)^{T}
+    \tilde{K}(X، X) = \tilde{\phi}(X) . \tilde{\phi}(X)^{T}
 
-  where :math:`\tilde{\phi}(X)` results from centering :math:`\phi(X)` in the
-  Hilbert space.
+  حيث :math:`\tilde{\phi}(X)` ينتج عن مركز :math:`\phi(X)` في
+فضاء هيلبرت.
 
-  Thus, one could compute :math:`\tilde{K}` by mapping :math:`X` using the
-  function :math:`\phi(\cdot)` and center the data in this new space. However,
-  kernels are often used because they allows some algebra calculations that
-  avoid computing explicitly this mapping using :math:`\phi(\cdot)`. Indeed, one
-  can implicitly center as shown in Appendix B in [Scholkopf1998]_:
+  وبالتالي، يمكن حساب :math:`\tilde{K}` عن طريق رسم خريطة لـ :math:`X` باستخدام
+الدالة :math:`\phi(\cdot)` ومركز البيانات في هذا الفضاء الجديد. ومع ذلك،
+غالبًا ما يتم استخدام النواة لأنها تسمح ببعض الحسابات الجبرية التي
+تتجنب حساب هذا التخطيط بشكل صريح باستخدام :math:`\phi(\cdot)`. في الواقع، يمكن إجراء التركيز بشكل ضمني كما هو موضح في الملحق ب في [Scholkopf1998]_:
 
   .. math::
     \tilde{K} = K - 1_{\text{n}_{samples}} K - K 1_{\text{n}_{samples}} + 1_{\text{n}_{samples}} K 1_{\text{n}_{samples}}
 
-  :math:`1_{\text{n}_{samples}}` is a matrix of `(n_samples, n_samples)` where
-  all entries are equal to :math:`\frac{1}{\text{n}_{samples}}`. In the
-  `transform` step, the kernel becomes :math:`K_{test}(X, Y)` defined as:
+  :math:`1_{\text{n}_{samples}}` عبارة عن مصفوفة من الشكل `(n_samples، n_samples)` حيث
+تكون جميع الإدخالات مساوية لـ :math:`\frac{1}{\text{n}_{samples}}`. في
+خطوة `التحويل`، تصبح النواة :math:`K_{test}(X، Y)` المحددة على النحو التالي:
 
   .. math::
-    K_{test}(X, Y) = \phi(Y) . \phi(X)^{T}
+    K_{test}(X، Y) = \phi(Y) . \phi(X)^{T}
 
-  :math:`Y` is the test dataset of shape `(n_samples_test, n_features)` and thus
-  :math:`K_{test}` is of shape `(n_samples_test, n_samples)`. In this case,
-  centering :math:`K_{test}` is done as:
+  :math:`Y` هي مجموعة بيانات الاختبار الشكل `(n_samples_test، n_features)` وبالتالي
+:math:`K_{test}` من الشكل `(n_samples_test، n_samples)`. في هذه الحالة،
+يتم إجراء التركيز :math:`K_{test}` على النحو التالي:
 
   .. math::
-    \tilde{K}_{test}(X, Y) = K_{test} - 1'_{\text{n}_{samples}} K - K_{test} 1_{\text{n}_{samples}} + 1'_{\text{n}_{samples}} K 1_{\text{n}_{samples}}
+    \tilde{K}_{test}(X، Y) = K_{test} - 1'_{\text{n}_{samples}} K - K_{test} 1_{\text{n}_{samples}} + 1'_{\text{n}_{samples}} K 1_{\text{n}_{samples}}
 
-  :math:`1'_{\text{n}_{samples}}` is a matrix of shape
-  `(n_samples_test, n_samples)` where all entries are equal to
-  :math:`\frac{1}{\text{n}_{samples}}`.
+  :math:`1'_{\text{n}_{samples}}` عبارة عن مصفوفة الشكل
+`(n_samples_test، n_samples)` حيث تكون جميع الإدخالات مساوية لـ
+:math:`\frac{1}{\text{n}_{samples}}`.
 
-  .. rubric:: References
+  .. rubric:: المراجع
 
-  .. [Scholkopf1998] B. Schölkopf, A. Smola, and K.R. Müller,
+  .. [Scholkopf1998] B. Schölkopf، A. Smola، and K.R. Müller،
     `"Nonlinear component analysis as a kernel eigenvalue problem."
     <https://www.mlpack.org/papers/kpca.pdf>`_
-    Neural computation 10.5 (1998): 1299-1319.
+    الحساب العصبي 10.5 (1998): 1299-1319.
 
 .. _preprocessing_transformer:
 
-Non-linear transformation
-=========================
+التحويل غير الخطي
+يوجد نوعان من التحولات المتاحة: تحويلات الكميات وتحويلات القوة. يعتمد كل من تحويلات الكميات وتحويلات القوة على التحولات الأحادية الاتجاه للخصائص، وبالتالي الحفاظ على ترتيب القيم على طول كل خاصية.
 
-Two types of transformations are available: quantile transforms and power
-transforms. Both quantile and power transforms are based on monotonic
-transformations of the features and thus preserve the rank of the values
-along each feature.
+تضع تحويلات الكميات جميع الخصائص في نفس التوزيع المرغوب بناءً على الصيغة: G^{-1}(F(X)) حيث F هي دالة التوزيع التراكمي للخاصية وG^{-1} هي دالة الكمية <https://en.wikipedia.org/wiki/Quantile_function> للتوزيع المخرج المرغوب G. تستخدم هذه الصيغة الحقيقتين التاليتين: (1) إذا كانت X متغيرًا عشوائيًا له دالة توزيع تراكمية مستمرة F، فإن F(X) لها توزيع منتظم على [0،1]؛ (2) إذا كان U متغيرًا عشوائيًا بتوزيع منتظم على [0،1]، فإن G^{-1}(U) له توزيع G. من خلال إجراء تحويل مرتبي، يقوم تحويل الكمية بتنعيم التوزيعات غير المعتادة والتأثر بقيم الشواذ بدرجة أقل من طرق التدرج. ومع ذلك، فإنه يشوه الارتباطات والمسافات داخل الخصائص وفيما بينها.
 
-Quantile transforms put all features into the same desired distribution based
-on the formula :math:`G^{-1}(F(X))` where :math:`F` is the cumulative
-distribution function of the feature and :math:`G^{-1}` the
-`quantile function <https://en.wikipedia.org/wiki/Quantile_function>`_ of the
-desired output distribution :math:`G`. This formula is using the two following
-facts: (i) if :math:`X` is a random variable with a continuous cumulative
-distribution function :math:`F` then :math:`F(X)` is uniformly distributed on
-:math:`[0,1]`; (ii) if :math:`U` is a random variable with uniform distribution
-on :math:`[0,1]` then :math:`G^{-1}(U)` has distribution :math:`G`. By performing
-a rank transformation, a quantile transform smooths out unusual distributions
-and is less influenced by outliers than scaling methods. It does, however,
-distort correlations and distances within and across features.
+تحويلات القوة هي عائلة من التحولات المعلمية التي تهدف إلى رسم خريطة للبيانات من أي توزيع إلى أقرب توزيع غاوسي ممكن.
 
-Power transforms are a family of parametric transformations that aim to map
-data from any distribution to as close to a Gaussian distribution.
+رسم الخرائط إلى توزيع منتظم
+--------------------------
 
-Mapping to a Uniform distribution
----------------------------------
-
-:class:`QuantileTransformer` provides a non-parametric
-transformation to map the data to a uniform distribution
-with values between 0 and 1::
+توفر QuantileTransformer تحويلًا غير معلمي لرسم خريطة للبيانات إلى توزيع منتظم مع قيم بين 0 و1::
 
   >>> from sklearn.datasets import load_iris
   >>> from sklearn.model_selection import train_test_split
@@ -345,15 +283,13 @@ with values between 0 and 1::
   >>> np.percentile(X_train[:, 0], [0, 25, 50, 75, 100]) # doctest: +SKIP
   array([ 4.3,  5.1,  5.8,  6.5,  7.9])
 
-This feature corresponds to the sepal length in cm. Once the quantile
-transformation applied, those landmarks approach closely the percentiles
-previously defined::
+تتوافق هذه الميزة مع طول الكأس بالسم. بمجرد تطبيق تحويل الكمية، تقترب هذه المعالم بشكل وثيق من النسب المئوية المحددة مسبقًا::
 
   >>> np.percentile(X_train_trans[:, 0], [0, 25, 50, 75, 100])
   ... # doctest: +SKIP
   array([ 0.00... ,  0.24...,  0.49...,  0.73...,  0.99... ])
 
-This can be confirmed on a independent testing set with similar remarks::
+يمكن التأكد من ذلك على مجموعة اختبار مستقلة مع ملاحظات مماثلة::
 
   >>> np.percentile(X_test[:, 0], [0, 25, 50, 75, 100])
   ... # doctest: +SKIP
@@ -362,18 +298,14 @@ This can be confirmed on a independent testing set with similar remarks::
   ... # doctest: +SKIP
   array([ 0.01...,  0.25...,  0.46...,  0.60... ,  0.94...])
 
-Mapping to a Gaussian distribution
-----------------------------------
+رسم الخرائط إلى توزيع غاوسي
+--------------------------
 
-In many modeling scenarios, normality of the features in a dataset is desirable.
-Power transforms are a family of parametric, monotonic transformations that aim
-to map data from any distribution to as close to a Gaussian distribution as
-possible in order to stabilize variance and minimize skewness.
+في العديد من سيناريوهات النمذجة، يكون التوزيع الطبيعي للخصائص في مجموعة بيانات أمرًا مرغوبًا. تحويلات القوة هي عائلة من التحولات الأحادية الاتجاه المعلمية التي تهدف إلى رسم خريطة للبيانات من أي توزيع إلى أقرب توزيع غاوسي ممكن من أجل تثبيت التباين وتقليل اللاتناظر.
 
-:class:`PowerTransformer` currently provides two such power transformations,
-the Yeo-Johnson transform and the Box-Cox transform.
+يوفر PowerTransformer حاليًا تحويلين من هذا القبيل للقوة، وهما تحويل ييو-جونسون وتحويل بوكس-كوكس.
 
-.. dropdown:: Yeo-Johnson transform
+.. dropdown:: تحويل ييو-جونسون
 
   .. math::
       x_i^{(\lambda)} =
@@ -384,7 +316,7 @@ the Yeo-Johnson transform and the Box-Cox transform.
       - \ln (- x_i + 1) & \text{if } \lambda = 2, x_i < 0
       \end{cases}
 
-.. dropdown:: Box-Cox transform
+.. dropdown:: تحويل بوكس-كوكس
 
   .. math::
       x_i^{(\lambda)} =
@@ -393,10 +325,7 @@ the Yeo-Johnson transform and the Box-Cox transform.
       \ln{(x_i)} & \text{if } \lambda = 0,
       \end{cases}
 
-  Box-Cox can only be applied to strictly positive data. In both methods, the
-  transformation is parameterized by :math:`\lambda`, which is determined through
-  maximum likelihood estimation. Here is an example of using Box-Cox to map
-  samples drawn from a lognormal distribution to a normal distribution::
+  يمكن تطبيق Box-Cox فقط على البيانات الموجبة الصارمة. في كلتا الطريقتين، يتم تحديد التحول بواسطة المعلمة λ، والتي يتم تحديدها من خلال تقدير الإمكان الأقصى. فيما يلي مثال على استخدام Box-Cox لرسم خريطة لعينات تم رسمها من توزيع لوجاريتمي إلى توزيع طبيعي::
 
     >>> pt = preprocessing.PowerTransformer(method='box-cox', standardize=False)
     >>> X_lognormal = np.random.RandomState(616).lognormal(size=(3, 3))
@@ -409,25 +338,17 @@ the Yeo-Johnson transform and the Box-Cox transform.
           [-0.05...,  0.58..., -0.57...],
           [ 0.69..., -0.84...,  0.10...]])
 
-  While the above example sets the `standardize` option to `False`,
-  :class:`PowerTransformer` will apply zero-mean, unit-variance normalization
-  to the transformed output by default.
+  في حين أن المثال أعلاه يحدد خيار "standardize" إلى "False"، سيقوم PowerTransformer بتطبيع التباين المتوسط والصفر على الإخراج المحول بشكل افتراضي.
 
 
-Below are examples of Box-Cox and Yeo-Johnson applied to various probability
-distributions.  Note that when applied to certain distributions, the power
-transforms achieve very Gaussian-like results, but with others, they are
-ineffective. This highlights the importance of visualizing the data before and
-after transformation.
+فيما يلي أمثلة على Box-Cox وYeo-Johnson المطبقة على توزيعات احتمالية مختلفة. لاحظ أنه عند تطبيقها على توزيعات معينة، تحقق تحويلات القوة نتائج شبيهة بالتوزيع الغاوسي جدًا، ولكنها غير فعالة مع توزيعات أخرى. وهذا يسلط الضوء على أهمية تصور البيانات قبل وبعد التحول.
 
 .. figure:: ../auto_examples/preprocessing/images/sphx_glr_plot_map_data_to_normal_001.png
    :target: ../auto_examples/preprocessing/plot_map_data_to_normal.html
    :align: center
    :scale: 100
 
-It is also possible to map data to a normal distribution using
-:class:`QuantileTransformer` by setting ``output_distribution='normal'``.
-Using the earlier example with the iris dataset::
+من الممكن أيضًا رسم خريطة للبيانات إلى توزيع طبيعي باستخدام QuantileTransformer عن طريق تعيين "output_distribution='normal'". باستخدام المثال السابق مع مجموعة بيانات Iris::
 
   >>> quantile_transformer = preprocessing.QuantileTransformer(
   ...     output_distribution='normal', random_state=0)
@@ -441,28 +362,18 @@ Using the earlier example with the iris dataset::
          [7.7, 4.2, 6.7, 2.5],
          [7.9, 4.4, 6.9, 2.5]])
 
-Thus the median of the input becomes the mean of the output, centered at 0. The
-normal output is clipped so that the input's minimum and maximum ---
-corresponding to the 1e-7 and 1 - 1e-7 quantiles respectively --- do not
-become infinite under the transformation.
+وهكذا، يصبح الوسيط للإدخال متوسط الإخراج، الذي يتم مركزه عند 0. يتم قص التوزيع الطبيعي بحيث لا تصبح القيمة الدنيا والقصوى للإدخال - والتي تتوافق مع الكميات 1e-7 و1 - 1e-7 على التوالي - لانهائية في ظل التحول.
 
 .. _preprocessing_normalization:
 
-Normalization
+التطبيع
 =============
 
-**Normalization** is the process of **scaling individual samples to have
-unit norm**. This process can be useful if you plan to use a quadratic form
-such as the dot-product or any other kernel to quantify the similarity
-of any pair of samples.
+**التطبيع** هي عملية **تحجيم العينات الفردية بحيث يكون لها معيار الوحدة**. يمكن أن تكون هذه العملية مفيدة إذا كنت تخطط لاستخدام نموذج رباعي مثل المنتج النقطي أو أي نواة أخرى لقياس تشابه أي زوج من العينات.
 
-This assumption is the base of the `Vector Space Model
-<https://en.wikipedia.org/wiki/Vector_Space_Model>`_ often used in text
-classification and clustering contexts.
+يعد هذا الافتراض هو الأساس لنموذج مساحة المتجه <https://en.wikipedia.org/wiki/Vector_Space_Model> المستخدم غالبًا في سياقات تصنيف النصوص وتجميعها.
 
-The function :func:`normalize` provides a quick and easy way to perform this
-operation on a single array-like dataset, either using the ``l1``, ``l2``, or
-``max`` norms::
+توفر الدالة normalize طريقة سريعة وسهلة لأداء هذه العملية على مجموعة بيانات واحدة تشبه المصفوفة، باستخدام معايير "l1" أو "l2" أو "max"::
 
   >>> X = [[ 1., -1.,  2.],
   ...      [ 2.,  0.,  0.],
@@ -474,20 +385,16 @@ operation on a single array-like dataset, either using the ``l1``, ``l2``, or
          [ 1.  ...,  0.  ...,  0.  ...],
          [ 0.  ...,  0.70..., -0.70...]])
 
-The ``preprocessing`` module further provides a utility class
-:class:`Normalizer` that implements the same operation using the
-``Transformer`` API (even though the ``fit`` method is useless in this case:
-the class is stateless as this operation treats samples independently).
+يوفر وحدة "preprocessing" أيضًا فئة فائدة Normalizer التي تنفذ نفس العملية باستخدام واجهة برمجة تطبيقات المحول (على الرغم من أن طريقة "fit" عديمة الفائدة في هذه الحالة: تكون الفئة عديمة الحالة نظرًا لأن هذه العملية تعامل العينات بشكل مستقل).
 
-This class is hence suitable for use in the early steps of a
-:class:`~sklearn.pipeline.Pipeline`::
+لذلك، فإن هذه الفئة مناسبة للاستخدام في الخطوات الأولى من خط أنابيب: class: ~sklearn.pipeline.Pipeline::
 
   >>> normalizer = preprocessing.Normalizer().fit(X)  # fit does nothing
   >>> normalizer
   Normalizer()
 
 
-The normalizer instance can then be used on sample vectors as any transformer::
+يمكن بعد ذلك استخدام مثيل المحول على متجهات العينة كما هو الحال مع أي محول::
 
   >>> normalizer.transform(X)
   array([[ 0.40..., -0.40...,  0.81...],
@@ -498,267 +405,207 @@ The normalizer instance can then be used on sample vectors as any transformer::
   array([[-0.70...,  0.70...,  0.  ...]])
 
 
-Note: L2 normalization is also known as spatial sign preprocessing.
+ملاحظة: التطبيع L2 معروف أيضًا باسم المعالجة المسبقة للإشارة المكانية.
 
-.. dropdown:: Sparse input
+.. dropdown:: الإدخال المتناثر
 
-  :func:`normalize` and :class:`Normalizer` accept **both dense array-like
-  and sparse matrices from scipy.sparse as input**.
+  يقبل normalize وNormalizer **كل من المصفوفات الكثيفة المتشابهة والمصفوفات المتناثرة من scipy.sparse كإدخال**.
 
-  For sparse input the data is **converted to the Compressed Sparse Rows
-  representation** (see ``scipy.sparse.csr_matrix``) before being fed to
-  efficient Cython routines. To avoid unnecessary memory copies, it is
-  recommended to choose the CSR representation upstream.
+  بالنسبة للإدخال المتناثر، يتم **تحويل البيانات إلى تمثيل الصفوف المتناثرة المضغوطة** (راجع scipy.sparse.csr_matrix) قبل إدخالها إلى روتين Cython فعال. لتجنب عمليات نسخ الذاكرة غير الضرورية، يُنصح باختيار تمثيل CSR أعلى.
 
 .. _preprocessing_categorical_features:
 
-Encoding categorical features
-=============================
+ترميز الميزات الفئوية
+غالباً ما تكون الخصائص غير معطاة على شكل قيم مستمرة ولكنها تصنيفية. على سبيل المثال، يمكن أن تكون لشخص خصائص مثل ["ذكر"، "أنثى"]، أو ["من أوروبا"، "من الولايات المتحدة"، "من آسيا"]، أو ["يستخدم فايرفوكس"، "يستخدم كروم"، "يستخدم سفاري"، "يستخدم إنترنت إكسبلورر"]. يمكن ترميز مثل هذه الخصائص بكفاءة على شكل أعداد صحيحة، على سبيل المثال، يمكن التعبير عن ["ذكر"، "من الولايات المتحدة"، "يستخدم إنترنت إكسبلورر"] على شكل [0, 1, 3] في حين يمكن التعبير عن ["أنثى"، "من آسيا"، "يستخدم كروم"] على شكل [1, 2, 1].
 
-Often features are not given as continuous values but categorical.
-For example a person could have features ``["male", "female"]``,
-``["from Europe", "from US", "from Asia"]``,
-``["uses Firefox", "uses Chrome", "uses Safari", "uses Internet Explorer"]``.
-Such features can be efficiently coded as integers, for instance
-``["male", "from US", "uses Internet Explorer"]`` could be expressed as
-``[0, 1, 3]`` while ``["female", "from Asia", "uses Chrome"]`` would be
-``[1, 2, 1]``.
+لتحويل الخصائص التصنيفية إلى رموز أعداد صحيحة، يمكننا استخدام التصنيف OrdinalEncoder. يحول هذا التقدير كل خاصية تصنيفية إلى خاصية جديدة واحدة من الأعداد الصحيحة (من 0 إلى n_categories - 1).
 
-To convert categorical features to such integer codes, we can use the
-:class:`OrdinalEncoder`. This estimator transforms each categorical feature to one
-new feature of integers (0 to n_categories - 1)::
+على سبيل المثال:
 
-    >>> enc = preprocessing.OrdinalEncoder()
-    >>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
-    >>> enc.fit(X)
-    OrdinalEncoder()
-    >>> enc.transform([['female', 'from US', 'uses Safari']])
-    array([[0., 1., 1.]])
+>>> enc = preprocessing.OrdinalEncoder()
+>>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
+>>> enc.fit(X)
+OrdinalEncoder()
+>>> enc.transform([['female', 'from US', 'uses Safari']])
+array([[0., 1., 1.]])
 
-Such integer representation can, however, not be used directly with all
-scikit-learn estimators, as these expect continuous input, and would interpret
-the categories as being ordered, which is often not desired (i.e. the set of
-browsers was ordered arbitrarily).
+ومع ذلك، لا يمكن استخدام تمثيل الأعداد الصحيحة هذا مباشرة مع جميع تقديرات scikit-learn، لأنها تتوقع إدخال قيم مستمرة، وستفسر الفئات على أنها مرتبة، وهو ما لا يكون مرغوباً في كثير من الأحيان (أي أن مجموعة المتصفحات تم ترتيبها بشكل تعسفي).
 
-By default, :class:`OrdinalEncoder` will also passthrough missing values that
-are indicated by `np.nan`.
+بشكل افتراضي، سوف يقوم التصنيف OrdinalEncoder أيضًا بنقل القيم المفقودة التي يتم الإشارة إليها بـ np.nan.
 
-    >>> enc = preprocessing.OrdinalEncoder()
-    >>> X = [['male'], ['female'], [np.nan], ['female']]
-    >>> enc.fit_transform(X)
-    array([[ 1.],
-           [ 0.],
-           [nan],
-           [ 0.]])
+على سبيل المثال:
 
-:class:`OrdinalEncoder` provides a parameter `encoded_missing_value` to encode
-the missing values without the need to create a pipeline and using
-:class:`~sklearn.impute.SimpleImputer`.
+>>> enc = preprocessing.OrdinalEncoder()
+>>> X = [['male'], ['female'], [np.nan], ['female']]
+>>> enc.fit_transform(X)
+array([[ 1.],
+       [ 0.],
+       [nan],
+       [ 0.]])
 
-    >>> enc = preprocessing.OrdinalEncoder(encoded_missing_value=-1)
-    >>> X = [['male'], ['female'], [np.nan], ['female']]
-    >>> enc.fit_transform(X)
-    array([[ 1.],
-           [ 0.],
-           [-1.],
-           [ 0.]])
+يوفر التصنيف OrdinalEncoder معامل encoded_missing_value لترميز القيم المفقودة دون الحاجة إلى إنشاء خط أنابيب واستخدام التصنيف sklearn.impute.SimpleImputer.
 
-The above processing is equivalent to the following pipeline::
+على سبيل المثال:
 
-    >>> from sklearn.pipeline import Pipeline
-    >>> from sklearn.impute import SimpleImputer
-    >>> enc = Pipeline(steps=[
-    ...     ("encoder", preprocessing.OrdinalEncoder()),
-    ...     ("imputer", SimpleImputer(strategy="constant", fill_value=-1)),
-    ... ])
-    >>> enc.fit_transform(X)
-    array([[ 1.],
-           [ 0.],
-           [-1.],
-           [ 0.]])
+>>> enc = preprocessing.OrdinalEncoder(encoded_missing_value=-1)
+>>> X = [['male'], ['female'], [np.nan], ['female']]
+>>> enc.fit_transform(X)
+array([[ 1.],
+       [ 0.],
+       [-1.],
+       [ 0.]])
 
-Another possibility to convert categorical features to features that can be used
-with scikit-learn estimators is to use a one-of-K, also known as one-hot or
-dummy encoding.
-This type of encoding can be obtained with the :class:`OneHotEncoder`,
-which transforms each categorical feature with
-``n_categories`` possible values into ``n_categories`` binary features, with
-one of them 1, and all others 0.
+تعادل المعالجة المذكورة أعلاه خط الأنابيب التالي:
 
-Continuing the example above::
+>>> from sklearn.pipeline import Pipeline
+>>> from sklearn.impute import SimpleImputer
+>>> enc = Pipeline(steps=[
+...     ("encoder", preprocessing.OrdinalEncoder()),
+...     ("imputer", SimpleImputer(strategy="constant", fill_value=-1)),
+... ])
+>>> enc.fit_transform(X)
+array([[ 1.],
+       [ 0.],
+       [-1.],
+       [ 0.]])
 
-  >>> enc = preprocessing.OneHotEncoder()
-  >>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
-  >>> enc.fit(X)
-  OneHotEncoder()
-  >>> enc.transform([['female', 'from US', 'uses Safari'],
-  ...                ['male', 'from Europe', 'uses Safari']]).toarray()
-  array([[1., 0., 0., 1., 0., 1.],
-         [0., 1., 1., 0., 0., 1.]])
+هناك إمكانية أخرى لتحويل الخصائص التصنيفية إلى خصائص يمكن استخدامها مع تقديرات scikit-learn وهي استخدام ترميز one-of-K، المعروف أيضًا باسم one-hot أو dummy encoding.
 
-By default, the values each feature can take is inferred automatically
-from the dataset and can be found in the ``categories_`` attribute::
+يمكن الحصول على هذا النوع من الترميز باستخدام التصنيف OneHotEncoder، والذي يحول كل خاصية تصنيفية تحتوي على n_categories من القيم المحتملة إلى n_categories من الخصائص الثنائية، حيث تكون إحدى هذه الخصائص تساوي 1، وكل الخصائص الأخرى تساوي 0.
 
-    >>> enc.categories_
-    [array(['female', 'male'], dtype=object), array(['from Europe', 'from US'], dtype=object), array(['uses Firefox', 'uses Safari'], dtype=object)]
+استمرارًا للمثال المذكور أعلاه:
 
-It is possible to specify this explicitly using the parameter ``categories``.
-There are two genders, four possible continents and four web browsers in our
-dataset::
+>>> enc = preprocessing.OneHotEncoder()
+>>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
+>>> enc.fit(X)
+OneHotEncoder()
+>>> enc.transform([['female', 'from US', 'uses Safari'],
+...                ['male', 'from Europe', 'uses Safari']]).toarray()
+array([[1., 0., 0., 1., 0., 1.],
+       [0., 1., 1., 0., 0., 1.]])
 
-    >>> genders = ['female', 'male']
-    >>> locations = ['from Africa', 'from Asia', 'from Europe', 'from US']
-    >>> browsers = ['uses Chrome', 'uses Firefox', 'uses IE', 'uses Safari']
-    >>> enc = preprocessing.OneHotEncoder(categories=[genders, locations, browsers])
-    >>> # Note that for there are missing categorical values for the 2nd and 3rd
-    >>> # feature
-    >>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
-    >>> enc.fit(X)
-    OneHotEncoder(categories=[['female', 'male'],
-                              ['from Africa', 'from Asia', 'from Europe',
-                               'from US'],
-                              ['uses Chrome', 'uses Firefox', 'uses IE',
-                               'uses Safari']])
-    >>> enc.transform([['female', 'from Asia', 'uses Chrome']]).toarray()
-    array([[1., 0., 0., 1., 0., 0., 1., 0., 0., 0.]])
+بشكل افتراضي، يتم استنتاج القيم التي يمكن أن تأخذها كل خاصية تلقائيًا من مجموعة البيانات ويمكن العثور عليها في خاصية categories_.
 
-If there is a possibility that the training data might have missing categorical
-features, it can often be better to specify
-`handle_unknown='infrequent_if_exist'` instead of setting the `categories`
-manually as above. When `handle_unknown='infrequent_if_exist'` is specified
-and unknown categories are encountered during transform, no error will be
-raised but the resulting one-hot encoded columns for this feature will be all
-zeros or considered as an infrequent category if enabled.
-(`handle_unknown='infrequent_if_exist'` is only supported for one-hot
-encoding)::
+على سبيل المثال:
 
-    >>> enc = preprocessing.OneHotEncoder(handle_unknown='infrequent_if_exist')
-    >>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
-    >>> enc.fit(X)
-    OneHotEncoder(handle_unknown='infrequent_if_exist')
-    >>> enc.transform([['female', 'from Asia', 'uses Chrome']]).toarray()
-    array([[1., 0., 0., 0., 0., 0.]])
+>>> enc.categories_
+[array(['female', 'male'], dtype=object), array(['from Europe', 'from US'], dtype=object), array(['uses Firefox', 'uses Safari'], dtype=object)]
 
+من الممكن تحديد هذا بشكل صريح باستخدام معامل categories. هناك نوعان اجتماعيان، وأربع قارات محتملة، وأربعة متصفحات ويب في مجموعة البيانات الخاصة بنا:
 
-It is also possible to encode each column into ``n_categories - 1`` columns
-instead of ``n_categories`` columns by using the ``drop`` parameter. This
-parameter allows the user to specify a category for each feature to be dropped.
-This is useful to avoid co-linearity in the input matrix in some classifiers.
-Such functionality is useful, for example, when using non-regularized
-regression (:class:`LinearRegression <sklearn.linear_model.LinearRegression>`),
-since co-linearity would cause the covariance matrix to be non-invertible::
+>>> genders = ['female', 'male']
+>>> locations = ['from Africa', 'from Asia', 'from Europe', 'from US']
+>>> browsers = ['uses Chrome', 'uses Firefox', 'uses IE', 'uses Safari']
+>>> enc = preprocessing.OneHotEncoder(categories=[genders, locations, browsers])
+>>> # لاحظ أنه توجد قيم تصنيفية مفقودة للخاصية الثانية والثالثة
+>>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
+>>> enc.fit(X)
+OneHotEncoder(categories=[['female', 'male'],
+                          ['from Africa', 'from Asia', 'from Europe',
+                           'from US'],
+                          ['uses Chrome', 'uses Firefox', 'uses IE',
+                           'uses Safari']])
+>>> enc.transform([['female', 'from Asia', 'uses Chrome']]).toarray()
+array([[1., 0., 0., 1., 0., 0., 1., 0., 0., 0.]])
 
-    >>> X = [['male', 'from US', 'uses Safari'],
-    ...      ['female', 'from Europe', 'uses Firefox']]
-    >>> drop_enc = preprocessing.OneHotEncoder(drop='first').fit(X)
-    >>> drop_enc.categories_
-    [array(['female', 'male'], dtype=object), array(['from Europe', 'from US'], dtype=object),
-     array(['uses Firefox', 'uses Safari'], dtype=object)]
-    >>> drop_enc.transform(X).toarray()
-    array([[1., 1., 1.],
-           [0., 0., 0.]])
+إذا كان هناك احتمال أن تحتوي بيانات التدريب على خصائص تصنيفية مفقودة، فقد يكون من الأفضل تحديد handle_unknown='infrequent_if_exist' بدلاً من تعيين categories يدويًا كما هو موضح أعلاه. عندما يتم تحديد handle_unknown='infrequent_if_exist' ويتم مواجهة فئات غير معروفة أثناء التحويل، فلن يتم رفع أي خطأ ولكن سيتم اعتبار الأعمدة المشفرة one-hot الناتجة عن هذه الخاصية كلها أصفار أو فئة نادرة إذا تم تمكينها. (يتم دعم handle_unknown='infrequent_if_exist' فقط لترميز one-hot).
 
-One might want to drop one of the two columns only for features with 2
-categories. In this case, you can set the parameter `drop='if_binary'`.
+على سبيل المثال:
 
-    >>> X = [['male', 'US', 'Safari'],
-    ...      ['female', 'Europe', 'Firefox'],
-    ...      ['female', 'Asia', 'Chrome']]
-    >>> drop_enc = preprocessing.OneHotEncoder(drop='if_binary').fit(X)
-    >>> drop_enc.categories_
-    [array(['female', 'male'], dtype=object), array(['Asia', 'Europe', 'US'], dtype=object),
-     array(['Chrome', 'Firefox', 'Safari'], dtype=object)]
-    >>> drop_enc.transform(X).toarray()
-    array([[1., 0., 0., 1., 0., 0., 1.],
-           [0., 0., 1., 0., 0., 1., 0.],
-           [0., 1., 0., 0., 1., 0., 0.]])
+>>> enc = preprocessing.OneHotEncoder(handle_unknown='infrequent_if_exist')
+>>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
+>>> enc.fit(X)
+OneHotEncoder(handle_unknown='infrequent_if_exist')
+>>> enc.transform([['female', 'from Asia', 'uses Chrome']]).toarray()
+array([[1., 0., 0., 0., 0., 0.]])
 
-In the transformed `X`, the first column is the encoding of the feature with
-categories "male"/"female", while the remaining 6 columns is the encoding of
-the 2 features with respectively 3 categories each.
+من الممكن أيضًا ترميز كل عمود إلى n_categories - 1 من الأعمدة بدلاً من n_categories من الأعمدة باستخدام معامل drop. يسمح هذا المعامل للمستخدم بتحديد فئة لكل خاصية ليتم إسقاطها. وهذا مفيد لتجنب التلازم في مصفوفة الإدخال في بعض التصنيفات. تعد هذه الوظيفة مفيدة، على سبيل المثال، عند استخدام الانحدار غير المنتظم (LinearRegression)، حيث قد يتسبب التلازم في عدم إمكانية عكس مصفوفة القيم الذاتية.
 
-When `handle_unknown='ignore'` and `drop` is not None, unknown categories will
-be encoded as all zeros::
+على سبيل المثال:
 
-    >>> drop_enc = preprocessing.OneHotEncoder(drop='first',
-    ...                                        handle_unknown='ignore').fit(X)
-    >>> X_test = [['unknown', 'America', 'IE']]
-    >>> drop_enc.transform(X_test).toarray()
-    array([[0., 0., 0., 0., 0.]])
+>>> X = [['male', 'from US', 'uses Safari'],
+...      ['female', 'from Europe', 'uses Firefox']]
+>>> drop_enc = preprocessing.OneHotEncoder(drop='first').fit(X)
+>>> drop_enc.categories_
+[array(['female', 'male'], dtype=object), array(['from Europe', 'from US'], dtype=object),
+ array(['uses Firefox', 'uses Safari'], dtype=object)]
+>>> drop_enc.transform(X).toarray()
+array([[1., 1., 1.],
+       [0., 0., 0.]])
 
-All the categories in `X_test` are unknown during transform and will be mapped
-to all zeros. This means that unknown categories will have the same mapping as
-the dropped category. :meth:`OneHotEncoder.inverse_transform` will map all zeros
-to the dropped category if a category is dropped and `None` if a category is
-not dropped::
+قد يرغب المرء في إسقاط أحد العمودين فقط للخصائص التي تحتوي على فئتين. في هذه الحالة، يمكنك تعيين معامل drop='if_binary'.
 
-    >>> drop_enc = preprocessing.OneHotEncoder(drop='if_binary', sparse_output=False,
-    ...                                        handle_unknown='ignore').fit(X)
-    >>> X_test = [['unknown', 'America', 'IE']]
-    >>> X_trans = drop_enc.transform(X_test)
-    >>> X_trans
-    array([[0., 0., 0., 0., 0., 0., 0.]])
-    >>> drop_enc.inverse_transform(X_trans)
-    array([['female', None, None]], dtype=object)
+على سبيل المثال:
 
-.. dropdown:: Support of categorical features with missing values
+>>> X = [['male', 'US', 'Safari'],
+...      ['female', 'Europe', 'Firefox'],
+...      ['female', 'Asia', 'Chrome']]
+>>> drop_enc = preprocessing.OneHotEncoder(drop='if_binary').fit(X)
+>>> drop_enc.categories_
+[array(['female', 'male'], dtype=object), array(['Asia', 'Europe', 'US'], dtype=object),
+ array(['Chrome', 'Firefox', 'Safari'], dtype=object)]
+>>> drop_enc.transform(X).toarray()
+array([[1., 0., 0., 1., 0., 0., 1.],
+       [0., 0., 1., 0., 0., 1., 0.],
+       [0., 1., 0., 0., 1., 0., 0.]])
 
-  :class:`OneHotEncoder` supports categorical features with missing values by
-  considering the missing values as an additional category::
+في مصفوفة X المحولة، العمود الأول هو ترميز الخاصية بالفئات "ذكر"/"أنثى"، في حين أن الأعمدة الستة المتبقية هي ترميز الخاصيتين اللتين تحتوي كل منهما على 3 فئات.
 
-      >>> X = [['male', 'Safari'],
-      ...      ['female', None],
-      ...      [np.nan, 'Firefox']]
-      >>> enc = preprocessing.OneHotEncoder(handle_unknown='error').fit(X)
-      >>> enc.categories_
-      [array(['female', 'male', nan], dtype=object),
-      array(['Firefox', 'Safari', None], dtype=object)]
-      >>> enc.transform(X).toarray()
-      array([[0., 1., 0., 0., 1., 0.],
-            [1., 0., 0., 0., 0., 1.],
-            [0., 0., 1., 1., 0., 0.]])
+عندما يكون handle_unknown='ignore' و drop ليس None، يتم ترميز الفئات غير المعروفة على أنها كلها أصفار:
 
-  If a feature contains both `np.nan` and `None`, they will be considered
-  separate categories::
+>>> drop_enc = preprocessing.OneHotEncoder(drop='first',
+...                                        handle_unknown='ignore').fit(X)
+>>> X_test = [['unknown', 'America', 'IE']]
+>>> drop_enc.transform(X_test).toarray()
+array([[0., 0., 0., 0., 0.]])
 
-      >>> X = [['Safari'], [None], [np.nan], ['Firefox']]
-      >>> enc = preprocessing.OneHotEncoder(handle_unknown='error').fit(X)
-      >>> enc.categories_
-      [array(['Firefox', 'Safari', None, nan], dtype=object)]
-      >>> enc.transform(X).toarray()
-      array([[0., 1., 0., 0.],
-            [0., 0., 1., 0.],
-            [0., 0., 0., 1.],
-            [1., 0., 0., 0.]])
+جميع الفئات في X_test غير معروفة أثناء التحويل وسيتم تعيينها إلى كلها أصفار. وهذا يعني أن الفئات غير المعروفة سيكون لها نفس الترميز مثل الفئة التي تم إسقاطها. سيقوم الأسلوب OneHotEncoder.inverse_transform بتعيين كل الأصفار إلى الفئة التي تم إسقاطها إذا تم إسقاط فئة، وإلى None إذا لم يتم إسقاط فئة:
 
-  See :ref:`dict_feature_extraction` for categorical features that are
-  represented as a dict, not as scalars.
+>>> drop_enc = preprocessing.OneHotEncoder(drop='if_binary', sparse_output=False,
+...                                        handle_unknown='ignore').fit(X)
+>>> X_test = [['unknown', 'America', 'IE']]
+>>> X_trans = drop_enc.transform(X_test)
+>>> X_trans
+array([[0., 0., 0., 0., 0., 0., 0.]])
+>>> drop_enc.inverse_transform(X_trans)
+array([['female', None, None]], dtype=object)
 
+يدعم التصنيف OneHotEncoder الخصائص التصنيفية بالقيم المفقودة من خلال اعتبار القيم المفقودة فئة إضافية:
 
-.. _encoder_infrequent_categories:
+>>> X = [['male', 'Safari'],
+...      ['female', None],
+...      [np.nan, 'Firefox']]
+>>> enc = preprocessing.OneHotEncoder(handle_unknown='error').fit(X)
+>>> enc.categories_
+[array(['female', 'male', nan], dtype=object),
+ array(['Firefox', 'Safari', None], dtype=object)]
+>>> enc.transform(X).toarray()
+array([[0., 1., 0., 0., 1., 0.],
+       [1., 0., 0., 0., 0., 1.],
+       [0., 0., 1., 1., 0., 0.]])
 
-Infrequent categories
----------------------
+إذا كانت الخاصية تحتوي على كل من np.nan و None، فسيتم اعتبارهما فئتين منفصلتين:
 
-:class:`OneHotEncoder` and :class:`OrdinalEncoder` support aggregating
-infrequent categories into a single output for each feature. The parameters to
-enable the gathering of infrequent categories are `min_frequency` and
-`max_categories`.
+>>> X = [['Safari'], [None], [np.nan], ['Firefox']]
+>>> enc = preprocessing.OneHotEncoder(handle_unknown='error').fit(X)
+>>> enc.categories_
+[array(['Firefox', 'Safari', None, nan], dtype=object)]
+>>> enc.transform(X).toarray()
+array([[0., 1., 0., 0.],
+       [0., 0., 1., 0.],
+       [0., 0., 0., 1.],
+       [1., 0., 0., 0.]])
 
-1. `min_frequency` is either an  integer greater or equal to 1, or a float in
-   the interval `(0.0, 1.0)`. If `min_frequency` is an integer, categories with
-   a cardinality smaller than `min_frequency`  will be considered infrequent.
-   If `min_frequency` is a float, categories with a cardinality smaller than
-   this fraction of the total number of samples will be considered infrequent.
-   The default value is 1, which means every category is encoded separately.
+راجع قسم dict_feature_extraction للاطلاع على الخصائص التصنيفية الممثلة على شكل قاموس، وليس على شكل قيم فردية.
 
-2. `max_categories` is either `None` or any integer greater than 1. This
-   parameter sets an upper limit to the number of output features for each
-   input feature. `max_categories` includes the feature that combines
-   infrequent categories.
+الفئات النادرة
+يدعم كل من :class:`OneHotEncoder` و :class:`OrdinalEncoder` تجميع الفئات غير المتكررة في مخرج واحد لكل خاصية. والمعياران اللذان يمكنان من جمع الفئات غير المتكررة هما `min_frequency` و `max_categories`.
 
-In the following example with :class:`OrdinalEncoder`, the categories `'dog' and
-'snake'` are considered infrequent::
+1. `min_frequency` إما أن يكون عددًا صحيحًا أكبر من أو يساوي 1، أو عددًا عشريًا في الفترة `(0.0, 1.0)`. إذا كان `min_frequency` عددًا صحيحًا، فسيتم اعتبار الفئات التي لها عدد حالات أقل من `min_frequency` غير متكررة. إذا كان `min_frequency` عددًا عشريًا، فسيتم اعتبار الفئات التي لها عدد حالات أقل من هذا الجزء من العدد الإجمالي للعينات غير متكررة. والقيمة الافتراضية هي 1، مما يعني أن كل فئة يتم ترميزها بشكل منفصل.
+
+2. `max_categories` إما أن تكون `None` أو أي عدد صحيح أكبر من 1. يحدد هذا المعيار حدًا أعلى لعدد الميزات الإخراجية لكل ميزة إدخال. يشمل `max_categories` الميزة التي تجمع الفئات غير المتكررة.
+
+في المثال التالي باستخدام :class:`OrdinalEncoder`، تعتبر الفئتان `'dog'` و `'snake'` غير متكررتين::
 
    >>> X = np.array([['dog'] * 5 + ['cat'] * 20 + ['rabbit'] * 10 +
    ...               ['snake'] * 3], dtype=object).T
@@ -771,13 +618,7 @@ In the following example with :class:`OrdinalEncoder`, the categories `'dog' and
           [1.],
           [2.]])
 
-:class:`OrdinalEncoder`'s `max_categories` do **not** take into account missing
-or unknown categories. Setting `unknown_value` or `encoded_missing_value` to an
-integer will increase the number of unique integer codes by one each. This can
-result in up to `max_categories + 2` integer codes. In the following example,
-"a" and "d" are considered infrequent and grouped together into a single
-category, "b" and "c" are their own categories, unknown values are encoded as 3
-and missing values are encoded as 4.
+لا يأخذ `max_categories` في :class:`OrdinalEncoder` في الاعتبار الفئات المفقودة أو غير المعروفة. يؤدي تعيين `unknown_value` أو `encoded_missing_value` إلى عدد صحيح إلى زيادة عدد الرموز العددية الفريدة بواحد لكل منهما. يمكن أن يؤدي ذلك إلى ما يصل إلى `max_categories + 2` رموز عددية. في المثال التالي، تعتبر "a" و "d" غير متكررتين ويتم تجميعهما معًا في فئة واحدة، و"b" و "c" هما فئتان منفصلتان، ويتم ترميز القيم غير المعروفة على أنها 3 والقيم المفقودة على أنها 4.
 
   >>> X_train = np.array(
   ...     [["a"] * 5 + ["b"] * 20 + ["c"] * 10 + ["d"] * 3 + [np.nan]],
@@ -795,8 +636,7 @@ and missing values are encoded as 4.
          [3.],
          [4.]])
 
-Similarity, :class:`OneHotEncoder` can be configured to group together infrequent
-categories::
+وبالمثل، يمكن تكوين :class:`OneHotEncoder` ليقوم بتجميع الفئات غير المتكررة::
 
    >>> enc = preprocessing.OneHotEncoder(min_frequency=6, sparse_output=False).fit(X)
    >>> enc.infrequent_categories_
@@ -807,8 +647,7 @@ categories::
           [0., 1., 0.],
           [0., 0., 1.]])
 
-By setting handle_unknown to `'infrequent_if_exist'`, unknown categories will
-be considered infrequent::
+عن طريق تعيين handle_unknown إلى `'infrequent_if_exist'`، سيتم اعتبار الفئات غير المعروفة غير متكررة::
 
    >>> enc = preprocessing.OneHotEncoder(
    ...    handle_unknown='infrequent_if_exist', sparse_output=False, min_frequency=6)
@@ -816,29 +655,18 @@ be considered infrequent::
    >>> enc.transform(np.array([['dragon']]))
    array([[0., 0., 1.]])
 
-:meth:`OneHotEncoder.get_feature_names_out` uses 'infrequent' as the infrequent
-feature name::
+يستخدم :meth:`OneHotEncoder.get_feature_names_out` كلمة 'infrequent' كاسم للفئة غير المتكررة::
 
    >>> enc.get_feature_names_out()
    array(['x0_cat', 'x0_rabbit', 'x0_infrequent_sklearn'], dtype=object)
 
-When `'handle_unknown'` is set to `'infrequent_if_exist'` and an unknown
-category is encountered in transform:
+عندما يتم تعيين `'handle_unknown'` إلى `'infrequent_if_exist'` وتتم مواجهة فئة غير معروفة في التحول:
 
-1. If infrequent category support was not configured or there was no
-   infrequent category during training, the resulting one-hot encoded columns
-   for this feature will be all zeros. In the inverse transform, an unknown
-   category will be denoted as `None`.
+1. إذا لم يتم تكوين دعم الفئة غير المتكررة أو لم تكن هناك فئة غير متكررة أثناء التدريب، فستكون الأعمدة المشفرة بنظام one-hot الناتجة عن هذه الميزة جميعها أصفار. في التحول العكسي، سيتم تمثيل الفئة غير المعروفة بـ `None`.
 
-2. If there is an infrequent category during training, the unknown category
-   will be considered infrequent. In the inverse transform, 'infrequent_sklearn'
-   will be used to represent the infrequent category.
+2. إذا كانت هناك فئة غير متكررة أثناء التدريب، فسيتم اعتبار الفئة غير المعروفة غير متكررة. في التحول العكسي، سيتم استخدام 'infrequent_sklearn' لتمثيل الفئة غير المتكررة.
 
-Infrequent categories can also be configured using `max_categories`. In the
-following example, we set `max_categories=2` to limit the number of features in
-the output. This will result in all but the `'cat'` category to be considered
-infrequent, leading to two features, one for `'cat'` and one for infrequent
-categories - which are all the others::
+يمكن أيضًا تكوين الفئات غير المتكررة باستخدام `max_categories`. في المثال التالي، نقوم بتعيين `max_categories=2` للحد من عدد الميزات في الإخراج. سيؤدي هذا إلى اعتبار جميع الفئات باستثناء فئة `'cat'` على أنها غير متكررة، مما يؤدي إلى ميزتين، واحدة لـ `'cat'` والأخرى للفئات غير المتكررة - والتي هي جميع الفئات الأخرى::
 
    >>> enc = preprocessing.OneHotEncoder(max_categories=2, sparse_output=False)
    >>> enc = enc.fit(X)
@@ -848,11 +676,7 @@ categories - which are all the others::
           [0., 1.],
           [0., 1.]])
 
-If both `max_categories` and `min_frequency` are non-default values, then
-categories are selected based on `min_frequency` first and `max_categories`
-categories are kept. In the following example, `min_frequency=4` considers
-only `snake` to be infrequent, but `max_categories=3`, forces `dog` to also be
-infrequent::
+إذا كانت لكل من `max_categories` و `min_frequency` قيم غير افتراضية، فسيتم اختيار الفئات بناءً على `min_frequency` أولاً ويتم الاحتفاظ بـ `max_categories` من الفئات. في المثال التالي، يعتبر `min_frequency=4` أن `snake` فقط غير متكرر، ولكن `max_categories=3`، يجبر `dog` أيضًا على أن يكون غير متكرر::
 
    >>> enc = preprocessing.OneHotEncoder(min_frequency=4, max_categories=3, sparse_output=False)
    >>> enc = enc.fit(X)
@@ -862,11 +686,7 @@ infrequent::
           [0., 1., 0.],
           [0., 0., 1.]])
 
-If there are infrequent categories with the same cardinality at the cutoff of
-`max_categories`, then then the first `max_categories` are taken based on lexicon
-ordering. In the following example, "b", "c", and "d", have the same cardinality
-and with `max_categories=2`, "b" and "c" are infrequent because they have a higher
-lexicon order.
+إذا كانت هناك فئات غير متكررة لها نفس عدد الحالات عند حد `max_categories`، فسيتم أخذ أول `max_categories` بناءً على الترتيب المعجمي. في المثال التالي، تحتوي "b" و "c" و "d" على نفس عدد الحالات، ومع `max_categories=2`، تعتبر "b" و "c" غير متكررتين لأنهما لهما ترتيب معجمي أعلى.
 
    >>> X = np.asarray([["a"] * 20 + ["b"] * 10 + ["c"] * 10 + ["d"] * 10], dtype=object).T
    >>> enc = preprocessing.OneHotEncoder(max_categories=3).fit(X)
@@ -875,108 +695,87 @@ lexicon order.
 
 .. _target_encoder:
 
-Target Encoder
+مشفّر الهدف
 --------------
 
 .. currentmodule:: sklearn.preprocessing
 
-The :class:`TargetEncoder` uses the target mean conditioned on the categorical
-feature for encoding unordered categories, i.e. nominal categories [PAR]_
-[MIC]_. This encoding scheme is useful with categorical features with high
-cardinality, where one-hot encoding would inflate the feature space making it
-more expensive for a downstream model to process. A classical example of high
-cardinality categories are location based such as zip code or region.
+يستخدم :class:`TargetEncoder` متوسط الهدف المشروط على الميزة الفئوية لتشفير الفئات غير المرتبة، أي الفئات الاسمية [PAR]_ [MIC]_. يعتبر نظام الترميز هذا مفيدًا مع الميزات الفئوية ذات التكرار العالي، حيث يؤدي الترميز one-hot إلى تضخيم مساحة الميزة، مما يجعلها أكثر تكلفة لنموذج المصب لمعالجتها. ومن الأمثلة الكلاسيكية على الفئات ذات التكرار العالي الفئات المستندة إلى الموقع مثل الرمز البريدي أو المنطقة.
 
-.. dropdown:: Binary classification targets
+.. dropdown:: أهداف التصنيف الثنائي
 
-  For the binary classification target, the target encoding is given by:
+  بالنسبة لهدف التصنيف الثنائي، يكون الترميز الهدف على النحو التالي:
 
   .. math::
       S_i = \lambda_i\frac{n_{iY}}{n_i} + (1 - \lambda_i)\frac{n_Y}{n}
 
-  where :math:`S_i` is the encoding for category :math:`i`, :math:`n_{iY}` is the
-  number of observations with :math:`Y=1` and category :math:`i`, :math:`n_i` is
-  the number of observations with category :math:`i`, :math:`n_Y` is the number of
-  observations with :math:`Y=1`, :math:`n` is the number of observations, and
-  :math:`\lambda_i` is a shrinkage factor for category :math:`i`. The shrinkage
-  factor is given by:
+  حيث :math:`S_i` هو الترميز للفئة :math:`i`، :math:`n_{iY}` هو
+  عدد الملاحظات مع :math:`Y=1` والفئة :math:`i`، :math:`n_i` هو
+  عدد الملاحظات مع الفئة :math:`i`، :math:`n_Y` هو
+  عدد الملاحظات مع :math:`Y=1`، :math:`n` هو
+  عدد الملاحظات، و:math:`\lambda_i` هو عامل انكماش للفئة :math:`i`. يتم إعطاء عامل الانكماش على النحو التالي:
 
   .. math::
       \lambda_i = \frac{n_i}{m + n_i}
 
-  where :math:`m` is a smoothing factor, which is controlled with the `smooth`
-  parameter in :class:`TargetEncoder`. Large smoothing factors will put more
-  weight on the global mean. When `smooth="auto"`, the smoothing factor is
-  computed as an empirical Bayes estimate: :math:`m=\sigma_i^2/\tau^2`, where
-  :math:`\sigma_i^2` is the variance of `y` with category :math:`i` and
-  :math:`\tau^2` is the global variance of `y`.
+  حيث :math:`m` هو عامل التمهيد، والذي يتحكم فيه معلمة `smooth`
+  في :class:`TargetEncoder`. ستعطي عوامل التمهيد الكبيرة وزنًا أكبر للمتوسط العالمي. عندما يكون `smooth="auto"`، يتم حساب عامل التمهيد كتقدير Bayes إحصائي: :math:`m=\sigma_i^2/\tau^2`، حيث
+  :math:`\sigma_i^2` هو تباين `y` مع الفئة :math:`i` و
+  :math:`\tau^2` هو التباين العالمي لـ `y`.
 
-.. dropdown:: Multiclass classification targets
+.. dropdown:: أهداف التصنيف متعدد الفئات
 
-  For multiclass classification targets, the formulation is similar to binary
-  classification:
+  بالنسبة لأهداف التصنيف متعدد الفئات، فإن الصيغة مماثلة للتصنيف الثنائي:
 
   .. math::
       S_{ij} = \lambda_i\frac{n_{iY_j}}{n_i} + (1 - \lambda_i)\frac{n_{Y_j}}{n}
 
-  where :math:`S_{ij}` is the encoding for category :math:`i` and class :math:`j`,
-  :math:`n_{iY_j}` is the number of observations with :math:`Y=j` and category
-  :math:`i`, :math:`n_i` is the number of observations with category :math:`i`,
-  :math:`n_{Y_j}` is the number of observations with :math:`Y=j`, :math:`n` is the
-  number of observations, and :math:`\lambda_i` is a shrinkage factor for category
-  :math:`i`.
+  حيث :math:`S_{ij}` هو الترميز للفئة :math:`i` والصنف :math:`j`،
+  :math:`n_{iY_j}` هو عدد الملاحظات مع :math:`Y=j` والفئة
+  :math:`i`، :math:`n_i` هو عدد الملاحظات مع الفئة :math:`i`،
+  :math:`n_{Y_j}` هو عدد الملاحظات مع :math:`Y=j`، :math:`n` هو
+  عدد الملاحظات، و:math:`\lambda_i` هو عامل انكماش للفئة :math:`i`.
 
-.. dropdown:: Continuous targets
+.. dropdown:: الأهداف المستمرة
 
-  For continuous targets, the formulation is similar to binary classification:
+  بالنسبة للأهداف المستمرة، فإن الصيغة مماثلة للتصنيف الثنائي:
 
   .. math::
       S_i = \lambda_i\frac{\sum_{k\in L_i}Y_k}{n_i} + (1 - \lambda_i)\frac{\sum_{k=1}^{n}Y_k}{n}
 
-  where :math:`L_i` is the set of observations with category :math:`i` and
-  :math:`n_i` is the number of observations with category :math:`i`.
+  حيث :math:`L_i` هي مجموعة الملاحظات مع الفئة :math:`i` و
+  :math:`n_i` هو عدد الملاحظات مع الفئة :math:`i`.
 
 
-:meth:`~TargetEncoder.fit_transform` internally relies on a :term:`cross fitting`
-scheme to prevent target information from leaking into the train-time
-representation, especially for non-informative high-cardinality categorical
-variables, and help prevent the downstream model from overfitting spurious
-correlations. Note that as a result, `fit(X, y).transform(X)` does not equal
-`fit_transform(X, y)`. In :meth:`~TargetEncoder.fit_transform`, the training
-data is split into *k* folds (determined by the `cv` parameter) and each fold is
-encoded using the encodings learnt using the other *k-1* folds. The following
-diagram shows the :term:`cross fitting` scheme in
-:meth:`~TargetEncoder.fit_transform` with the default `cv=5`:
+يعتمد :meth:`~TargetEncoder.fit_transform` داخليًا على مخطط :term:`cross fitting`
+لمنع تسرب معلومات الهدف إلى تمثيل وقت التدريب، خاصة بالنسبة للمتغيرات الفئوية عالية التكرار غير المعلوماتية، والمساعدة في منع النموذج المصب من الإفراط في ملاءمة الارتباطات الزائفة. لاحظ أنه نتيجة لذلك، فإن `fit(X, y).transform(X)` لا يساوي
+`fit_transform(X, y)`. في :meth:`~TargetEncoder.fit_transform`، يتم تقسيم بيانات التدريب إلى *k* طيات (يحددها معلمة `cv`) ويتم ترميز كل طية باستخدام الترميزات التي تم تعلمها باستخدام الطيات الأخرى *k-1*. يوضح الرسم البياني التالي مخطط :term:`cross fitting` في
+:meth:`~TargetEncoder.fit_transform` مع `cv=5` الافتراضي:
 
 .. image:: ../images/target_encoder_cross_validation.svg
    :width: 600
    :align: center
 
-:meth:`~TargetEncoder.fit_transform` also learns a 'full data' encoding using
-the whole training set. This is never used in
-:meth:`~TargetEncoder.fit_transform` but is saved to the attribute `encodings_`,
-for use when :meth:`~TargetEncoder.transform` is called. Note that the encodings
-learned for each fold during the :term:`cross fitting` scheme are not saved to
-an attribute.
+يتعلم :meth:`~TargetEncoder.fit_transform` أيضًا ترميز "البيانات الكاملة" باستخدام
+مجموعة التدريب بأكملها. لا يتم استخدام هذا أبدًا في
+:meth:`~TargetEncoder.fit_transform` ولكنه يتم حفظه في السمة `encodings_`،
+للاستخدام عند استدعاء :meth:`~TargetEncoder.transform`. لاحظ أن الترميزات التي تم تعلمها لكل طية أثناء مخطط :term:`cross fitting` لا يتم حفظها في سمة.
 
-The :meth:`~TargetEncoder.fit` method does **not** use any :term:`cross fitting`
-schemes and learns one encoding on the entire training set, which is used to
-encode categories in :meth:`~TargetEncoder.transform`.
-This encoding is the same as the 'full data'
-encoding learned in :meth:`~TargetEncoder.fit_transform`.
+لا تستخدم طريقة :meth:`~TargetEncoder.fit` أي مخططات :term:`cross fitting` ويتعلم ترميزًا واحدًا على مجموعة التدريب بأكملها، والذي يتم استخدامه لترميز الفئات في :meth:`~TargetEncoder.transform`.
+هذا الترميز هو نفسه ترميز "البيانات الكاملة" الذي تم تعلمه في :meth:`~TargetEncoder.fit_transform`.
 
 .. note::
-  :class:`TargetEncoder` considers missing values, such as `np.nan` or `None`,
-  as another category and encodes them like any other category. Categories
-  that are not seen during `fit` are encoded with the target mean, i.e.
+  يعتبر :class:`TargetEncoder` القيم المفقودة، مثل `np.nan` أو `None`،
+  كفئة أخرى ويقوم بترميزها مثل أي فئة أخرى. يتم ترميز الفئات
+  التي لم يتم رؤيتها أثناء `fit` بمتوسط الهدف، أي
   `target_mean_`.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder.py`
 * :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder_cross_val.py`
 
-.. rubric:: References
+.. rubric:: مراجع
 
 .. [MIC] :doi:`Micci-Barreca, Daniele. "A preprocessing scheme for high-cardinality
     categorical attributes in classification and prediction problems"
@@ -989,321 +788,279 @@ encoding learned in :meth:`~TargetEncoder.fit_transform`.
 
 .. _preprocessing_discretization:
 
-Discretization
-==============
+التقسيم
+التجزئة (المعروفة أيضًا باسم التكميم أو التصنيف) هي طريقة لتقسيم الخصائص المستمرة إلى قيم منفصلة. قد تستفيد بعض مجموعات البيانات ذات الخصائص المستمرة من التجزئة، لأن التجزئة يمكن أن تحول مجموعة البيانات ذات السمات المستمرة إلى مجموعة بيانات ذات سمات اسمية فقط.
 
-`Discretization <https://en.wikipedia.org/wiki/Discretization_of_continuous_features>`_
-(otherwise known as quantization or binning) provides a way to partition continuous
-features into discrete values. Certain datasets with continuous features
-may benefit from discretization, because discretization can transform the dataset
-of continuous attributes to one with only nominal attributes.
+يمكن أن تجعل الميزات المنفصلة المشفرة بنظام one-hot النموذج أكثر تعبيرًا، مع الحفاظ على إمكانية تفسيره. على سبيل المثال، يمكن أن يؤدي المعالجة المسبقة باستخدام أداة تجزئة إلى تقديم عدم خطية إلى النماذج الخطية. للحصول على إمكانيات أكثر تقدمًا، خاصة تلك الملساء، راجع: ref: generating_polynomial_features أدناه.
 
-One-hot encoded discretized features can make a model more expressive, while
-maintaining interpretability. For instance, pre-processing with a discretizer
-can introduce nonlinearity to linear models. For more advanced possibilities,
-in particular smooth ones, see :ref:`generating_polynomial_features` further
-below.
-
-K-bins discretization
+تجزئة ك-بينز
 ---------------------
 
-:class:`KBinsDiscretizer` discretizes features into ``k`` bins::
+يقسم: class: KBinsDiscretizer الميزات إلى "ك" حاويات::
 
-  >>> X = np.array([[ -3., 5., 15 ],
-  ...               [  0., 6., 14 ],
-  ...               [  6., 3., 11 ]])
-  >>> est = preprocessing.KBinsDiscretizer(n_bins=[3, 2, 2], encode='ordinal').fit(X)
+  >>> X = np.array([[-3، 5، 15]،
+  ...               [0، 6، 14]،
+  ...               [6، 3، 11]])
+  >>> est = preprocessing.KBinsDiscretizer(n_bins = [3، 2، 2]، encode = 'ordinal').fit (X)
 
-By default the output is one-hot encoded into a sparse matrix
-(See :ref:`preprocessing_categorical_features`)
-and this can be configured with the ``encode`` parameter.
-For each feature, the bin edges are computed during ``fit`` and together with
-the number of bins, they will define the intervals. Therefore, for the current
-example, these intervals are defined as:
+بشكل افتراضي، يكون الإخراج مشفرًا بنظام one-hot في مصفوفة متفرقة
+(راجع: ref: preprocessing_categorical_features)
+ويمكن تكوينه باستخدام معلمة "الترميز".
+بالنسبة لكل ميزة، يتم حساب حواف الحاوية أثناء "التناسب" ومع عدد الحاويات، فهي تحدد الفترات. وبالتالي، بالنسبة للمثال الحالي، يتم تحديد هذه الفترات على النحو التالي:
 
-- feature 1: :math:`{[-\infty, -1), [-1, 2), [2, \infty)}`
-- feature 2: :math:`{[-\infty, 5), [5, \infty)}`
-- feature 3: :math:`{[-\infty, 14), [14, \infty)}`
+- الميزة 1: :math:`{[-\infty، -1)، [-1، 2)، [2، \ infty)}`
+- الميزة 2: :math:`{[-\infty، 5)، [5، \ infty)}`
+- الميزة 3: :math:`{[-\infty، 14)، [14، \ infty)}`
 
-Based on these bin intervals, ``X`` is transformed as follows::
+بناءً على فترات الحاوية هذه، يتم تحويل "س" على النحو التالي::
 
-  >>> est.transform(X)                      # doctest: +SKIP
-  array([[ 0., 1., 1.],
-         [ 1., 1., 1.],
-         [ 2., 0., 0.]])
+  >>> est.transform (X)                      # doctest: +SKIP
+  array([[ 0.، 1.، 1.،]
+         [ 1.، 1.، 1.]
+         [ 2.، 0.، 0.]])
 
-The resulting dataset contains ordinal attributes which can be further used
-in a :class:`~sklearn.pipeline.Pipeline`.
+تحتوي مجموعة البيانات الناتجة على سمات ترتيبية يمكن استخدامها بشكل أكبر
+في: class: sklearn.pipeline.Pipeline.
 
-Discretization is similar to constructing histograms for continuous data.
-However, histograms focus on counting features which fall into particular
-bins, whereas discretization focuses on assigning feature values to these bins.
+التجزئة مشابهة لبناء مخططات توزيع التواتر للبيانات المستمرة.
+ومع ذلك، تركز مخططات توزيع التواتر على عد الميزات التي تقع في حاويات معينة، في حين تركز التجزئة على تعيين قيم الميزات لهذه الحاويات.
 
-:class:`KBinsDiscretizer` implements different binning strategies, which can be
-selected with the ``strategy`` parameter. The 'uniform' strategy uses
-constant-width bins. The 'quantile' strategy uses the quantiles values to have
-equally populated bins in each feature. The 'kmeans' strategy defines bins based
-on a k-means clustering procedure performed on each feature independently.
+ينفذ: class: KBinsDiscretizer استراتيجيات التصنيف المختلفة، والتي يمكن
+تحديدها باستخدام معلمة "الإستراتيجية". تستخدم إستراتيجية "الموحدة"
+حاويات ذات عرض ثابت. تستخدم إستراتيجية "الكميات" قيم الكميات للحصول على
+حاويات مأهولة بالتساوي في كل ميزة. تحدد إستراتيجية "kmeans" الحاويات بناءً
+على إجراء التجميع k-means الذي يتم إجراؤه على كل ميزة بشكل مستقل.
 
-Be aware that one can specify custom bins by passing a callable defining the
-discretization strategy to :class:`~sklearn.preprocessing.FunctionTransformer`.
-For instance, we can use the Pandas function :func:`pandas.cut`::
+كن على علم بأنه يمكنك تحديد حاويات مخصصة عن طريق تمرير دالة قابلة للاستدعاء تحدد
+إستراتيجية التجزئة إلى: class: sklearn.preprocessing.FunctionTransformer.
+على سبيل المثال، يمكننا استخدام دالة Pandas: func: pandas.cut::
 
   >>> import pandas as pd
   >>> import numpy as np
   >>> from sklearn import preprocessing
   >>>
-  >>> bins = [0, 1, 13, 20, 60, np.inf]
-  >>> labels = ['infant', 'kid', 'teen', 'adult', 'senior citizen']
-  >>> transformer = preprocessing.FunctionTransformer(
-  ...     pd.cut, kw_args={'bins': bins, 'labels': labels, 'retbins': False}
+  >>> bins = [0، 1، 13، 20، 60، np.inf]
+  >>> labels = ['infant'، 'kid'، 'teen'، 'adult'، 'senior citizen']
+  >>> المحول = preprocessing.FunctionTransformer (
+  ...     pd.cut، kw_args = {'bins': bins، 'labels': labels، 'retbins': False}
   ... )
-  >>> X = np.array([0.2, 2, 15, 25, 97])
-  >>> transformer.fit_transform(X)
-  ['infant', 'kid', 'teen', 'adult', 'senior citizen']
-  Categories (5, object): ['infant' < 'kid' < 'teen' < 'adult' < 'senior citizen']
+  >>> X = np.array ([0.2، 2، 15، 25، 97])
+  >>> المحول. fit_transform (X)
+  ['infant'، 'kid'، 'teen'، 'adult'، 'senior citizen']
+  الفئات (5، كائن): ['infant' <'kid' <'teen' <'adult' <'senior citizen']
 
-.. rubric:: Examples
+.. rubric :: أمثلة
 
-* :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization.py`
-* :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization_classification.py`
-* :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization_strategies.py`
+* : ref: sphx_glr_auto_examples_preprocessing_plot_discretization.py`
+* : ref: sphx_glr_auto_examples_preprocessing_plot_discretization_classification.py`
+* : ref: sphx_glr_auto_examples_preprocessing_plot_discretization_strategies.py`
 
 .. _preprocessing_binarization:
 
-Feature binarization
---------------------
+تجزئة السمات الثنائية
+---------------------
 
-**Feature binarization** is the process of **thresholding numerical
-features to get boolean values**. This can be useful for downstream
-probabilistic estimators that make assumption that the input data
-is distributed according to a multi-variate `Bernoulli distribution
-<https://en.wikipedia.org/wiki/Bernoulli_distribution>`_. For instance,
-this is the case for the :class:`~sklearn.neural_network.BernoulliRBM`.
+**تجزئة السمات الثنائية** هي عملية **عتبات الميزات الرقمية للحصول على قيم منطقية**. يمكن أن يكون هذا مفيدًا لمقدرات الاحتمالية التنازلية التي تفترض أن البيانات المدخلة
+توزع وفقًا لتوزيع برنولي متعدد المتغيرات
+<https://en.wikipedia.org/wiki/Bernoulli_distribution>. على سبيل المثال،
+هذه هي الحالة بالنسبة إلى: class: sklearn.neural_network.BernoulliRBM.
 
-It is also common among the text processing community to use binary
-feature values (probably to simplify the probabilistic reasoning) even
-if normalized counts (a.k.a. term frequencies) or TF-IDF valued features
-often perform slightly better in practice.
+ومن الشائع أيضًا في مجتمع معالجة النصوص استخدام قيم السمات الثنائية (ربما لتبسيط الاستدلال الاحتمالي) حتى إذا كانت القيم المحددة (المعروفة باسم تواتر المصطلحات) أو ميزات TF-IDF تؤدي غالبًا بشكل أفضل في الممارسة العملية.
 
-As for the :class:`Normalizer`, the utility class
-:class:`Binarizer` is meant to be used in the early stages of
-:class:`~sklearn.pipeline.Pipeline`. The ``fit`` method does nothing
-as each sample is treated independently of others::
+كما هو الحال مع: class: Normalizer، فإن فئة المنفعة
+: class: Binarizer يقصد استخدامها في المراحل الأولى من
+: class: sklearn.pipeline.Pipeline. لا تفعل طريقة "التناسب" شيئًا حيث تتم معاملة كل عينة بشكل مستقل عن الآخرين::
 
-  >>> X = [[ 1., -1.,  2.],
-  ...      [ 2.,  0.,  0.],
-  ...      [ 0.,  1., -1.]]
+  >>> X = [[1.، -1.، 2.]،
+  ...      [2.، 0.، 0.]،
+  ...      [0.، 1.، -1.]]
 
-  >>> binarizer = preprocessing.Binarizer().fit(X)  # fit does nothing
-  >>> binarizer
-  Binarizer()
+  >>> المحول الثنائي = preprocessing.Binarizer (). fit (X) # لا يفعل التثبيت شيئًا
+  >>> المحول الثنائي
+  المحول الثنائي ()
 
-  >>> binarizer.transform(X)
-  array([[1., 0., 1.],
-         [1., 0., 0.],
-         [0., 1., 0.]])
+  >>> المحول الثنائي. transform (X)
+  array([[1.، 0.، 1.]،
+         [1.، 0.، 0.]،
+         [0.، 1.، 0.]])
 
-It is possible to adjust the threshold of the binarizer::
+من الممكن ضبط عتبة المحول الثنائي::
 
-  >>> binarizer = preprocessing.Binarizer(threshold=1.1)
-  >>> binarizer.transform(X)
-  array([[0., 0., 1.],
-         [1., 0., 0.],
-         [0., 0., 0.]])
+  >>> المحول الثنائي = preprocessing.Binarizer (عتبة = 1.1)
+  >>> المحول الثنائي. transform (X)
+  array([[0.، 0.، 1.]،
+         [1.، 0.، 0.]،
+         [0.، 0.، 0.]])
 
-As for the :class:`Normalizer` class, the preprocessing module
-provides a companion function :func:`binarize`
-to be used when the transformer API is not necessary.
+كما هو الحال مع فئة: class: Normalizer، توفر وحدة المعالجة ميزة مصاحبة
+: func: binarize
+يتم استخدامه عندما لا تكون واجهة المحول ضرورية.
 
-Note that the :class:`Binarizer` is similar to the :class:`KBinsDiscretizer`
-when ``k = 2``, and when the bin edge is at the value ``threshold``.
+لاحظ أن: class: Binarizer يشبه: class: KBinsDiscretizer
+عندما "k = 2"، وعندما يكون حافة الحاوية عند القيمة "عتبة".
 
-.. topic:: Sparse input
+.. topic :: الإدخال المتناثر
 
-  :func:`binarize` and :class:`Binarizer` accept **both dense array-like
-  and sparse matrices from scipy.sparse as input**.
+  : func: binarize و: class: Binarizer قبول **كلا من المصفوفات الكثيفة المتشابهة
+  والمصفوفات المتناثرة من scipy.sparse كإدخال**.
 
-  For sparse input the data is **converted to the Compressed Sparse Rows
-  representation** (see ``scipy.sparse.csr_matrix``).
-  To avoid unnecessary memory copies, it is recommended to choose the CSR
-  representation upstream.
+  بالنسبة للإدخال المتناثر، يتم **تحويل البيانات إلى تمثيل الصفوف المتناثرة المضغوطة**
+  (راجع "scipy.sparse.csr_matrix").
+  لتجنب عمليات نسخ الذاكرة غير الضرورية، يُنصح باختيار تمثيل CSR
+  أعلى النهر.
 
 .. _imputation:
 
-Imputation of missing values
+تقدير القيم المفقودة
 ============================
 
-Tools for imputing missing values are discussed at :ref:`impute`.
+يتم مناقشة أدوات تقدير القيم المفقودة في: ref: impute.
 
 .. _generating_polynomial_features:
 
-Generating polynomial features
+توليد ميزات متعددة الحدود
 ==============================
 
-Often it's useful to add complexity to a model by considering nonlinear
-features of the input data. We show two possibilities that are both based on
-polynomials: The first one uses pure polynomials, the second one uses splines,
-i.e. piecewise polynomials.
+غالبًا ما يكون من المفيد إضافة التعقيد إلى نموذج بالنظر إلى الميزات غير الخطية لبيانات الإدخال. نعرض إمكانيتين تعتمدان على متعددات الحدود: الأولى تستخدم متعددات الحدود البحتة، والثانية تستخدم المنحنيات،
+أي متعددات الحدود القطعية.
 
 .. _polynomial_features:
 
-Polynomial features
+ميزات متعددة الحدود
 -------------------
 
-A simple and common method to use is polynomial features, which can get
-features' high-order and interaction terms. It is implemented in
-:class:`PolynomialFeatures`::
+تتمثل إحدى الطرق البسيطة والشائعة في استخدام ميزات متعددة الحدود، والتي يمكن أن تحصل على شروط تفاعل وميزات عالية الترتيب. يتم تنفيذه في
+: class: PolynomialFeatures::
 
     >>> import numpy as np
     >>> from sklearn.preprocessing import PolynomialFeatures
-    >>> X = np.arange(6).reshape(3, 2)
+    >>> X = np.arange (6). reshape (3، 2)
     >>> X
-    array([[0, 1],
-           [2, 3],
-           [4, 5]])
-    >>> poly = PolynomialFeatures(2)
-    >>> poly.fit_transform(X)
-    array([[ 1.,  0.,  1.,  0.,  0.,  1.],
-           [ 1.,  2.,  3.,  4.,  6.,  9.],
-           [ 1.,  4.,  5., 16., 20., 25.]])
+    array([[0، 1]،
+           [2، 3]،
+           [4، 5]])
+    >>> poly = PolynomialFeatures (2)
+    >>> poly.fit_transform (X)
+    array([[ 1.، 0.، 1.، 0.، 0.، 1.]،
+           [ 1.، 2.، 3.، 4.، 6.، 9.]،
+           [ 1.، 4.، 5.، 16.، 20.، 25.]])
 
-The features of X have been transformed from :math:`(X_1, X_2)` to
-:math:`(1, X_1, X_2, X_1^2, X_1X_2, X_2^2)`.
+تم تحويل ميزات "س" من: math: `(X_1، X_2)` إلى: math: `(1، X_1، X_2، X_1 ^ 2، X_1X_2، X_2 ^ 2)`.
 
-In some cases, only interaction terms among features are required, and it can
-be gotten with the setting ``interaction_only=True``::
+في بعض الحالات، تكون شروط التفاعل بين الميزات مطلوبة فقط، ويمكن الحصول عليها باستخدام الإعداد "interaction_only = True"::
 
-    >>> X = np.arange(9).reshape(3, 3)
+    >>> X = np.arange (9). reshape (3، 3)
     >>> X
-    array([[0, 1, 2],
-           [3, 4, 5],
-           [6, 7, 8]])
-    >>> poly = PolynomialFeatures(degree=3, interaction_only=True)
-    >>> poly.fit_transform(X)
-    array([[  1.,   0.,   1.,   2.,   0.,   0.,   2.,   0.],
-           [  1.,   3.,   4.,   5.,  12.,  15.,  20.,  60.],
-           [  1.,   6.,   7.,   8.,  42.,  48.,  56., 336.]])
+    array([[0، 1، 2]،
+           [3، 4، 5]،
+           [6، 7، 8]])
+    >>> poly = PolynomialFeatures (degree = 3، interaction_only = True)
+    >>> poly.fit_transform (X)
+    array([[ 1.، 0.، 1.، 2.، 0.، 0.، 2.، 0.]،
+           [ 1.، 3.، 4.، 5.، 12.، 15.، 20.، 60.]،
+           [ 1.، 6.، 7.، 8.، 42.، 48.، 56.، 336.]])
 
-The features of X have been transformed from :math:`(X_1, X_2, X_3)` to
-:math:`(1, X_1, X_2, X_3, X_1X_2, X_1X_3, X_2X_3, X_1X_2X_3)`.
+تم تحويل ميزات "س" من: math: `(X_1، X_2، X_3)` إلى: math: `(1، X_1، X_2، X_3، X_1X_2، X_1X_3، X_2X_3، X_1X_2X_3)`.
 
-Note that polynomial features are used implicitly in `kernel methods
-<https://en.wikipedia.org/wiki/Kernel_method>`_ (e.g., :class:`~sklearn.svm.SVC`,
-:class:`~sklearn.decomposition.KernelPCA`) when using polynomial :ref:`svm_kernels`.
+لاحظ أن ميزات متعددة الحدود تستخدم ضمنيًا في `أساليب النواة
+<https://en.wikipedia.org/wiki/Kernel_method>`_ (على سبيل المثال،: class: sklearn.svm.SVC،
+: class: sklearn.decomposition.KernelPCA) عند استخدام متعددة الحدود: ref: svm_kernels.
 
-See :ref:`sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
-for Ridge regression using created polynomial features.
+راجع: ref: sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py
+للتقريب باستخدام ريدج ريجريشن باستخدام ميزات متعددة الحدود التي تم إنشاؤها.
 
 .. _spline_transformer:
 
-Spline transformer
+محول المنحنى
 ------------------
 
-Another way to add nonlinear terms instead of pure polynomials of features is
-to generate spline basis functions for each feature with the
-:class:`SplineTransformer`. Splines are piecewise polynomials, parametrized by
-their polynomial degree and the positions of the knots. The
-:class:`SplineTransformer` implements a B-spline basis, cf. the references
-below.
+طريقة أخرى لإضافة شروط غير خطية بدلاً من متعددات الحدود البحتة للميزات هي
+توليد دالات أساس المنحنى لكل ميزة مع
+: class: SplineTransformer. المنحنيات هي متعددات حدود قطعية، يتم معلماتها بواسطة
+درجة متعددة الحدود الخاصة بها ومواضع العقد. ينفذ: class: SplineTransformer
+أساس B-spline، راجع المراجع أدناه.
 
-.. note::
+.. note ::
 
-    The :class:`SplineTransformer` treats each feature separately, i.e. it
-    won't give you interaction terms.
+    يتعامل: class: SplineTransformer مع كل ميزة بشكل منفصل، أي أنه
+    لن يعطيك شروط التفاعل.
 
-Some of the advantages of splines over polynomials are:
+بعض مزايا المنحنيات على متعددات الحدود هي:
 
-- B-splines are very flexible and robust if you keep a fixed low degree,
-  usually 3, and parsimoniously adapt the number of knots. Polynomials
-  would need a higher degree, which leads to the next point.
-- B-splines do not have oscillatory behaviour at the boundaries as have
-  polynomials (the higher the degree, the worse). This is known as `Runge's
-  phenomenon <https://en.wikipedia.org/wiki/Runge%27s_phenomenon>`_.
-- B-splines provide good options for extrapolation beyond the boundaries,
-  i.e. beyond the range of fitted values. Have a look at the option
-  ``extrapolation``.
-- B-splines generate a feature matrix with a banded structure. For a single
-  feature, every row contains only ``degree + 1`` non-zero elements, which
-  occur consecutively and are even positive. This results in a matrix with
-  good numerical properties, e.g. a low condition number, in sharp contrast
-  to a matrix of polynomials, which goes under the name
-  `Vandermonde matrix <https://en.wikipedia.org/wiki/Vandermonde_matrix>`_.
-  A low condition number is important for stable algorithms of linear
-  models.
+- المنحنيات B مرنة للغاية ومتينة إذا كنت تحتفظ بدرجة منخفضة ثابتة،
+  عادة 3، وتكيف عدد العقد بشكل مقتصد. سوف تحتاج متعددات الحدود
+  إلى درجة أعلى، مما يؤدي إلى النقطة التالية.
+- لا تُظهر المنحنيات B سلوكًا متذبذبًا عند الحدود كما تفعل متعددات الحدود (كلما ارتفعت الدرجة، كلما كان الأمر أسوأ). يُعرف هذا باسم "ظاهرة رونج" <https://en.wikipedia.org/wiki/Runge% 27s_phenomenon>.
+- توفر المنحنيات B خيارات جيدة للاستقراء خارج النطاق،
+  أي خارج نطاق القيم المناسب. الق نظرة على الخيار
+  "الاستقراء".
+- تنتج المنحنيات B مصفوفة ميزات ذات بنية محزمة. بالنسبة لميزة واحدة، يحتوي كل صف على "درجة + 1" فقط
+  العناصر غير الصفرية، والتي تحدث بشكل متتابع وحتى إيجابية. يؤدي هذا إلى مصفوفة ذات خصائص عددية جيدة،
+  على سبيل المثال، عدد شرطي منخفض، على النقيض الشديد من مصفوفة متعددة الحدود، والتي يطلق عليها اسم
+  "مصفوفة فانديرموند" <https://en.wikipedia.org/wiki/Vandermonde_matrix>.
+  يعد العدد الشرطي المنخفض مهمًا لخوارزميات مستقرة للنماذج الخطية.
 
-The following code snippet shows splines in action::
+توضح مقتطفات التعليمات البرمجية التالية المنحنيات في العمل::
 
     >>> import numpy as np
     >>> from sklearn.preprocessing import SplineTransformer
-    >>> X = np.arange(5).reshape(5, 1)
+    >>> X = np.arange (5). reshape (5، 1)
     >>> X
-    array([[0],
-           [1],
-           [2],
-           [3],
+    array([[0]،
+           [1]،
+           [2]،
+           [3]،
            [4]])
-    >>> spline = SplineTransformer(degree=2, n_knots=3)
-    >>> spline.fit_transform(X)
-    array([[0.5  , 0.5  , 0.   , 0.   ],
-           [0.125, 0.75 , 0.125, 0.   ],
-           [0.   , 0.5  , 0.5  , 0.   ],
-           [0.   , 0.125, 0.75 , 0.125],
-           [0.   , 0.   , 0.5  , 0.5  ]])
+    >>> spline = SplineTransformer (degree = 2، n_knots = 3)
+    >>> spline.fit_transform (X)
+    array([[0.5، 0.5، 0.، 0.]،
+           [0.125، 0.75، 0.125، 0.]،
+           [0.، 0.5، 0.5، 0.]،
+           [0.، 0.125، 0.75، 0.125]،
+           [0.، 0.، 0.5، 0.5]])
 
-As the ``X`` is sorted, one can easily see the banded matrix output. Only the
-three middle diagonals are non-zero for ``degree=2``. The higher the degree,
-the more overlapping of the splines.
+نظرًا لفرز "س"، يمكنك بسهولة رؤية المصفوفة المحزمة للإخراج. بالنسبة إلى "درجة = 2"، فإن المصفوفات الثلاثة الوسطى فقط غير صفرية. وكلما ارتفعت الدرجة، زاد تداخل المنحنيات.
 
-Interestingly, a :class:`SplineTransformer` of ``degree=0`` is the same as
-:class:`~sklearn.preprocessing.KBinsDiscretizer` with
-``encode='onehot-dense'`` and ``n_bins = n_knots - 1`` if
-``knots = strategy``.
+من المثير للاهتمام أن: class: SplineTransformer من "درجة = 0" هو نفسه
+: class: sklearn.preprocessing.KBinsDiscretizer
+مع "encode = 'onehot-dense'" و "n_bins = n_knots - 1" إذا
+"العقد = الإستراتيجية".
 
-.. rubric:: Examples
+.. rubric :: أمثلة
 
-* :ref:`sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
-* :ref:`sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`
+* : ref: sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
+* : ref: sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`
 
-.. dropdown:: References
+.. dropdown :: المراجع
 
-  * Eilers, P., & Marx, B. (1996). :doi:`Flexible Smoothing with B-splines and
-    Penalties <10.1214/ss/1038425655>`. Statist. Sci. 11 (1996), no. 2, 89--121.
+  * Eilers، P.، وMarx، B. (1996). :doi: 'طرق التنعيم المرنة باستخدام B-splines والعقوبات
+    <10.1214/ss/1038425655>. Statist. Sci. 11 (1996)، رقم 2، 89-121.
 
-  * Perperoglou, A., Sauerbrei, W., Abrahamowicz, M. et al. :doi:`A review of
-    spline function procedures in R <10.1186/s12874-019-0666-3>`.
-    BMC Med Res Methodol 19, 46 (2019).
+  * Perperoglou، A.، Sauerbrei، W.، Abrahamowicz، M. et al. :doi: 'مراجعة لإجراءات دالة المنحنى في R
+    <10.1186/s12874-019-0666-3>.
+    BMC Med Res Methodol 19، 46 (2019).
 
 
 .. _function_transformer:
 
-Custom transformers
-===================
-
-Often, you will want to convert an existing Python function into a transformer
-to assist in data cleaning or processing. You can implement a transformer from
-an arbitrary function with :class:`FunctionTransformer`. For example, to build
-a transformer that applies a log transformation in a pipeline, do::
+المحولات المخصصة
+في كثير من الأحيان، قد ترغب في تحويل دالة Python موجودة مسبقًا إلى محول للبيانات للمساعدة في تنظيف البيانات أو معالجتها. يمكنك تنفيذ محول من دالة عشوائية باستخدام class: 'FunctionTransformer'. على سبيل المثال، لبناء محول يطبق تحويل اللوغاريتم في خط أنابيب، قم بما يلي::
 
     >>> import numpy as np
     >>> from sklearn.preprocessing import FunctionTransformer
     >>> transformer = FunctionTransformer(np.log1p, validate=True)
     >>> X = np.array([[0, 1], [2, 3]])
-    >>> # Since FunctionTransformer is no-op during fit, we can call transform directly
+    >>> # بما أن FunctionTransformer لا يفعل أي شيء أثناء التهيئة، يمكننا استدعاء transform مباشرة
     >>> transformer.transform(X)
     array([[0.        , 0.69314718],
            [1.09861229, 1.38629436]])
 
-You can ensure that ``func`` and ``inverse_func`` are the inverse of each other
-by setting ``check_inverse=True`` and calling ``fit`` before
-``transform``. Please note that a warning is raised and can be turned into an
-error with a ``filterwarnings``::
+يمكنك التأكد من أن "func" و "inverse_func" هما العكس لبعضهما البعض من خلال تعيين "check_inverse=True" واستدعاء "fit" قبل "transform". يرجى ملاحظة أنه يتم رفع تحذير ويمكن تحويله إلى خطأ باستخدام "filterwarnings"::
 
   >>> import warnings
   >>> warnings.filterwarnings("error", message=".*check_inverse*.",
   ...                         category=UserWarning, append=False)
 
-For a full code example that demonstrates using a :class:`FunctionTransformer`
-to extract features from text data see
-:ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py` and
-:ref:`sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`.
+للحصول على مثال كامل للرمز يوضح استخدام "FunctionTransformer" لاستخراج الميزات من بيانات النص، راجع:
+ref: 'sphx_glr_auto_examples_compose_plot_column_transformer.py' و
+ref: 'sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py'.
