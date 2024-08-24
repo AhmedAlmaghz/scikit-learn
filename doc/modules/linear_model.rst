@@ -1,34 +1,26 @@
-.. _linear_model:
-
-=============
-Linear Models
-=============
+نُظم "Linear Models" الخطية
+================================
 
 .. currentmodule:: sklearn.linear_model
 
-The following are a set of methods intended for regression in which
-the target value is expected to be a linear combination of the features.
-In mathematical notation, if :math:`\hat{y}` is the predicted
-value.
+المنهجية التالية هي مجموعة من الطرق المُستخدمة في الانحدار، حيث
+يُتوقع أن تكون القيمة المُستهدفة مزيجًا خطيًا من الميزات.
+في الصيغة الرياضية، إذا كان :math:`\hat{y}` هو القيمة المُتوقعة.
 
 .. math::    \hat{y}(w, x) = w_0 + w_1 x_1 + ... + w_p x_p
 
-Across the module, we designate the vector :math:`w = (w_1,
-..., w_p)` as ``coef_`` and :math:`w_0` as ``intercept_``.
+في جميع أنحاء الوحدة النمطية، نُشير إلى المتجه :math:`w = (w_1,
+..., w_p)` باسم "coef_" و :math:`w_0` باسم "intercept_".
 
-To perform classification with generalized linear models, see
-:ref:`Logistic_regression`.
+لتنفيذ التصنيف باستخدام النماذج الخطية المعممة، راجع
+:ref: `Logistic_regression`.
 
-.. _ordinary_least_squares:
+انحدار المربعات الصغرى العادي
+-----------------------------
 
-Ordinary Least Squares
-=======================
-
-:class:`LinearRegression` fits a linear model with coefficients
-:math:`w = (w_1, ..., w_p)` to minimize the residual sum
-of squares between the observed targets in the dataset, and the
-targets predicted by the linear approximation. Mathematically it
-solves a problem of the form:
+:class: `LinearRegression` يلائم نموذجًا خطيًا بمعاملات
+:math:`w = (w_1, ..., w_p)` لتقليل مجموع مربعات الانحدار بين الأهداف المُلاحظة في مجموعة البيانات،
+والأهداف التي يتنبأ بها التقدير الخطي. رياضيا، يحل مشكلة على الشكل:
 
 .. math:: \min_{w} || X w - y||_2^2
 
@@ -37,9 +29,8 @@ solves a problem of the form:
    :align: center
    :scale: 50%
 
-:class:`LinearRegression` will take in its ``fit`` method arrays ``X``, ``y``
-and will store the coefficients :math:`w` of the linear model in its
-``coef_`` member::
+سيقبل :class: `LinearRegression` في طريقة "fit" الخاصة به المصفوفات "X"، "y"
+وسيخزن معاملات :math:`w` للنموذج الخطي في عضو "coef_" الخاص به::
 
     >>> from sklearn import linear_model
     >>> reg = linear_model.LinearRegression()
@@ -48,54 +39,50 @@ and will store the coefficients :math:`w` of the linear model in its
     >>> reg.coef_
     array([0.5, 0.5])
 
-The coefficient estimates for Ordinary Least Squares rely on the
-independence of the features. When features are correlated and the
-columns of the design matrix :math:`X` have an approximately linear
-dependence, the design matrix becomes close to singular
-and as a result, the least-squares estimate becomes highly sensitive
-to random errors in the observed target, producing a large
-variance. This situation of *multicollinearity* can arise, for
-example, when data are collected without an experimental design.
+تعتمد تقديرات المعاملات لانحدار المربعات الصغرى العادي على
+استقلالية الميزات. عندما تكون الميزات مترابطة وتكون أعمدة مصفوفة التصميم :math:`X`
+ذات اعتماد خطي تقريبي، فإن مصفوفة التصميم تقترب من الحالة الفردية
+ونتيجة لذلك، يصبح تقدير المربعات الصغرى شديد الحساسية
+للأخطاء العشوائية في الهدف المُلاحظ، مما يؤدي إلى تباين كبير.
+يمكن أن ينشأ هذا الوضع من "تعدد الارتباط" على سبيل المثال،
+عندما تُجمع البيانات بدون تصميم تجريبي.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_ols.py`
 
-Non-Negative Least Squares
+المربعات الصغرى غير السالبة
 --------------------------
 
-It is possible to constrain all the coefficients to be non-negative, which may
-be useful when they represent some physical or naturally non-negative
-quantities (e.g., frequency counts or prices of goods).
-:class:`LinearRegression` accepts a boolean ``positive``
-parameter: when set to `True` `Non-Negative Least Squares
-<https://en.wikipedia.org/wiki/Non-negative_least_squares>`_ are then applied.
+من الممكن تقييد جميع المعاملات لتكون غير سالبة، والتي قد
+تكون مفيدة عندما تمثل بعض الكميات الفيزيائية أو الطبيعية غير السالبة
+(على سبيل المثال، ترددات العد أو أسعار السلع).
+يقبل :class: `LinearRegression` معلمة منطقية "positive":
+عندما يتم تعيينها إلى `True`، يتم تطبيق "المربعات الصغرى غير السالبة
+<https://en.wikipedia.org/wiki/Non-negative_least_squares>`_.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_nnls.py`
 
-Ordinary Least Squares Complexity
+تعقيد انحدار المربعات الصغرى العادي
 ---------------------------------
 
-The least squares solution is computed using the singular value
-decomposition of X. If X is a matrix of shape `(n_samples, n_features)`
-this method has a cost of
-:math:`O(n_{\text{samples}} n_{\text{features}}^2)`, assuming that
+يتم حساب حل المربعات الصغرى باستخدام التحلل القيمي المنفرد للمصفوفة "X".
+إذا كانت "X" مصفوفة ذات شكل `(n_samples، n_features)`
+فإن لهذه الطريقة تكلفة تبلغ
+:math:`O(n_{\text{samples}} n_{\text{features}}^2)`، بافتراض أن
 :math:`n_{\text{samples}} \geq n_{\text{features}}`.
 
-.. _ridge_regression:
+انحدار وتصنيف Ridge
+=====================
 
-Ridge regression and classification
-===================================
+انحدار
+------
 
-Regression
-----------
-
-:class:`Ridge` regression addresses some of the problems of
-:ref:`ordinary_least_squares` by imposing a penalty on the size of the
-coefficients. The ridge coefficients minimize a penalized residual sum
-of squares:
+يعالج :class: `Ridge` الانحدار بعض مشكلات
+:ref: `ordinary_least_squares` من خلال فرض عقوبة على حجم المعاملات.
+تقلل معاملات Ridge من مجموع مربعات الانحدار المعاقب عليه:
 
 
 .. math::
@@ -103,9 +90,9 @@ of squares:
    \min_{w} || X w - y||_2^2 + \alpha ||w||_2^2
 
 
-The complexity parameter :math:`\alpha \geq 0` controls the amount
-of shrinkage: the larger the value of :math:`\alpha`, the greater the amount
-of shrinkage and thus the coefficients become more robust to collinearity.
+تتحكم معلمة التعقيد :math:`\alpha \geq 0` في مقدار
+الانكماش: كلما زادت قيمة :math:`\alpha`، زاد مقدار
+الانكماش وبالتالي تصبح المعاملات أكثر مرونة للتعدد الخطي.
 
 .. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_ridge_path_001.png
    :target: ../auto_examples/linear_model/plot_ridge_path.html
@@ -113,9 +100,9 @@ of shrinkage and thus the coefficients become more robust to collinearity.
    :scale: 50%
 
 
-As with other linear models, :class:`Ridge` will take in its ``fit`` method
-arrays ``X``, ``y`` and will store the coefficients :math:`w` of the linear model in
-its ``coef_`` member::
+كما هو الحال مع النماذج الخطية الأخرى، سيقبل :class: `Ridge` في طريقة "fit" الخاصة به
+المصفوفات "X"، "y" وسيخزن معاملات :math:`w` للنموذج الخطي في
+عضو "coef_" الخاص به::
 
     >>> from sklearn import linear_model
     >>> reg = linear_model.Ridge(alpha=.5)
@@ -126,81 +113,74 @@ its ``coef_`` member::
     >>> reg.intercept_
     0.13636...
 
-Note that the class :class:`Ridge` allows for the user to specify that the
-solver be automatically chosen by setting `solver="auto"`. When this option
-is specified, :class:`Ridge` will choose between the `"lbfgs"`, `"cholesky"`,
-and `"sparse_cg"` solvers. :class:`Ridge` will begin checking the conditions
-shown in the following table from top to bottom. If the condition is true,
-the corresponding solver is chosen.
+لاحظ أن الفئة :class: `Ridge` تسمح للمستخدم بتحديد أن
+يتم اختيار المُحسن تلقائيًا عن طريق تعيين `solver="auto"`.
+عندما يتم تحديد هذا الخيار، سيختار :class: `Ridge` بين محسنات `"lbfgs"`، `"cholesky"`،
+و `"sparse_cg"`. سيبدأ :class: `Ridge` في التحقق من الشروط
+الموضحة في الجدول التالي من الأعلى إلى الأسفل. إذا كان الشرط صحيحًا،
+يتم اختيار المُحسن المُقابل.
 
 +-------------+----------------------------------------------------+
-| **Solver**  | **Condition**                                      |
+| **المُحسن**  | **الشرط**                                          |
 +-------------+----------------------------------------------------+
-| 'lbfgs'     | The ``positive=True`` option is specified.         |
+| 'lbfgs'     | تم تحديد خيار "positive=True".                     |
 +-------------+----------------------------------------------------+
-| 'cholesky'  | The input array X is not sparse.                   |
+| 'cholesky'  | مصفوفة الإدخال "X" ليست مبعثرة.                   |
 +-------------+----------------------------------------------------+
-| 'sparse_cg' | None of the above conditions are fulfilled.        |
+| 'sparse_cg' | لم يتم استيفاء أي من الشروط أعلاه.                |
 +-------------+----------------------------------------------------+
 
 
-Classification
---------------
+تصنيف
+------
 
-The :class:`Ridge` regressor has a classifier variant:
-:class:`RidgeClassifier`. This classifier first converts binary targets to
-``{-1, 1}`` and then treats the problem as a regression task, optimizing the
-same objective as above. The predicted class corresponds to the sign of the
-regressor's prediction. For multiclass classification, the problem is
-treated as multi-output regression, and the predicted class corresponds to
-the output with the highest value.
+لمعامل الانحدار :class: `Ridge` مُتغير من التصنيف:
+:class: `RidgeClassifier`. يحول هذا المُصنف أولاً الأهداف الثنائية إلى
+``{-1، 1}`` ثم يتعامل مع المشكلة على أنها مهمة انحدار، ويحسن الهدف نفسه كما هو موضح أعلاه.
+تتوافق الفئة المُتوقعة مع علامة تنبؤ المُصنف. بالنسبة للتصنيف متعدد الفئات،
+تتم معالجة المشكلة على أنها انحدار متعدد الإخراج، وتتوافق الفئة المُتوقعة مع
+الإخراج الذي يحتوي على أعلى قيمة.
 
-It might seem questionable to use a (penalized) Least Squares loss to fit a
-classification model instead of the more traditional logistic or hinge
-losses. However, in practice, all those models can lead to similar
-cross-validation scores in terms of accuracy or precision/recall, while the
-penalized least squares loss used by the :class:`RidgeClassifier` allows for
-a very different choice of the numerical solvers with distinct computational
-performance profiles.
+قد يبدو من المشكوك فيه استخدام (المعاقب عليه) خسارة المربعات الصغرى الأقل لتناسب نموذج التصنيف
+بدلاً من خسائر اللوغاريتم أو المفصل الأكثر تقليدية. ومع ذلك، في الممارسة العملية،
+يمكن أن تؤدي جميع هذه النماذج إلى درجات تحقق متشابهة من حيث الدقة أو الدقة/التذكير،
+في حين أن خسارة المربعات الصغرى الأقل المعاقب عليها التي يستخدمها :class: `RidgeClassifier`
+تسمح بخيار مختلف جدًا لمحسنات الأرقام مع ملفات تعريف الأداء الحسابي المتميزة.
 
-The :class:`RidgeClassifier` can be significantly faster than e.g.
-:class:`LogisticRegression` with a high number of classes because it can
-compute the projection matrix :math:`(X^T X)^{-1} X^T` only once.
+قد يكون :class: `RidgeClassifier` أسرع بكثير من :class: `LogisticRegression`
+على سبيل المثال، مع عدد كبير من الفئات لأنه يمكنه حساب مصفوفة الإسقاط :math:`(X^T X)^{-1} X^T` مرة واحدة فقط.
 
-This classifier is sometimes referred to as a `Least Squares Support Vector
-Machines
-<https://en.wikipedia.org/wiki/Least-squares_support-vector_machine>`_ with
-a linear kernel.
+يُشار إلى هذا المُصنف أحيانًا باسم `Least Squares Support Vector
+<https://en.wikipedia.org/wiki/Least-squares_support-vector_machine>`_ مع
+نواة خطية.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_path.py`
-* :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+* :ref:`sphmin_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
 * :ref:`sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py`
 
-Ridge Complexity
-----------------
+تعقيد Ridge
+------------
 
-This method has the same order of complexity as
+لهذه الطريقة نفس ترتيب التعقيد مثل
 :ref:`ordinary_least_squares`.
 
 .. FIXME:
-.. Not completely true: OLS is solved by an SVD, while Ridge is solved by
-.. the method of normal equations (Cholesky), there is a big flop difference
-.. between these
+.. ليس صحيحًا تمامًا: يتم حل OLS بواسطة SVD، بينما يتم حل Ridge بواسطة
+.. طريقة المعادلات العادية (Cholesky)، هناك فرق كبير في العمليات الحسابية بين هذه الطرق
 
+ضبط معلمة الضبط: التحقق من صحة الاستبعاد
+------------------------------------
 
-Setting the regularization parameter: leave-one-out Cross-Validation
---------------------------------------------------------------------
+ينفذ :class: `RidgeCV` و :class: `RidgeClassifierCV` انحدار/تصنيف Ridge
+مع التحقق من صحة مدمج لمعلمة alpha.
+إنها تعمل بنفس طريقة :class: `~sklearn.model_selection.GridSearchCV` باستثناء
+أنه يُفترض أن يكون الافتراضي هو التحقق من صحة الاستبعاد.
+عند استخدام التحقق من الصحة الافتراضي، لا يمكن أن يكون alpha 0 بسبب
+الصيغة المستخدمة لحساب خطأ الاستبعاد. راجع [RL2007]_ لمزيد من التفاصيل.
 
-:class:`RidgeCV` and :class:`RidgeClassifierCV` implement ridge
-regression/classification with built-in cross-validation of the alpha parameter.
-They work in the same way as :class:`~sklearn.model_selection.GridSearchCV` except
-that it defaults to efficient Leave-One-Out :term:`cross-validation`.
-When using the default :term:`cross-validation`, alpha cannot be 0 due to the
-formulation used to calculate Leave-One-Out error. See [RL2007]_ for details.
-
-Usage example::
+مثال الاستخدام::
 
     >>> import numpy as np
     >>> from sklearn import linear_model
@@ -211,44 +191,33 @@ Usage example::
     >>> reg.alpha_
     0.01
 
-Specifying the value of the :term:`cv` attribute will trigger the use of
-cross-validation with :class:`~sklearn.model_selection.GridSearchCV`, for
-example `cv=10` for 10-fold cross-validation, rather than Leave-One-Out
-Cross-Validation.
+يؤدي تحديد قيمة خاصية :term: `cv` إلى تشغيل التحقق من الصحة باستخدام :class: `~sklearn.model_selection.GridSearchCV`،
+على سبيل المثال `cv=10` للتحقق من الصحة 10-fold، بدلاً من التحقق من صحة الاستبعاد.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  .. [RL2007] "Notes on Regularized Least Squares", Rifkin & Lippert (`technical report
-    <http://cbcl.mit.edu/publications/ps/MIT-CSAIL-TR-2007-025.pdf>`_,
-    `course slides <https://www.mit.edu/~9.520/spring07/Classes/rlsslides.pdf>`_).
+  .. [RL2007] "ملاحظات حول Least Squares العادية المنتظمة"، Rifkin & Lippert (`التقرير الفني
+    <http://cbcl.mit.edu/publications/ps/MIT-CSAIL-TR-2007-025.pdf>`_،
+    `شرائح الدورة التدريبية <https://www.mit.edu/~9.520/spring07/Classes/rlsslides.pdf>`_).
 
 .. _lasso:
 
 Lasso
 =====
 
-The :class:`Lasso` is a linear model that estimates sparse coefficients.
-It is useful in some contexts due to its tendency to prefer solutions
-with fewer non-zero coefficients, effectively reducing the number of
-features upon which the given solution is dependent. For this reason,
-Lasso and its variants are fundamental to the field of compressed sensing.
-Under certain conditions, it can recover the exact set of non-zero
-coefficients (see
+الـ :class:`Lasso` هو نموذج خطي يقدر معاملات متفرقة. إنه مفيد في بعض السياقات بسبب ميله إلى تفضيل الحلول ذات معاملات غير صفرية أقل، مما يقلل بشكل فعال من عدد الميزات التي يعتمد عليها الحل المعطى. لهذا السبب، يعتبر الـ Lasso ومتغيراته أساسية في مجال الاستشعار المضغوط. في ظل ظروف معينة، يمكنه استعادة المجموعة الدقيقة للمعاملات غير الصفرية (راجع
 :ref:`sphx_glr_auto_examples_applications_plot_tomography_l1_reconstruction.py`).
 
-Mathematically, it consists of a linear model with an added regularization term.
-The objective function to minimize is:
+رياضيًا، يتكون من نموذج خطي مع إضافة مصطلح منتظم. دالة الهدف للتقليل هي:
 
-.. math::  \min_{w} { \frac{1}{2n_{\text{samples}}} ||X w - y||_2 ^ 2 + \alpha ||w||_1}
+.. math:: \min_{w} { \frac{1}{2n_{\text{samples}}} ||X w - y||_2 ^ 2 + \alpha ||w||_1}
 
-The lasso estimate thus solves the minimization of the
-least-squares penalty with :math:`\alpha ||w||_1` added, where
-:math:`\alpha` is a constant and :math:`||w||_1` is the :math:`\ell_1`-norm of
-the coefficient vector.
+وبالتالي يحل تقدير الـ Lasso مسألة تقليل عقوبة المربعات الصغرى مع :math:`\alpha ||w||_1` المضافة، حيث
+:math:`\alpha` هو ثابت و:math:`||w||_1` هو :math:`\ell_1` -معيار
+متجه المعامل.
 
-The implementation in the class :class:`Lasso` uses coordinate descent as
-the algorithm to fit the coefficients. See :ref:`least_angle_regression`
-for another implementation::
+يستخدم التنفيذ في فئة :class:`Lasso` الانحدار المنسق كخوارزمية لضبط المعاملات. راجع :ref:`least_angle_regression`
+لتنفيذ آخر::
 
     >>> from sklearn import linear_model
     >>> reg = linear_model.Lasso(alpha=0.1)
@@ -257,55 +226,53 @@ for another implementation::
     >>> reg.predict([[1, 1]])
     array([0.8])
 
-The function :func:`lasso_path` is useful for lower-level tasks, as it
-computes the coefficients along the full path of possible values.
+وظيفة :func:`lasso_path` مفيدة للمهام منخفضة المستوى، حيث
+تحسب المعاملات على طول المسار الكامل للقيم الممكنة.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_and_elasticnet.py`
 * :ref:`sphx_glr_auto_examples_applications_plot_tomography_l1_reconstruction.py`
 * :ref:`sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py`
 
 
-.. note:: **Feature selection with Lasso**
+.. note:: **اختيار الميزة باستخدام Lasso**
 
-      As the Lasso regression yields sparse models, it can
-      thus be used to perform feature selection, as detailed in
+      نظرًا لأن الانحدار Lasso ينتج نماذج متفرقة،
+      يمكن استخدامه بالتالي لأداء اختيار الميزة، كما هو موضح بالتفصيل في
       :ref:`l1_feature_selection`.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  The following two references explain the iterations
-  used in the coordinate descent solver of scikit-learn, as well as
-  the duality gap computation used for convergence control.
+  المرجعان التاليان يشرحان التكرارات
+  المستخدمة في محسن الانحدار المنسق في scikit-learn، وكذلك
+  حساب فجوة الازدواجية المستخدمة للتحكم في التقارب.
 
-  * "Regularization Path For Generalized linear Models by Coordinate Descent",
-    Friedman, Hastie & Tibshirani, J Stat Softw, 2010 (`Paper
+  * "مسار المنتظم لنماذج الخطية المعممة بالانحدار المنسق"،
+    فريدمان، هاستي وتيبرياني، J Stat Softw، 2010 (`ورقة
     <https://www.jstatsoft.org/article/view/v033i01/v33i01.pdf>`__).
-  * "An Interior-Point Method for Large-Scale L1-Regularized Least Squares,"
-    S. J. Kim, K. Koh, M. Lustig, S. Boyd and D. Gorinevsky,
-    in IEEE Journal of Selected Topics in Signal Processing, 2007
-    (`Paper <https://web.stanford.edu/~boyd/papers/pdf/l1_ls.pdf>`__)
+  * "طريقة داخلية النقطة للـ L1-Regularized Least Squares كبير الحجم"،
+    س. ج. كيم، ك. كوه، م. لوستيج، س. بويد ود. جورينيفسكي،
+    في IEEE Journal of Selected Topics in Signal Processing، 2007
+    (`ورقة <https://web.stanford.edu/~boyd/papers/pdf/l1_ls.pdf>`__)
 
-Setting regularization parameter
+ضبط معلمة المنتظم
 --------------------------------
 
-The ``alpha`` parameter controls the degree of sparsity of the estimated
-coefficients.
+تتحكم معلمة ``alpha`` في درجة ندرة المعاملات المقدرة.
 
-Using cross-validation
+استخدام التصديق المتقاطع
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-scikit-learn exposes objects that set the Lasso ``alpha`` parameter by
-cross-validation: :class:`LassoCV` and :class:`LassoLarsCV`.
-:class:`LassoLarsCV` is based on the :ref:`least_angle_regression` algorithm
-explained below.
+يكشف scikit-learn عن كائنات تقوم بضبط معلمة الـ Lasso ``alpha`` عن طريق
+التصديق المتقاطع: :class:`LassoCV` و:class:`LassoLarsCV`.
+:class:`LassoLarsCV` يعتمد على خوارزمية :ref:`least_angle_regression`
+الموضحة أدناه.
 
-For high-dimensional datasets with many collinear features,
-:class:`LassoCV` is most often preferable. However, :class:`LassoLarsCV` has
-the advantage of exploring more relevant values of `alpha` parameter, and
-if the number of samples is very small compared to the number of
-features, it is often faster than :class:`LassoCV`.
+بالنسبة لمجموعات البيانات عالية الأبعاد ذات الميزات المتعددة،
+:class:`LassoCV` هو الأفضل في معظم الأحيان. ومع ذلك، فإن :class:`LassoLarsCV` لديه
+ميزة استكشاف قيم أكثر ملاءمة للمعلمة `alpha`، وإذا كان عدد العينات صغيرًا جدًا مقارنة بعدد
+الميزات، فهو غالبًا ما يكون أسرع من :class:`LassoCV`.
 
 .. |lasso_cv_1| image:: ../auto_examples/linear_model/images/sphx_glr_plot_lasso_model_selection_002.png
     :target: ../auto_examples/linear_model/plot_lasso_model_selection.html
@@ -319,94 +286,85 @@ features, it is often faster than :class:`LassoCV`.
 
 .. _lasso_lars_ic:
 
-Information-criteria based model selection
+اختيار النموذج القائم على معيار المعلومات
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Alternatively, the estimator :class:`LassoLarsIC` proposes to use the
-Akaike information criterion (AIC) and the Bayes Information criterion (BIC).
-It is a computationally cheaper alternative to find the optimal value of alpha
-as the regularization path is computed only once instead of k+1 times
-when using k-fold cross-validation.
+بدلاً من ذلك، يقترح المقدر :class:`LassoLarsIC` استخدام
+معيار معلومات أكايكي (AIC) ومعيار معلومات بايز (BIC).
+إنه بديل أقل تكلفة من الناحية الحسابية للعثور على القيمة المثلى لـ alpha
+حيث يتم حساب مسار المنتظم مرة واحدة فقط بدلاً من k+1 مرة
+عند استخدام التصديق المتقاطع k-fold.
 
-Indeed, these criteria are computed on the in-sample training set. In short,
-they penalize the over-optimistic scores of the different Lasso models by
-their flexibility (cf. to "Mathematical details" section below).
+في الواقع، يتم حساب هذه المعايير على مجموعة التدريب داخل العينة. وباختصار،
+إنها تعاقب الدرجات المتفائلة بشكل مفرط لمختلف نماذج الـ Lasso بمرونتها (راجع قسم "التفاصيل الرياضية" أدناه).
 
-However, such criteria need a proper estimation of the degrees of freedom of
-the solution, are derived for large samples (asymptotic results) and assume the
-correct model is candidates under investigation. They also tend to break when
-the problem is badly conditioned (e.g. more features than samples).
+ومع ذلك، تحتاج مثل هذه المعايير إلى تقدير صحيح لدرجات حرية
+الحل، مستمدة من عينات كبيرة (نتائج حدية) وتفترض أن النموذج الصحيح هو المرشح قيد التحقيق. كما أنها تميل إلى التعطل عندما
+تكون المشكلة سيئة الشرط (على سبيل المثال، المزيد من الميزات أكثر من العينات).
 
 .. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_lasso_lars_ic_001.png
     :target: ../auto_examples/linear_model/plot_lasso_lars_ic.html
     :align: center
     :scale: 50%
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_model_selection.py`
 * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_lars_ic.py`
 
 .. _aic_bic:
 
-AIC and BIC criteria
+معايير AIC وBIC
 ^^^^^^^^^^^^^^^^^^^^
 
-The definition of AIC (and thus BIC) might differ in the literature. In this
-section, we give more information regarding the criterion computed in
+قد يختلف تعريف AIC (وبالتالي BIC) في الأدبيات. في هذا
+القسم، نقدم مزيدًا من المعلومات حول المعيار المحسوب في
 scikit-learn.
 
-.. dropdown:: Mathematical details
+.. dropdown:: التفاصيل الرياضية
 
-  The AIC criterion is defined as:
+  يتم تعريف معيار AIC على النحو التالي:
 
   .. math::
       AIC = -2 \log(\hat{L}) + 2 d
 
-  where :math:`\hat{L}` is the maximum likelihood of the model and
-  :math:`d` is the number of parameters (as well referred to as degrees of
-  freedom in the previous section).
+  حيث :math:`\hat{L}` هو الاحتمالية القصوى للنموذج و
+  :math:`d` هو عدد المعلمات (يشار إليها أيضًا بدرجات الحرية في القسم السابق).
 
-  The definition of BIC replace the constant :math:`2` by :math:`\log(N)`:
+  يستبدل تعريف BIC الثابت :math:`2` بـ :math:`\log(N)`:
 
   .. math::
       BIC = -2 \log(\hat{L}) + \log(N) d
 
-  where :math:`N` is the number of samples.
+  حيث :math:`N` هو عدد العينات.
 
-  For a linear Gaussian model, the maximum log-likelihood is defined as:
+  بالنسبة للنموذج الخطي الغاوسي، يتم تعريف الاحتمالية القصوى للاحتمالية على النحو التالي:
 
   .. math::
       \log(\hat{L}) = - \frac{n}{2} \log(2 \pi) - \frac{n}{2} \ln(\sigma^2) - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{2\sigma^2}
 
-  where :math:`\sigma^2` is an estimate of the noise variance,
-  :math:`y_i` and :math:`\hat{y}_i` are respectively the true and predicted
-  targets, and :math:`n` is the number of samples.
+  حيث :math:`\sigma^2` هو تقدير لتشتت الضوضاء،
+  :math:`y_i` و:math:`\hat{y}_i` هما على التوالي الأهداف الحقيقية والمتوقعة، و:math:`n` هو عدد العينات.
 
-  Plugging the maximum log-likelihood in the AIC formula yields:
+  يؤدي إدخال الاحتمالية القصوى لمعيار AIC إلى ما يلي:
 
   .. math::
       AIC = n \log(2 \pi \sigma^2) + \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sigma^2} + 2 d
 
-  The first term of the above expression is sometimes discarded since it is a
-  constant when :math:`\sigma^2` is provided. In addition,
-  it is sometimes stated that the AIC is equivalent to the :math:`C_p` statistic
-  [12]_. In a strict sense, however, it is equivalent only up to some constant
-  and a multiplicative factor.
+  يتم أحيانًا تجاهل المصطلح الأول للتعبير أعلاه لأنه ثابت عندما
+  يتم توفير :math:`\sigma^2`. بالإضافة إلى ذلك،
+  يقال أحيانًا أن AIC يعادل إحصائية :math:`C_p` [12]_. ومع ذلك، في المعنى الدقيق للكلمة، فإنه يعادل فقط حتى ثابت وعامل مضاعف.
 
-  At last, we mentioned above that :math:`\sigma^2` is an estimate of the
-  noise variance. In :class:`LassoLarsIC` when the parameter `noise_variance` is
-  not provided (default), the noise variance is estimated via the unbiased
-  estimator [13]_ defined as:
+  أخيرًا، ذكرنا أعلاه أن :math:`\sigma^2` هو تقدير لتشتت الضوضاء. في :class:`LassoLarsIC` عندما لا يتم توفير معلمة `noise_variance` (الافتراضية)، يتم تقدير تشتت الضوضاء عبر المقدر غير المتحيز [13]_ المعرف على النحو التالي:
 
   .. math::
       \sigma^2 = \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{n - p}
 
-  where :math:`p` is the number of features and :math:`\hat{y}_i` is the
-  predicted target using an ordinary least squares regression. Note, that this
-  formula is valid only when `n_samples > n_features`.
+  حيث :math:`p` هو عدد الميزات و:math:`\hat{y}_i` هو
+الهدف المتوقع باستخدام الانحدار الخطي العادي. لاحظ أن هذه
+الصيغة صالحة فقط عندما `n_samples > n_features`.
 
-  .. rubric:: References
+  .. rubric:: المراجع
 
   .. [12] :arxiv:`Zou, Hui, Trevor Hastie, and Robert Tibshirani.
           "On the degrees of freedom of the lasso."
@@ -418,28 +376,28 @@ scikit-learn.
           Neural computation 15.7 (2003): 1691-1714.
           <10.1162/089976603321891864>`
 
-Comparison with the regularization parameter of SVM
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+المقارنة بمعلمة المنتظم SVM
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The equivalence between ``alpha`` and the regularization parameter of SVM,
-``C`` is given by ``alpha = 1 / C`` or ``alpha = 1 / (n_samples * C)``,
-depending on the estimator and the exact objective function optimized by the
-model.
+التكافؤ بين ``alpha`` ومعلمة المنتظم SVM،
+``C`` يعطى بـ ``alpha = 1 / C`` أو ``alpha = 1 / (n_samples * C)``،
+اعتمادًا على المقدر ووظيفة الهدف الدقيقة التي يتم تحسينها بواسطة
+النموذج.
 
 .. _multi_task_lasso:
 
-Multi-task Lasso
+Lasso متعدد المهام
 ================
 
-The :class:`MultiTaskLasso` is a linear model that estimates sparse
-coefficients for multiple regression problems jointly: ``y`` is a 2D array,
-of shape ``(n_samples, n_tasks)``. The constraint is that the selected
-features are the same for all the regression problems, also called tasks.
+الـ :class:`MultiTaskLasso` هو نموذج خطي يقدر معاملات متفرقة
+لمشكلات الانحدار المتعددة بشكل مشترك: ``y`` هو مصفوفة ثنائية الأبعاد،
+من الشكل ``(n_samples، n_tasks)``. القيد هو أن الميزات المحددة هي نفسها لجميع
+مشكلات الانحدار، والتي يطلق عليها أيضًا المهام.
 
-The following figure compares the location of the non-zero entries in the
-coefficient matrix W obtained with a simple Lasso or a MultiTaskLasso.
-The Lasso estimates yield scattered non-zeros while the non-zeros of
-the MultiTaskLasso are full columns.
+تقارن الصورة التالية موقع الإدخالات غير الصفرية في
+مصفوفة المعاملات W التي تم الحصول عليها باستخدام Lasso بسيط أو MultiTaskLasso.
+تعطي تقديرات الـ Lasso إدخالات غير صفرية متفرقة بينما تكون الإدخالات غير الصفرية لـ
+MultiTaskLasso عبارة عن أعمدة كاملة.
 
 .. |multi_task_lasso_1| image:: ../auto_examples/linear_model/images/sphx_glr_plot_multi_task_lasso_support_001.png
     :target: ../auto_examples/linear_model/plot_multi_task_lasso_support.html
@@ -451,52 +409,41 @@ the MultiTaskLasso are full columns.
 
 .. centered:: |multi_task_lasso_1| |multi_task_lasso_2|
 
-.. centered:: Fitting a time-series model, imposing that any active feature be active at all times.
+.. centered:: تناسب نموذج السلسلة الزمنية، مع فرض أن أي ميزة نشطة تكون نشطة في جميع الأوقات.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_multi_task_lasso_support.py`
 
 
-.. dropdown:: Mathematical details
+.. dropdown:: التفاصيل الرياضية
 
-  Mathematically, it consists of a linear model trained with a mixed
-  :math:`\ell_1` :math:`\ell_2`-norm for regularization.
-  The objective function to minimize is:
+  رياضيًا، يتكون من نموذج خطي مدرب بمعيار مختلط
+  :math:`\ell_1` :math:`\ell_2` للمنتظم.
+  دالة الهدف للتقليل هي:
 
-  .. math::  \min_{W} { \frac{1}{2n_{\text{samples}}} ||X W - Y||_{\text{Fro}} ^ 2 + \alpha ||W||_{21}}
+  .. math:: \min_{W} { \frac{1}{2n_{\text{samples}}} ||X W - Y||_{\text{Fro}} ^ 2 + \alpha ||W||_{21}}
 
-  where :math:`\text{Fro}` indicates the Frobenius norm
+  حيث :math:`\text{Fro}` يشير إلى معيار فروبنيس
 
   .. math:: ||A||_{\text{Fro}} = \sqrt{\sum_{ij} a_{ij}^2}
 
-  and :math:`\ell_1` :math:`\ell_2` reads
+  و:math:`\ell_1` :math:`\ell_2` تقرأ
 
   .. math:: ||A||_{2 1} = \sum_i \sqrt{\sum_j a_{ij}^2}.
 
-  The implementation in the class :class:`MultiTaskLasso` uses
-  coordinate descent as the algorithm to fit the coefficients.
+  يستخدم التنفيذ في فئة :class:`MultiTaskLasso` الانحدار المنسق كخوارزمية لضبط المعاملات.
 
 .. _elastic_net:
 
-Elastic-Net
-===========
-:class:`ElasticNet` is a linear regression model trained with both
-:math:`\ell_1` and :math:`\ell_2`-norm regularization of the coefficients.
-This combination  allows for learning a sparse model where few of
-the weights are non-zero like :class:`Lasso`, while still maintaining
-the regularization properties of :class:`Ridge`. We control the convex
-combination of :math:`\ell_1` and :math:`\ell_2` using the ``l1_ratio``
-parameter.
+الشبكة المرنة
+يسمى النموذج :class:`ElasticNet` نموذج رجوع خطي تم تدريبه باستخدام كل من معياري :math:`\ell_1` و :math:`\ell_2` المنتظمين للمعاملات. يسمح هذا المزيج بتعلم نموذج متفرق حيث يكون عدد قليل من الأوزان غير صفري مثل :class:`Lasso`، مع الحفاظ على خصائص التنظيم لـ :class:`Ridge`. نحن نتحكم في المزيج المحدب من :math:`\ell_1` و :math:`\ell_2` باستخدام معامل "l1_ratio".
 
-Elastic-net is useful when there are multiple features that are
-correlated with one another. Lasso is likely to pick one of these
-at random, while elastic-net is likely to pick both.
+يعد Elastic-net مفيدًا عندما يكون هناك ميزات متعددة مترابطة مع بعضها البعض. ومن المرجح أن يختار لسو أحد هذه الميزات بشكل عشوائي، في حين أن من المرجح أن يختار Elastic-net كلا منهما.
 
-A practical advantage of trading-off between Lasso and Ridge is that it
-allows Elastic-Net to inherit some of Ridge's stability under rotation.
+وتتمثل إحدى المزايا العملية للمقايضة بين لسو وريج في أنها تسمح لـ Elastic-Net بأن يرث بعضًا من استقرار ريدج تحت الدوران.
 
-The objective function to minimize is in this case
+دالة الهدف التي يجب تقليلها في هذه الحالة هي:
 
 .. math::
 
@@ -509,105 +456,69 @@ The objective function to minimize is in this case
    :align: center
    :scale: 50%
 
-The class :class:`ElasticNetCV` can be used to set the parameters
-``alpha`` (:math:`\alpha`) and ``l1_ratio`` (:math:`\rho`) by cross-validation.
+يمكن استخدام فئة :class:`ElasticNetCV` لضبط معلمي "alpha" (:math:`\alpha`) و"l1_ratio" (:math:`\rho`) عن طريق التحقق من صحة المستعرض.
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_and_elasticnet.py`
 * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_coordinate_descent_path.py`
-* :ref:`sphx_glr_auto_examples_linear_model_plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.py`
+* :ref:`sphx_glr_auto_examples_linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.py`
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  The following two references explain the iterations
-  used in the coordinate descent solver of scikit-learn, as well as
-  the duality gap computation used for convergence control.
+توضح المرجعان التاليان التكرارات المستخدمة في محسن الانحدار المنسق لـ scikit-learn، وكذلك حساب فجوة الازدواجية المستخدمة للتحكم في التقارب.
 
-  * "Regularization Path For Generalized linear Models by Coordinate Descent",
-    Friedman, Hastie & Tibshirani, J Stat Softw, 2010 (`Paper
-    <https://www.jstatsoft.org/article/view/v033i01/v33i01.pdf>`__).
-  * "An Interior-Point Method for Large-Scale L1-Regularized Least Squares,"
-    S. J. Kim, K. Koh, M. Lustig, S. Boyd and D. Gorinevsky,
-    in IEEE Journal of Selected Topics in Signal Processing, 2007
-    (`Paper <https://web.stanford.edu/~boyd/papers/pdf/l1_ls.pdf>`__)
+* "مسار التنظيم لنماذج عامة خطية بواسطة الانحدار المنسق"، فريدمان، هاستي وتيبشراني، J Stat Softw، 2010 (`ورقة <https://www.jstatsoft.org/article/view/v033i01/v33i01.pdf>`__).
+* "طريقة داخلية لنموذج L1-Regularized Least Squares الكبير"، كيم، كوه، لوستيج، بويد وجورينيفسكي، في مجلة IEEE Journal on Selected Topics in Signal Processing، 2007 (`ورقة <https://web.stanford.edu/~boyd/papers/pdf/l1_ls.pdf>`__)
 
 .. _multi_task_elastic_net:
 
-Multi-task Elastic-Net
+شبكة مطاطية متعددة المهام
 ======================
 
-The :class:`MultiTaskElasticNet` is an elastic-net model that estimates sparse
-coefficients for multiple regression problems jointly: ``Y`` is a 2D array
-of shape ``(n_samples, n_tasks)``. The constraint is that the selected
-features are the same for all the regression problems, also called tasks.
+:class:`MultiTaskElasticNet` هو نموذج شبكة مطاطية يقدر معاملات متفرقة لمهام متعددة الانحدار بشكل مشترك: "Y" عبارة عن مصفوفة ثنائية الأبعاد ذات شكل "n_samples، n_tasks". والقيود هي أن الميزات المحددة هي نفسها لجميع مشكلات الانحدار، والتي يطلق عليها أيضًا مهام.
 
-Mathematically, it consists of a linear model trained with a mixed
-:math:`\ell_1` :math:`\ell_2`-norm and :math:`\ell_2`-norm for regularization.
-The objective function to minimize is:
+من الناحية الرياضية، يتكون من نموذج خطي مدرب باستخدام معيار مختلط :math:`\ell_1` :math:`\ell_2` و :math:`\ell_2` للتنظيم. دالة الهدف التي يجب تقليلها هي:
 
 .. math::
 
     \min_{W} { \frac{1}{2n_{\text{samples}}} ||X W - Y||_{\text{Fro}}^2 + \alpha \rho ||W||_{2 1} +
     \frac{\alpha(1-\rho)}{2} ||W||_{\text{Fro}}^2}
 
-The implementation in the class :class:`MultiTaskElasticNet` uses coordinate descent as
-the algorithm to fit the coefficients.
+يستخدم التنفيذ في فئة :class:`MultiTaskElasticNet` الانحدار المنسق كخوارزمية لضبط المعاملات.
 
-The class :class:`MultiTaskElasticNetCV` can be used to set the parameters
-``alpha`` (:math:`\alpha`) and ``l1_ratio`` (:math:`\rho`) by cross-validation.
+يمكن استخدام فئة :class:`MultiTaskElasticNetCV` لضبط معلمي "alpha" (:math:`\alpha`) و"l1_ratio" (:math:`\rho`) عن طريق التحقق من صحة المستعرض.
 
 .. _least_angle_regression:
 
-Least Angle Regression
+الانحدار بزاوية أصغر
 ======================
 
-Least-angle regression (LARS) is a regression algorithm for
-high-dimensional data, developed by Bradley Efron, Trevor Hastie, Iain
-Johnstone and Robert Tibshirani. LARS is similar to forward stepwise
-regression. At each step, it finds the feature most correlated with the
-target. When there are multiple features having equal correlation, instead
-of continuing along the same feature, it proceeds in a direction equiangular
-between the features.
+الانحدار بزاوية أصغر (LARS) هو خوارزمية الانحدار للبيانات عالية الأبعاد، طورها برادلي إفرون، وتريفور هاستي، وإيان جونستون، وروبرت تيبشراني. LARS مشابه للانحدار الخطي. في كل خطوة، يجد الميزة الأكثر ارتباطًا بالهدف. عندما تكون هناك ميزات متعددة ذات ارتباط متساوٍ، بدلاً من الاستمرار على نفس الميزة، فإنه يستمر في اتجاه متساوي الزوايا بين الميزات.
 
-The advantages of LARS are:
+مزايا LARS هي:
 
-- It is numerically efficient in contexts where the number of features
-  is significantly greater than the number of samples.
+- إنه فعال من الناحية العددية في السياقات التي يكون فيها عدد الميزات أكبر بكثير من عدد العينات.
 
-- It is computationally just as fast as forward selection and has
-  the same order of complexity as ordinary least squares.
+- إنه سريع الحساب مثل الاختيار الأمامي وله نفس ترتيب التعقيد مثل المربعات الصغرى العادية.
 
-- It produces a full piecewise linear solution path, which is
-  useful in cross-validation or similar attempts to tune the model.
+- ينتج مسار حل خطي قطاعي كامل، وهو مفيد في التحقق من صحة المستعرض أو المحاولات المماثلة لضبط النموذج.
 
-- If two features are almost equally correlated with the target,
-  then their coefficients should increase at approximately the same
-  rate. The algorithm thus behaves as intuition would expect, and
-  also is more stable.
+- إذا كانت ميزتان مرتبطتين تقريبًا بالهدف، فيجب أن تزداد معاملاتهما بنفس المعدل تقريبًا. وبالتالي، يتصرف الخوارزم كما هو متوقع من الحدس، وهو أيضًا أكثر استقرارًا.
 
-- It is easily modified to produce solutions for other estimators,
-  like the Lasso.
+- يمكن تعديله بسهولة لإنتاج حلول لمقدّرات أخرى، مثل لسو.
 
-The disadvantages of the LARS method include:
+تشمل عيوب طريقة LARS ما يلي:
 
-- Because LARS is based upon an iterative refitting of the
-  residuals, it would appear to be especially sensitive to the
-  effects of noise. This problem is discussed in detail by Weisberg
-  in the discussion section of the Efron et al. (2004) Annals of
-  Statistics article.
+- نظرًا لأن LARS يعتمد على إعادة تركيب بقايا المتكررة، فمن المحتمل أن يكون حساسًا بشكل خاص لآثار الضوضاء. تتم مناقشة هذه المشكلة بالتفصيل من قبل وايزبرج في قسم المناقشة من مقال إفرون وآخرون. (2004) في Annals of Statistics.
 
-The LARS model can be used via the estimator :class:`Lars`, or its
-low-level implementation :func:`lars_path` or :func:`lars_path_gram`.
+يمكن استخدام نموذج LARS عبر المُقدِّر :class:`Lars`، أو تنفيذه منخفض المستوى :func:`lars_path` أو :func:`lars_path_gram`.
 
 
-LARS Lasso
+LARS لسو
 ==========
 
-:class:`LassoLars` is a lasso model implemented using the LARS
-algorithm, and unlike the implementation based on coordinate descent,
-this yields the exact solution, which is piecewise linear as a
-function of the norm of its coefficients.
+:class:`LassoLars` هو نموذج لسو تم تنفيذه باستخدام خوارزمية LARS، وعلى عكس التنفيذ القائم على الانحدار المنسق، فإن هذا يعطي الحل الدقيق، والذي يكون خطيًا قطاعيًا كدالة لمعيار معاملاته.
 
 .. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_lasso_lars_001.png
    :target: ../auto_examples/linear_model/plot_lasso_lars.html
@@ -623,290 +534,142 @@ function of the norm of its coefficients.
    >>> reg.coef_
    array([0.6..., 0.        ])
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_lars.py`
 
-The Lars algorithm provides the full path of the coefficients along
-the regularization parameter almost for free, thus a common operation
-is to retrieve the path with one of the functions :func:`lars_path`
-or :func:`lars_path_gram`.
+توفر خوارزمية لارس مسار المعاملات الكامل لمعامل التنظيم تقريبًا مجانًا، وبالتالي فإن إحدى العمليات الشائعة هي استرداد المسار بوظيفة من وظائف :func:`lars_path` أو :func:`lars_path_gram`.
 
-.. dropdown:: Mathematical formulation
+.. dropdown:: الصيغة الرياضية
 
-  The algorithm is similar to forward stepwise regression, but instead
-  of including features at each step, the estimated coefficients are
-  increased in a direction equiangular to each one's correlations with
-  the residual.
+الخوارزمية مشابهة للانحدار الخطي، ولكن بدلاً من تضمين ميزات في كل خطوة، يتم زيادة المعاملات المقدرة في اتجاه متساوي الزوايا مع كل ارتباطاتهم بالبقايا.
 
-  Instead of giving a vector result, the LARS solution consists of a
-  curve denoting the solution for each value of the :math:`\ell_1` norm of the
-  parameter vector. The full coefficients path is stored in the array
-  ``coef_path_`` of shape `(n_features, max_features + 1)`. The first
-  column is always zero.
+بدلاً من إعطاء نتيجة متجه، يتكون حل LARS من منحنى يشير إلى الحل لكل قيمة لمعيار :math:`\ell_1` لمُتجه المعلمة. يتم تخزين مسار المعاملات الكامل في المصفوفة "coef_path_" ذات الشكل `(n_features، max_features + 1)`. العمود الأول هو دائمًا صفر.
 
-  .. rubric:: References
+.. rubric:: المراجع
 
-  * Original Algorithm is detailed in the paper `Least Angle Regression
-    <https://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf>`_
-    by Hastie et al.
+* الخوارزمية الأصلية مفصلة في الورقة `Least Angle Regression <https://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf>`_ بواسطة Hastie et al.
 
 .. _omp:
 
-Orthogonal Matching Pursuit (OMP)
+البحث عن المطابقة العمودية (OMP)
 =================================
-:class:`OrthogonalMatchingPursuit` and :func:`orthogonal_mp` implement the OMP
-algorithm for approximating the fit of a linear model with constraints imposed
-on the number of non-zero coefficients (ie. the :math:`\ell_0` pseudo-norm).
+:class:`OrthogonalMatchingPursuit` و :func:`orthogonal_mp` تنفذان خوارزمية OMP لتقريب ملاءمة نموذج خطي مع قيود مفروضة على عدد المعاملات غير الصفرية (أي معيار :math:`\ell_0` شبه).
 
-Being a forward feature selection method like :ref:`least_angle_regression`,
-orthogonal matching pursuit can approximate the optimum solution vector with a
-fixed number of non-zero elements:
+باعتباره طريقة اختيار ميزة أمامية مثل :ref:`least_angle_regression`، يمكن للبحث عن المطابقة العمودية تقريب متجه الحل الأمثل بعدد ثابت من العناصر غير الصفرية:
 
 .. math::
     \underset{w}{\operatorname{arg\,min\,}}  ||y - Xw||_2^2 \text{ subject to } ||w||_0 \leq n_{\text{nonzero_coefs}}
 
-Alternatively, orthogonal matching pursuit can target a specific error instead
-of a specific number of non-zero coefficients. This can be expressed as:
+بدلاً من ذلك، يمكن للبحث عن المطابقة العمودية استهداف خطأ محدد بدلاً من عدد محدد من المعاملات غير الصفرية. يمكن التعبير عن هذا على النحو التالي:
 
 .. math::
     \underset{w}{\operatorname{arg\,min\,}} ||w||_0 \text{ subject to } ||y-Xw||_2^2 \leq \text{tol}
 
 
-OMP is based on a greedy algorithm that includes at each step the atom most
-highly correlated with the current residual. It is similar to the simpler
-matching pursuit (MP) method, but better in that at each iteration, the
-residual is recomputed using an orthogonal projection on the space of the
-previously chosen dictionary elements.
+يستند OMP إلى خوارزمية جشعة تتضمن في كل خطوة الذرة الأكثر ارتباطًا بالبقايا الحالية. إنه مشابه لطريقة مطاردة المطابقة (MP) البسيطة، ولكنه أفضل في أن البقايا في كل تكرار يتم إعادة حسابها باستخدام إسقاط عمودي على مساحة عناصر القاموس المحددة سابقًا.
 
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_omp.py`
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * https://www.cs.technion.ac.il/~ronrubin/Publications/KSVD-OMP-v2.pdf
+* https://www.cs.technion.ac.il/~ronrubin/Publications/KSVD-OMP-v2.pdf
 
-  * `Matching pursuits with time-frequency dictionaries
-    <https://www.di.ens.fr/~mallat/papiers/MallatPursuit93.pdf>`_,
-    S. G. Mallat, Z. Zhang,
+* `Matching pursuits with time-frequency dictionaries
+    <https://www.di.ens.fr/~mallat/papiers/MallatPursuit93.pdf>`_،
+    S. G. Mallat، Z. Zhang،
 
 .. _bayesian_regression:
 
-Bayesian Regression
-===================
+الانحدار الخلوي
+تقنيات الانحدار البايزي:
 
-Bayesian regression techniques can be used to include regularization
-parameters in the estimation procedure: the regularization parameter is
-not set in a hard sense but tuned to the data at hand.
+يمكن استخدام تقنيات الانحدار البايزي لدمج معلمات التنظيم في إجراء التقدير. حيث لا يتم تحديد معلمة التنظيم بشكل صارم، ولكن يتم ضبطها وفقًا للبيانات المتاحة. ويمكن تحقيق ذلك من خلال تقديم "معلومات مسبقة غير مفيدة" فوق المعلمات فائقة الدقة للنماذج.
 
-This can be done by introducing `uninformative priors
-<https://en.wikipedia.org/wiki/Non-informative_prior#Uninformative_priors>`__
-over the hyper parameters of the model.
-The :math:`\ell_{2}` regularization used in :ref:`ridge_regression` is
-equivalent to finding a maximum a posteriori estimation under a Gaussian prior
-over the coefficients :math:`w` with precision :math:`\lambda^{-1}`.
-Instead of setting `\lambda` manually, it is possible to treat it as a random
-variable to be estimated from the data.
+إن التنظيم L2 المستخدم في الانحدار التليدي يعادل إيجاد تقدير الحد الأقصى لاحتمالية الخلف وفقًا لتوزيع غاوسي مسبق على المعاملات w مع دقة λ−1. بدلاً من تحديد λ يدويًا، من الممكن التعامل معه كمتغير عشوائي يتم تقديره من البيانات.
 
-To obtain a fully probabilistic model, the output :math:`y` is assumed
-to be Gaussian distributed around :math:`X w`:
+للحصول على نموذج احتمالي كامل، يفترض أن يكون الإخراج y موزعًا وفقًا لتوزيع غاوسي حول Xw:
 
-.. math::  p(y|X,w,\alpha) = \mathcal{N}(y|X w,\alpha^{-1})
+حيث يتم التعامل مع α مرة أخرى كمتغير عشوائي يتم تقديره من البيانات.
 
-where :math:`\alpha` is again treated as a random variable that is to be
-estimated from the data.
+مزايا الانحدار البايزي:
 
-The advantages of Bayesian Regression are:
+1. يتكيف مع البيانات المتاحة.
+2. يمكن استخدامه لدمج معلمات التنظيم في إجراء التقدير.
 
-- It adapts to the data at hand.
+أما مساوئ الانحدار البايزي:
 
-- It can be used to include regularization parameters in the
-  estimation procedure.
+1. قد يكون استنتاج النموذج استنتاجًا مستهلكًا للوقت.
 
-The disadvantages of Bayesian regression include:
+الانحدار البايزي ريدج:
 
-- Inference of the model can be time consuming.
+يقدر BayesianRidge نموذجًا احتماليًا لمشكلة الانحدار كما هو موضح أعلاه. يتم إعطاء السابقة للمعامل w بواسطة غاوسي كروي:
 
-.. dropdown:: References
+حيث يتم اختيار التوزيعات السابقة على α و λ لتكون توزيعات جاما، السابقة المؤتلفة لدقة غاوسي. ويطلق على النموذج الناتج اسم "انحدار بايزي ريدج"، وهو مشابه للانحدار التليدي الكلاسيكي.
 
-  * A good introduction to Bayesian methods is given in C. Bishop: Pattern
-    Recognition and Machine learning
+يتم تقدير المعلمات w و α و λ بشكل مشترك أثناء ملاءمة النموذج، ويتم تقدير معلمات التنظيم α و λ عن طريق تعظيم "الاحتمالية الهامشية للحد الأقصى". ويستند تنفيذ سكيت-ليرن على الخوارزمية الموضحة في التذييل A من (تيبينج، 2001) حيث يتم تحديث المعلمات α و λ كما هو مقترح في (ماكاي، 1992). ويمكن تعيين القيمة الأولية لإجراء التعظيم باستخدام المعلمات فائقة الدقة alpha_init وlambda_init.
 
-  * Original Algorithm is detailed in the  book `Bayesian learning for neural
-    networks` by Radford M. Neal
+هناك أربع معلمات فائقة أخرى، α_1 و α_2 و λ_1 و λ_2 من التوزيعات السابقة جاما على α و λ. وعادة ما يتم اختيارها لتكون "غير مفيدة". افتراضيًا، α_1 = α_2 = λ_1 = λ_2 = 10^−6.
 
-.. _bayesian_ridge_regression:
+يستخدم الانحدار البايزي ريدج للانحدار:
 
-Bayesian Ridge Regression
--------------------------
+بعد التجهيز، يمكن استخدام النموذج للتنبؤ بالقيم الجديدة:
 
-:class:`BayesianRidge` estimates a probabilistic model of the
-regression problem as described above.
-The prior for the coefficient :math:`w` is given by a spherical Gaussian:
+يمكن الوصول إلى معاملات النموذج w:
 
-.. math:: p(w|\lambda) =
-    \mathcal{N}(w|0,\lambda^{-1}\mathbf{I}_{p})
+بسبب الإطار البايزي، تختلف الأوزان الموجودة اختلافًا طفيفًا عن تلك التي تم العثور عليها بواسطة طريقة المربعات الصغرى العادية. ومع ذلك، فإن انحدار بايزي ريدج أكثر قوة للمشاكل غير المحددة جيدًا.
 
-The priors over :math:`\alpha` and :math:`\lambda` are chosen to be `gamma
-distributions <https://en.wikipedia.org/wiki/Gamma_distribution>`__, the
-conjugate prior for the precision of the Gaussian. The resulting model is
-called *Bayesian Ridge Regression*, and is similar to the classical
-:class:`Ridge`.
+تحديد الأهمية التلقائي (ARD):
 
-The parameters :math:`w`, :math:`\alpha` and :math:`\lambda` are estimated
-jointly during the fit of the model, the regularization parameters
-:math:`\alpha` and :math:`\lambda` being estimated by maximizing the
-*log marginal likelihood*. The scikit-learn implementation
-is based on the algorithm described in Appendix A of (Tipping, 2001)
-where the update of the parameters :math:`\alpha` and :math:`\lambda` is done
-as suggested in (MacKay, 1992). The initial value of the maximization procedure
-can be set with the hyperparameters ``alpha_init`` and ``lambda_init``.
+تحديد الأهمية التلقائي (كما هو مطبق في ARDRegression) هو نوع من النماذج الخطية المشابهة جدًا لانحدار بايزي ريدج، ولكنه يؤدي إلى معاملات أكثر ندرة.
 
-There are four more hyperparameters, :math:`\alpha_1`, :math:`\alpha_2`,
-:math:`\lambda_1` and :math:`\lambda_2` of the gamma prior distributions over
-:math:`\alpha` and :math:`\lambda`. These are usually chosen to be
-*non-informative*. By default :math:`\alpha_1 = \alpha_2 =  \lambda_1 = \lambda_2 = 10^{-6}`.
+يفرض ARDRegression سابقًا مختلفًا على w: فهو يسقط التوزيع الغاوسي الكروي لصالح التوزيع الغاوسي الإهليلجي المركز. وهذا يعني أنه يمكن استخلاص كل معامل w_i نفسه من توزيع غاوسي، مع مركز صفري ودقة λ_i:
 
-Bayesian Ridge Regression is used for regression::
+حيث A هي مصفوفة قطرية موجبة محددة وdiag(A) = λ = {λ_1,...,λ_p}.
 
-    >>> from sklearn import linear_model
-    >>> X = [[0., 0.], [1., 1.], [2., 2.], [3., 3.]]
-    >>> Y = [0., 1., 2., 3.]
-    >>> reg = linear_model.BayesianRidge()
-    >>> reg.fit(X, Y)
-    BayesianRidge()
+على عكس انحدار بايزي ريدج، فإن لكل إحداثي من w_i انحرافه المعياري الخاص 1/λ_i. يتم اختيار التوزيع السابق على جميع λ_i ليكون نفس توزيع جاما المعطى بواسطة المعلمات فائقة الدقة λ_1 و λ_2.
 
-After being fitted, the model can then be used to predict new values::
+يُعرف ARD أيضًا في الأدبيات باسم "التعلم البايزي النادر" و "آلة المتجه ذي الصلة". للحصول على مقارنة مفصلة بين ARD وانحدار بايزي ريدج، راجع المثال أدناه.
+تم تنفيذ الانحدار اللوجستي في :class:`LogisticRegression`. وعلى الرغم من اسمه، إلا أنه يتم تنفيذه كنموذج خطي للتصنيف بدلاً من الانحدار من حيث تسمية سكيت-ليرن/ML. ويعرف الانحدار اللوجستي أيضًا في الأدبيات باسم الانحدار اللوجستي، أو التصنيف بحد أقصى للإنتروبيا (MaxEnt) أو المصنف اللوغاريتمي الخطي. في هذا النموذج، يتم نمذجة الاحتمالات التي تصف النتائج المحتملة لمحاكمة واحدة باستخدام 'دالة لوجستية <https://en.wikipedia.org/wiki/Logistic_function>`_.
 
-    >>> reg.predict([[1, 0.]])
-    array([0.50000013])
+يمكن أن يلائم هذا التنفيذ الانحدار اللوجستي الثنائي، أو One-vs-Rest، أو الانحدار اللوجستي متعدد الحدود مع خيار :math:`\ell_1`، أو :math:`\ell_2` أو الانتظام المرن.
 
-The coefficients :math:`w` of the model can be accessed::
+.. note:: **التنظيم**
 
-    >>> reg.coef_
-    array([0.49999993, 0.49999993])
+يتم تطبيق الانتظام بشكل افتراضي، وهو أمر شائع في تعلم الآلة ولكن ليس في الإحصاء. تتمثل إحدى مزايا الانتظام الأخرى في أنه يحسن الاستقرار العددي. لا يعني عدم وجود انتظام سوى تعيين C إلى قيمة عالية جدًا.
 
-Due to the Bayesian framework, the weights found are slightly different to the
-ones found by :ref:`ordinary_least_squares`. However, Bayesian Ridge Regression
-is more robust to ill-posed problems.
+.. note:: **الانحدار اللوجستي كحالة خاصة من النماذج الخطية العامة (GLM)**
 
-.. rubric:: Examples
+الانحدار اللوجستي هو حالة خاصة من
+:ref:`generalized_linear_models` مع توزيع شرطي ثنائي/برنولي وارتباط لوغاريتمي. يمكن استخدام الإخراج الرقمي للانحدار اللوجستي، والذي هو الاحتمال المتوقع، كمصنف عن طريق تطبيق عتبة (0.5 افتراضيًا) عليه. هذا هو كيفية تنفيذه في سكيت-ليرن، لذلك فهو يتوقع هدفًا فئويًا، مما يجعل الانحدار اللوجستي مصنفًا.
 
-* :ref:`sphx_glr_auto_examples_linear_model_plot_bayesian_ridge_curvefit.py`
-
-.. dropdown:: References
-
-  * Section 3.3 in Christopher M. Bishop: Pattern Recognition and Machine Learning, 2006
-
-  * David J. C. MacKay, `Bayesian Interpolation <https://citeseerx.ist.psu.edu/doc_view/pid/b14c7cc3686e82ba40653c6dff178356a33e5e2c>`_, 1992.
-
-  * Michael E. Tipping, `Sparse Bayesian Learning and the Relevance Vector Machine <https://www.jmlr.org/papers/volume1/tipping01a/tipping01a.pdf>`_, 2001.
-
-.. _automatic_relevance_determination:
-
-Automatic Relevance Determination - ARD
----------------------------------------
-
-The Automatic Relevance Determination (as being implemented in
-:class:`ARDRegression`) is a kind of linear model which is very similar to the
-`Bayesian Ridge Regression`_, but that leads to sparser coefficients :math:`w`
-[1]_ [2]_.
-
-:class:`ARDRegression` poses a different prior over :math:`w`: it drops
-the spherical Gaussian distribution for a centered elliptic Gaussian
-distribution. This means each coefficient :math:`w_{i}` can itself be drawn from
-a Gaussian distribution, centered on zero and with a precision
-:math:`\lambda_{i}`:
-
-.. math:: p(w|\lambda) = \mathcal{N}(w|0,A^{-1})
-
-with :math:`A` being a positive definite diagonal matrix and
-:math:`\text{diag}(A) = \lambda = \{\lambda_{1},...,\lambda_{p}\}`.
-
-In contrast to the `Bayesian Ridge Regression`_, each coordinate of
-:math:`w_{i}` has its own standard deviation :math:`\frac{1}{\lambda_i}`. The
-prior over all :math:`\lambda_i` is chosen to be the same gamma distribution
-given by the hyperparameters :math:`\lambda_1` and :math:`\lambda_2`.
-
-ARD is also known in the literature as *Sparse Bayesian Learning* and *Relevance
-Vector Machine* [3]_ [4]_. For a worked-out comparison between ARD and `Bayesian
-Ridge Regression`_, see the example below.
-
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py`
-
-
-.. rubric:: References
-
-.. [1] Christopher M. Bishop: Pattern Recognition and Machine Learning, Chapter 7.2.1
-
-.. [2] David Wipf and Srikantan Nagarajan: `A New View of Automatic Relevance Determination <https://papers.nips.cc/paper/3372-a-new-view-of-automatic-relevance-determination.pdf>`_
-
-.. [3] Michael E. Tipping: `Sparse Bayesian Learning and the Relevance Vector Machine <https://www.jmlr.org/papers/volume1/tipping01a/tipping01a.pdf>`_
-
-.. [4] Tristan Fletcher: `Relevance Vector Machines Explained <https://citeseerx.ist.psu.edu/doc_view/pid/3dc9d625404fdfef6eaccc3babddefe4c176abd4>`_
-
-.. _Logistic_regression:
-
-Logistic regression
-===================
-
-The logistic regression is implemented in :class:`LogisticRegression`. Despite
-its name, it is implemented as a linear model for classification rather than
-regression in terms of the scikit-learn/ML nomenclature. The logistic
-regression is also known in the literature as logit regression,
-maximum-entropy classification (MaxEnt) or the log-linear classifier. In this
-model, the probabilities describing the possible outcomes of a single trial
-are modeled using a `logistic function
-<https://en.wikipedia.org/wiki/Logistic_function>`_.
-
-This implementation can fit binary, One-vs-Rest, or multinomial logistic
-regression with optional :math:`\ell_1`, :math:`\ell_2` or Elastic-Net
-regularization.
-
-.. note:: **Regularization**
-
-    Regularization is applied by default, which is common in machine
-    learning but not in statistics. Another advantage of regularization is
-    that it improves numerical stability. No regularization amounts to
-    setting C to a very high value.
-
-.. note:: **Logistic Regression as a special case of the Generalized Linear Models (GLM)**
-
-    Logistic regression is a special case of
-    :ref:`generalized_linear_models` with a Binomial / Bernoulli conditional
-    distribution and a Logit link. The numerical output of the logistic
-    regression, which is the predicted probability, can be used as a classifier
-    by applying a threshold (by default 0.5) to it. This is how it is
-    implemented in scikit-learn, so it expects a categorical target, making
-    the Logistic Regression a classifier.
-
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_l1_l2_sparsity.py`
 * :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_path.py`
-* :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_multinomial.py`
+* :ref:`sph
+x_glr_auto_examples_linear_model_plot_logistic_multinomial.py`
 * :ref:`sphx_glr_auto_examples_linear_model_plot_sparse_logistic_regression_20newsgroups.py`
 * :ref:`sphx_glr_auto_examples_linear_model_plot_sparse_logistic_regression_mnist.py`
 
-Binary Case
+الحالة الثنائية
 -----------
 
-For notational ease, we assume that the target :math:`y_i` takes values in the
-set :math:`\{0, 1\}` for data point :math:`i`.
-Once fitted, the :meth:`~sklearn.linear_model.LogisticRegression.predict_proba`
-method of :class:`~sklearn.linear_model.LogisticRegression` predicts
-the probability of the positive class :math:`P(y_i=1|X_i)` as
+لتسهيل التدوين، نفترض أن الهدف :math:`y_i` يأخذ قيمًا في
+المجموعة :math:`\{0، 1\}` لنقطة البيانات :math:`i`.
+بمجرد ملاءمة النموذج، فإن طريقة :meth:`~sklearn.linear_model.LogisticRegression.predict_proba`
+من فئة :class:`~sklearn.linear_model.LogisticRegression` تتنبأ
+باحتمالية الفئة الإيجابية :math:`P(y_i=1|X_i)` كما
 
 .. math:: \hat{p}(X_i) = \operatorname{expit}(X_i w + w_0) = \frac{1}{1 + \exp(-X_i w - w_0)}.
 
 
-As an optimization problem, binary
-class logistic regression with regularization term :math:`r(w)` minimizes the
-following cost function:
+كمشكلة تحسين، فإن الانحدار اللوجستي الثنائي
+مع مصطلح الانتظام :math:`r(w)` يقلل من
+دالة التكلفة التالية:
 
 .. math::
     :name: regularized-logistic-loss
@@ -915,13 +678,11 @@ following cost function:
     \left(-y_i \log(\hat{p}(X_i)) - (1 - y_i) \log(1 - \hat{p}(X_i))\right)
     + \frac{r(w)}{S C}\,,
 
-where :math:`{s_i}` corresponds to the weights assigned by the user to a
-specific training sample (the vector :math:`s` is formed by element-wise
-multiplication of the class weights and sample weights),
-and the sum :math:`S = \sum_{i=1}^n s_i`.
+حيث :math:`{s_i}` يقابل الأوزان التي يعينها المستخدم لعينة تدريب محددة (يتم تشكيل المتجه :math:`s` عن طريق الضرب العنصري لأوزان الفصل وأوزان العينة)،
+والمجموع :math:`S = \sum_{i=1}^n s_i`.
 
-We currently provide four choices for the regularization term  :math:`r(w)` via
-the `penalty` argument:
+نقدم حاليًا أربعة خيارات لمصطلح الانتظام :math:`r(w)` عبر
+حجة `penalty`:
 
 +----------------+-------------------------------------------------+
 | penalty        | :math:`r(w)`                                    |
@@ -935,760 +696,467 @@ the `penalty` argument:
 | `ElasticNet`   | :math:`\frac{1 - \rho}{2}w^T w + \rho \|w\|_1`  |
 +----------------+-------------------------------------------------+
 
-For ElasticNet, :math:`\rho` (which corresponds to the `l1_ratio` parameter)
-controls the strength of :math:`\ell_1` regularization vs. :math:`\ell_2`
-regularization. Elastic-Net is equivalent to :math:`\ell_1` when
-:math:`\rho = 1` and equivalent to :math:`\ell_2` when :math:`\rho=0`.
+بالنسبة لـ ElasticNet، يتحكم :math:`\rho` (الذي يقابله معلمة `l1_ratio`)
+في قوة الانتظام :math:`\ell_1` مقابل :math:`\ell_2`. الانتظام المرن مكافئ لـ :math:`\ell_1` عندما
+:math:`\rho = 1` ومكافئ لـ :math:`\ell_2` عندما :math:`\rho=0`.
 
-Note that the scale of the class weights and the sample weights will influence
-the optimization problem. For instance, multiplying the sample weights by a
-constant :math:`b>0` is equivalent to multiplying the (inverse) regularization
-strength `C` by :math:`b`.
+لاحظ أن مقياس أوزان الفصل وأوزان العينة سيؤثر
+على مشكلة التحسين. على سبيل المثال، فإن ضرب أوزان العينة بمضاعف ثابت :math:`b>0` مكافئ لضرب قوة الانتظام (العكسي) `C` بـ :math:`b`.
 
-Multinomial Case
+الحالة متعددة الحدود
 ----------------
 
-The binary case can be extended to :math:`K` classes leading to the multinomial
-logistic regression, see also `log-linear model
+يمكن تمديد الحالة الثنائية إلى :math:`K` فئات تؤدي إلى الانحدار اللوجستي متعدد الحدود، راجع أيضًا `النموذج اللوغاريتمي
 <https://en.wikipedia.org/wiki/Multinomial_logistic_regression#As_a_log-linear_model>`_.
 
 .. note::
-   It is possible to parameterize a :math:`K`-class classification model
-   using only :math:`K-1` weight vectors, leaving one class probability fully
-   determined by the other class probabilities by leveraging the fact that all
-   class probabilities must sum to one. We deliberately choose to overparameterize the model
-   using :math:`K` weight vectors for ease of implementation and to preserve the
-   symmetrical inductive bias regarding ordering of classes, see [16]_. This effect becomes
-   especially important when using regularization. The choice of overparameterization can be
-   detrimental for unpenalized models since then the solution may not be unique, as shown in [16]_.
+   من الممكن معلمية نموذج تصنيف من :math:`K` فئة
+   باستخدام :math:`K-1` فقط من متجهات الأوزان، مما يجعل احتمالية فئة واحدة محددة تمامًا بواسطة احتمالات الفئات الأخرى عن طريق الاستفادة من حقيقة أن جميع احتمالات الفئات يجب أن تكون مجموعها واحد. نختار عن قصد المبالغة في معلمية النموذج
+   باستخدام :math:`K` متجهات أوزان لسهولة التنفيذ وللحفاظ على التحيز الاستقرائي المتماثل فيما يتعلق بترتيب الفئات، راجع [16]_. يصبح هذا التأثير مهمًا بشكل خاص عند استخدام الانتظام. يمكن أن يكون اختيار المبالغة في المعلمية ضارًا بالنماذج غير المعاقب عليها لأن الحل قد لا يكون فريدًا من نوعه، كما هو موضح في [16]_.
 
-.. dropdown:: Mathematical details
+.. dropdown:: التفاصيل الرياضية
 
-  Let :math:`y_i \in {1, \ldots, K}` be the label (ordinal) encoded target variable for observation :math:`i`.
-  Instead of a single coefficient vector, we now have
-  a matrix of coefficients :math:`W` where each row vector :math:`W_k` corresponds to class
-  :math:`k`. We aim at predicting the class probabilities :math:`P(y_i=k|X_i)` via
-  :meth:`~sklearn.linear_model.LogisticRegression.predict_proba` as:
+  دع :math:`y_i \in {1, \ldots, K}` يكون المتغير المستهدف المشفر (العلامة) للملاحظة :math:`i`.
+  بدلاً من متجه معامل واحد، لدينا الآن
+  مصفوفة المعاملات :math:`W` حيث كل متجه صف :math:`W_k` يقابل الفئة
+  :math:`k`. نهدف إلى التنبؤ باحتمالات الفصل :math:`P(y_i=k|X_i)` عبر
+  :meth:`~sklearn.linear_model.LogisticRegression.predict_proba` كما يلي:
 
   .. math:: \hat{p}_k(X_i) = \frac{\exp(X_i W_k + W_{0, k})}{\sum_{l=0}^{K-1} \exp(X_i W_l + W_{0, l})}.
 
-  The objective for the optimization becomes
+  يصبح الهدف للتحسين
 
   .. math::
     \min_W -\frac{1}{S}\sum_{i=1}^n \sum_{k=0}^{K-1} s_{ik} [y_i = k] \log(\hat{p}_k(X_i))
     + \frac{r(W)}{S C}\,,
 
-  where :math:`[P]` represents the Iverson bracket which evaluates to :math:`0`
-  if :math:`P` is false, otherwise it evaluates to :math:`1`.
+  حيث :math:`[P]` تمثل قوس إيفيرسون الذي يأخذ القيمة :math:`0`
+  إذا كان :math:`P` غير صحيح، وإلا فإنه يأخذ القيمة :math:`1`.
 
-  Again, :math:`s_{ik}` are the weights assigned by the user (multiplication of sample
-  weights and class weights) with their sum :math:`S = \sum_{i=1}^n \sum_{k=0}^{K-1} s_{ik}`.
+  مرة أخرى، :math:`s_{ik` هي الأوزان التي يعينها المستخدم (ضرب أوزان العينة وأوزان الفصل) مع مجموعها :math:`S = \sum_{i=1}^n \sum_{k=0}^{K-1} s_{ik}`.
 
-  We currently provide four choices
-  for the regularization term :math:`r(W)` via the `penalty` argument, where :math:`m`
-  is the number of features:
+  نقدم حاليًا أربعة خيارات
+  لمصطلح الانتظام :math:`r(W)` عبر حجة `penalty`، حيث :math:`m`
+  هو عدد الميزات:
 
   +----------------+----------------------------------------------------------------------------------+
   | penalty        | :math:`r(W)`                                                                     |
   +================+==================================================================================+
   | `None`         | :math:`0`                                                                        |
   +----------------+----------------------------------------------------------------------------------+
-  | :math:`\ell_1` | :math:`\|W\|_{1,1} = \sum_{i=1}^m\sum_{j=1}^{K}|W_{i,j}|`                        |
+  | :math:`\ell_1` | :math:`\|W\|_{1,1} = \sum_{i=1}^m\sum_{j=1}^{K}|W_{i،j}|`                        |
   +----------------+----------------------------------------------------------------------------------+
-  | :math:`\ell_2` | :math:`\frac{1}{2}\|W\|_F^2 = \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^{K} W_{i,j}^2`   |
+  | :math:`\ell_2` | :math:`\frac{1}{2}\|W\|_F^2 = \frac{1}{2}\sum_{i=1}^m\sum_{j=1}^{K} W_{i،j}^2`   |
   +----------------+----------------------------------------------------------------------------------+
   | `ElasticNet`   | :math:`\frac{1 - \rho}{2}\|W\|_F^2 + \rho \|W\|_{1,1}`                           |
   +----------------+----------------------------------------------------------------------------------+
 
-Solvers
--------
+حلول
+بالتأكيد! فيما يلي ترجمة للنص المحدد بتنسيق ReStructuredText إلى اللغة العربية:
 
-The solvers implemented in the class :class:`LogisticRegression`
-are "lbfgs", "liblinear", "newton-cg", "newton-cholesky", "sag" and "saga":
+المنقحات المطبقة في الفئة :class:`LogisticRegression`
+هي "lbfgs" و "liblinear" و "newton-cg" و "newton-cholesky" و "sag" و "saga":
 
-The following table summarizes the penalties and multinomial multiclass supported by each solver:
+يلخص الجدول التالي العقوبات والمتعددة الحدود متعددة الفئات التي يدعمها كل منقح:
 
 +------------------------------+-----------------+-------------+-----------------+-----------------------+-----------+------------+
-|                              |                       **Solvers**                                                                |
+|                              |                       **المنقحات**                                                                |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| **Penalties**                | **'lbfgs'** | **'liblinear'** | **'newton-cg'** | **'newton-cholesky'** | **'sag'** | **'saga'** |
+| **العقوبات**                | **'lbfgs'** | **'liblinear'** | **'newton-cg'** | **'newton-cholesky'** | **'sag'** | **'saga'** |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| L2 penalty                   |     yes     |       no        |       yes       |     no                |    yes    |    yes     |
+| عقوبة L2                     |     نعم      |       لا        |       نعم       |     لا                |    نعم    |    نعم     |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| L1 penalty                   |     no      |       yes       |       no        |     no                |    no     |    yes     |
+| عقوبة L1                     |     لا       |       نعم       |       لا        |     لا                |    لا     |    نعم     |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| Elastic-Net (L1 + L2)        |     no      |       no        |       no        |     no                |    no     |    yes     |
+| شبكة مطاطية (L1 + L2)        |     لا       |       لا        |       لا        |     لا                |    لا     |    نعم     |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| No penalty ('none')          |     yes     |       no        |       yes       |     yes               |    yes    |    yes     |
+| لا عقوبة ('none')            |     نعم     |       لا        |       نعم       |     نعم               |    نعم    |    نعم     |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| **Multiclass support**       |                                                                                                  |
+| **دعم الفئات المتعددة**     |                                                                                                  |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| multinomial multiclass       |     yes     |       no        |       yes       |     no                |    yes    |    yes     |
+| متعددة الحدود متعددة الفئات |     نعم     |       لا        |       نعم       |     لا                |    نعم    |    نعم     |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| **Behaviors**                |                                                                                                  |
+| **السلوكيات**               |                                                                                                  |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| Penalize the intercept (bad) |     no      |       yes       |       no        |     no                |    no     |    no      |
+| معاقبة الاعتراض (سيئ)      |     لا      |       نعم       |       لا        |     لا                |    لا     |    لا      |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| Faster for large datasets    |     no      |       no        |       no        |     no                |    yes    |    yes     |
+| أسرع للمجموعات الكبيرة من البيانات    |     لا      |       لا        |       لا        |     لا                |    نعم    |    نعم     |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
-| Robust to unscaled datasets  |     yes     |       yes       |       yes       |     yes               |    no     |    no      |
+| قوي ضد مجموعات البيانات غير المحددة  |     نعم     |       نعم       |       نعم       |     نعم               |    لا     |    لا      |
 +------------------------------+-------------+-----------------+-----------------+-----------------------+-----------+------------+
 
-The "lbfgs" solver is used by default for its robustness. For large datasets
-the "saga" solver is usually faster.
-For large dataset, you may also consider using :class:`SGDClassifier`
-with `loss="log_loss"`, which might be even faster but requires more tuning.
+يستخدم المنقح "lbfgs" بشكل افتراضي لقوته. بالنسبة للمجموعات الكبيرة من البيانات،
+عادة ما يكون المنقح "saga" أسرع.
+بالنسبة للمجموعات الكبيرة من البيانات، يمكنك أيضًا النظر في استخدام :class:`SGDClassifier`
+مع `loss="log_loss"`، والذي قد يكون أسرع ولكنه يتطلب مزيدًا من الضبط.
 
 .. _liblinear_differences:
 
-Differences between solvers
+الاختلافات بين المنقحات
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There might be a difference in the scores obtained between
-:class:`LogisticRegression` with ``solver=liblinear`` or
-:class:`~sklearn.svm.LinearSVC` and the external liblinear library directly,
-when ``fit_intercept=False`` and the fit ``coef_`` (or) the data to be predicted
-are zeroes. This is because for the sample(s) with ``decision_function`` zero,
-:class:`LogisticRegression` and :class:`~sklearn.svm.LinearSVC` predict the
-negative class, while liblinear predicts the positive class. Note that a model
-with ``fit_intercept=False`` and having many samples with ``decision_function``
-zero, is likely to be a underfit, bad model and you are advised to set
-``fit_intercept=True`` and increase the ``intercept_scaling``.
+قد يكون هناك اختلاف في الدرجات التي تم الحصول عليها بين
+:class:`LogisticRegression` مع ``solver=liblinear`` أو
+:class:`~sklearn.svm.LinearSVC` ومكتبة liblinear الخارجية مباشرة،
+عندما ``fit_intercept=False`` والملاءمة ``coef_`` (أو) البيانات التي يتعين التنبؤ بها
+هي أصفار. ويرجع ذلك إلى أنه بالنسبة للعينة (عينات) ذات "دالة القرار" الصفرية،
+:class:`LogisticRegression` و :class:`~sklearn.svm.LinearSVC` يتنبآن بالصنف السلبي،
+بينما يتنبأ liblinear بالصنف الإيجابي. لاحظ أن النموذج الذي يحتوي على
+``fit_intercept=False`` ولديه العديد من العينات ذات "دالة القرار" الصفرية،
+من المحتمل أن يكون نموذجًا سيئًا وغير مناسب، ويُنصح بتعيين
+``fit_intercept=True`` وزيادة ``intercept_scaling``.
 
-.. dropdown:: Solvers' details
+.. dropdown:: تفاصيل المنقحات
 
-  * The solver "liblinear" uses a coordinate descent (CD) algorithm, and relies
-    on the excellent C++ `LIBLINEAR library
-    <https://www.csie.ntu.edu.tw/~cjlin/liblinear/>`_, which is shipped with
-    scikit-learn. However, the CD algorithm implemented in liblinear cannot learn
-    a true multinomial (multiclass) model; instead, the optimization problem is
-    decomposed in a "one-vs-rest" fashion so separate binary classifiers are
-    trained for all classes. This happens under the hood, so
-    :class:`LogisticRegression` instances using this solver behave as multiclass
-    classifiers. For :math:`\ell_1` regularization :func:`sklearn.svm.l1_min_c` allows to
-    calculate the lower bound for C in order to get a non "null" (all feature
-    weights to zero) model.
+  * يستخدم المنقح "liblinear" خوارزمية الانحدار المنسق (CD)، ويعتمد على مكتبة C++ الممتازة
+    `LIBLINEAR library
+    <https://www.csie.ntu.edu.tw/~cjlin/liblinear/>`_، والتي يتم شحنها مع
+    scikit-learn. ومع ذلك، لا يمكن لخوارزمية الانحدار المنسق (CD) المطبقة في liblinear أن تتعلم
+    نموذجًا متعدد الحدود حقيقيًا (متعدد الفئات)؛ بدلاً من ذلك، يتم تحليل مشكلة التحسين
+    بطريقة "واحد مقابل الباقي" بحيث يتم تدريب مصنفات ثنائية منفصلة لجميع الفئات. يحدث هذا
+    تحت الغطاء، لذا فإن :class:`LogisticRegression` التي تستخدم هذا المنقح تتصرف كمصنفات متعددة الفئات.
+    بالنسبة إلى :math:`\ell_1` المنتظم، يسمح :func:`sklearn.svm.l1_min_c` بحساب الحد الأدنى لـ C للحصول على نموذج "غير فارغ" (جميع أوزان الميزات تساوي الصفر).
 
-  * The "lbfgs", "newton-cg" and "sag" solvers only support :math:`\ell_2`
-    regularization or no regularization, and are found to converge faster for some
-    high-dimensional data. Setting `multi_class` to "multinomial" with these solvers
-    learns a true multinomial logistic regression model [5]_, which means that its
-    probability estimates should be better calibrated than the default "one-vs-rest"
-    setting.
+  * تدعم المنقحات "lbfgs" و "newton-cg" و "sag" فقط :math:`\ell_2`
+    الانتظام أو عدم الانتظام، وُجد أنها تتقارب بشكل أسرع لبعض
+    البيانات عالية الأبعاد. يؤدي تعيين `multi_class` إلى "multinomial" مع هذه المنقحات
+    إلى تعلم نموذج انحدار لوجستي متعدد الحدود حقيقي [5]_، مما يعني أن تقديرات الاحتمالية الخاصة به يجب أن تكون
+    معايرة أفضل من إعداد "واحد مقابل الباقي" الافتراضي.
 
-  * The "sag" solver uses Stochastic Average Gradient descent [6]_. It is faster
-    than other solvers for large datasets, when both the number of samples and the
-    number of features are large.
+  * يستخدم المنقح "sag" الانحدار المتوسط ​​العشوائي [6]_. إنه أسرع
+    من المنقحات الأخرى للمجموعات الكبيرة من البيانات، عندما يكون كل من عدد العينات وعدد
+    الميزات كبيرًا.
 
-  * The "saga" solver [7]_ is a variant of "sag" that also supports the
-    non-smooth `penalty="l1"`. This is therefore the solver of choice for sparse
-    multinomial logistic regression. It is also the only solver that supports
-    `penalty="elasticnet"`.
+  * المنقح "saga" [7]_ هو متغير من "sag" يدعم أيضًا
+    عقوبة `penalty="l1"` غير الملساء. لذلك، فهو المنقح المفضل للانحدار اللوجستي متعدد الحدود المتناثر.
+    كما أنه المنقح الوحيد الذي يدعم `penalty="elasticnet"`.
 
-  * The "lbfgs" is an optimization algorithm that approximates the
-    Broyden–Fletcher–Goldfarb–Shanno algorithm [8]_, which belongs to
-    quasi-Newton methods. As such, it can deal with a wide range of different training
-    data and is therefore the default solver. Its performance, however, suffers on poorly
-    scaled datasets and on datasets with one-hot encoded categorical features with rare
-    categories.
+  * "lbfgs" هو خوارزمية تحسين تقارب خوارزمية برويدن-فليتشر-غولدفارب-شانو [8]_،
+    التي تنتمي إلى طرق كوايزي-نيوتن. وباعتبارها كذلك، يمكنها التعامل مع مجموعة واسعة من بيانات التدريب المختلفة،
+    وبالتالي فهي المنقح الافتراضي. ومع ذلك، فإن أداءها يعاني من مجموعات البيانات ذات المقياس الضعيف
+    ومجموعات البيانات ذات الميزات الفئوية المشفرة ذات الفئات النادرة.
 
-  * The "newton-cholesky" solver is an exact Newton solver that calculates the hessian
-    matrix and solves the resulting linear system. It is a very good choice for
-    `n_samples` >> `n_features`, but has a few shortcomings: Only :math:`\ell_2`
-    regularization is supported. Furthermore, because the hessian matrix is explicitly
-    computed, the memory usage has a quadratic dependency on `n_features` as well as on
-    `n_classes`. As a consequence, only the one-vs-rest scheme is implemented for the
-    multiclass case.
+  * المنقح "newton-cholesky" هو منقح نيوتن الدقيق الذي يحسب مصفوفة هيسيان
+    ويحل نظام الخطي الناتج. إنه خيار جيد جدًا لـ `n_samples` >> `n_features`،
+    ولكن لديه بعض أوجه القصور: فقط :math:`\ell_2`
+    يتم دعم الانتظام. علاوة على ذلك، نظرًا لحساب مصفوفة هيسيان بشكل صريح،
+    تعتمد الذاكرة بشكل تربيعي على `n_features` وكذلك على `n_classes`.
+    ونتيجة لذلك، يتم تنفيذ مخطط "واحد مقابل الباقي" فقط لحالة الفئات المتعددة.
 
-  For a comparison of some of these solvers, see [9]_.
+  لمقارنة بعض هذه المنقحات، راجع [9]_.
 
-  .. rubric:: References
+  .. rubric:: المراجع
 
-  .. [5] Christopher M. Bishop: Pattern Recognition and Machine Learning, Chapter 4.3.4
+  .. [5] كريستوفر م. بيشوب: التعرف على الأنماط والتعلم الآلي، الفصل 4.3.4
 
-  .. [6] Mark Schmidt, Nicolas Le Roux, and Francis Bach: `Minimizing Finite Sums with the Stochastic Average Gradient. <https://hal.inria.fr/hal-00860051/document>`_
+  .. [6] مارك شميت، ونيكولاس لو روكس، وفرانسيس باش: `Minimizing Finite Sums with the Stochastic Average Gradient. <https://hal.inria.fr/hal-00860051/document>`_
 
-  .. [7] Aaron Defazio, Francis Bach, Simon Lacoste-Julien:
+  .. [7] آرون ديفازيو، وفرانسيس باش، وسيمون لاكوست-جوليان:
       :arxiv:`SAGA: A Fast Incremental Gradient Method With Support for
       Non-Strongly Convex Composite Objectives. <1407.0202>`
 
   .. [8] https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm
 
-  .. [9] Thomas P. Minka `"A comparison of numerical optimizers for logistic regression"
+  .. [9] توماس بي. مينكا `"A comparison of numerical optimizers for logistic regression"
           <https://tminka.github.io/papers/logreg/minka-logreg.pdf>`_
 
-  .. [16] :arxiv:`Simon, Noah, J. Friedman and T. Hastie.
+  .. [16] :arxiv:`سيمون، نوح، جيه فريدمان وت. هاستي.
       "A Blockwise Descent Algorithm for Group-penalized Multiresponse and
       Multinomial Regression." <1311.6529>`
 
 
-.. note:: **Feature selection with sparse logistic regression**
+.. note:: **اختيار الميزة مع الانحدار اللوجستي المتناثر**
 
-   A logistic regression with :math:`\ell_1` penalty yields sparse models, and can
-   thus be used to perform feature selection, as detailed in
+   يؤدي الانحدار اللوجستي مع عقوبة :math:`\ell_1` إلى نماذج متناثرة، ويمكن
+   استخدامه بالتالي لأداء اختيار الميزة، كما هو مفصل في
    :ref:`l1_feature_selection`.
 
-.. note:: **P-value estimation**
+.. note:: **تقدير قيمة p**
 
-    It is possible to obtain the p-values and confidence intervals for
-    coefficients in cases of regression without penalization. The `statsmodels
-    package <https://pypi.org/project/statsmodels/>`_ natively supports this.
-    Within sklearn, one could use bootstrapping instead as well.
+    من الممكن الحصول على قيم p وتقديرات الثقة للمعاملات
+    في حالات الانحدار بدون عقوبة. تدعم حزمة `statsmodels
+    <https://pypi.org/project/statsmodels/>`_ هذا بشكلٍ افتراضي.
+    ضمن sklearn، يمكن للمرء استخدام الاستمثال بدلاً من ذلك أيضًا.
 
 
-:class:`LogisticRegressionCV` implements Logistic Regression with built-in
-cross-validation support, to find the optimal `C` and `l1_ratio` parameters
-according to the ``scoring`` attribute. The "newton-cg", "sag", "saga" and
-"lbfgs" solvers are found to be faster for high-dimensional dense data, due
-to warm-starting (see :term:`Glossary <warm_start>`).
+:class:`LogisticRegressionCV` ينفذ الانحدار اللوجستي مع دعم مدمج
+لتصنيف متقاطع، للعثور على القيم المثلى لـ `C` و `l1_ratio`
+وفقًا لسمة "التسجيل". تم العثور على المنقحات "newton-cg" و "sag" و "saga" و "lbfgs"
+أنها أسرع للبيانات الكثيفة عالية الأبعاد، بسبب البدء الدافئ (راجع: المصطلحات :term:`warm_start`).
 
 .. _Generalized_linear_regression:
 
 .. _Generalized_linear_models:
 
-Generalized Linear Models
-=========================
+نماذج الخطية العامة
+نماذج الخطية المعممة (GLM) توسع النماذج الخطية بطريقتين [10] _ أولاً، يتم ربط القيم المتوقعة: math: '\ hat {y} ' بمجموع خطي للمتغيرات المدخلة: math: 'X' عبر دالة ارتباط عكسية: math: 'h' كما هو موضح أدناه:
 
-Generalized Linear Models (GLM) extend linear models in two ways
-[10]_. First, the predicted values :math:`\hat{y}` are linked to a linear
-combination of the input variables :math:`X` via an inverse link function
-:math:`h` as
+.. math:: \ hat {y} (w، X) = h (Xw)
 
-.. math::    \hat{y}(w, X) = h(Xw).
+ثانيًا، يتم استبدال دالة الخسارة التربيعية بوحدة الانحراف: math: 'd' لتوزيع عائلة الأسية (أو بشكل أكثر دقة، نموذج تشتت الأسية التكاثري (EDM) [11] _).
 
-Secondly, the squared loss function is replaced by the unit deviance
-:math:`d` of a distribution in the exponential family (or more precisely, a
-reproductive exponential dispersion model (EDM) [11]_).
+تصبح مشكلة التحسين على النحو التالي:
 
-The minimization problem becomes:
+.. math:: \ min_w \ frac {1} {2 n_ {samples}} \ sum_i d (y_i، \ hat {y} _i) + \ frac {\ alpha} {2} || w || _2 ^ 2،
 
-.. math::    \min_{w} \frac{1}{2 n_{\text{samples}}} \sum_i d(y_i, \hat{y}_i) + \frac{\alpha}{2} ||w||_2^2,
+حيث: math: '\ alpha' هي عقوبة التنظيم L2. عندما يتم توفير أوزان العينات، يصبح المتوسط متوسطًا مرجحًا.
 
-where :math:`\alpha` is the L2 regularization penalty. When sample weights are
-provided, the average becomes a weighted average.
+يسرد الجدول التالي بعض نماذج EDM المحددة وانحراف الوحدة:
 
-The following table lists some specific EDMs and their unit deviance :
+================= ================================ ============================================
+التوزيع         النطاق المستهدف                    وحدة الانحراف: math: 'd (y، \ hat {y})`
+================= ================================ ============================================
+عادي            :math: 'y \ in (-\ infty، \ infty)'   :math: '(y - \ hat {y}) ^ 2`
+بيرنولي         :math: 'y \ in {0، 1} '            :math: '2 ({y} \ log \ frac {y} {\ hat {y}} + ({1} - {y}) \ log \ frac {{1} - {y}} {{1} - \ hat {y}})`
+الفئوي         :math: 'y \ in {0، 1، ...، k} '    :math: '2 \ sum_ {i \ in {0، 1، ...، k}} I (y = i) y_ {i} \ log \ frac {I (y = i)} {\ hat {I (y = i)}}`
+بواسون          :math: 'y \ in [0، \ infty)'         :math: '2 (y \ log \ frac {y} {\ hat {y}} - y + \ hat {y})`
+غاما            :math: 'y \ in (0، \ infty)'         :math: '2 (\ log \ frac {\ hat {y}} {y} + \ frac {y} {\ hat {y}} - 1)`
+عكسي غاوسي     :math: 'y \ in (0، \ infty)'         :math math: '\ frac {(y - \ hat {y}) ^ 2} {y \ hat {y} ^ 2}`
+================= ================================ ============================================
 
-================= ================================  ============================================
-Distribution       Target Domain                    Unit Deviance :math:`d(y, \hat{y})`
-================= ================================  ============================================
-Normal            :math:`y \in (-\infty, \infty)`   :math:`(y-\hat{y})^2`
-Bernoulli         :math:`y \in \{0, 1\}`            :math:`2({y}\log\frac{y}{\hat{y}}+({1}-{y})\log\frac{{1}-{y}}{{1}-\hat{y}})`
-Categorical       :math:`y \in \{0, 1, ..., k\}`    :math:`2\sum_{i \in \{0, 1, ..., k\}} I(y = i) y_\text{i}\log\frac{I(y = i)}{\hat{I(y = i)}}`
-Poisson           :math:`y \in [0, \infty)`         :math:`2(y\log\frac{y}{\hat{y}}-y+\hat{y})`
-Gamma             :math:`y \in (0, \infty)`         :math:`2(\log\frac{\hat{y}}{y}+\frac{y}{\hat{y}}-1)`
-Inverse Gaussian  :math:`y \in (0, \infty)`         :math:`\frac{(y-\hat{y})^2}{y\hat{y}^2}`
-================= ================================  ============================================
-
-The Probability Density Functions (PDF) of these distributions are illustrated
-in the following figure,
+يتم توضيح دالة كثافة الاحتمال (PDF) لهذه التوزيعات في الشكل التالي:
 
 .. figure:: ./glm_data/poisson_gamma_tweedie_distributions.png
    :align: center
    :scale: 100%
 
-   PDF of a random variable Y following Poisson, Tweedie (power=1.5) and Gamma
-   distributions with different mean values (:math:`\mu`). Observe the point
-   mass at :math:`Y=0` for the Poisson distribution and the Tweedie (power=1.5)
-   distribution, but not for the Gamma distribution which has a strictly
-   positive target domain.
+   دالة كثافة الاحتمال لمتغير عشوائي Y يتبع توزيع بواسون، وتوزيع تويد (power=1.5) وتوزيع غاما بمختلف القيم المتوسطة (:math: '\ mu'). لاحظ كتلة النقطة في: math: 'Y = 0' لتوزيع بواسون وتوزيع تويد (power=1.5)، ولكن ليس لتوزيع غاما الذي له نطاق مستهدف إيجابي صارم.
 
-The Bernoulli distribution is a discrete probability distribution modelling a
-Bernoulli trial - an event that has only two mutually exclusive outcomes.
-The Categorical distribution is a generalization of the Bernoulli distribution
-for a categorical random variable. While a random variable in a Bernoulli
-distribution has two possible outcomes, a Categorical random variable can take
-on one of K possible categories, with the probability of each category
-specified separately.
+توزيع برنولي هو توزيع احتمالي منفصل لنمذجة تجربة برنولي - وهو حدث له نتيجتان حصريتان فقط.
 
-The choice of the distribution depends on the problem at hand:
+التوزيع الفئوي هو تعميم لتوزيع برنولي لمتغير عشوائي فئوي. في حين أن للمتغير العشوائي في توزيع برنولي نتيجتان محتملتان، يمكن للمتغير العشوائي الفئوي أن يأخذ إحدى الفئات K الممكنة، مع تحديد احتمال كل فئة بشكل منفصل.
 
-* If the target values :math:`y` are counts (non-negative integer valued) or
-  relative frequencies (non-negative), you might use a Poisson distribution
-  with a log-link.
-* If the target values are positive valued and skewed, you might try a Gamma
-  distribution with a log-link.
-* If the target values seem to be heavier tailed than a Gamma distribution, you
-  might try an Inverse Gaussian distribution (or even higher variance powers of
-  the Tweedie family).
-* If the target values :math:`y` are probabilities, you can use the Bernoulli
-  distribution. The Bernoulli distribution with a logit link can be used for
-  binary classification. The Categorical distribution with a softmax link can be
-  used for multiclass classification.
+يعتمد اختيار التوزيع على المشكلة المطروحة:
 
+* إذا كانت القيم المستهدفة: math: 'y' عبارة عن عدد (قيم صحيحة غير سالبة) أو تكرارات نسبية (غير سالبة)، فيمكنك استخدام توزيع بواسون مع رابط لوغاريتمي.
+* إذا كانت القيم المستهدفة ذات قيمة موجبة ومائلة، فيمكنك تجربة توزيع غاما برابط لوغاريتمي.
+* إذا كانت القيم المستهدفة ذات ذيول أثقل من توزيع غاما، فيمكنك تجربة توزيع غاوسي عكسي (أو حتى قوى أعلى لعائلة تويد).
+* إذا كانت القيم المستهدفة: math: 'y' عبارة عن احتمالات، فيمكنك استخدام توزيع برنولي. يمكن استخدام توزيع برنولي مع رابط لوغاريتم للاحتمالات في التصنيف الثنائي. يمكن استخدام التوزيع الفئوي مع رابط softmax للتصنيف متعدد الفئات.
 
-.. dropdown:: Examples of use cases
+.. dropdown:: أمثلة على حالات الاستخدام
 
-  * Agriculture / weather modeling:  number of rain events per year (Poisson),
-    amount of rainfall per event (Gamma), total rainfall per year (Tweedie /
-    Compound Poisson Gamma).
-  * Risk modeling / insurance policy pricing:  number of claim events /
-    policyholder per year (Poisson), cost per event (Gamma), total cost per
-    policyholder per year (Tweedie / Compound Poisson Gamma).
-  * Credit Default: probability that a loan can't be paid back (Bernoulli).
-  * Fraud Detection: probability that a financial transaction like a cash transfer
-    is a fraudulent transaction (Bernoulli).
-  * Predictive maintenance: number of production interruption events per year
-    (Poisson), duration of interruption (Gamma), total interruption time per year
-    (Tweedie / Compound Poisson Gamma).
-  * Medical Drug Testing: probability of curing a patient in a set of trials or
-    probability that a patient will experience side effects (Bernoulli).
-  * News Classification: classification of news articles into three categories
-    namely Business News, Politics and Entertainment news (Categorical).
+* الزراعة / نمذجة الطقس: عدد أحداث المطر في السنة (بواسون)، كمية هطول الأمطار لكل حدث (غاما)، إجمالي هطول الأمطار في السنة (تويد / مركب بواسون غاما).
+* نمذجة المخاطر / تسعير وثائق التأمين: عدد أحداث المطالبات / حامل الوثيقة في السنة (بواسون)، التكلفة لكل حدث (غاما)، إجمالي التكلفة لكل حامل وثيقة في السنة (تويد / مركب بواسون غاما).
+* التخلف عن سداد الائتمان: احتمال عدم القدرة على سداد القرض (بيرنولي).
+* كشف الاحتيال: احتمال أن تكون معاملة مالية مثل تحويل نقدي معاملة احتيالية (بيرنولي).
+* الصيانة التنبؤية: عدد أحداث انقطاع الإنتاج في السنة (بواسون)، مدة الانقطاع (غاما)، إجمالي وقت الانقطاع في السنة (تويد / مركب بواسون غاما).
+* اختبار الأدوية الطبية: احتمال شفاء مريض في مجموعة من التجارب أو احتمال تعرض المريض لآثار جانبية (بيرنولي).
+* تصنيف الأخبار: تصنيف مقالات الأخبار إلى ثلاث فئات وهي أخبار الأعمال والسياسة والترفيه (فئوي).
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [10] McCullagh, Peter; Nelder, John (1989). Generalized Linear Models,
-    Second Edition. Boca Raton: Chapman and Hall/CRC. ISBN 0-412-31760-5.
+.. [10] McCullagh، Peter؛ Nelder، John (1989). نماذج الخطية المعممة، الطبعة الثانية. بوكا راتون: تشابمان وهال / سي آر سي. ردمك 0-412-31760-5.
 
-.. [11] Jørgensen, B. (1992). The theory of exponential dispersion models
-    and analysis of deviance. Monografias de matemática, no. 51.  See also
-    `Exponential dispersion model.
-    <https://en.wikipedia.org/wiki/Exponential_dispersion_model>`_
+.. [11] Jørgensen، B. (1992). نظرية نماذج التشتت الأسية وتحليل الانحراف. Monografias de matemática، no. 51. راجع أيضًا `نموذج التشتت الأسية. <https://en.wikipedia.org/wiki/Exponential_dispersion_model>`_
 
-Usage
+الاستخدام
 -----
 
-:class:`TweedieRegressor` implements a generalized linear model for the
-Tweedie distribution, that allows to model any of the above mentioned
-distributions using the appropriate ``power`` parameter. In particular:
+: class: 'TweedieRegressor' ينفذ نموذجًا خطيًا معممًا لتوزيع تويد، والذي يسمح بنمذجة أي من التوزيعات المذكورة أعلاه باستخدام معلمة "power" المناسبة. على وجه التحديد:
 
-- ``power = 0``: Normal distribution. Specific estimators such as
-  :class:`Ridge`, :class:`ElasticNet` are generally more appropriate in
-  this case.
-- ``power = 1``: Poisson distribution. :class:`PoissonRegressor` is exposed
-  for convenience. However, it is strictly equivalent to
-  `TweedieRegressor(power=1, link='log')`.
-- ``power = 2``: Gamma distribution. :class:`GammaRegressor` is exposed for
-  convenience. However, it is strictly equivalent to
-  `TweedieRegressor(power=2, link='log')`.
-- ``power = 3``: Inverse Gaussian distribution.
+- "power = 0": التوزيع الطبيعي. تعتبر المقدرات المحددة مثل: class: 'Ridge'،: class: 'ElasticNet' أكثر ملاءمة في هذه الحالة.
+- "power = 1": توزيع بواسون. يتم عرض: class: 'PoissonRegressor' للراحة. ومع ذلك، فهو مكافئ تمامًا لـ: 'TweedieRegressor (power = 1، link =' log ')`.
+- "power = 2": توزيع غاما. يتم عرض: class: 'GammaRegressor' للراحة. ومع ذلك، فهو مكافئ تمامًا لـ: 'TweedieRegressor (power = 2، link =' log ')`.
+- "power = 3": التوزيع الغاوسي العكسي.
 
-The link function is determined by the `link` parameter.
+تتم تحديد دالة الارتباط بواسطة معلمة "الرابط".
 
-Usage example::
+مثال الاستخدام::
 
     >>> from sklearn.linear_model import TweedieRegressor
-    >>> reg = TweedieRegressor(power=1, alpha=0.5, link='log')
-    >>> reg.fit([[0, 0], [0, 1], [2, 2]], [0, 1, 2])
-    TweedieRegressor(alpha=0.5, link='log', power=1)
+    >>> reg = TweedieRegressor (power = 1، alpha = 0.5، link = 'log')
+    >>> reg.fit ([[0،0]، [0،1]، [2،2]]، [0،1،2])
+    TweedieRegressor (alpha = 0.5، link = 'log'، power = 1)
     >>> reg.coef_
-    array([0.2463..., 0.4337...])
+    array ([0.2463 ...، 0.4337 ...])
     >>> reg.intercept_
-    -0.7638...
+    -0.7638 ...
 
+.. rubric:: أمثلة
 
-.. rubric:: Examples
+* : ref: 'sphx_glr_auto_examples_linear_model_plot_poisson_regression_non_normal_loss.py`
+* : ref: 'sphx_glr_auto_examples_linear_model_plot_tweedie_regression_insurance_claims.py`
 
-* :ref:`sphx_glr_auto_examples_linear_model_plot_poisson_regression_non_normal_loss.py`
-* :ref:`sphx_glr_auto_examples_linear_model_plot_tweedie_regression_insurance_claims.py`
+.. dropdown:: اعتبارات عملية
 
-.. dropdown:: Practical considerations
+  يجب توحيد معيار مصفوفة الميزة 'X' قبل التثبيت. يضمن هذا أن العقوبة تعامل الميزات على قدم المساواة.
 
-  The feature matrix `X` should be standardized before fitting. This ensures
-  that the penalty treats features equally.
+  نظرًا لأن المتنبئ الخطي: math: 'Xw' قد يكون سالبًا ولا تدعم توزيعات بواسون وغاما والغاوسي العكسي القيم السالبة، فمن الضروري تطبيق دالة ارتباط عكسية تضمن عدم السلبية. على سبيل المثال مع "link = 'log'"، تصبح دالة الارتباط العكسية: math: 'h (Xw) = exp (Xw)`.
 
-  Since the linear predictor :math:`Xw` can be negative and Poisson,
-  Gamma and Inverse Gaussian distributions don't support negative values, it
-  is necessary to apply an inverse link function that guarantees the
-  non-negativeness. For example with `link='log'`, the inverse link function
-  becomes :math:`h(Xw)=\exp(Xw)`.
+  إذا كنت تريد نمذجة تكرار نسبي، أي عدد لكل تعرض (وقت، حجم، ...) فيمكنك القيام بذلك باستخدام توزيع بواسون وإدخال: math: 'y = \ frac {\ mathrm {counts}} {\ mathrm {exposure}}` كقيم مستهدفة مع: math: '\ mathrm {exposure}` كأوزان عينة. لمثال ملموس، راجع على سبيل المثال: ref: 'sphx_glr_auto_examples_linear_model_plot_tweedie_regression_insurance_claims.py`.
 
-  If you want to model a relative frequency, i.e. counts per exposure (time,
-  volume, ...) you can do so by using a Poisson distribution and passing
-  :math:`y=\frac{\mathrm{counts}}{\mathrm{exposure}}` as target values
-  together with :math:`\mathrm{exposure}` as sample weights. For a concrete
-  example see e.g.
-  :ref:`sphx_glr_auto_examples_linear_model_plot_tweedie_regression_insurance_claims.py`.
+  عند إجراء التحقق من صحة التعابر لمعلمة "power" لـ "TweedieRegressor"، يُنصح بتحديد دالة "تسجيل" صريحة، لأن مسجل الافتراضي: meth: 'TweedieRegressor.score' هو دالة في "power" نفسها.
 
-  When performing cross-validation for the `power` parameter of
-  `TweedieRegressor`, it is advisable to specify an explicit `scoring` function,
-  because the default scorer :meth:`TweedieRegressor.score` is a function of
-  `power` itself.
+التدرج المنحدر العشوائي - SGD
+==============================
 
-Stochastic Gradient Descent - SGD
-=================================
+التدرج المنحدر العشوائي هو نهج بسيط ولكنه فعال للغاية لتناسب النماذج الخطية. إنه مفيد بشكل خاص عندما يكون عدد العينات (وعدد الميزات) كبيرًا جدًا.
 
-Stochastic gradient descent is a simple yet very efficient approach
-to fit linear models. It is particularly useful when the number of samples
-(and the number of features) is very large.
-The ``partial_fit`` method allows online/out-of-core learning.
+تسمح طريقة "partial_fit" بالتعلم عبر الإنترنت / خارج النواة.
 
-The classes :class:`SGDClassifier` and :class:`SGDRegressor` provide
-functionality to fit linear models for classification and regression
-using different (convex) loss functions and different penalties.
-E.g., with ``loss="log"``, :class:`SGDClassifier`
-fits a logistic regression model,
-while with ``loss="hinge"`` it fits a linear support vector machine (SVM).
+توفر الفئتان: class: 'SGDClassifier' و: class: 'SGDRegressor' الوظائف اللازمة لتناسب النماذج الخطية للتصنيف والانحدار باستخدام دالات خسارة وعقوبات مختلفة (محدبة). على سبيل المثال، باستخدام "loss =" log "، يناسب: class: 'SGDClassifier' نموذج الانحدار اللوجستي، في حين أنه باستخدام "loss =" hinge "، فإنه يناسب آلة المتجه الداعم الخطي (SVM).
 
-You can refer to the dedicated :ref:`sgd` documentation section for more details.
+يمكنك الرجوع إلى قسم التوثيق المخصص: ref: 'sgd` لمزيد من التفاصيل.
 
 .. _perceptron:
 
 Perceptron
 ==========
 
-The :class:`Perceptron` is another simple classification algorithm suitable for
-large scale learning. By default:
+: class: 'Perceptron' هو خوارزمية تصنيف أخرى مناسبة للتعلم على نطاق واسع. بشكل افتراضي:
 
-- It does not require a learning rate.
+- لا يتطلب معدل تعلم.
 
-- It is not regularized (penalized).
+- غير منظم (معاقب).
 
-- It updates its model only on mistakes.
+- يقوم بتحديث نموذجه فقط عند ارتكاب أخطاء.
 
-The last characteristic implies that the Perceptron is slightly faster to
-train than SGD with the hinge loss and that the resulting models are
-sparser.
+تتضمن الخاصية الأخيرة أن Perceptron أسرع قليلاً في التدريب من SGD مع خسارة الهامش وأن النماذج الناتجة أكثر ندرة.
 
-In fact, the :class:`Perceptron` is a wrapper around the :class:`SGDClassifier`
-class using a perceptron loss and a constant learning rate. Refer to
-:ref:`mathematical section <sgd_mathematical_formulation>` of the SGD procedure
-for more details.
+في الواقع،: class: 'Perceptron' هو غلاف حول فئة: class: 'SGDClassifier' باستخدام خسارة الإدراك ومعدل تعلم ثابت. راجع قسم: ref: 'sgd_mathematical_formulation` الإجرائي للحصول على مزيد من التفاصيل.
 
 .. _passive_aggressive:
 
-Passive Aggressive Algorithms
+خوارزميات عدوانية سلبية
 =============================
 
-The passive-aggressive algorithms are a family of algorithms for large-scale
-learning. They are similar to the Perceptron in that they do not require a
-learning rate. However, contrary to the Perceptron, they include a
-regularization parameter ``C``.
+الخوارزميات السلبية العدوانية هي عائلة من الخوارزميات للتعلم على نطاق واسع. إنها تشبه الإدراك في أنها لا تتطلب معدل تعلم. ومع ذلك، على عكس الإدراك، فإنها تتضمن معلمة تنظيم "C".
 
-For classification, :class:`PassiveAggressiveClassifier` can be used with
-``loss='hinge'`` (PA-I) or ``loss='squared_hinge'`` (PA-II).  For regression,
-:class:`PassiveAggressiveRegressor` can be used with
-``loss='epsilon_insensitive'`` (PA-I) or
-``loss='squared_epsilon_insensitive'`` (PA-II).
+بالنسبة للتصنيف، يمكن استخدام: class: 'PassiveAggressiveClassifier' مع "loss = 'hinge'" (PA-I) أو "loss = 'squared_hinge'" (PA-II). للانحدار، يمكن استخدام: class: 'PassiveAggressiveRegressor' مع "loss = 'epsilon_insensitive'" (PA-I) أو "loss = 'squared_epsilon_insensitive'" (PA-II).
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * `"Online Passive-Aggressive Algorithms"
+  * `"خوارزميات عبر الإنترنت سلبية عدوانية"
     <http://jmlr.csail.mit.edu/papers/volume7/crammer06a/crammer06a.pdf>`_
-    K. Crammer, O. Dekel, J. Keshat, S. Shalev-Shwartz, Y. Singer - JMLR 7 (2006)
+    K. Crammer، O. Dekel، J. Keshat، S. Shalev-Shwartz، Y. Singer - JMLR 7 (2006)
 
-Robustness regression: outliers and modeling errors
-=====================================================
+متانة الانحدار: القيم الشاذة وأخطاء النمذجة
+يهدف الانحدار المتين إلى ملاءمة نموذج الانحدار في وجود بيانات تالفة: إما نقاط شاذة، أو خطأ في النموذج.
 
-Robust regression aims to fit a regression model in the
-presence of corrupt data: either outliers, or error in the model.
+هناك أمور مختلفة يجب مراعاتها عند التعامل مع البيانات التي أفسدتها النقاط الشاذة:
 
-.. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_theilsen_001.png
-   :target: ../auto_examples/linear_model/plot_theilsen.html
-   :scale: 50%
-   :align: center
-
-Different scenario and useful concepts
-----------------------------------------
-
-There are different things to keep in mind when dealing with data
-corrupted by outliers:
-
-.. |y_outliers| image:: ../auto_examples/linear_model/images/sphx_glr_plot_robust_fit_003.png
-   :target: ../auto_examples/linear_model/plot_robust_fit.html
-   :scale: 60%
-
-.. |X_outliers| image:: ../auto_examples/linear_model/images/sphx_glr_plot_robust_fit_002.png
-   :target: ../auto_examples/linear_model/plot_robust_fit.html
-   :scale: 60%
-
-.. |large_y_outliers| image:: ../auto_examples/linear_model/images/sphx_glr_plot_robust_fit_005.png
-   :target: ../auto_examples/linear_model/plot_robust_fit.html
-   :scale: 60%
-
-* **Outliers in X or in y**?
+* **النقاط الشاذة في X أو في y**؟
 
   ==================================== ====================================
-  Outliers in the y direction          Outliers in the X direction
+  نقاط شاذة في اتجاه y                نقاط شاذة في اتجاه X
   ==================================== ====================================
   |y_outliers|                         |X_outliers|
   ==================================== ====================================
 
-* **Fraction of outliers versus amplitude of error**
+* **نسبة النقاط الشاذة مقابل حجم الخطأ**
 
-  The number of outlying points matters, but also how much they are
-  outliers.
+  عدد النقاط الشاذة مهم، ولكن أيضًا مدى شذوذهما.
 
   ==================================== ====================================
-  Small outliers                       Large outliers
+  نقاط شاذة صغيرة                    نقاط شاذة كبيرة
   ==================================== ====================================
   |y_outliers|                         |large_y_outliers|
   ==================================== ====================================
 
-An important notion of robust fitting is that of breakdown point: the
-fraction of data that can be outlying for the fit to start missing the
-inlying data.
-
-Note that in general, robust fitting in high-dimensional setting (large
-`n_features`) is very hard. The robust models here will probably not work
-in these settings.
-
+هناك مفهوم مهم في الملاءمة المتينة وهو نقطة الانكسار: نسبة البيانات التي يمكن أن تكون شاذة لبدء تجاهل البيانات الداخلية.
 
-.. topic:: Trade-offs: which estimator ?
-
-  Scikit-learn provides 3 robust regression estimators:
-  :ref:`RANSAC <ransac_regression>`,
-  :ref:`Theil Sen <theil_sen_regression>` and
-  :ref:`HuberRegressor <huber_regression>`.
-
-  * :ref:`HuberRegressor <huber_regression>` should be faster than
-    :ref:`RANSAC <ransac_regression>` and :ref:`Theil Sen <theil_sen_regression>`
-    unless the number of samples are very large, i.e. ``n_samples`` >> ``n_features``.
-    This is because :ref:`RANSAC <ransac_regression>` and :ref:`Theil Sen <theil_sen_regression>`
-    fit on smaller subsets of the data. However, both :ref:`Theil Sen <theil_sen_regression>`
-    and :ref:`RANSAC <ransac_regression>` are unlikely to be as robust as
-    :ref:`HuberRegressor <huber_regression>` for the default parameters.
+لاحظ أنه بشكل عام، من الصعب جدًا إجراء الملاءمة المتينة في الإعداد عالي الأبعاد (عدد كبير من الميزات). ومن المحتمل ألا تعمل النماذج المتينة هنا في هذه الإعدادات.
 
-  * :ref:`RANSAC <ransac_regression>` is faster than :ref:`Theil Sen <theil_sen_regression>`
-    and scales much better with the number of samples.
+يوفر Scikit-learn 3 مقدرات للانحدار المتين: RANSAC وTheil Sen وHuberRegressor.
 
-  * :ref:`RANSAC <ransac_regression>` will deal better with large
-    outliers in the y direction (most common situation).
-
-  * :ref:`Theil Sen <theil_sen_regression>` will cope better with
-    medium-size outliers in the X direction, but this property will
-    disappear in high-dimensional settings.
-
-  When in doubt, use :ref:`RANSAC <ransac_regression>`.
-
-.. _ransac_regression:
-
-RANSAC: RANdom SAmple Consensus
---------------------------------
-
-RANSAC (RANdom SAmple Consensus) fits a model from random subsets of
-inliers from the complete data set.
-
-RANSAC is a non-deterministic algorithm producing only a reasonable result with
-a certain probability, which is dependent on the number of iterations (see
-`max_trials` parameter). It is typically used for linear and non-linear
-regression problems and is especially popular in the field of photogrammetric
-computer vision.
-
-The algorithm splits the complete input sample data into a set of inliers,
-which may be subject to noise, and outliers, which are e.g. caused by erroneous
-measurements or invalid hypotheses about the data. The resulting model is then
-estimated only from the determined inliers.
+* يجب أن يكون HuberRegressor أسرع من RANSAC وTheil Sen ما لم يكن عدد العينات كبيرًا جدًا، أي "n_samples">> "n_features". ويرجع ذلك إلى أن RANSAC وTheil Sen يلائمان مجموعات فرعية أصغر من البيانات. ومع ذلك، من غير المرجح أن يكون كل من Theil Sen وRANSAC بنفس المتانة مثل HuberRegressor لمعلمات الافتراضي.
 
-.. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_ransac_001.png
-   :target: ../auto_examples/linear_model/plot_ransac.html
-   :align: center
-   :scale: 50%
+* RANSAC أسرع من Theil Sen ويتوسع بشكل أفضل مع عدد العينات.
 
-.. rubric:: Examples
+* سيتعامل RANSAC بشكل أفضل مع نقاط شاذة كبيرة في اتجاه y (الوضع الأكثر شيوعًا).
 
-* :ref:`sphx_glr_auto_examples_linear_model_plot_ransac.py`
-* :ref:`sphx_glr_auto_examples_linear_model_plot_robust_fit.py`
+* ستتعامل Theil Sen بشكل أفضل مع نقاط شاذة متوسطة الحجم في اتجاه X، ولكن هذه الخاصية ستختفي في الإعدادات عالية الأبعاد.
 
-.. dropdown:: Details of the algorithm
+عند الشك، استخدم RANSAC.
 
-  Each iteration performs the following steps:
+RANSAC: توافق العينات العشوائية
 
-  1. Select ``min_samples`` random samples from the original data and check
-     whether the set of data is valid (see ``is_data_valid``).
-  2. Fit a model to the random subset (``estimator.fit``) and check
-     whether the estimated model is valid (see ``is_model_valid``).
-  3. Classify all data as inliers or outliers by calculating the residuals
-     to the estimated model (``estimator.predict(X) - y``) - all data
-     samples with absolute residuals smaller than or equal to the
-     ``residual_threshold`` are considered as inliers.
-  4. Save fitted model as best model if number of inlier samples is
-     maximal. In case the current estimated model has the same number of
-     inliers, it is only considered as the best model if it has better score.
+يتم تثبيت RANSAC (توافق العينات العشوائية) نموذجًا من مجموعات فرعية عشوائية من النقاط الداخلية من مجموعة البيانات الكاملة.
 
-  These steps are performed either a maximum number of times (``max_trials``) or
-  until one of the special stop criteria are met (see ``stop_n_inliers`` and
-  ``stop_score``). The final model is estimated using all inlier samples (consensus
-  set) of the previously determined best model.
+RANSAC هو خوارزمية غير حتمية تنتج نتيجة معقولة فقط باحتمالية معينة، والتي تعتمد على عدد التكرارات (راجع معلمة "max_trials"). ويُستخدم عادةً لمشكلات الانحدار الخطي وغير الخطي وهو شائع بشكل خاص في مجال رؤية الكمبيوتر الفوتوغرافية.
 
-  The ``is_data_valid`` and ``is_model_valid`` functions allow to identify and reject
-  degenerate combinations of random sub-samples. If the estimated model is not
-  needed for identifying degenerate cases, ``is_data_valid`` should be used as it
-  is called prior to fitting the model and thus leading to better computational
-  performance.
+يقسم الخوارزمية مجموعة البيانات المدخلة الكاملة إلى مجموعة من النقاط الداخلية، والتي قد تخضع للضوضاء، والنقاط الشاذة، والتي تسببها على سبيل المثال القياسات الخاطئة أو الفرضيات غير الصحيحة حول البيانات. ثم يتم تقدير النموذج الناتج فقط من النقاط الداخلية المحددة.
 
-.. dropdown:: References
+يستخدم مقدر TheilSenRegressor تعميمًا للوسيط في أبعاد متعددة. وبالتالي، فهو متين ضد النقاط الشاذة متعددة المتغيرات. لاحظ مع ذلك أن متانة المقدر تنخفض بسرعة مع أبعاد المشكلة. يفقد خصائصه المتينة ويصبح أفضل من طريقة المربعات الصغرى العادية في الأبعاد العالية.
 
-  * https://en.wikipedia.org/wiki/RANSAC
-  * `"Random Sample Consensus: A Paradigm for Model Fitting with Applications to
-    Image Analysis and Automated Cartography"
-    <https://www.cs.ait.ac.th/~mdailey/cvreadings/Fischler-RANSAC.pdf>`_
-    Martin A. Fischler and Robert C. Bolles - SRI International (1981)
-  * `"Performance Evaluation of RANSAC Family"
-    <http://www.bmva.org/bmvc/2009/Papers/Paper355/Paper355.pdf>`_
-    Sunglok Choi, Taemin Kim and Wonpil Yu - BMVC (2009)
+مقدر TheilSenRegressor مشابه لطريقة المربعات الصغرى العادية من حيث الكفاءة الحدية وكمقدر غير متحيز. على عكس طريقة المربعات الصغرى العادية، فإن Theil-Sen هي طريقة غير بارامترية، مما يعني أنها لا تفترض أي افتراضات حول التوزيع الأساسي للبيانات. نظرًا لأن Theil-Sen هو مقدر قائم على الوسيط، فإنه أكثر متانة ضد البيانات الفاسدة أو النقاط الشاذة. في الإعداد أحادي المتغير، يبلغ نقطة الانكسار الخاصة بـ Theil-Sen حوالي 29.3% في حالة الانحدار الخطي البسيط، مما يعني أنه يمكنه تحمل بيانات تالفة تعسفية تصل إلى 29.3%.
 
-.. _theil_sen_regression:
+ينفذ TheilSenRegressor في Scikit-learn تعميمًا لنموذج الانحدار الخطي متعدد المتغيرات باستخدام الوسيط المكاني، وهو تعميم للوسيط إلى أبعاد متعددة.
 
-Theil-Sen estimator: generalized-median-based estimator
---------------------------------------------------------
+من حيث تعقيد الوقت والمساحة، يتناسب Theil-Sen مع:
 
-The :class:`TheilSenRegressor` estimator uses a generalization of the median in
-multiple dimensions. It is thus robust to multivariate outliers. Note however
-that the robustness of the estimator decreases quickly with the dimensionality
-of the problem. It loses its robustness properties and becomes no
-better than an ordinary least squares in high dimension.
+.. math::
 
-.. rubric:: Examples
+  \binom{n_{\text{samples}}}{n_{\text{subsamples}}}
 
-* :ref:`sphx_glr_auto_examples_linear_model_plot_theilsen.py`
-* :ref:`sphx_glr_auto_examples_linear_model_plot_robust_fit.py`
+مما يجعله غير عملي للتطبيق الشامل على المشكلات التي تحتوي على عدد كبير من العينات والميزات. لذلك، يمكن اختيار حجم مجموعة فرعية للحد من تعقيد الوقت والمساحة عن طريق مراعاة مجموعة فرعية عشوائية فقط من جميع المجموعات الممكنة.
 
+يختلف HuberRegressor عن Ridge لأنه يطبق خسارة خطية على العينات التي تصنف على أنها نقاط شاذة. يتم تصنيف عينة على أنها نقطة داخلية إذا كان الخطأ المطلق لتلك العينة أقل من عتبة معينة. إنه يختلف عن TheilSenRegressor وRANSACRegressor لأنه لا يتجاهل تأثير النقاط الشاذة ولكنه يعطي وزنًا أقل لها.
 
-.. dropdown:: Theoretical considerations
+الخسارة التي يقللها HuberRegressor هي:
 
-  :class:`TheilSenRegressor` is comparable to the :ref:`Ordinary Least Squares
-  (OLS) <ordinary_least_squares>` in terms of asymptotic efficiency and as an
-  unbiased estimator. In contrast to OLS, Theil-Sen is a non-parametric
-  method which means it makes no assumption about the underlying
-  distribution of the data. Since Theil-Sen is a median-based estimator, it
-  is more robust against corrupted data aka outliers. In univariate
-  setting, Theil-Sen has a breakdown point of about 29.3% in case of a
-  simple linear regression which means that it can tolerate arbitrary
-  corrupted data of up to 29.3%.
+.. math::
 
-  .. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_theilsen_001.png
-    :target: ../auto_examples/linear_model/plot_theilsen.html
-    :align: center
-    :scale: 50%
+  \min_{w, \sigma} {\sum_{i=1}^n\left(\sigma + H_{\epsilon}\left(\frac{X_{i}w - y_{i}}{\sigma}\right)\sigma\right) + \alpha {||w||_2}^2}
 
-  The implementation of :class:`TheilSenRegressor` in scikit-learn follows a
-  generalization to a multivariate linear regression model [#f1]_ using the
-  spatial median which is a generalization of the median to multiple
-  dimensions [#f2]_.
+حيث:
 
-  In terms of time and space complexity, Theil-Sen scales according to
+.. math::
 
-  .. math::
-      \binom{n_{\text{samples}}}{n_{\text{subsamples}}}
+  H_{\epsilon}(z) = \begin{cases}
+        z^2, & \text {if } |z| < \epsilon, \\
+        2\epsilon|z| - \epsilon^2, & \text{otherwise}
+  \end{cases}
 
-  which makes it infeasible to be applied exhaustively to problems with a
-  large number of samples and features. Therefore, the magnitude of a
-  subpopulation can be chosen to limit the time and space complexity by
-  considering only a random subset of all possible combinations.
+من المستحسن تعيين معلمة "epsilon" إلى 1.35 لتحقيق كفاءة إحصائية تبلغ 95%.
 
-  .. rubric:: References
+يختلف HuberRegressor عن استخدام SGDRegressor مع الخسارة المحددة على "huber" بالطرق التالية:
 
-  .. [#f1] Xin Dang, Hanxiang Peng, Xueqin Wang and Heping Zhang: `Theil-Sen Estimators in a Multiple Linear Regression Model. <http://home.olemiss.edu/~xdang/papers/MTSE.pdf>`_
+- HuberRegressor متسق في المقياس. بمجرد تعيين "epsilon"، فإن تغيير مقياس "X" و"y" بقيم مختلفة سينتج عنه نفس المتانة للنقاط الشاذة كما كان من قبل، مقارنة بـ SGDRegressor حيث يجب تعيين "epsilon" مرة أخرى عند تغيير مقياس "X" و"y".
 
-  .. [#f2] T. Kärkkäinen and S. Äyrämö: `On Computation of Spatial Median for Robust Data Mining. <http://users.jyu.fi/~samiayr/pdf/ayramo_eurogen05.pdf>`_
+- يجب أن يكون HuberRegressor أكثر كفاءة للاستخدام في البيانات التي تحتوي على عدد صغير من العينات في حين أن SGDRegressor يحتاج إلى عدد من المرور على بيانات التدريب لإنتاج نفس المتانة.
 
-  Also see the `Wikipedia page <https://en.wikipedia.org/wiki/Theil%E2%80%93Sen_estimator>`_
+لاحظ أن هذا المقدر يختلف عن تنفيذ R لطريقة الانحدار المتين (https://stats.oarc.ucla.edu/r/dae/robust-regression/) لأن تنفيذ R يقوم بتنفيذ طريقة المربعات الصغرى المرجحة حيث يتم إعطاء الأوزان لكل عينة بناءً على مدى زيادة الباقي عن عتبة معينة.
 
-
-.. _huber_regression:
-
-Huber Regression
-----------------
-
-The :class:`HuberRegressor` is different to :class:`Ridge` because it applies a
-linear loss to samples that are classified as outliers.
-A sample is classified as an inlier if the absolute error of that sample is
-lesser than a certain threshold. It differs from :class:`TheilSenRegressor`
-and :class:`RANSACRegressor` because it does not ignore the effect of the outliers
-but gives a lesser weight to them.
-
-.. figure:: /auto_examples/linear_model/images/sphx_glr_plot_huber_vs_ridge_001.png
-   :target: ../auto_examples/linear_model/plot_huber_vs_ridge.html
-   :align: center
-   :scale: 50%
-
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_linear_model_plot_huber_vs_ridge.py`
-
-.. dropdown:: Mathematical details
-
-  The loss function that :class:`HuberRegressor` minimizes is given by
-
-  .. math::
-
-    \min_{w, \sigma} {\sum_{i=1}^n\left(\sigma + H_{\epsilon}\left(\frac{X_{i}w - y_{i}}{\sigma}\right)\sigma\right) + \alpha {||w||_2}^2}
-
-  where
-
-  .. math::
-
-    H_{\epsilon}(z) = \begin{cases}
-          z^2, & \text {if } |z| < \epsilon, \\
-          2\epsilon|z| - \epsilon^2, & \text{otherwise}
-    \end{cases}
-
-  It is advised to set the parameter ``epsilon`` to 1.35 to achieve 95%
-  statistical efficiency.
-
-  .. rubric:: References
-
-  * Peter J. Huber, Elvezio M. Ronchetti: Robust Statistics, Concomitant scale
-    estimates, pg 172
-
-The :class:`HuberRegressor` differs from using :class:`SGDRegressor` with loss set to `huber`
-in the following ways.
-
-- :class:`HuberRegressor` is scaling invariant. Once ``epsilon`` is set, scaling ``X`` and ``y``
-  down or up by different values would produce the same robustness to outliers as before.
-  as compared to :class:`SGDRegressor` where ``epsilon`` has to be set again when ``X`` and ``y`` are
-  scaled.
-
-- :class:`HuberRegressor` should be more efficient to use on data with small number of
-  samples while :class:`SGDRegressor` needs a number of passes on the training data to
-  produce the same robustness.
-
-Note that this estimator is different from the R implementation of Robust Regression
-(https://stats.oarc.ucla.edu/r/dae/robust-regression/) because the R implementation does a weighted least
-squares implementation with weights given to each sample on the basis of how much the residual is
-greater than a certain threshold.
-
-.. _quantile_regression:
-
-Quantile Regression
+انحدار كميلي
 ===================
 
-Quantile regression estimates the median or other quantiles of :math:`y`
-conditional on :math:`X`, while ordinary least squares (OLS) estimates the
-conditional mean.
+يقدر الانحدار الكمياني الوسيط أو الكميات الأخرى لـ :math:`y`
+مشروطة بـ :math:`X`، بينما تقدر المربعات الصغرى العادية (OLS)
+الوسط المشروط.
 
-Quantile regression may be useful if one is interested in predicting an
-interval instead of point prediction. Sometimes, prediction intervals are
-calculated based on the assumption that prediction error is distributed
-normally with zero mean and constant variance. Quantile regression provides
-sensible prediction intervals even for errors with non-constant (but
-predictable) variance or non-normal distribution.
+قد يكون الانحدار الكمياني مفيدًا إذا كان الشخص مهتمًا بالتنبؤ بفترة بدلاً من التنبؤ النقطي. في بعض الأحيان، يتم حساب فترات التنبؤ
+بناءً على افتراض أن خطأ التنبؤ له توزيع طبيعي بمتوسط صفري وتباين ثابت. يوفر الانحدار الكمياني فترات تنبؤ معقولة حتى بالنسبة للأخطاء ذات التباين غير الثابت (ولكن يمكن التنبؤ به) أو التوزيع غير الطبيعي.
 
 .. figure:: /auto_examples/linear_model/images/sphx_glr_plot_quantile_regression_002.png
    :target: ../auto_examples/linear_model/plot_quantile_regression.html
    :align: center
    :scale: 50%
 
-Based on minimizing the pinball loss, conditional quantiles can also be
-estimated by models other than linear models. For example,
-:class:`~sklearn.ensemble.GradientBoostingRegressor` can predict conditional
-quantiles if its parameter ``loss`` is set to ``"quantile"`` and parameter
-``alpha`` is set to the quantile that should be predicted. See the example in
+بناءً على تقليل خسارة الكرة والدبابيس، يمكن أيضًا تقدير الكميات الشرطية بواسطة نماذج أخرى غير النماذج الخطية. على سبيل المثال،
+:class:`~sklearn.ensemble.GradientBoostingRegressor` يمكن أن يتنبأ بالكميات الشرطية إذا تم تعيين معلمة "خسارة" الخاصة به إلى "الكمية"
+ويتم تعيين معلمة "ألفا" إلى الكمية التي يجب التنبؤ بها. راجع المثال في
 :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_quantile.py`.
 
-Most implementations of quantile regression are based on linear programming
-problem. The current implementation is based on
+تستند معظم تطبيقات الانحدار الكمياني إلى مشكلة البرمجة الخطية. يعتمد التنفيذ الحالي على
 :func:`scipy.optimize.linprog`.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_quantile_regression.py`
 
-.. dropdown:: Mathematical details
+.. dropdown:: التفاصيل الرياضية
 
-  As a linear model, the :class:`QuantileRegressor` gives linear predictions
-  :math:`\hat{y}(w, X) = Xw` for the :math:`q`-th quantile, :math:`q \in (0, 1)`.
-  The weights or coefficients :math:`w` are then found by the following
-  minimization problem:
+  كنموذج خطي، فإن :class:`QuantileRegressor` يعطي تنبؤات خطية
+  :math:`\hat{y}(w, X) = Xw` للكمية :math:`q`-th، :math:`q \in (0, 1)`.
+  ثم يتم العثور على الأوزان أو المعاملات :math:`w` بواسطة مشكلة التحسين التالية:
 
   .. math::
       \min_{w} {\frac{1}{n_{\text{samples}}}
       \sum_i PB_q(y_i - X_i w) + \alpha ||w||_1}.
 
-  This consists of the pinball loss (also known as linear loss),
-  see also :class:`~sklearn.metrics.mean_pinball_loss`,
+  يتكون هذا من خسارة الكرة والدبابيس (المعروفة أيضًا باسم الخسارة الخطية)،
+  راجع أيضًا :class:`~sklearn.metrics.mean_pinball_loss`،
 
   .. math::
       PB_q(t) = q \max(t, 0) + (1 - q) \max(-t, 0) =
@@ -1698,79 +1166,73 @@ problem. The current implementation is based on
           (q-1) t, & t < 0
       \end{cases}
 
-  and the L1 penalty controlled by parameter ``alpha``, similar to
+  وعقوبة L1 التي يتحكم فيها معلمة "ألفا"، على غرار
   :class:`Lasso`.
 
-  As the pinball loss is only linear in the residuals, quantile regression is
-  much more robust to outliers than squared error based estimation of the mean.
-  Somewhat in between is the :class:`HuberRegressor`.
+  نظرًا لأن خسارة الكرة والدبابيس خطية فقط في المتبقيات، فإن الانحدار الكمياني
+  أكثر مرونة بكثير تجاه القيم الشاذة من تقدير الخطأ المربع القائم على تقدير الوسط.
+  يقع :class:`HuberRegressor` في مكان ما بينهما.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * Koenker, R., & Bassett Jr, G. (1978). `Regression quantiles.
+  * كوينكر، ر.، و باسيت الابن، ج. (1978). `الانحدار الكمياني.
     <https://gib.people.uic.edu/RQ.pdf>`_
-    Econometrica: journal of the Econometric Society, 33-50.
+    Econometrica: مجلة جمعية الاقتصاد القياسي، 33-50.
 
-  * Portnoy, S., & Koenker, R. (1997). :doi:`The Gaussian hare and the Laplacian
-    tortoise: computability of squared-error versus absolute-error estimators.
-    Statistical Science, 12, 279-300 <10.1214/ss/1030037960>`.
+  * بورتنوي، س.، وكوينكر، ر. (1997). :doi:`الأرنب الغاوسي والسلحفاة اللابلاسية: قابلية تقدير الخطأ المطلق مقابل تقدير الخطأ التربيعي.
+    العلوم الإحصائية، 12، 279-300 <10.1214/ss/1030037960>`.
 
-  * Koenker, R. (2005). :doi:`Quantile Regression <10.1017/CBO9780511754098>`.
-    Cambridge University Press.
+  * كوينكر، ر. (2005). :doi:`الانحدار الكمياني <10.1017/CBO9780511754098>`.
+    مطبعة جامعة كامبريدج.
 
 
 .. _polynomial_regression:
 
-Polynomial regression: extending linear models with basis functions
+الانحدار متعدد الحدود: توسيع النماذج الخطية باستخدام دالات الأساس
 ===================================================================
 
 .. currentmodule:: sklearn.preprocessing
 
-One common pattern within machine learning is to use linear models trained
-on nonlinear functions of the data.  This approach maintains the generally
-fast performance of linear methods, while allowing them to fit a much wider
-range of data.
+هناك نمط شائع في التعلم الآلي يتمثل في استخدام النماذج الخطية المدربة
+على الدوال غير الخطية للبيانات. يحافظ هذا النهج على الأداء السريع بشكل عام للطرق الخطية، مع السماح لها بالتناسب مع نطاق أوسع بكثير من البيانات.
 
-.. dropdown:: Mathematical details
+.. dropdown:: التفاصيل الرياضية
 
-  For example, a simple linear regression can be extended by constructing
-  **polynomial features** from the coefficients.  In the standard linear
-  regression case, you might have a model that looks like this for
-  two-dimensional data:
+  على سبيل المثال، يمكن توسيع الانحدار الخطي البسيط من خلال إنشاء
+  **الميزات متعددة الحدود** من المعاملات. في حالة الانحدار الخطي القياسي، قد يبدو النموذج كما يلي للبيانات ثنائية الأبعاد:
 
   .. math::    \hat{y}(w, x) = w_0 + w_1 x_1 + w_2 x_2
 
-  If we want to fit a paraboloid to the data instead of a plane, we can combine
-  the features in second-order polynomials, so that the model looks like this:
+  إذا أردنا أن نناسب قطع مكافئ للبيانات بدلاً من مستوى، فيمكننا الجمع
+بين الميزات في متعددات الحدود من الدرجة الثانية، بحيث يبدو النموذج كما يلي:
 
   .. math::    \hat{y}(w, x) = w_0 + w_1 x_1 + w_2 x_2 + w_3 x_1 x_2 + w_4 x_1^2 + w_5 x_2^2
 
-  The (sometimes surprising) observation is that this is *still a linear model*:
-  to see this, imagine creating a new set of features
+  الملاحظة (المفاجئة أحيانًا) هي أن هذا *لا يزال نموذجًا خطيًا*:
+لرؤية ذلك، تخيل إنشاء مجموعة جديدة من الميزات
 
   .. math::  z = [x_1, x_2, x_1 x_2, x_1^2, x_2^2]
 
-  With this re-labeling of the data, our problem can be written
+  مع هذه إعادة التسمية للبيانات، يمكن كتابة المشكلة على النحو التالي
 
   .. math::    \hat{y}(w, z) = w_0 + w_1 z_1 + w_2 z_2 + w_3 z_3 + w_4 z_4 + w_5 z_5
 
-  We see that the resulting *polynomial regression* is in the same class of
-  linear models we considered above (i.e. the model is linear in :math:`w`)
-  and can be solved by the same techniques.  By considering linear fits within
-  a higher-dimensional space built with these basis functions, the model has the
-  flexibility to fit a much broader range of data.
+  نلاحظ أن الانحدار متعدد الحدود الناتج يقع في نفس فئة
+النماذج الخطية التي نعتبرها أعلاه (أي أن النموذج خطي في :math:`w`)
+ويمكن حلها بنفس التقنيات. من خلال النظر في التلائم الخطي داخل
+مساحة ذات أبعاد أعلى تم بناؤها باستخدام دالات الأساس هذه، يكون للنموذج المرونة للتناسب مع نطاق أوسع بكثير من البيانات.
 
-Here is an example of applying this idea to one-dimensional data, using
-polynomial features of varying degrees:
+فيما يلي مثال على تطبيق هذه الفكرة على بيانات أحادية البعد، باستخدام
+ميزات متعددة الحدود بدرجات متفاوتة:
 
 .. figure:: ../auto_examples/linear_model/images/sphx_glr_plot_polynomial_interpolation_001.png
    :target: ../auto_examples/linear_model/plot_polynomial_interpolation.html
    :align: center
    :scale: 50%
 
-This figure is created using the :class:`PolynomialFeatures` transformer, which
-transforms an input data matrix into a new data matrix of a given degree.
-It can be used as follows::
+تم إنشاء هذا الشكل باستخدام محول :class:`PolynomialFeatures`، والذي
+يحول مصفوفة بيانات الإدخال إلى مصفوفة بيانات جديدة ذات درجة معينة.
+يمكن استخدامه على النحو التالي::
 
     >>> from sklearn.preprocessing import PolynomialFeatures
     >>> import numpy as np
@@ -1785,13 +1247,11 @@ It can be used as follows::
            [ 1.,  2.,  3.,  4.,  6.,  9.],
            [ 1.,  4.,  5., 16., 20., 25.]])
 
-The features of ``X`` have been transformed from :math:`[x_1, x_2]` to
-:math:`[1, x_1, x_2, x_1^2, x_1 x_2, x_2^2]`, and can now be used within
-any linear model.
+تم تحويل ميزات "X" من :math:`[x_1، x_2]` إلى
+:math:`[1، x_1، x_2، x_1^2، x_1 x_2، x_2^2]`، ويمكن الآن استخدامها في أي نموذج خطي.
 
-This sort of preprocessing can be streamlined with the
-:ref:`Pipeline <pipeline>` tools. A single object representing a simple
-polynomial regression can be created and used as follows::
+يمكن تبسيط هذا النوع من المعالجة المسبقة باستخدام أدوات
+:ref:`Pipeline <pipeline>`. يمكن إنشاء كائن واحد يمثل انحدارًا متعدد الحدود بسيطًا واستخدامه كما يلي::
 
     >>> from sklearn.preprocessing import PolynomialFeatures
     >>> from sklearn.linear_model import LinearRegression
@@ -1806,19 +1266,19 @@ polynomial regression can be created and used as follows::
     >>> model.named_steps['linear'].coef_
     array([ 3., -2.,  1., -1.])
 
-The linear model trained on polynomial features is able to exactly recover
-the input polynomial coefficients.
+يمكن للنموذج الخطي المدرب على الميزات متعددة الحدود استرداد
+معاملات متعددة الحدود المدخلة بدقة.
 
-In some cases it's not necessary to include higher powers of any single feature,
-but only the so-called *interaction features*
-that multiply together at most :math:`d` distinct features.
-These can be gotten from :class:`PolynomialFeatures` with the setting
+في بعض الحالات، لا يكون من الضروري تضمين قوى أعلى لأي ميزة فردية،
+ولكن فقط ما يسمى ميزات "التفاعل"
+التي تضرب معًا على الأكثر :math:`d` ميزات متميزة.
+يمكن الحصول على هذه الميزات من :class:`PolynomialFeatures` مع الإعداد
 ``interaction_only=True``.
 
-For example, when dealing with boolean features,
-:math:`x_i^n = x_i` for all :math:`n` and is therefore useless;
-but :math:`x_i x_j` represents the conjunction of two booleans.
-This way, we can solve the XOR problem with a linear classifier::
+على سبيل المثال، عند التعامل مع الميزات الثنائية،
+:math:`x_i^n = x_i` لكل :math:`n` وبالتالي فهي عديمة الفائدة؛
+ولكن :math:`x_i x_j` يمثل الاقتران بين اثنين من الثنائيات.
+بهذه الطريقة، يمكننا حل مشكلة XOR باستخدام مصنف خطي::
 
     >>> from sklearn.linear_model import Perceptron
     >>> from sklearn.preprocessing import PolynomialFeatures
@@ -1836,7 +1296,7 @@ This way, we can solve the XOR problem with a linear classifier::
     >>> clf = Perceptron(fit_intercept=False, max_iter=10, tol=None,
     ...                  shuffle=False).fit(X, y)
 
-And the classifier "predictions" are perfect::
+وتكون "تنبؤات" المصنف مثالية::
 
     >>> clf.predict(X)
     array([0, 1, 1, 0])
