@@ -1,72 +1,32 @@
 .. _calibration:
 
 =======================
-Probability calibration
+معايرة الاحتمالات
+فيما يلي ترجمة للنص المحدد بتنسيق RST إلى اللغة العربية، مع اتباع التعليمات المذكورة:
+
 =======================
 
-.. currentmodule:: sklearn.calibration
+عند إجراء التصنيف، غالبًا ما ترغب ليس فقط في التنبؤ بعلامة الفئة، ولكن أيضًا في الحصول على احتمال العلامة المقابلة. يمنحك هذا الاحتمال نوعًا من الثقة في التنبؤ. يمكن أن تعطيك بعض النماذج تقديرات سيئة لاحتمالات الفئات، بل إن بعضها لا يدعم التنبؤ بالاحتمالات (على سبيل المثال، بعض مثيلات ~ sklearn.linear_model.SGDClassifier). تسمح لك وحدة المعايرة بمعايرة أفضل لاحتمالات نموذج معين، أو إضافة دعم للتنبؤ بالاحتمالات.
 
+التصنيف المعاير جيدًا هو مصنفات احتمالية يمكن تفسير إخراج طريقة term: 'predict_proba' الخاصة بها مباشرةً على أنه مستوى ثقة. على سبيل المثال، يجب أن يصنف المصنف المعاير جيدًا (الثنائي) العينات بحيث من بين العينات التي أعطاها قيمة term: 'predict_proba' قريبة من، لنقل، 0.8، ينتمي حوالي 80% منها بالفعل إلى الفئة الإيجابية.
 
-When performing classification you often want not only to predict the class
-label, but also obtain a probability of the respective label. This probability
-gives you some kind of confidence on the prediction. Some models can give you
-poor estimates of the class probabilities and some even do not support
-probability prediction (e.g., some instances of
-:class:`~sklearn.linear_model.SGDClassifier`).
-The calibration module allows you to better calibrate
-the probabilities of a given model, or to add support for probability
-prediction.
-
-Well calibrated classifiers are probabilistic classifiers for which the output
-of the :term:`predict_proba` method can be directly interpreted as a confidence
-level.
-For instance, a well calibrated (binary) classifier should classify the samples such
-that among the samples to which it gave a :term:`predict_proba` value close to, say,
-0.8, approximately 80% actually belong to the positive class.
-
-Before we show how to re-calibrate a classifier, we first need a way to detect how
-good a classifier is calibrated.
+قبل أن نوضح كيفية إعادة معايرة مصنف، نحتاج أولاً إلى طريقة للكشف عن مدى جودة معايرة المصنف.
 
 .. note::
-    Strictly proper scoring rules for probabilistic predictions like
-    :func:`sklearn.metrics.brier_score_loss` and
-    :func:`sklearn.metrics.log_loss` assess calibration (reliability) and
-    discriminative power (resolution) of a model, as well as the randomness of the data
-    (uncertainty) at the same time. This follows from the well-known Brier score
-    decomposition of Murphy [1]_. As it is not clear which term dominates, the score is
-    of limited use for assessing calibration alone (unless one computes each term of
-    the decomposition). A lower Brier loss, for instance, does not necessarily
-    mean a better calibrated model, it could also mean a worse calibrated model with much
-    more discriminatory power, e.g. using many more features.
+   تقيم قواعد التسجيل الصارمة للتنبؤات الاحتمالية مثل sklearn.metrics.brier_score_loss و sklearn.metrics.log_loss المعايرة (الموثوقية) والقوة التمييزية (الدقة) لنموذج، بالإضافة إلى عشوائية البيانات (عدم اليقين) في نفس الوقت. ينبع هذا من تفكيك درجة Brier الشهيرة لمرفي [1] _. نظرًا لأنه من غير الواضح أي مصطلح يسيطر، فإن النتيجة محدودة الفائدة لتقييم المعايرة بمفردها (ما لم يتم حساب كل مصطلح من التفكيك). لا يعني انخفاض الخسارة Brier، على سبيل المثال، بالضرورة نموذجًا معايرًا بشكل أفضل، فقد يعني أيضًا نموذجًا معايرًا بشكل أسوأ بقوة تمييزية أكبر، على سبيل المثال، باستخدام ميزات أكثر بكثير.
 
 .. _calibration_curve:
 
-Calibration curves
+منحنيات المعايرة
 ------------------
 
-Calibration curves, also referred to as *reliability diagrams* (Wilks 1995 [2]_),
-compare how well the probabilistic predictions of a binary classifier are calibrated.
-It plots the frequency of the positive label (to be more precise, an estimation of the
-*conditional event probability* :math:`P(Y=1|\text{predict_proba})`) on the y-axis
-against the predicted probability :term:`predict_proba` of a model on the x-axis.
-The tricky part is to get values for the y-axis.
-In scikit-learn, this is accomplished by binning the predictions such that the x-axis
-represents the average predicted probability in each bin.
-The y-axis is then the *fraction of positives* given the predictions of that bin, i.e.
-the proportion of samples whose class is the positive class (in each bin).
+تقارن منحنيات المعايرة، والتي يشار إليها أيضًا باسم مخططات الموثوقية (ويلكس 1995 [2] _)، مدى جودة معايرة تنبؤات الاحتمالية لمصنف ثنائي. إنه يرسم تكرار العلامة الإيجابية (ليكون أكثر دقة، تقدير احتمال الحدث الشرطي :math: 'P (Y = 1 | text {predict_proba})') على y- المحور مقابل احتمال التنبؤ term: 'predict_proba' لنموذج على x- المحور. الجزء الحرج هو الحصول على قيم لمحور y.
 
-The top calibration curve plot is created with
-:func:`CalibrationDisplay.from_estimator`, which uses :func:`calibration_curve` to
-calculate the per bin average predicted probabilities and fraction of positives.
-:func:`CalibrationDisplay.from_estimator`
-takes as input a fitted classifier, which is used to calculate the predicted
-probabilities. The classifier thus must have :term:`predict_proba` method. For
-the few classifiers that do not have a :term:`predict_proba` method, it is
-possible to use :class:`CalibratedClassifierCV` to calibrate the classifier
-outputs to probabilities.
+في Scikit-learn، يتم تحقيق ذلك عن طريق تجميع التوقعات بحيث يمثل x- المحور متوسط الاحتمال المتوقع في كل دلو. ثم يكون y- المحور هو "نسبة الإيجابيات" بالنظر إلى تنبؤات هذا الدلو، أي نسبة العينات التي تنتمي فئتها إلى الفئة الإيجابية (في كل دلو).
 
-The bottom histogram gives some insight into the behavior of each classifier
-by showing the number of samples in each predicted probability bin.
+تم إنشاء مخطط معايرة المعايرة العلوي بواسطة CalibrationDisplay.from_estimator، والذي يستخدم طريقة المعايرة لحساب متوسط الاحتمالات المتوقعة ونسبة الإيجابيات لكل دلو. يأخذ CalibrationDisplay.from_estimator كإدخال مصنفًا مناسبًا، والذي يتم استخدامه لحساب الاحتمالات المتوقعة. وبالتالي، يجب أن يكون للمصنف طريقة term: 'predict_proba'. بالنسبة للمصنفات القليلة التي لا تحتوي على طريقة term: 'predict_proba'، من الممكن استخدام CalibratedClassifierCV لمعايرة مخرجات المصنف إلى احتمالات.
+
+يوفر مخطط الهستوجرام السفلي بعض الأفكار حول سلوك كل مصنف من خلال إظهار عدد العينات في كل دلو من الاحتمالات المتوقعة.
 
 .. figure:: ../auto_examples/calibration/images/sphx_glr_plot_compare_calibration_001.png
    :target: ../auto_examples/calibration/plot_compare_calibration.html
@@ -74,216 +34,111 @@ by showing the number of samples in each predicted probability bin.
 
 .. currentmodule:: sklearn.linear_model
 
-:class:`LogisticRegression` is more likely to return well calibrated predictions by itself as it has a
-canonical link function for its loss, i.e. the logit-link for the :ref:`log_loss`.
-In the unpenalized case, this leads to the so-called **balance property**, see [8]_ and :ref:`Logistic_regression`.
-In the plot above, data is generated according to a linear mechanism, which is
-consistent with the :class:`LogisticRegression` model (the model is 'well specified'),
-and the value of the regularization parameter `C` is tuned to be
-appropriate (neither too strong nor too low). As a consequence, this model returns
-accurate predictions from its `predict_proba` method.
-In contrast to that, the other shown models return biased probabilities; with
-different biases per model.
+من المرجح أن تعيد LogisticRegression تنبؤات معايرة جيدة بمفردها نظرًا لوجود دالة ارتباط كانونية لفقدانها، أي رابط اللوغاريتم للخسارة اللوجستية. في حالة عدم وجود عقوبة، يؤدي هذا إلى ما يسمى **ميزة التوازن**، راجع [8] _ و Logistic_regression. في المخطط أعلاه، يتم إنشاء البيانات وفقًا لآلية خطية، والتي تتوافق مع نموذج LogisticRegression (النموذج "محدد جيدًا")، وتم ضبط قيمة معامل التنظيم 'C' ليكون مناسبًا (لا قويًا جدًا ولا منخفضًا جدًا). ونتيجة لذلك، يعيد هذا النموذج تنبؤات دقيقة من طريقة 'predict_proba' الخاصة به. على النقيض من ذلك، تعيد النماذج الأخرى المعروضة احتمالات متحيزة؛ مع تحيزات مختلفة لكل نموذج.
 
 .. currentmodule:: sklearn.naive_bayes
 
-:class:`GaussianNB` (Naive Bayes) tends to push probabilities to 0 or 1 (note the counts
-in the histograms). This is mainly because it makes the assumption that
-features are conditionally independent given the class, which is not the
-case in this dataset which contains 2 redundant features.
+يميل GaussianNB (Naive Bayes) إلى دفع الاحتمالات إلى 0 أو 1 (لاحظ العدادات في مخططات الهستوجرام). ويرجع ذلك أساسًا إلى افتراضه أن الميزات مستقلة شرطيًا بالنظر إلى الفئة، وهو ما لا يحدث في مجموعة البيانات هذه التي تحتوي على ميزتين متكررتين.
 
 .. currentmodule:: sklearn.ensemble
 
-:class:`RandomForestClassifier` shows the opposite behavior: the histograms
-show peaks at probabilities approximately 0.2 and 0.9, while probabilities
-close to 0 or 1 are very rare. An explanation for this is given by
-Niculescu-Mizil and Caruana [3]_: "Methods such as bagging and random
-forests that average predictions from a base set of models can have
-difficulty making predictions near 0 and 1 because variance in the
-underlying base models will bias predictions that should be near zero or one
-away from these values. Because predictions are restricted to the interval
-[0,1], errors caused by variance tend to be one-sided near zero and one. For
-example, if a model should predict p = 0 for a case, the only way bagging
-can achieve this is if all bagged trees predict zero. If we add noise to the
-trees that bagging is averaging over, this noise will cause some trees to
-predict values larger than 0 for this case, thus moving the average
-prediction of the bagged ensemble away from 0. We observe this effect most
-strongly with random forests because the base-level trees trained with
-random forests have relatively high variance due to feature subsetting." As
-a result, the calibration curve shows a characteristic sigmoid shape, indicating that
-the classifier could trust its "intuition" more and return probabilities closer
-to 0 or 1 typically.
+يظهر RandomForestClassifier السلوك المعاكس: تظهر مخططات الهستوجرام قممًا عند احتمالات تبلغ حوالي 0.2 و0.9، في حين أن الاحتمالات القريبة من 0 أو 1 نادرة جدًا. يقدم Niculescu-Mizil and Caruana [3] _ تفسيرًا لذلك: "تواجه الطرق مثل bagging والغابات العشوائية التي تقوم بمعدل تنبؤات من مجموعة أساسية من النماذج صعوبة في إجراء تنبؤات بالقرب من 0 و1 لأن التباين في النماذج الأساسية سيؤدي إلى تحيز التنبؤات التي يجب أن تكون بالقرب من الصفر أو الواحد بعيدًا عن هذه القيم. نظرًا لأن التنبؤات مقيدة بالفاصل [0،1]، فإن الأخطاء التي يسببها التباين تميل إلى جانب واحد بالقرب من الصفر والواحد. على سبيل المثال، إذا كان من المفترض أن يتنبأ نموذج بقيمة p = 0 لحالة ما، فإن الطريقة الوحيدة التي يمكن أن يحقق بها bagging ذلك هي إذا تنبأت جميع الأشجار المعبأة بالصفر. إذا أضفنا ضوضاء إلى الأشجار التي نعبئها، فستتسبب هذه الضوضاء في قيام بعض الأشجار بالتنبؤ بقيم أكبر من 0 لهذه الحالة، مما يؤدي إلى تحريك متوسط تنبؤات المجموعة المعبأة بعيدًا عن الصفر. نلاحظ هذا التأثير بشكل أقوى مع الغابات العشوائية لأن أشجار المستوى الأساسي التي تم تدريبها باستخدام الغابات العشوائية بها تباين نسبيًا مرتفع بسبب مجموعة الميزات الفرعية. "ونتيجة لذلك، يظهر منحنى المعايرة شكلًا مميزًا للمنحنى S، مما يشير إلى أن المصنف يمكنه الوثوق بـ" حدسه "أكثر وإعادة احتمالات أقرب إلى 0 أو 1 بشكل نموذجي.
 
 .. currentmodule:: sklearn.svm
 
-:class:`LinearSVC` (SVC) shows an even more sigmoid curve than the random forest, which
-is typical for maximum-margin methods (compare Niculescu-Mizil and Caruana [3]_), which
-focus on difficult to classify samples that are close to the decision boundary (the
-support vectors).
+يُظهر LinearSVC (SVC) منحنى أكثر انسيابية من الغابة العشوائية، وهو أمر شائع لأساليب الحد الأقصى للهامش (قارن Niculescu-Mizil and Caruana [3] _)، والتي تركز على العينات الصعبة التي يصعب تصنيفها بالقرب من حد القرار (المتجهات الداعمة).
 
-Calibrating a classifier
+معايرة مصنف
 ------------------------
 
 .. currentmodule:: sklearn.calibration
 
-Calibrating a classifier consists of fitting a regressor (called a
-*calibrator*) that maps the output of the classifier (as given by
-:term:`decision_function` or :term:`predict_proba`) to a calibrated probability
-in [0, 1]. Denoting the output of the classifier for a given sample by :math:`f_i`,
-the calibrator tries to predict the conditional event probability
-:math:`P(y_i = 1 | f_i)`.
+تتكون معايرة مصنف من تناسب مُرجع (يُطلق عليه اسم "معاير") يقوم بميْز إخراج المصنف (كما هو محدد بواسطة وظيفة القرار أو طريقة term: 'predict_proba') إلى احتمال معاير في الفاصل [0،1]. مع الإشارة إلى إخراج المصنف لعينة معينة بواسطة :math: 'f_i'، يحاول المعاير التنبؤ باحتمال الحدث الشرطي :math: 'P (y_i = 1 | f_i)'.
 
-Ideally, the calibrator is fit on a dataset independent of the training data used to
-fit the classifier in the first place.
-This is because performance of the classifier on its training data would be
-better than for novel data. Using the classifier output of training data
-to fit the calibrator would thus result in a biased calibrator that maps to
-probabilities closer to 0 and 1 than it should.
+في الوضع المثالي، يتم ضبط المعاير على مجموعة بيانات مستقلة عن بيانات التدريب المستخدمة لضبط المصنف في المقام الأول.
 
-Usage
------
+هذا لأن أداء المصنف على بيانات التدريب الخاصة به سيكون أفضل من البيانات الجديدة. سيؤدي استخدام إخراج المصنف لبيانات التدريب لمعايرة المعاير إلى معاير متحيز يقوم بميْز الاحتمالات إلى قيم أقرب إلى 0 و 1 مما ينبغي.
 
-The :class:`CalibratedClassifierCV` class is used to calibrate a classifier.
+الاستخدام
+تستخدم فئة :class:`CalibratedClassifierCV` لمعايرة مصنف.
 
-:class:`CalibratedClassifierCV` uses a cross-validation approach to ensure
-unbiased data is always used to fit the calibrator. The data is split into k
-`(train_set, test_set)` couples (as determined by `cv`). When `ensemble=True`
-(default), the following procedure is repeated independently for each
-cross-validation split:
+يستخدم :class:`CalibratedClassifierCV` نهج التقسيم إلى مجموعات متصالبة لضمان استخدام بيانات غير متحيزة دائمًا لضبط المعاير. يتم تقسيم البيانات إلى k من الأزواج `(مجموعة_التدريب، مجموعة_الاختبار)` (كما يحددها `cv`). عندما `ensemble=True` (افتراضي)، يتم تكرار الإجراء التالي بشكل مستقل لكل تقسيم متقاطع للتحقق:
 
-1. a clone of `base_estimator` is trained on the train subset
-2. the trained `base_estimator` makes predictions on the test subset
-3. the predictions are used to fit a calibrator (either a sigmoid or isotonic
-   regressor) (when the data is multiclass, a calibrator is fit for every class)
+1. يتم تدريب نسخة من `base_estimator` على مجموعة التدريب الفرعية
+2. يقوم `base_estimator` المدرب بعمل تنبؤات على مجموعة الاختبار الفرعية
+3. يتم استخدام التنبؤات لضبط المعاير (إما من خلال الانحدار اللوغاريتمي أو الانحدار المتساوي) (عندما تكون البيانات متعددة التصنيفات، يتم ضبط معاير لكل صنف)
 
-This results in an
-ensemble of k `(classifier, calibrator)` couples where each calibrator maps
-the output of its corresponding classifier into [0, 1]. Each couple is exposed
-in the `calibrated_classifiers_` attribute, where each entry is a calibrated
-classifier with a :term:`predict_proba` method that outputs calibrated
-probabilities. The output of :term:`predict_proba` for the main
-:class:`CalibratedClassifierCV` instance corresponds to the average of the
-predicted probabilities of the `k` estimators in the `calibrated_classifiers_`
-list. The output of :term:`predict` is the class that has the highest
-probability.
+ويؤدي ذلك إلى مجموعة من k من أزواج `(المصنف، المعاير)` حيث يقوم كل معاير برسم ناتج مصنفه المقابل إلى [0،1]. يتم عرض كل زوج في خاصية `calibrated_classifiers_`، حيث يكون كل إدخال مصنفًا مضبوطًا بمعاير به طريقة :term:`predict_proba` التي تخرج احتمالات مضبوطة. ويكون ناتج :term:`predict_proba` للفئة الرئيسية :class:`CalibratedClassifierCV` هو متوسط الاحتمالات المتوقعة للمصنفات `k` في قائمة `calibrated_classifiers_`. ويكون ناتج :term:`predict` هو الفئة ذات أعلى احتمال.
 
-It is important to choose `cv` carefully when using `ensemble=True`.
-All classes should be present in both train and test subsets for every split.
-When a class is absent in the train subset, the predicted probability for that
-class will default to 0 for the `(classifier, calibrator)` couple of that split.
-This skews the :term:`predict_proba` as it averages across all couples.
-When a class is absent in the test subset, the calibrator for that class
-(within the `(classifier, calibrator)` couple of that split) is
-fit on data with no positive class. This results in ineffective calibration.
+من المهم اختيار `cv` بعناية عند استخدام `ensemble=True`. يجب أن تكون جميع الفئات موجودة في كل من مجموعات التدريب والاختبار لكل تقسيم. عندما تكون فئة ما غائبة في مجموعة التدريب الفرعية، فإن الاحتمال المتوقع لتلك الفئة سيكون افتراضيًا 0 بالنسبة لزوج `(المصنف، المعاير)` لذلك التقسيم. وهذا يشوه :term:`predict_proba` لأنه يحسب المتوسط عبر جميع الأزواج. عندما تكون فئة ما غائبة في مجموعة الاختبار الفرعية، يتم ضبط المعاير لتلك الفئة (ضمن زوج `(المصنف، المعاير)` لذلك التقسيم) على بيانات بدون فئة إيجابية. يؤدي هذا إلى معايرة غير فعالة.
 
-When `ensemble=False`, cross-validation is used to obtain 'unbiased'
-predictions for all the data, via
-:func:`~sklearn.model_selection.cross_val_predict`.
-These unbiased predictions are then used to train the calibrator. The attribute
-`calibrated_classifiers_` consists of only one `(classifier, calibrator)`
-couple where the classifier is the `base_estimator` trained on all the data.
-In this case the output of :term:`predict_proba` for
-:class:`CalibratedClassifierCV` is the predicted probabilities obtained
-from the single `(classifier, calibrator)` couple.
+عندما `ensemble=False`، يتم استخدام التقسيم إلى مجموعات متصالبة للحصول على تنبؤات 'غير متحيزة' لجميع البيانات، عبر :func:`~sklearn.model_selection.cross_val_predict`. يتم بعد ذلك استخدام هذه التنبؤات غير المتحيزة لتدريب المعاير. تتكون خاصية `calibrated_classifiers_` من زوج واحد فقط من `(المصنف، المعاير)` حيث يكون المصنف هو `base_estimator` المدرب على جميع البيانات. في هذه الحالة، يكون ناتج :term:`predict_proba` للفئة :class:`CalibratedClassifierCV` هو الاحتمالات المتوقعة التي تم الحصول عليها من زوج `(المصنف، المعاير)` الوحيد.
 
-The main advantage of `ensemble=True` is to benefit from the traditional
-ensembling effect (similar to :ref:`bagging`). The resulting ensemble should
-both be well calibrated and slightly more accurate than with `ensemble=False`.
-The main advantage of using `ensemble=False` is computational: it reduces the
-overall fit time by training only a single base classifier and calibrator
-pair, decreases the final model size and increases prediction speed.
+الميزة الرئيسية لـ `ensemble=True` هي الاستفادة من تأثير التجميع التقليدي (مشابه لـ :ref:`bagging`). يجب أن يكون التجميع الناتج مضبوطًا جيدًا وأكثر دقة قليلًا من `ensemble=False`. الميزة الرئيسية لاستخدام `ensemble=False` هي حسابية: فهي تقلل وقت الضبط الإجمالي عن طريق تدريب زوج مصنف ومعاير واحد فقط، وتقلل حجم النموذج النهائي وتزيد من سرعة التنبؤ.
 
-Alternatively an already fitted classifier can be calibrated by setting
-`cv="prefit"`. In this case, the data is not split and all of it is used to
-fit the regressor. It is up to the user to
-make sure that the data used for fitting the classifier is disjoint from the
-data used for fitting the regressor.
+بدلاً من ذلك، يمكن معايرة مصنف مدرب بالفعل عن طريق ضبط `cv="prefit"`. في هذه الحالة، لا يتم تقسيم البيانات ويتم استخدامها كلها لضبط المعاير. يتولى المستخدم مسؤولية التأكد من أن البيانات المستخدمة لضبط المعاير مختلفة عن البيانات المستخدمة لضبط المصنف.
 
-:class:`CalibratedClassifierCV` supports the use of two regression techniques
-for calibration via the `method` parameter: `"sigmoid"` and `"isotonic"`.
+تدعم فئة :class:`CalibratedClassifierCV` استخدام تقنيتين للانحدار للمعايرة عبر معامل `method`: `"sigmoid"` و `"isotonic"`.
 
 .. _sigmoid_regressor:
 
-Sigmoid
-^^^^^^^
+انحدار لوجستي
+^^^^^^^^^^^^^^^
 
-The sigmoid regressor, `method="sigmoid"` is based on Platt's logistic model [4]_:
+يستند الانحدار اللوجستي، `method="sigmoid"`، إلى نموذج لوجستي لبلات [4]_:
 
 .. math::
        p(y_i = 1 | f_i) = \frac{1}{1 + \exp(A f_i + B)} \,,
 
-where :math:`y_i` is the true label of sample :math:`i` and :math:`f_i`
-is the output of the un-calibrated classifier for sample :math:`i`. :math:`A`
-and :math:`B` are real numbers to be determined when fitting the regressor via
-maximum likelihood.
+حيث :math:`y_i` هو التصنيف الحقيقي للعينة :math:`i` و :math:`f_i`
+هو ناتج المصنف غير المضبوط للعينة :math:`i`. :math:`A`
+و :math:`B` هما عددان حقيقيان يتم تحديدهما عند ضبط المعاير عبر الاحتمال الأقصى.
 
-The sigmoid method assumes the :ref:`calibration curve <calibration_curve>`
-can be corrected by applying a sigmoid function to the raw predictions. This
-assumption has been empirically justified in the case of :ref:`svm` with
-common kernel functions on various benchmark datasets in section 2.1 of Platt
-1999 [4]_ but does not necessarily hold in general. Additionally, the
-logistic model works best if the calibration error is symmetrical, meaning
-the classifier output for each binary class is normally distributed with
-the same variance [7]_. This can be a problem for highly imbalanced
-classification problems, where outputs do not have equal variance.
+يفترض أسلوب الانحدار اللوجستي أن :ref:`منحنى المعايرة <calibration_curve>`
+يمكن تصحيحه عن طريق تطبيق دالة لوجستية على التنبؤات الخام. تم تبرير هذا الافتراض تجريبيًا في حالة :ref:`svm` مع دالات نواة شائعة على مجموعات بيانات مرجعية مختلفة في القسم 2.1 من Platt 1999 [4]_ ولكنه لا ينطبق بالضرورة بشكل عام. بالإضافة إلى ذلك، يعمل النموذج اللوجستي بشكل أفضل إذا كان خطأ المعايرة متماثلًا، مما يعني
+أن ناتج المصنف لكل فئة ثنائية يكون موزعة توزيعاً طبيعياً بنفس الانحراف المعياري [7]_. يمكن أن يمثل ذلك مشكلة لمشكلات التصنيف غير المتوازنة للغاية، حيث لا يكون للنواتج انحرافات معيارية متساوية.
 
-In general this method is most effective for small sample sizes or when the
-un-calibrated model is under-confident and has similar calibration errors for both
-high and low outputs.
+بشكل عام، تكون هذه الطريقة أكثر فعالية لحجم العينات الصغيرة أو عندما يكون النموذج غير المضبوط أقل ثقة وله أخطاء معايرة مماثلة لكل من النواتج العالية والمنخفضة.
 
-Isotonic
-^^^^^^^^
+انحدار متساو
+^^^^^^^^^^^^
 
-The `method="isotonic"` fits a non-parametric isotonic regressor, which outputs
-a step-wise non-decreasing function, see :mod:`sklearn.isotonic`. It minimizes:
+يقوم `method="isotonic"` بضبط معاير غير معلمي متساوي، والذي ينتج
+دالة متزايدة خطوة بخطوة، راجع :mod:`sklearn.isotonic`. فهو يقلل:
 
 .. math::
        \sum_{i=1}^{n} (y_i - \hat{f}_i)^2
 
-subject to :math:`\hat{f}_i \geq \hat{f}_j` whenever
-:math:`f_i \geq f_j`. :math:`y_i` is the true
-label of sample :math:`i` and :math:`\hat{f}_i` is the output of the
-calibrated classifier for sample :math:`i` (i.e., the calibrated probability).
-This method is more general when compared to 'sigmoid' as the only restriction
-is that the mapping function is monotonically increasing. It is thus more
-powerful as it can correct any monotonic distortion of the un-calibrated model.
-However, it is more prone to overfitting, especially on small datasets [6]_.
+رهناً بـ :math:`\hat{f}_i \geq \hat{f}_j` عندما
+:math:`f_i \geq f_j`. :math:`y_i` هو التصنيف
+الحقيقي للعينة :math:`i` و :math:`\hat{f}_i` هو ناتج
+المصنف المضبوط للعينة :math:`i` (أي الاحتمال المضبوط). هذه الطريقة أكثر عمومية مقارنة بـ 'sigmoid' حيث أن التقييد الوحيد هو أن دالة الخريطة متزايدة بشكل أحادي. وبالتالي، فهي أكثر قوة حيث يمكنها تصحيح أي تشويه أحادي الاتجاه للنموذج غير المضبوط. ومع ذلك، فهي أكثر عرضة للإفراط في الضبط، خاصة على مجموعات البيانات الصغيرة [6]_.
 
-Overall, 'isotonic' will perform as well as or better than 'sigmoid' when
-there is enough data (greater than ~ 1000 samples) to avoid overfitting [3]_.
+بشكل عام، سيؤدي "isotonic" إلى أداء أفضل أو مماثل لـ "sigmoid" عندما تكون هناك بيانات كافية (أكبر من ~ 1000 عينة) لتجنب الإفراط في الضبط [3]_.
 
-.. note:: Impact on ranking metrics like AUC
+.. note:: التأثير على مقاييس الترتيب مثل AUC
 
-    It is generally expected that calibration does not affect ranking metrics such as
-    ROC-AUC. However, these metrics might differ after calibration when using
-    `method="isotonic"` since isotonic regression introduces ties in the predicted
-    probabilities. This can be seen as within the uncertainty of the model predictions.
-    In case, you strictly want to keep the ranking and thus AUC scores, use
-    `method="sigmoid"` which is a strictly monotonic transformation and thus keeps
-    the ranking.
+    من المتوقع بشكل عام أن لا تؤثر المعايرة على مقاييس الترتيب مثل ROC-AUC. ومع ذلك، قد تختلف هذه المقاييس بعد المعايرة عند استخدام
+    `method="isotonic"` لأن الانحدار المتساوي يقدم تعادلات في الاحتمالات المتوقعة. يمكن اعتبار ذلك ضمن عدم اليقين في تنبؤات النموذج. في هذه الحالة، إذا كنت تريد الحفاظ على الترتيب وبالتالي درجات AUC، استخدم
+    `method="sigmoid"` الذي يعد تحويلًا أحادي الاتجاه بشكل صارم ويحافظ على الترتيب.
 
-Multiclass support
-^^^^^^^^^^^^^^^^^^
+دعم التصنيف متعدد الفئات
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Both isotonic and sigmoid regressors only
-support 1-dimensional data (e.g., binary classification output) but are
-extended for multiclass classification if the `base_estimator` supports
-multiclass predictions. For multiclass predictions,
-:class:`CalibratedClassifierCV` calibrates for
-each class separately in a :ref:`ovr_classification` fashion [5]_. When
-predicting
-probabilities, the calibrated probabilities for each class
-are predicted separately. As those probabilities do not necessarily sum to
-one, a postprocessing is performed to normalize them.
+يدعم كل من الانحدار المتساوي والانحدار اللوجستي بيانات أحادية البعد فقط (على سبيل المثال، إخراج التصنيف الثنائي) ولكنهما ممتدان للتصنيف متعدد الفئات إذا كان `base_estimator` يدعم تنبؤات متعددة الفئات. بالنسبة للتنبؤات متعددة الفئات،
+يقوم :class:`CalibratedClassifierCV` بالمعايرة لكل فئة بشكل منفصل بطريقة :ref:`ovr_classification` [5]_. عند
+التنبؤ
+بالاحتمالات، يتم التنبؤ بالاحتمالات المضبوطة لكل فئة
+بشكل منفصل. نظرًا لأن هذه الاحتمالات لا تصل بالضرورة إلى واحد، يتم إجراء معالجة لاحقة لتطبيعها.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_calibration_plot_calibration_curve.py`
 * :ref:`sphx_glr_auto_examples_calibration_plot_calibration_multiclass.py`
-* :ref:`sphx_glr_auto_examples_calibration_plot_calibration.py`
+* :ref:`sphminx_glr_auto_examples_calibration_plot_calibration.py`
 * :ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`
 
-.. rubric:: References
+.. rubric:: مراجع
 
 .. [1] Allan H. Murphy (1973).
        :doi:`"A New Vector Partition of the Probability Score"
@@ -298,7 +153,6 @@ one, a postprocessing is performed to normalize them.
 .. [3] `Predicting Good Probabilities with Supervised Learning
        <https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf>`_,
        A. Niculescu-Mizil & R. Caruana, ICML 2005
-
 
 .. [4] `Probabilistic Outputs for Support Vector Machines and Comparisons
        to Regularized Likelihood Methods.
