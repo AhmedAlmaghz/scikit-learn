@@ -1,28 +1,11 @@
-.. _common_pitfalls:
+يسلط هذا الفصل الضوء على بعض المطبات الشائعة والأنماط المضادة التي تحدث عند استخدام scikit-learn. ويقدم أمثلة على ما **لا** يجب فعله، إلى جانب مثال صحيح مقابل.
 
-=========================================
-Common pitfalls and recommended practices
-=========================================
-
-The purpose of this chapter is to illustrate some common pitfalls and
-anti-patterns that occur when using scikit-learn. It provides
-examples of what **not** to do, along with a corresponding correct
-example.
-
-Inconsistent preprocessing
+المعالجة المسبقة غير المتسقة
 ==========================
 
-scikit-learn provides a library of :ref:`data-transforms`, which
-may clean (see :ref:`preprocessing`), reduce
-(see :ref:`data_reduction`), expand (see :ref:`kernel_approximation`)
-or generate (see :ref:`feature_extraction`) feature representations.
-If these data transforms are used when training a model, they also
-must be used on subsequent datasets, whether it's test data or
-data in a production system. Otherwise, the feature space will change,
-and the model will not be able to perform effectively.
+يوفر scikit-learn مكتبة من :ref: `data-transforms` ، والتي قد تنظف (راجع: ref: `preprocessing`)، تقلل (راجع: ref: `data_reduction`)، توسع (راجع: ref: `kernel_approximation`) أو توليد (راجع: ref: `feature_extraction`) تمثيلات الميزات. إذا تم استخدام هذه التحويلات على البيانات عند تدريب نموذج، فيجب أيضًا استخدامها في مجموعات البيانات اللاحقة، سواء كانت بيانات الاختبار أو البيانات في نظام الإنتاج. وإلا، فستتغير مساحة الميزة، ولن يتمكن النموذج من الأداء بشكل فعال.
 
-For the following example, let's create a synthetic dataset with a
-single feature::
+بالنسبة للمثال التالي، دعنا نقوم بإنشاء مجموعة بيانات اصطناعية بميزة واحدة::
 
     >>> from sklearn.datasets import make_regression
     >>> from sklearn.model_selection import train_test_split
@@ -32,10 +15,9 @@ single feature::
     >>> X_train, X_test, y_train, y_test = train_test_split(
     ...     X, y, test_size=0.4, random_state=random_state)
 
-**Wrong**
+**خطأ**
 
-The train dataset is scaled, but not the test dataset, so model
-performance on the test dataset is worse than expected::
+تم تحجيم مجموعة البيانات التدريبية، ولكن ليس مجموعة الاختبار، لذا فإن أداء النموذج على مجموعة بيانات الاختبار أسوأ من المتوقع::
 
     >>> from sklearn.metrics import mean_squared_error
     >>> from sklearn.linear_model import LinearRegression
@@ -47,18 +29,15 @@ performance on the test dataset is worse than expected::
     >>> mean_squared_error(y_test, model.predict(X_test))
     62.80...
 
-**Right**
+**صحيح**
 
-Instead of passing the non-transformed `X_test` to `predict`, we should
-transform the test data, the same way we transformed the training data::
+بدلاً من تمرير `X_test` غير المحول إلى `predict`، يجب علينا تحويل بيانات الاختبار، بنفس الطريقة التي حولنا بها بيانات التدريب::
 
     >>> X_test_transformed = scaler.transform(X_test)
     >>> mean_squared_error(y_test, model.predict(X_test_transformed))
     0.90...
 
-Alternatively, we recommend using a :class:`Pipeline
-<sklearn.pipeline.Pipeline>`, which makes it easier to chain transformations
-with estimators, and reduces the possibility of forgetting a transformation::
+بدلاً من ذلك، نوصي باستخدام: class: `Pipeline <sklearn.pipeline.Pipeline>`، مما يسهل تسلسل التحولات مع المحكمين، ويقلل من احتمال نسيان التحول::
 
     >>> from sklearn.pipeline import make_pipeline
 
@@ -69,222 +48,144 @@ with estimators, and reduces the possibility of forgetting a transformation::
     >>> mean_squared_error(y_test, model.predict(X_test))
     0.90...
 
-Pipelines also help avoiding another common pitfall: leaking the test data
-into the training data.
+كما تساعد خطوط الأنابيب في تجنب أحد المطبات الشائعة: تسرب بيانات الاختبار إلى بيانات التدريب.
 
 .. _data_leakage:
 
-Data leakage
+تسرب البيانات
 ============
 
-Data leakage occurs when information that would not be available at prediction
-time is used when building the model. This results in overly optimistic
-performance estimates, for example from :ref:`cross-validation
-<cross_validation>`, and thus poorer performance when the model is used
-on actually novel data, for example during production.
+يحدث تسرب البيانات عندما يتم استخدام معلومات لن تكون متاحة في وقت التنبؤ عند بناء النموذج. يؤدي هذا إلى تقديرات أداء متفائلة للغاية، على سبيل المثال من: ref: `cross-validation <cross_validation>`، وبالتالي ضعف الأداء عندما يتم استخدام النموذج على بيانات جديدة بالفعل، على سبيل المثال أثناء الإنتاج.
 
-A common cause is not keeping the test and train data subsets separate.
-Test data should never be used to make choices about the model.
-**The general rule is to never call** `fit` **on the test data**. While this
-may sound obvious, this is easy to miss in some cases, for example when
-applying certain pre-processing steps.
+السبب الشائع هو عدم الحفاظ على مجموعات البيانات الفرعية للاختبار والتدريب منفصلة. لا ينبغي أبدًا استخدام بيانات الاختبار لاتخاذ خيارات بشأن النموذج. **القاعدة العامة هي عدم استدعاء** `fit` **على بيانات الاختبار**. على الرغم من أن هذا قد يبدو واضحًا، إلا أنه من السهل تفويته في بعض الحالات، على سبيل المثال عند تطبيق خطوات المعالجة المسبقة معينة.
 
-Although both train and test data subsets should receive the same
-preprocessing transformation (as described in the previous section), it is
-important that these transformations are only learnt from the training data.
-For example, if you have a
-normalization step where you divide by the average value, the average should
-be the average of the train subset, **not** the average of all the data. If the
-test subset is included in the average calculation, information from the test
-subset is influencing the model.
+على الرغم من أنه يجب أن تتلقى كل من مجموعات البيانات الفرعية للتدريب والاختبار نفس تحويل المعالجة المسبقة (كما هو موضح في القسم السابق)، إلا أنه من المهم أن يتم تعلم هذه التحولات فقط من بيانات التدريب. على سبيل المثال، إذا كان لديك خطوة تطبيع تقسم فيها بالقيمة المتوسطة، فيجب أن يكون المتوسط هو متوسط ​​مجموعة البيانات الفرعية للتدريب، **وليس** متوسط ​​جميع البيانات. إذا تم تضمين مجموعة البيانات الفرعية للاختبار في حساب المتوسط، فإن المعلومات من مجموعة البيانات الفرعية للاختبار تؤثر على النموذج.
 
-How to avoid data leakage
+كيفية تجنب تسرب البيانات
 -------------------------
 
-Below are some tips on avoiding data leakage:
+فيما يلي بعض النصائح لتجنب تسرب البيانات:
 
-* Always split the data into train and test subsets first, particularly
-  before any preprocessing steps.
-* Never include test data when using the `fit` and `fit_transform`
-  methods. Using all the data, e.g., `fit(X)`, can result in overly optimistic
-  scores.
+* قم دائمًا بتقسيم البيانات إلى مجموعات فرعية للتدريب والاختبار أولاً، خاصة قبل أي خطوات للمعالجة المسبقة.
+* لا تضمن أبدًا بيانات الاختبار عند استخدام طرق `fit` و` fit_transform`. يمكن أن يؤدي استخدام جميع البيانات، على سبيل المثال، `fit (X)`، إلى درجات متفائلة للغاية.
 
-  Conversely, the `transform` method should be used on both train and test
-  subsets as the same preprocessing should be applied to all the data.
-  This can be achieved by using `fit_transform` on the train subset and
-  `transform` on the test subset.
-* The scikit-learn :ref:`pipeline <pipeline>` is a great way to prevent data
-  leakage as it ensures that the appropriate method is performed on the
-  correct data subset. The pipeline is ideal for use in cross-validation
-  and hyper-parameter tuning functions.
+  على العكس من ذلك، يجب استخدام طريقة "التحويل" في كل من المجموعات الفرعية للتدريب والاختبار نظرًا لأنه يجب تطبيق نفس المعالجة المسبقة على جميع البيانات. يمكن تحقيق ذلك عن طريق استخدام `fit_transform` على المجموعة الفرعية للتدريب و` transform` على المجموعة الفرعية للاختبار.
+* تعد خط أنابيب scikit-learn: ref: `pipeline` طريقة رائعة لمنع تسرب البيانات حيث تضمن إجراء الطريقة المناسبة على مجموعة البيانات الفرعية الصحيحة. تعد الأنابيب مثالية للاستخدام في وظائف الضبط والضبط باستخدام الضبط.
 
-An example of data leakage during preprocessing is detailed below.
+يرد أدناه مثال على تسرب البيانات أثناء المعالجة المسبقة.
 
-Data leakage during pre-processing
+تسرب البيانات أثناء المعالجة المسبقة
 ----------------------------------
 
 .. note::
-    We here choose to illustrate data leakage with a feature selection step.
-    This risk of leakage is however relevant with almost all transformations
-    in scikit-learn, including (but not limited to)
-    :class:`~sklearn.preprocessing.StandardScaler`,
-    :class:`~sklearn.impute.SimpleImputer`, and
-    :class:`~sklearn.decomposition.PCA`.
+    نختار هنا توضيح تسرب البيانات باستخدام خطوة اختيار الميزة. ومع ذلك، فإن خطر التسرب هذا مناسب مع جميع التحولات تقريبًا في scikit-learn، بما في ذلك (ولكن لا تقتصر على)
+    : class: `~sklearn.preprocessing.StandardScaler`،
+    : class: `~sklearn.impute.SimpleImputer`، و
+    : class: `~sklearn.decomposition.PCA`.
 
-A number of :ref:`feature_selection` functions are available in scikit-learn.
-They can help remove irrelevant, redundant and noisy features as well as
-improve your model build time and performance. As with any other type of
-preprocessing, feature selection should **only** use the training data.
-Including the test data in feature selection will optimistically bias your
-model.
+يتوفر عدد من: ref: `feature_selection` الوظائف في scikit-learn. يمكنهم المساعدة في إزالة الميزات غير ذات الصلة والزائدة والضجيج، بالإضافة إلى تحسين وقت بناء النموذج وأدائه. كما هو الحال مع أي نوع آخر من المعالجة المسبقة، يجب أن يستخدم اختيار الميزة **فقط** بيانات التدريب. سيؤدي تضمين بيانات الاختبار في اختيار الميزة إلى تحيز نموذجك بشكل متفائل.
 
-To demonstrate we will create this binary classification problem with
-10,000 randomly generated features::
+لتوضيح ذلك، سنقوم بإنشاء مشكلة تصنيف ثنائي مع 10000 ميزة تم إنشاؤها بشكل عشوائي::
 
     >>> import numpy as np
-    >>> n_samples, n_features, n_classes = 200, 10000, 2
-    >>> rng = np.random.RandomState(42)
-    >>> X = rng.standard_normal((n_samples, n_features))
-    >>> y = rng.choice(n_classes, n_samples)
+    >>> n_samples، n_features، n_classes = 200، 10000، 2
+    >>> rng = np.random.RandomState (42)
+    >>> X = rng.standard_normal ((n_samples، n_features))
+    >>> y = rng.choice (n_classes، n_samples)
 
-**Wrong**
+**خطأ**
 
-Using all the data to perform feature selection results in an accuracy score
-much higher than chance, even though our targets are completely random.
-This randomness means that our `X` and `y` are independent and we thus expect
-the accuracy to be around 0.5. However, since the feature selection step
-'sees' the test data, the model has an unfair advantage. In the incorrect
-example below we first use all the data for feature selection and then split
-the data into training and test subsets for model fitting. The result is a
-much higher than expected accuracy score::
+يؤدي استخدام جميع البيانات لأداء اختيار الميزة إلى الحصول على درجة دقة أعلى بكثير من الفرصة، على الرغم من أن أهدافنا عشوائية تمامًا. تعني هذه العشوائية أن "X" و"y" مستقلان، وبالتالي نتوقع أن تكون الدقة حوالي 0.5. ومع ذلك، نظرًا لأن خطوة اختيار الميزة "ترى" بيانات الاختبار، فإن النموذج لديه ميزة غير عادلة. في المثال غير الصحيح أدناه، نستخدم أولاً جميع البيانات لاختيار الميزة ثم نقسم البيانات إلى مجموعات فرعية للتدريب والاختبار لتناسب النموذج. النتيجة هي درجة دقة أعلى بكثير من المتوقع::
 
     >>> from sklearn.model_selection import train_test_split
     >>> from sklearn.feature_selection import SelectKBest
     >>> from sklearn.ensemble import GradientBoostingClassifier
     >>> from sklearn.metrics import accuracy_score
 
-    >>> # Incorrect preprocessing: the entire data is transformed
-    >>> X_selected = SelectKBest(k=25).fit_transform(X, y)
+    >>> # معالجة مسبقة غير صحيحة: يتم تحويل البيانات بالكامل
+    >>> X_selected = SelectKBest (k=25).fit_transform (X، y)
 
-    >>> X_train, X_test, y_train, y_test = train_test_split(
-    ...     X_selected, y, random_state=42)
-    >>> gbc = GradientBoostingClassifier(random_state=1)
-    >>> gbc.fit(X_train, y_train)
-    GradientBoostingClassifier(random_state=1)
+    >>> X_train، X_test، y_train، y_test = train_test_split (
+    ...     X_selected، y، random_state=42)
+    >>> gbc = GradientBoostingClassifier (random_state=1)
+    >>> gbc.fit (X_train، y_train)
+    GradientBoostingClassifier (random_state=1)
 
-    >>> y_pred = gbc.predict(X_test)
-    >>> accuracy_score(y_test, y_pred)
+    >>> y_pred = gbc.predict (X_test)
+    >>> accuracy_score (y_test، y_pred)
     0.76
 
-**Right**
+**صحيح**
 
-To prevent data leakage, it is good practice to split your data into train
-and test subsets **first**. Feature selection can then be formed using just
-the train dataset. Notice that whenever we use `fit` or `fit_transform`, we
-only use the train dataset. The score is now what we would expect for the
-data, close to chance::
+لمنع تسرب البيانات، من الجيد تقسيم بياناتك إلى مجموعات فرعية للتدريب والاختبار **أولاً**. يمكن بعد ذلك إجراء اختيار الميزة باستخدام مجموعة البيانات التدريبية فقط. لاحظ أنه كلما استخدمنا `fit` أو `fit_transform`، فإننا نستخدم مجموعة البيانات التدريبية فقط. النتيجة الآن هي ما نتوقعه للبيانات، بالقرب من الفرصة::
 
-    >>> X_train, X_test, y_train, y_test = train_test_split(
-    ...     X, y, random_state=42)
-    >>> select = SelectKBest(k=25)
-    >>> X_train_selected = select.fit_transform(X_train, y_train)
+    >>> X_train، X_test، y_train، y_test = train_test_split (
+    ...     X، y، random_state=42)
+    >>> select = SelectKBest (k=25)
+    >>> X_train_selected = select.fit_transform (X_train، y_train)
 
-    >>> gbc = GradientBoostingClassifier(random_state=1)
-    >>> gbc.fit(X_train_selected, y_train)
-    GradientBoostingClassifier(random_state=1)
+    >>> gbc = GradientBoostingClassifier (random_state=1)
+    >>> gbc.fit (X_train_selected، y_train)
+    GradientBoostingClassifier (random_state=1)
 
-    >>> X_test_selected = select.transform(X_test)
-    >>> y_pred = gbc.predict(X_test_selected)
-    >>> accuracy_score(y_test, y_pred)
+    >>> X_test_selected = select.transform (X_test)
+    >>> y_pred = gbc.predict (X_test_selected)
+    >>> accuracy_score (y_test، y_pred)
     0.46
 
-Here again, we recommend using a :class:`~sklearn.pipeline.Pipeline` to chain
-together the feature selection and model estimators. The pipeline ensures
-that only the training data is used when performing `fit` and the test data
-is used only for calculating the accuracy score::
+نوصي هنا مرة أخرى باستخدام: class: `~sklearn.pipeline.Pipeline` لربط اختيار الميزة ومقدّرات النموذج معًا. تضمن الأنابيب استخدام بيانات التدريب فقط عند إجراء `fit` واستخدام بيانات الاختبار فقط لحساب درجة الدقة::
 
     >>> from sklearn.pipeline import make_pipeline
-    >>> X_train, X_test, y_train, y_test = train_test_split(
-    ...     X, y, random_state=42)
-    >>> pipeline = make_pipeline(SelectKBest(k=25),
-    ...                          GradientBoostingClassifier(random_state=1))
-    >>> pipeline.fit(X_train, y_train)
-    Pipeline(steps=[('selectkbest', SelectKBest(k=25)),
-                    ('gradientboostingclassifier',
-                    GradientBoostingClassifier(random_state=1))])
+    >>> X_train، X_test، y_train، y_test = train_test_split (
+    ...     X، y، random_state=42)
+    >>> pipeline = make_pipeline (SelectKBest (k=25)،
+    ...                          GradientBoostingClassifier (random_state=1))
+    >>> pipeline.fit (X_train، y_train)
+    Pipeline (steps = [('selectkbest'، SelectKBest (k=25))،
+    ...                    ('gradientboostingclassifier'،
+    ...                     GradientBoostingClassifier (random_state=1))])
 
-    >>> y_pred = pipeline.predict(X_test)
-    >>> accuracy_score(y_test, y_pred)
+    >>> y_pred = pipeline.predict (X_test)
+    >>> accuracy_score (y_test، y_pred)
     0.46
 
-The pipeline can also be fed into a cross-validation
-function such as :func:`~sklearn.model_selection.cross_val_score`.
-Again, the pipeline ensures that the correct data subset and estimator
-method is used during fitting and predicting::
+يمكن أيضًا تغذية الأنابيب في دالة التحقق من صحة متقاطعة مثل: func: `~sklearn.model_selection.cross_val_score`. مرة أخرى، تضمن الأنابيب استخدام مجموعة البيانات الفرعية الصحيحة والمناسب الصحيح أثناء التجهيز والتنبؤ::
 
     >>> from sklearn.model_selection import cross_val_score
-    >>> scores = cross_val_score(pipeline, X, y)
-    >>> print(f"Mean accuracy: {scores.mean():.2f}+/-{scores.std():.2f}")
-    Mean accuracy: 0.46+/-0.07
+    >>> scores = cross_val_score (pipeline، X، y)
+    >>> print (f "Mean accuracy: {scores.mean (): .2f} +/- {scores.std (): .2f}")
+    متوسط ​​الدقة: 0.46 +/- 0.07
 
 
 .. _randomness:
 
-Controlling randomness
-======================
+التحكم في العشوائية
+بعض كائنات scikit-learn عشوائية بطبيعتها. وعادة ما تكون هذه الكائنات هي أدوات تقدير (مثل :class: ~ sklearn.ensemble.RandomForestClassifier) و splitters التحقق من صحة التعابر (مثل :class: ~ sklearn.model_selection.KFold). يتم التحكم في عشوائية هذه الكائنات من خلال معلمة 'random_state' الخاصة بها، كما هو موضح في: مصطلح: 'مسرد المصطلحات <random_state>`. يوسع هذا القسم إدخال المسرد، ويصف الممارسات الجيدة والمزالق الشائعة فيما يتعلق بهذا المعلمة الدقيقة.
 
-Some scikit-learn objects are inherently random. These are usually estimators
-(e.g. :class:`~sklearn.ensemble.RandomForestClassifier`) and cross-validation
-splitters (e.g. :class:`~sklearn.model_selection.KFold`). The randomness of
-these objects is controlled via their `random_state` parameter, as described
-in the :term:`Glossary <random_state>`. This section expands on the glossary
-entry, and describes good practices and common pitfalls w.r.t. this
-subtle parameter.
+.. ملاحظة:: ملخص التوصية
 
-.. note:: Recommendation summary
+    للحصول على أقصى قدر من المتانة لنتائج التحقق من صحة التعابر، قم بتمرير حالات 'RandomState' عند إنشاء أدوات التقدير، أو اترك 'random_state' إلى 'None'. يعد تمرير الأعداد الصحيحة إلى splitters التحقق من صحة التعابر هو الخيار الأكثر أمانًا وعادة ما يكون مفضلًا؛ قد يكون تمرير حالات 'RandomState' إلى splitters مفيدًا في بعض الأحيان لتحقيق حالات استخدام محددة جدًا.
+    لكل من أدوات التقدير وsplitters، يؤدي تمرير عدد صحيح مقابل تمرير مثيل (أو 'None') إلى اختلافات دقيقة ولكنها مهمة، خاصةً لإجراءات التحقق من صحة التعابر. هذه الاختلافات مهمة لفهمها عند الإبلاغ عن النتائج.
 
-    For an optimal robustness of cross-validation (CV) results, pass
-    `RandomState` instances when creating estimators, or leave `random_state`
-    to `None`. Passing integers to CV splitters is usually the safest option
-    and is preferable; passing `RandomState` instances to splitters may
-    sometimes be useful to achieve very specific use-cases.
-    For both estimators and splitters, passing an integer vs passing an
-    instance (or `None`) leads to subtle but significant differences,
-    especially for CV procedures. These differences are important to
-    understand when reporting results.
+    للحصول على نتائج قابلة للتكرار عبر عمليات التنفيذ، قم بإزالة أي استخدام لـ 'random_state = None'.
 
-    For reproducible results across executions, remove any use of
-    `random_state=None`.
-
-Using `None` or `RandomState` instances, and repeated calls to `fit` and `split`
+استخدام 'None' أو حالات 'RandomState'، والمكالمات المتكررة إلى 'fit' و'split'
 --------------------------------------------------------------------------------
 
-The `random_state` parameter determines whether multiple calls to :term:`fit`
-(for estimators) or to :term:`split` (for CV splitters) will produce the same
-results, according to these rules:
+تحدد معلمة 'random_state' ما إذا كانت الاستدعاءات المتعددة لـ: مصطلح: 'fit' (لأدوات التقدير) أو إلى: مصطلح: 'split' (لـ CV splitters) ستنتج نفس النتائج، وفقًا لهذه القواعد:
 
-- If an integer is passed, calling `fit` or `split` multiple times always
-  yields the same results.
-- If `None` or a `RandomState` instance is passed: `fit` and `split` will
-  yield different results each time they are called, and the succession of
-  calls explores all sources of entropy. `None` is the default value for all
-  `random_state` parameters.
+- إذا تم تمرير عدد صحيح، فإن استدعاء 'fit' أو 'split' عدة مرات ينتج دائمًا نفس النتائج.
+- إذا تم تمرير 'None' أو مثيل 'RandomState': فإن 'fit' و'split' سينتجان نتائج مختلفة في كل مرة يتم استدعاؤها فيها، وستستكشف سلسلة الاستدعاءات جميع مصادر الإنتروبيا. 'None' هي القيمة الافتراضية لجميع معلمات 'random_state'.
 
-We here illustrate these rules for both estimators and CV splitters.
+نوضح هنا هذه القواعد لكل من أدوات التقدير وCV splitters.
 
-.. note::
-    Since passing `random_state=None` is equivalent to passing the global
-    `RandomState` instance from `numpy`
-    (`random_state=np.random.mtrand._rand`), we will not explicitly mention
-    `None` here. Everything that applies to instances also applies to using
-    `None`.
+.. ملاحظة::
+    نظرًا لأن تمرير 'random_state = None' يعادل تمرير مثيل 'RandomState' العالمي من 'numpy' ('random_state = np.random.mtrand._rand`)، فلن نذكر صراحةً 'None' هنا. كل ما ينطبق على الحالات ينطبق أيضًا على استخدام 'None'.
 
-Estimators
+أدوات التقدير
 ..........
 
-Passing instances means that calling `fit` multiple times will not yield the
-same results, even if the estimator is fitted on the same data and with the
-same hyper-parameters::
+يعني تمرير الحالات أن استدعاء 'fit' عدة مرات لن ينتج نفس النتائج، حتى إذا تم ضبط أداة التقدير على نفس البيانات وبنفس المعلمات فائقة الدقة::
 
     >>> from sklearn.linear_model import SGDClassifier
     >>> from sklearn.datasets import make_classification
@@ -300,29 +201,14 @@ same hyper-parameters::
     >>> sgd.fit(X, y).coef_
     array([[ 6.70814003,  5.25291366, -7.55212743,  5.18197458,  1.37845099]])
 
-We can see from the snippet above that repeatedly calling `sgd.fit` has
-produced different models, even if the data was the same. This is because the
-Random Number Generator (RNG) of the estimator is consumed (i.e. mutated)
-when `fit` is called, and this mutated RNG will be used in the subsequent
-calls to `fit`. In addition, the `rng` object is shared across all objects
-that use it, and as a consequence, these objects become somewhat
-inter-dependent. For example, two estimators that share the same
-`RandomState` instance will influence each other, as we will see later when
-we discuss cloning. This point is important to keep in mind when debugging.
+يمكننا أن نرى من المقتطف أعلاه أن الاستدعاءات المتكررة لـ 'sgd.fit' أنتجت نماذج مختلفة، حتى إذا كانت البيانات هي نفسها. ويرجع ذلك إلى أن مولد الأرقام العشوائية (RNG) لأداة التقدير يتم استهلاكه (أي تغييره) عند استدعاء 'fit'، وسيتم استخدام هذا RNG المتحول في الاستدعاءات اللاحقة لـ 'fit'. بالإضافة إلى ذلك، يتم مشاركة كائن 'rng' عبر جميع الكائنات التي تستخدمه، وكنتيجة لذلك، تصبح هذه الكائنات مترابطة إلى حد ما. على سبيل المثال، ستؤثر أداتان تقديريتان تشتركان في نفس مثيل 'RandomState' على بعضهما البعض، كما سنرى لاحقًا عند مناقشة الاستنساخ. هذه النقطة مهمة يجب مراعاتها عند تصحيح الأخطاء.
 
-If we had passed an integer to the `random_state` parameter of the
-:class:`~sklearn.linear_model.SGDClassifier`, we would have obtained the
-same models, and thus the same scores each time. When we pass an integer, the
-same RNG is used across all calls to `fit`. What internally happens is that
-even though the RNG is consumed when `fit` is called, it is always reset to
-its original state at the beginning of `fit`.
+إذا كنا قد مررنا عددًا صحيحًا إلى معلمة 'random_state' لأداة التقدير: class: ~ sklearn.linear_model.SGDClassifier، لكنا حصلنا على نفس النماذج، وبالتالي نفس الدرجات في كل مرة. عندما نمرر عددًا صحيحًا، يتم استخدام نفس RNG عبر جميع الاستدعاءات لـ 'fit'. ما يحدث داخليًا هو أنه على الرغم من استهلاك RNG عند استدعاء 'fit'، إلا أنه يتم إعادة تعيينه دائمًا إلى حالته الأصلية في بداية 'fit'.
 
 CV splitters
 ............
 
-Randomized CV splitters have a similar behavior when a `RandomState`
-instance is passed; calling `split` multiple times yields different data
-splits::
+لدى CV splitters العشوائية سلوك مماثل عند تمرير مثيل 'RandomState'؛ يؤدي استدعاء 'split' عدة مرات إلى تقسيمات بيانات مختلفة::
 
     >>> from sklearn.model_selection import KFold
     >>> import numpy as np
@@ -332,36 +218,28 @@ splits::
     >>> cv = KFold(n_splits=2, shuffle=True, random_state=rng)
 
     >>> for train, test in cv.split(X, y):
-    ...     print(train, test)
+    ... print(train, test)
     [0 3 5 6 7] [1 2 4 8 9]
     [1 2 4 8 9] [0 3 5 6 7]
 
     >>> for train, test in cv.split(X, y):
-    ...     print(train, test)
+    ... print(train, test)
     [0 4 6 7 8] [1 2 3 5 9]
     [1 2 3 5 9] [0 4 6 7 8]
 
-We can see that the splits are different from the second time `split` is
-called. This may lead to unexpected results if you compare the performance of
-multiple estimators by calling `split` many times, as we will see in the next
-section.
+يمكننا أن نرى أن التقسيمات مختلفة بدءًا من المرة الثانية التي يتم فيها استدعاء 'split'. قد يؤدي ذلك إلى نتائج غير متوقعة إذا كنت تقارن أداء أدوات تقدير متعددة عن طريق استدعاء 'split' عدة مرات، كما سنرى في القسم التالي.
 
-Common pitfalls and subtleties
+المزالق الدقيقة والتعقيدات
 ------------------------------
 
-While the rules that govern the `random_state` parameter are seemingly simple,
-they do however have some subtle implications. In some cases, this can even
-lead to wrong conclusions.
+على الرغم من أن القواعد التي تحكم معلمة 'random_state' تبدو بسيطة، إلا أن لها بعض الآثار الدقيقة. في بعض الحالات، قد يؤدي ذلك حتى إلى استنتاجات خاطئة.
 
-Estimators
+أدوات التقدير
 ..........
 
-**Different `random_state` types lead to different cross-validation
-procedures**
+**أنواع مختلفة من 'random_state' تؤدي إلى إجراءات تحقق من صحة التعابر المختلفة**
 
-Depending on the type of the `random_state` parameter, estimators will behave
-differently, especially in cross-validation procedures. Consider the
-following snippet::
+وفقًا لنوع معلمة 'random_state'، ستتصرف أدوات التقدير بشكل مختلف، خاصة في إجراءات التحقق من صحة التعابر. ضع في اعتبارك المقتطف التالي::
 
     >>> from sklearn.ensemble import RandomForestClassifier
     >>> from sklearn.datasets import make_classification
@@ -378,40 +256,19 @@ following snippet::
     >>> cross_val_score(rf_inst, X, y)
     array([0.9 , 0.95, 0.95, 0.9 , 0.9 ])
 
-We see that the cross-validated scores of `rf_123` and `rf_inst` are
-different, as should be expected since we didn't pass the same `random_state`
-parameter. However, the difference between these scores is more subtle than
-it looks, and **the cross-validation procedures that were performed by**
-:func:`~sklearn.model_selection.cross_val_score` **significantly differ in
-each case**:
+يمكننا أن نرى أن الدرجات المتحقق من صحتها عبر التعابر لـ 'rf_123' و'rf_inst' مختلفة، كما هو متوقع حيث لم نقم بتمرير نفس معلمة 'random_state'. ومع ذلك، فإن الاختلاف بين هذه الدرجات أكثر دقة مما يبدو، و**إجراءات التحقق من صحة التعابر التي تم تنفيذها بواسطة** :func: ~ sklearn.model_selection.cross_val_score **تختلف بشكل كبير في كل حالة**:
 
-- Since `rf_123` was passed an integer, every call to `fit` uses the same RNG:
-  this means that all random characteristics of the random forest estimator
-  will be the same for each of the 5 folds of the CV procedure. In
-  particular, the (randomly chosen) subset of features of the estimator will
-  be the same across all folds.
-- Since `rf_inst` was passed a `RandomState` instance, each call to `fit`
-  starts from a different RNG. As a result, the random subset of features
-  will be different for each folds.
+- نظرًا لأنه تم تمرير عدد صحيح إلى 'rf_123'، فإن كل استدعاء لـ 'fit' يستخدم نفس RNG: وهذا يعني أن جميع الخصائص العشوائية لأداة تقدير الغابة العشوائية ستكون هي نفسها لكل من طيات إجراء التحقق من صحة التعابر الخمسة. على وجه الخصوص، ستكون المجموعة الفرعية من الميزات (التي تم اختيارها بشكل عشوائي) لأداة التقدير هي نفسها عبر جميع الطيات.
+- نظرًا لأنه تم تمرير مثيل 'RandomState' إلى 'rf_inst'، فإن كل استدعاء لـ 'fit' يبدأ من RNG مختلف. ونتيجة لذلك، ستكون المجموعة الفرعية العشوائية من الميزات مختلفة لكل طية.
 
-While having a constant estimator RNG across folds isn't inherently wrong, we
-usually want CV results that are robust w.r.t. the estimator's randomness. As
-a result, passing an instance instead of an integer may be preferable, since
-it will allow the estimator RNG to vary for each fold.
+على الرغم من أن وجود RNG ثابت لأداة التقدير عبر الطيات ليس خطأ في حد ذاته، إلا أننا نريد عادةً نتائج التحقق من صحة التعابر التي تكون قوية فيما يتعلق بعشوائية أداة التقدير. ونتيجة لذلك، قد يكون تمرير مثيل بدلاً من عدد صحيح مفضلًا، حيث سيسمح ذلك بتغيير RNG لأداة التقدير لكل طية.
 
-.. note::
-    Here, :func:`~sklearn.model_selection.cross_val_score` will use a
-    non-randomized CV splitter (as is the default), so both estimators will
-    be evaluated on the same splits. This section is not about variability in
-    the splits. Also, whether we pass an integer or an instance to
-    :func:`~sklearn.datasets.make_classification` isn't relevant for our
-    illustration purpose: what matters is what we pass to the
-    :class:`~sklearn.ensemble.RandomForestClassifier` estimator.
+.. ملاحظة::
+    هنا، سيستخدم: func: ~ sklearn.model_selection.cross_val_score أداة تقسيم التحقق من صحة التعابر غير العشوائية (كما هو الافتراضي)، لذا سيتم تقييم كلا الأداة على نفس التقسيمات. لا يتعلق هذا القسم بالتنوع في التقسيمات. أيضًا، سواء قمنا بتمرير عدد صحيح أو مثيل إلى: func: ~ sklearn.datasets.make_classification ليس ذي صلة بغرض التوضيح: ما يهم هو ما نمرره إلى أداة تقدير RandomForestClassifier.
 
-.. dropdown:: Cloning
+.. dropdown:: الاستنساخ
 
-    Another subtle side effect of passing `RandomState` instances is how
-    :func:`~sklearn.base.clone` will work::
+    التأثير الجانبي الدقيق الآخر لتمرير حالات 'RandomState' هو كيفية عمل: func: ~ sklearn.base.clone::
 
         >>> from sklearn import clone
         >>> from sklearn.ensemble import RandomForestClassifier
@@ -421,35 +278,18 @@ it will allow the estimator RNG to vary for each fold.
         >>> a = RandomForestClassifier(random_state=rng)
         >>> b = clone(a)
 
-    Since a `RandomState` instance was passed to `a`, `a` and `b` are not clones
-    in the strict sense, but rather clones in the statistical sense: `a` and `b`
-    will still be different models, even when calling `fit(X, y)` on the same
-    data. Moreover, `a` and `b` will influence each-other since they share the
-    same internal RNG: calling `a.fit` will consume `b`'s RNG, and calling
-    `b.fit` will consume `a`'s RNG, since they are the same. This bit is true for
-    any estimators that share a `random_state` parameter; it is not specific to
-    clones.
+    نظرًا لأنه تم تمرير مثيل 'RandomState' إلى 'a'، فإن 'a' و'b' ليسا استنساخًا بالمعنى الدقيق للكلمة، ولكنهما استنساخًا بالمعنى الإحصائي: ستظل 'a' و'b' نموذجين مختلفين، حتى عند استدعاء 'fit (X، y)' على نفس البيانات. علاوة على ذلك، ستؤثر 'a' و'b' على بعضهما البعض لأنهما يتشاركان نفس RNG الداخلي: سيستهلك استدعاء 'a.fit' RNG لـ 'b'، وسيستهلك استدعاء 'b.fit' RNG لـ 'a'، لأنهما نفس الشيء. هذه النقطة صحيحة لأي أدوات تقدير تشترك في معلمة 'random_state'؛ إنه ليس خاصًا بالاستنساخ.
 
-    If an integer were passed, `a` and `b` would be exact clones and they would not
-    influence each other.
+    إذا تم تمرير عدد صحيح، فإن 'a' و'b' سيكونان استنساخًا دقيقًا ولن يؤثرا على بعضهما البعض.
 
-    .. warning::
-        Even though :func:`~sklearn.base.clone` is rarely used in user code, it is
-        called pervasively throughout scikit-learn codebase: in particular, most
-        meta-estimators that accept non-fitted estimators call
-        :func:`~sklearn.base.clone` internally
-        (:class:`~sklearn.model_selection.GridSearchCV`,
-        :class:`~sklearn.ensemble.StackingClassifier`,
-        :class:`~sklearn.calibration.CalibratedClassifierCV`, etc.).
+    .. تحذير::
+        على الرغم من أن: func: ~ sklearn.base.clone نادرًا ما يتم استخدامه في شفرة المستخدم، إلا أنه يتم استدعاؤه بشكل مكثف في جميع أنحاء قاعدة التعليمات البرمجية لـ scikit-learn: على وجه الخصوص، تقوم معظم أدوات التقدير الفوقية التي تقبل أدوات التقدير غير المنضبطة باستدعاء: func: ~ sklearn.base.clone داخليًا (: class: ~ sklearn.model_selection.GridSearchCV،: class: ~ sklearn.ensemble.StackingClassifier،: class: ~ sklearn.calibration.CalibratedClassifierCV، إلخ).
 
 
 CV splitters
 ............
 
-When passed a `RandomState` instance, CV splitters yield different splits
-each time `split` is called. When comparing different estimators, this can
-lead to overestimating the variance of the difference in performance between
-the estimators::
+عند تمرير مثيل 'RandomState'، ينتج CV splitters تقسيمات مختلفة في كل مرة يتم فيها استدعاء 'split'. عند مقارنة أدوات التقدير المختلفة، يمكن أن يؤدي ذلك إلى المبالغة في تقدير تباين الفرق في الأداء بين أدوات التقدير::
 
     >>> from sklearn.naive_bayes import GaussianNB
     >>> from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
@@ -465,55 +305,26 @@ the estimators::
     >>> nb = GaussianNB()
 
     >>> for est in (lda, nb):
-    ...     print(cross_val_score(est, X, y, cv=cv))
-    [0.8  0.75 0.75 0.7  0.85]
+    ... print(cross_val_score(est, X, y, cv=cv))
+    [0.8 0.75 0.75 0.7 0.85]
     [0.85 0.95 0.95 0.85 0.95]
 
 
-Directly comparing the performance of the
-:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` estimator
-vs the :class:`~sklearn.naive_bayes.GaussianNB` estimator **on each fold** would
-be a mistake: **the splits on which the estimators are evaluated are
-different**. Indeed, :func:`~sklearn.model_selection.cross_val_score` will
-internally call `cv.split` on the same
-:class:`~sklearn.model_selection.KFold` instance, but the splits will be
-different each time. This is also true for any tool that performs model
-selection via cross-validation, e.g.
-:class:`~sklearn.model_selection.GridSearchCV` and
-:class:`~sklearn.model_selection.RandomizedSearchCV`: scores are not
-comparable fold-to-fold across different calls to `search.fit`, since
-`cv.split` would have been called multiple times. Within a single call to
-`search.fit`, however, fold-to-fold comparison is possible since the search
-estimator only calls `cv.split` once.
+سيكون من الخطأ مقارنة أداء أداة تقدير: class: ~ sklearn.discriminant_analysis.LinearDiscriminantAnalysis مباشرةً مقابل أداة تقدير: class: ~ sklearn.naive_bayes.GaussianNB **على كل طية**؛ **التقسيمات التي يتم تقييم أدوات التقدير عليها مختلفة**. في الواقع، سيقوم: func: ~ sklearn.model_selection.cross_val_score داخليًا باستدعاء 'cv.split' على نفس مثيل: class: ~ sklearn.model_selection.KFold، ولكن ستكون التقسيمات مختلفة في كل مرة. ينطبق هذا أيضًا على أي أداة تقوم باختيار النماذج عبر التحقق من صحة التعابر، مثل: class: ~ sklearn.model_selection.GridSearchCV و: class: ~ sklearn.model_selection.RandomizedSearchCV: لا يمكن مقارنة الدرجات عبر الطيات المختلفة عبر استدعاءات 'search.fit' المختلفة، نظرًا لأنه سيتم استدعاء 'cv.split' عدة مرات. ومع ذلك، ضمن استدعاء 'search.fit' واحد، تكون المقارنة عبر الطيات ممكنة نظرًا لأن أداة البحث تستدعي 'cv.split' مرة واحدة فقط.
 
-For comparable fold-to-fold results in all scenarios, one should pass an
-integer to the CV splitter: `cv = KFold(shuffle=True, random_state=0)`.
+للحصول على نتائج قابلة للمقارنة عبر الطيات في جميع السيناريوهات، يجب تمرير عدد صحيح إلى أداة تقسيم التحقق من صحة التعابر: 'cv = KFold(shuffle=True، random_state=0)'.
 
-.. note::
-    While fold-to-fold comparison is not advisable with `RandomState`
-    instances, one can however expect that average scores allow to conclude
-    whether one estimator is better than another, as long as enough folds and
-    data are used.
+.. ملاحظة::
+    على الرغم من أن المقارنة عبر الطيات غير مستحسنة مع حالات 'RandomState'، إلا أنه يمكن للمرء أن يتوقع أن تسمح الدرجات المتوسطة باستنتاج ما إذا كانت إحدى أدوات التقدير أفضل من الأخرى، طالما تم استخدام عدد كافٍ من الطيات والبيانات.
 
-.. note::
-    What matters in this example is what was passed to
-    :class:`~sklearn.model_selection.KFold`. Whether we pass a `RandomState`
-    instance or an integer to :func:`~sklearn.datasets.make_classification`
-    is not relevant for our illustration purpose. Also, neither
-    :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` nor
-    :class:`~sklearn.naive_bayes.GaussianNB` are randomized estimators.
+.. ملاحظة::
+    ما يهم في هذا المثال هو ما تم تمريره إلى: class: ~ sklearn.model_selection.KFold. سواء قمنا بتمرير مثيل 'RandomState' أو عدد صحيح إلى: func: ~ sklearn.datasets.make_classification ليس ذي صلة بغرض التوضيح. أيضًا، لا تعد أداة تقدير: class: ~ sklearn.discriminant_analysis.LinearDiscriminantAnalysis ولا أداة تقدير: class: ~ sklearn.naive_bayes.GaussianNB أدوات تقدير عشوائية.
 
-General recommendations
------------------------
+التوصيات العامة
+الحصول على نتائج قابلة للتكرار عبر عمليات التنفيذ المتعددة
+.................................................................
 
-Getting reproducible results across multiple executions
-.......................................................
-
-In order to obtain reproducible (i.e. constant) results across multiple
-*program executions*, we need to remove all uses of `random_state=None`, which
-is the default. The recommended way is to declare a `rng` variable at the top
-of the program, and pass it down to any object that accepts a `random_state`
-parameter::
+من أجل الحصول على نتائج قابلة للتكرار (أي ثابتة) عبر عمليات تنفيذ البرنامج المتعددة، يجب علينا إزالة جميع الاستخدامات لـ `` random_state=None ``، والتي هي القيمة الافتراضية. الطريقة الموصى بها هي إعلان متغير `` rng `` في أعلى البرنامج، وتمريره إلى أي كائن يقبل معلمة `` random_state ``::
 
     >>> from sklearn.ensemble import RandomForestClassifier
     >>> from sklearn.datasets import make_classification
@@ -528,47 +339,20 @@ parameter::
     >>> rf.fit(X_train, y_train).score(X_test, y_test)
     0.84
 
-We are now guaranteed that the result of this script will always be 0.84, no
-matter how many times we run it. Changing the global `rng` variable to a
-different value should affect the results, as expected.
+الآن، نضمن أن نتيجة هذا البرنامج النصي ستكون دائمًا 0.84، بغض النظر عن عدد المرات التي نقوم بتشغيلها فيها. تغيير متغير `` rng `` العالمي إلى قيمة مختلفة يجب أن يؤثر على النتائج، كما هو متوقع.
 
-It is also possible to declare the `rng` variable as an integer. This may
-however lead to less robust cross-validation results, as we will see in the
-next section.
+من الممكن أيضًا إعلان متغير `` rng `` كعدد صحيح. ومع ذلك، فقد يؤدي ذلك إلى نتائج أقل متانة للتحقق من صحة التعبر، كما سنرى في القسم التالي.
 
 .. note::
-    We do not recommend setting the global `numpy` seed by calling
-    `np.random.seed(0)`. See `here
-    <https://stackoverflow.com/questions/5836335/consistently-create-same-random-numpy-array/5837352#comment6712034_5837352>`_
-    for a discussion.
+    لا نوصي بتعيين البذرة العالمية لـ NumPy عن طريق استدعاء `` np.random.seed(0) ``. راجع `هنا <https://stackoverflow.com/questions/5836335/consistently-create-same-random-numpy-array/5837352#comment6712034_5837352>`_ للمناقشة.
 
-Robustness of cross-validation results
-......................................
+متانة نتائج التحقق من صحة التعبر
+.........................................
 
-When we evaluate a randomized estimator performance by cross-validation, we
-want to make sure that the estimator can yield accurate predictions for new
-data, but we also want to make sure that the estimator is robust w.r.t. its
-random initialization. For example, we would like the random weights
-initialization of a :class:`~sklearn.linear_model.SGDClassifier` to be
-consistently good across all folds: otherwise, when we train that estimator
-on new data, we might get unlucky and the random initialization may lead to
-bad performance. Similarly, we want a random forest to be robust w.r.t the
-set of randomly selected features that each tree will be using.
+عندما نقيم أداء مقدر عشوائي من خلال التحقق من صحة التعبر، نريد التأكد من أن المقدر يمكنه تقديم تنبؤات دقيقة لبيانات جديدة، ولكننا نريد أيضًا التأكد من أن المقدر متين فيما يتعلق بالتهيئة العشوائية. على سبيل المثال، نود أن تكون تهيئة الأوزان العشوائية لـ :class: `~ sklearn.linear_model.SGDClassifier` جيدة باستمرار عبر جميع الطيات: وإلا، فعند تدريب هذا المقدر على بيانات جديدة، قد لا نكون محظوظين وقد تؤدي التهيئة العشوائية إلى أداء سيئ. وبالمثل، نريد أن تكون الغابة العشوائية متينة فيما يتعلق بمجموعة الميزات التي يتم اختيارها بشكل عشوائي والتي سيستخدمها كل شجرة.
 
-For these reasons, it is preferable to evaluate the cross-validation
-performance by letting the estimator use a different RNG on each fold. This
-is done by passing a `RandomState` instance (or `None`) to the estimator
-initialization.
+لهذه الأسباب، من الأفضل تقييم أداء التحقق من صحة التعبر عن طريق السماح للمقدر باستخدام RNG مختلف في كل طية. يتم ذلك عن طريق تمرير مثيل `` RandomState `` (أو `` None ``) إلى تهيئة المقدر.
 
-When we pass an integer, the estimator will use the same RNG on each fold:
-if the estimator performs well (or bad), as evaluated by CV, it might just be
-because we got lucky (or unlucky) with that specific seed. Passing instances
-leads to more robust CV results, and makes the comparison between various
-algorithms fairer. It also helps limiting the temptation to treat the
-estimator's RNG as a hyper-parameter that can be tuned.
+عندما نمرر عددًا صحيحًا، سيستخدم المقدر نفس RNG في كل طية: إذا كان أداء المقدر جيدًا (أو سيئًا)، كما تم تقييمه بواسطة CV، فقد يكون ذلك ببساطة لأننا كنا محظوظين (أو غير محظوظين) مع تلك البذرة المحددة. يؤدي تمرير المثيلات إلى نتائج CV أكثر متانة، ويجعل المقارنة بين الخوارزميات المختلفة أكثر عدلاً. كما يساعد في الحد من الرغبة في معاملة RNG المقدر كمعلمة يمكن ضبطها.
 
-Whether we pass `RandomState` instances or integers to CV splitters has no
-impact on robustness, as long as `split` is only called once. When `split`
-is called multiple times, fold-to-fold comparison isn't possible anymore. As
-a result, passing integer to CV splitters is usually safer and covers most
-use-cases.
+سواء قمنا بتمرير مثيلات `` RandomState `` أو أعداد صحيحة إلى برامج تقسيم CV، لا يؤثر على المتانة، طالما تم استدعاء `` split `` مرة واحدة فقط. عندما يتم استدعاء `` split `` عدة مرات، لم يعد من الممكن إجراء مقارنات بين الطيات. نتيجة لذلك، فإن تمرير الأعداد الصحيحة إلى برامج تقسيم CV أكثر أمانًا عادةً ويغطي معظم حالات الاستخدام.
