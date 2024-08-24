@@ -1,151 +1,80 @@
-.. _semi_supervised:
-
-===================================================
-Semi-supervised learning
+التعلم شبه المُشرف
 ===================================================
 
-.. currentmodule:: sklearn.semi_supervised
+التعلم شبه المُشرف هو حالة تحتوي فيها بيانات التدريب الخاصة بك على بعض العينات غير المُوسومة. ويمكن لمقدّري التعلم شبه المُشرف في sklearn.semi_supervised الاستفادة من هذه البيانات غير المُوسومة الإضافية لالتقاط شكل توزيع البيانات الأساسي بشكل أفضل والتعميم بشكل أفضل على العينات الجديدة. يمكن أن تؤدي هذه الخوارزميات أداءً جيدًا عندما يكون لدينا عدد قليل جدًا من النقاط المُوسومة وكمية كبيرة من النقاط غير المُوسومة.
 
-`Semi-supervised learning
-<https://en.wikipedia.org/wiki/Semi-supervised_learning>`_ is a situation
-in which in your training data some of the samples are not labeled. The
-semi-supervised estimators in :mod:`sklearn.semi_supervised` are able to
-make use of this additional unlabeled data to better capture the shape of
-the underlying data distribution and generalize better to new samples.
-These algorithms can perform well when we have a very small amount of
-labeled points and a large amount of unlabeled points.
+الموضوع:: إدخالات غير مُوسومة في "y"
 
-.. topic:: Unlabeled entries in `y`
+من المهم تعيين مُعرف إلى النقاط غير المُوسومة جنبًا إلى جنب مع البيانات المُوسومة عند تدريب النموذج باستخدام طريقة "التناسب". المُعرف الذي يستخدمه هذا التنفيذ هو القيمة الصحيحة: -1. لاحظ أنه بالنسبة لعلامات السلاسل، يجب أن يكون نوع بيانات "y" كائنًا حتى يتمكن من احتواء كل من السلاسل والعدد الصحيح.
 
-   It is important to assign an identifier to unlabeled points along with the
-   labeled data when training the model with the ``fit`` method. The
-   identifier that this implementation uses is the integer value :math:`-1`.
-   Note that for string labels, the dtype of `y` should be object so that it
-   can contain both strings and integers.
+ملاحظة::
 
-.. note::
+تحتاج خوارزميات التعلم شبه المُشرف إلى وضع افتراضات حول توزيع مجموعة البيانات لتحقيق مكاسب في الأداء. راجع هنا لمزيد من التفاصيل.
 
-   Semi-supervised algorithms need to make assumptions about the distribution
-   of the dataset in order to achieve performance gains. See `here
-   <https://en.wikipedia.org/wiki/Semi-supervised_learning#Assumptions>`_
-   for more details.
-
-.. _self_training:
-
-Self Training
+التدريب الذاتي
 =============
 
-This self-training implementation is based on Yarowsky's [1]_ algorithm. Using
-this algorithm, a given supervised classifier can function as a semi-supervised
-classifier, allowing it to learn from unlabeled data.
+يستند هذا التنفيذ للتدريب الذاتي على خوارزمية Yarowsky [1]. باستخدام هذه الخوارزمية، يمكن لمصنف مُشرف العمل كمصنف شبه مُشرف، مما يتيح له التعلم من البيانات غير المُوسومة.
 
-:class:`SelfTrainingClassifier` can be called with any classifier that
-implements `predict_proba`, passed as the parameter `base_classifier`. In
-each iteration, the `base_classifier` predicts labels for the unlabeled
-samples and adds a subset of these labels to the labeled dataset.
+يمكن استدعاء SelfTrainingClassifier بأي مصنف ينفذ وظيفة "predict_proba"، والتي يتم تمريرها كمعلمة "base_classifier". في كل تكرار، يتنبأ "base_classifier" بعلامات للعينات غير المُوسومة ويضيف مجموعة فرعية من هذه العلامات إلى مجموعة البيانات المُوسومة.
 
-The choice of this subset is determined by the selection criterion. This
-selection can be done using a `threshold` on the prediction probabilities, or
-by choosing the `k_best` samples according to the prediction probabilities.
+يتم تحديد اختيار هذه المجموعة الفرعية بواسطة معيار الاختيار. يمكن إجراء هذا الاختيار باستخدام "عتبة" على احتمالات التنبؤ، أو عن طريق اختيار "k_best" للعينات وفقًا لاحتمالات التنبؤ.
 
-The labels used for the final fit as well as the iteration in which each sample
-was labeled are available as attributes. The optional `max_iter` parameter
-specifies how many times the loop is executed at most.
+تتوفر العلامات المستخدمة للتناسب النهائي وكذلك التكرار الذي تم فيه وضع علامة على كل عينة كسمات. تحدد معلمة "max_iter" الاختيارية عدد مرات تنفيذ الحلقة كحد أقصى.
 
-The `max_iter` parameter may be set to `None`, causing the algorithm to iterate
-until all samples have labels or no new samples are selected in that iteration.
+يمكن تعيين معلمة "max_iter" على "None"، مما يتسبب في تكرار الخوارزمية حتى يتم وضع علامات على جميع العينات أو عدم تحديد عينات جديدة في تلك الحلقة.
 
-.. note::
+ملاحظة::
 
-   When using the self-training classifier, the
-   :ref:`calibration <calibration>` of the classifier is important.
+عند استخدام مصنف التدريب الذاتي، تكون معايرة المصنف مهمة.
 
-.. rubric:: Examples
+الأمثلة
+--------
 
-* :ref:`sphx_glr_auto_examples_semi_supervised_plot_self_training_varying_threshold.py`
-* :ref:`sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_versus_svm_iris.py`
+* sphx_glr_auto_examples_semi_supervised_plot_self_training_varying_threshold.py
+* sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_versus_svm_iris.py
 
-.. rubric:: References
+المراجع
+----------
 
-.. [1] :doi:`"Unsupervised word sense disambiguation rivaling supervised methods"
-    <10.3115/981658.981684>`
-    David Yarowsky, Proceedings of the 33rd annual meeting on Association for
-    Computational Linguistics (ACL '95). Association for Computational Linguistics,
-    Stroudsburg, PA, USA, 189-196.
+.. [1] "استنباط المعنى غير المُشرف للكلمة ينافس الأساليب المُشرفة" ديفيد ياروفسكي، وقائع الاجتماع السنوي الثالث والثلاثين حول رابطة اللغويات الحاسوبية (ACL '95). رابطة اللغويات الحاسوبية، سترودسبورغ، بنسلفانيا، الولايات المتحدة الأمريكية، 189-196.
 
-.. _label_propagation:
-
-Label Propagation
+انتشار العلامات
 =================
 
-Label propagation denotes a few variations of semi-supervised graph
-inference algorithms.
+يشير انتشار العلامات إلى بعض التباينات في خوارزميات الاستدلال البياني شبه المُشرف.
 
-A few features available in this model:
-  * Used for classification tasks
-  * Kernel methods to project data into alternate dimensional spaces
+بعض الميزات المتوفرة في هذا النموذج:
 
-`scikit-learn` provides two label propagation models:
-:class:`LabelPropagation` and :class:`LabelSpreading`. Both work by
-constructing a similarity graph over all items in the input dataset.
+* تستخدم لمهام التصنيف
+* أساليب النواة لإسقاط البيانات في مساحات الأبعاد البديلة
 
-.. figure:: ../auto_examples/semi_supervised/images/sphx_glr_plot_label_propagation_structure_001.png
-    :target: ../auto_examples/semi_supervised/plot_label_propagation_structure.html
-    :align: center
-    :scale: 60%
+يوفر سكيت-ليرن نموذجين لانتشار العلامات: LabelPropagation وLabelSpreading. يعمل كلاهما من خلال بناء رسم بياني للتشابه عبر جميع العناصر في مجموعة البيانات المدخلة.
 
-    **An illustration of label-propagation:** *the structure of unlabeled
-    observations is consistent with the class structure, and thus the
-    class label can be propagated to the unlabeled observations of the
-    training set.*
+**توضيح لانتشار العلامات:** *يتسق هيكل الملاحظات غير المُوسومة مع بنية الفئة، وبالتالي يمكن نشر فئة العلامة إلى الملاحظات غير المُوسومة في مجموعة التدريب.*
 
-:class:`LabelPropagation` and :class:`LabelSpreading`
-differ in modifications to the similarity matrix that graph and the
-clamping effect on the label distributions.
-Clamping allows the algorithm to change the weight of the true ground labeled
-data to some degree. The :class:`LabelPropagation` algorithm performs hard
-clamping of input labels, which means :math:`\alpha=0`. This clamping factor
-can be relaxed, to say :math:`\alpha=0.2`, which means that we will always
-retain 80 percent of our original label distribution, but the algorithm gets to
-change its confidence of the distribution within 20 percent.
+يختلف كل من LabelPropagation وLabelSpreading في التعديلات على مصفوفة التشابه التي يرسمها تأثير التثبيت على توزيعات العلامات. يسمح التثبيت للخوارزمية بتغيير وزن البيانات المُوسومة الحقيقية إلى حد ما. تقوم خوارزمية LabelPropagation بالتثبيت الصلب لعلامات الإدخال، مما يعني أن ألفا = 0. يمكن استرخاء عامل التثبيت هذا، لنقول ألفا = 0.2، مما يعني أننا سنحتفظ دائمًا بنسبة 80% من توزيع العلامات الأصلي لدينا، ولكن يمكن للخوارزمية تغيير ثقتها بالتوزيع ضمن 20%.
 
-:class:`LabelPropagation` uses the raw similarity matrix constructed from
-the data with no modifications. In contrast, :class:`LabelSpreading`
-minimizes a loss function that has regularization properties, as such it
-is often more robust to noise. The algorithm iterates on a modified
-version of the original graph and normalizes the edge weights by
-computing the normalized graph Laplacian matrix. This procedure is also
-used in :ref:`spectral_clustering`.
+يستخدم LabelPropagation مصفوفة التشابه الخام المُنشأة من البيانات دون أي تعديلات. على العكس من ذلك، يقلل LabelSpreading من دالة خسارة لها خصائص التنظيم، وبالتالي فهو غالبًا ما يكون أكثر مقاومة للضوضاء. تكرر الخوارزمية على نسخة معدلة من الرسم البياني الأصلي وتطبّع أوزان الحواف عن طريق حساب مصفوفة لابلاسيان الرسم البياني المعياري. يتم استخدام هذا الإجراء أيضًا في: spectral_clustering.
 
-Label propagation models have two built-in kernel methods. Choice of kernel
-effects both scalability and performance of the algorithms. The following are
-available:
+تشتمل نماذج انتشار العلامة على أسلوبين مدمجين للنواة. يؤثر اختيار النواة على كل من قابلية توسع الخوارزميات وأدائها. فيما يلي ما هو متاح:
 
-* rbf (:math:`\exp(-\gamma |x-y|^2), \gamma > 0`). :math:`\gamma` is
-  specified by keyword gamma.
+* RBF (e^(-gamma |x-y|^2), gamma > 0). يتم تحديد جاما بواسطة الكلمة الرئيسية جاما.
+* KNN (1 [x' in kNN(x)]). يتم تحديد "k" بواسطة الكلمة الرئيسية n_neighbors.
 
-* knn (:math:`1[x' \in kNN(x)]`). :math:`k` is specified by keyword
-  n_neighbors.
+ستنتج نواة RBF رسمًا بيانيًا متصلاً بالكامل يتم تمثيله في الذاكرة بواسطة مصفوفة كثيفة. قد تكون هذه المصفوفة كبيرة جدًا، وبالاقتران مع تكلفة إجراء عملية ضرب المصفوفة الكاملة لكل تكرار من الخوارزمية، يمكن أن يؤدي ذلك إلى أوقات تشغيل طويلة بشكل محظور. من ناحية أخرى، ستنتج نواة KNN مصفوفة متفرقة أكثر ملاءمة للذاكرة، والتي يمكن أن تقلل بشكل كبير من أوقات التشغيل.
 
-The RBF kernel will produce a fully connected graph which is represented in memory
-by a dense matrix. This matrix may be very large and combined with the cost of
-performing a full matrix multiplication calculation for each iteration of the
-algorithm can lead to prohibitively long running times. On the other hand,
-the KNN kernel will produce a much more memory-friendly sparse matrix
-which can drastically reduce running times.
+الأمثلة
+--------
 
-.. rubric:: Examples
+* sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_versus_svm_iris.py
+* sphx_glr_auto_examples_semi_supervised_plot_label_propagation_structure.py
+* sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits.py
+* sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits_active_learning.py
 
-* :ref:`sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_versus_svm_iris.py`
-* :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_structure.py`
-* :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits.py`
-* :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits_active_learning.py`
+المراجع
+----------
 
-.. rubric:: References
+[2] يوشوا بنجيو، أوليفييه ديلاليو، نيكولاس لو روكس. في التعلم شبه المُشرف (2006)، ص. 193-216
 
-[2] Yoshua Bengio, Olivier Delalleau, Nicolas Le Roux. In Semi-Supervised
-Learning (2006), pp. 193-216
-
-[3] Olivier Delalleau, Yoshua Bengio, Nicolas Le Roux. Efficient
-Non-Parametric Function Induction in Semi-Supervised Learning. AISTAT 2005
-https://www.gatsby.ucl.ac.uk/aistats/fullpapers/204.pdf
+[3] أوليفييه ديلاليو، يوشوا بنجيو، نيكولاس لو روكس. استقراء الدالة غير المُعلمة الفعالة في التعلم شبه المُشرف. AISTAT 2005 https://www.gatsby.ucl.ac.uk/aistats/fullpapers/204.pdf
