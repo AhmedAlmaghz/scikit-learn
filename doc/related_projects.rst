@@ -1,401 +1,228 @@
-.. _related_projects:
+:ref: المشاريع ذات الصلة
+تشجع المشاريع التي تنفذ واجهة برمجة تطبيقات Scikit-learn على استخدام قالب Scikit-learn-contrib، والذي يسهل اتباع أفضل الممارسات في اختبار وتوثيق التقديرات. كما تقبل منظمة Scikit-learn-contrib على GitHub المساهمات عالية الجودة للمستودعات المتوافقة مع هذا القالب.
 
-=====================================
-Related Projects
-=====================================
+فيما يلي قائمة بالمشاريع الشقيقة، والتمديدات، والحزم الخاصة بمجالات محددة:
 
-Projects implementing the scikit-learn estimator API are encouraged to use
-the `scikit-learn-contrib template <https://github.com/scikit-learn-contrib/project-template>`_
-which facilitates best practices for testing and documenting estimators.
-The `scikit-learn-contrib GitHub organization <https://github.com/scikit-learn-contrib/scikit-learn-contrib>`_
-also accepts high-quality contributions of repositories conforming to this
-template.
-
-Below is a list of sister-projects, extensions and domain specific packages.
-
-Interoperability and framework enhancements
+التعاون مع الأطر الأخرى وتحسينها
 -------------------------------------------
 
-These tools adapt scikit-learn for use with other technologies or otherwise
-enhance the functionality of scikit-learn's estimators.
+تتكيف هذه الأدوات مع Scikit-learn لاستخدامها مع التقنيات الأخرى، أو تعزز وظائف تقديرات Scikit-learn بطريقة أخرى.
 
-**Data formats**
+**تنسيقات البيانات**
 
-- `sklearn_pandas <https://github.com/paulgb/sklearn-pandas/>`_ bridge for
-  scikit-learn pipelines and pandas data frame with dedicated transformers.
+- sklearn_pandas: جسر لأنابيب Scikit-learn وأطر بيانات Pandas مع محولات مخصصة.
 
-- `sklearn_xarray <https://github.com/phausamann/sklearn-xarray/>`_ provides
-  compatibility of scikit-learn estimators with xarray data structures.
+- sklearn_xarray: يوفر التوافق بين تقديرات Scikit-learn وهياكل بيانات Xarray.
 
-**Auto-ML**
+**التعلم الآلي التلقائي**
 
-- `auto-sklearn <https://github.com/automl/auto-sklearn/>`_
-  An automated machine learning toolkit and a drop-in replacement for a
-  scikit-learn estimator
+- auto-sklearn: مجموعة أدوات للتعلم الآلي التلقائي، ويمكن استخدامها كبديل لتقدير Scikit-learn.
 
-- `autoviml <https://github.com/AutoViML/Auto_ViML/>`_
-  Automatically Build Multiple Machine Learning Models with a Single Line of Code.
-  Designed as a faster way to use scikit-learn models without having to preprocess data.
+- autoviml: أداة لبناء عدة نماذج للتعلم الآلي تلقائيًا باستخدام سطر واحد من الكود. تم تصميمها كطريقة أسرع لاستخدام نماذج Scikit-learn دون الحاجة إلى معالجة البيانات مسبقًا.
 
-- `TPOT <https://github.com/rhiever/tpot>`_
-  An automated machine learning toolkit that optimizes a series of scikit-learn
-  operators to design a machine learning pipeline, including data and feature
-  preprocessors as well as the estimators. Works as a drop-in replacement for a
-  scikit-learn estimator.
+- TPOT: مجموعة أدوات للتعلم الآلي التلقائي تقوم بتحسين سلسلة من مشغلات Scikit-learn لتصميم خط أنابيب للتعلم الآلي، بما في ذلك معالجات مسبقة للبيانات والميزات بالإضافة إلى التقديرات. ويمكن استخدامه كبديل لتقدير Scikit-learn.
 
-- `Featuretools <https://github.com/alteryx/featuretools>`_
-  A framework to perform automated feature engineering. It can be used for
-  transforming temporal and relational datasets into feature matrices for
-  machine learning.
+- Featuretools: إطار عمل لأداء الهندسة التلقائية للميزات. يمكن استخدامه لتحويل مجموعات البيانات الزمنية والعلائقية إلى مصفوفات ميزات للتعلم الآلي.
 
-- `Neuraxle <https://github.com/Neuraxio/Neuraxle>`_
-  A library for building neat pipelines, providing the right abstractions to
-  both ease research, development, and deployment of machine learning
-  applications. Compatible with deep learning frameworks and scikit-learn API,
-  it can stream minibatches, use data checkpoints, build funky pipelines, and
-  serialize models with custom per-step savers.
+- Neuraxle: مكتبة لبناء خطوط أنابيب منظمة، توفر التجريدات الصحيحة لتسهيل البحث والتطوير ونشر تطبيقات التعلم الآلي. وهي متوافقة مع أطر عمل التعلم العميق وواجهة برمجة تطبيقات Scikit-learn، ويمكنها بث الدفعات المصغرة واستخدام نقاط التفتيش للبيانات وبناء خطوط أنابيب متطورة، وتسلسل النماذج باستخدام برامج حفظ مخصصة لكل خطوة.
 
-- `EvalML <https://github.com/alteryx/evalml>`_
-  EvalML is an AutoML library which builds, optimizes, and evaluates
-  machine learning pipelines using domain-specific objective functions.
-  It incorporates multiple modeling libraries under one API, and
-  the objects that EvalML creates use an sklearn-compatible API.
+- EvalML: مكتبة للتعلم الآلي التلقائي تقوم ببناء وتحسين وتقييم خطوط أنابيب التعلم الآلي باستخدام دالات الهدف الخاصة بالمجال. تدمج عدة مكتبات نمذجة تحت واجهة برمجة تطبيقات واحدة، وتستخدم الأشياء التي تنشئها EvalML واجهة برمجة تطبيقات متوافقة مع Scikit-learn.
 
-**Experimentation and model registry frameworks**
+**أطر عمل التجارب وتسجيل النماذج**
 
-- `MLFlow <https://mlflow.org/>`_ MLflow is an open source platform to manage the ML
-  lifecycle, including experimentation, reproducibility, deployment, and a central
-  model registry.
+- MLFlow: منصة مفتوحة المصدر لإدارة دورة حياة التعلم الآلي، بما في ذلك التجارب وإمكانية التكرار والنشر، بالإضافة إلى سجل مركزي للنماذج.
 
-- `Neptune <https://neptune.ai/>`_ Metadata store for MLOps,
-  built for teams that run a lot of experiments. It gives you a single
-  place to log, store, display, organize, compare, and query all your
-  model building metadata.
+- Neptune: مخزن بيانات لممارسات MLOps، تم بناؤه للفرق التي تجري العديد من التجارب. يوفر مكانًا واحدًا لتسجيل وتخزين وعرض وتنظيم ومقارنة واستعلام جميع بيانات إنشاء النماذج الخاصة بك.
 
-- `Sacred <https://github.com/IDSIA/Sacred>`_ Tool to help you configure,
-  organize, log and reproduce experiments
+- Sacred: أداة لمساعدتك في تكوين التجارب وتنظيمها وتسجيلها وتكرارها.
 
-- `Scikit-Learn Laboratory
-  <https://skll.readthedocs.io/en/latest/index.html>`_  A command-line
-  wrapper around scikit-learn that makes it easy to run machine learning
-  experiments with multiple learners and large feature sets.
+- Scikit-Learn Laboratory: غلاف سطر الأوامر حول Scikit-learn، مما يسهل تشغيل تجارب التعلم الآلي باستخدام عدة متعلمين ومجموعات ميزات كبيرة.
 
-**Model inspection and visualization**
+**فحص النماذج والتصور**
 
-- `dtreeviz <https://github.com/parrt/dtreeviz/>`_ A python library for
-  decision tree visualization and model interpretation.
+- dtreeviz: مكتبة Python لتصور شجرة القرار وتفسير النموذج.
 
-- `eli5 <https://github.com/TeamHG-Memex/eli5/>`_ A library for
-  debugging/inspecting machine learning models and explaining their
-  predictions.
+- eli5: مكتبة لتصحيح/فحص نماذج التعلم الآلي وتفسير تنبؤاتها.
 
-- `sklearn-evaluation <https://github.com/ploomber/sklearn-evaluation>`_
-  Machine learning model evaluation made easy: plots, tables, HTML reports,
-  experiment tracking and Jupyter notebook analysis. Visual analysis, model
-  selection, evaluation and diagnostics.
+- sklearn-evaluation: جعل تقييم نموذج التعلم الآلي سهلاً: الرسوم البيانية والجداول والتقارير HTML وتتبع التجارب وتحليل Jupyter notebook. التحليل المرئي، واختيار النموذج، والتقييم، والتشخيص.
 
-- `yellowbrick <https://github.com/DistrictDataLabs/yellowbrick>`_ A suite of
-  custom matplotlib visualizers for scikit-learn estimators to support visual feature
-  analysis, model selection, evaluation, and diagnostics.
+- yellowbrick: مجموعة من أدوات التصور المخصصة لـ Matplotlib لتقديرات Scikit-learn لدعم التحليل المرئي للميزات، واختيار النماذج، والتقييم، والتشخيص.
 
-**Model selection**
+**اختيار النماذج**
 
-- `scikit-optimize <https://scikit-optimize.github.io/>`_
-  A library to minimize (very) expensive and noisy black-box functions. It
-  implements several methods for sequential model-based optimization, and
-  includes a replacement for ``GridSearchCV`` or ``RandomizedSearchCV`` to do
-  cross-validated parameter search using any of these strategies.
+- scikit-optimize: مكتبة لتقليل وظائف الصناديق السوداء الباهظة الثمن والمليئة بالضجيج. تقوم بتنفيذ عدة طرق للتحسين القائم على النماذج، وتشمل استبدالًا لـ GridSearchCV أو RandomizedSearchCV لإجراء بحث معلمات مع عبور التحقق باستخدام أي من هذه الاستراتيجيات.
 
-- `sklearn-deap <https://github.com/rsteca/sklearn-deap>`_ Use evolutionary
-  algorithms instead of gridsearch in scikit-learn.
+- sklearn-deap: استخدام الخوارزميات التطورية بدلاً من البحث الشبكي في Scikit-learn.
 
-**Model export for production**
+**تصدير النماذج للإنتاج**
 
-- `sklearn-onnx <https://github.com/onnx/sklearn-onnx>`_ Serialization of many
-  Scikit-learn pipelines to `ONNX <https://onnx.ai/>`_ for interchange and
-  prediction.
+- sklearn-onnx: تسلسل العديد من خطوط أنابيب Scikit-learn إلى ONNX للتبادل والتنبؤ.
 
-- `skops.io <https://skops.readthedocs.io/en/stable/persistence.html>`__ A
-  persistence model more secure than pickle, which can be used instead of
-  pickle in most common cases.
+- skops.io: نموذج استمرارية أكثر أمانًا من pickle، يمكن استخدامه بدلاً من pickle في معظم الحالات الشائعة.
 
-- `sklearn2pmml <https://github.com/jpmml/sklearn2pmml>`_
-  Serialization of a wide variety of scikit-learn estimators and transformers
-  into PMML with the help of `JPMML-SkLearn <https://github.com/jpmml/jpmml-sklearn>`_
-  library.
+- sklearn2pmml: تسلسل مجموعة متنوعة واسعة من محولات ومقدّرات Scikit-learn إلى PMML بمساعدة مكتبة JPMML-SkLearn.
 
-- `sklearn-porter <https://github.com/nok/sklearn-porter>`_
-  Transpile trained scikit-learn models to C, Java, Javascript and others.
+- sklearn-porter: ترجمة نماذج Scikit-learn المدربة إلى C وJava وJavaScript ولغات أخرى.
 
-- `m2cgen <https://github.com/BayesWitnesses/m2cgen>`_
-  A lightweight library which allows to transpile trained machine learning
-  models including many scikit-learn estimators into a native code of C, Java,
-  Go, R, PHP, Dart, Haskell, Rust and many other programming languages.
+- m2cgen: مكتبة خفيفة الوزن تسمح بترجمة نماذج التعلم الآلي المدربة، بما في ذلك العديد من تقديرات Scikit-learn، إلى كود أصلي لـ C وJava وGo وR وPHP وDart وHaskell وRust ولغات برمجة أخرى.
 
-- `treelite <https://treelite.readthedocs.io>`_
-  Compiles tree-based ensemble models into C code for minimizing prediction
-  latency.
+- treelite: يقوم بتجميع نماذج المجموعة المستندة إلى الشجرة إلى كود C لتقليل زمن التنبؤ.
 
-- `micromlgen <https://github.com/eloquentarduino/micromlgen>`_
-  MicroML brings Machine Learning algorithms to microcontrollers.
-  Supports several scikit-learn classifiers by transpiling them to C code.
+- micromlgen: تجلب MicroML خوارزميات التعلم الآلي إلى المتحكمات الدقيقة. يدعم العديد من مصنفات Scikit-learn عن طريق ترجمتها إلى كود C.
 
-- `emlearn <https://emlearn.org>`_
-  Implements scikit-learn estimators in C99 for embedded devices and microcontrollers.
-  Supports several classifier, regression and outlier detection models.
+- emlearn: ينفذ تقديرات Scikit-learn في C99 للأجهزة المدمجة والمتحكمات الدقيقة. يدعم عدة نماذج للتصنيف والانحدار واكتشاف العلامات الخارجية.
 
-**Model throughput**
+**معدل إنتاج النماذج**
 
-- `Intel(R) Extension for scikit-learn <https://github.com/intel/scikit-learn-intelex>`_
-  Mostly on high end Intel(R) hardware, accelerates some scikit-learn models
-  for both training and inference under certain circumstances. This project is
-  maintained by Intel(R) and scikit-learn's maintainers are not involved in the
-  development of this project. Also note that in some cases using the tools and
-  estimators under ``scikit-learn-intelex`` would give different results than
-  ``scikit-learn`` itself. If you encounter issues while using this project,
-  make sure you report potential issues in their respective repositories.
+- Intel(R) Extension for scikit-learn: على أجهزة Intel(R) عالية الأداء بشكل أساسي، يقوم بتسريع بعض نماذج Scikit-learn لكل من التدريب والاستدلال في ظل ظروف معينة. يتم الحفاظ على هذا المشروع بواسطة Intel(R)، ولا يشارك القائمون على صيانة Scikit-learn في تطوير هذا المشروع. كما تجدر الإشارة إلى أنه في بعض الحالات، قد يؤدي استخدام الأدوات والتقديرات الموجودة في "scikit-learn-intelex" إلى نتائج مختلفة عن تلك الموجودة في "scikit-learn" نفسه. إذا واجهت مشكلات أثناء استخدام هذا المشروع، تأكد من الإبلاغ عن المشكلات المحتملة في مستودعاتها الخاصة.
 
+مقدّرات ومهام أخرى
+بالتأكيد! فيما يلي ترجمة للنص المحدد من ReStructuredText إلى اللغة العربية:
 
-Other estimators and tasks
+ليس كل شيء ينتمي أو ناضج بما يكفي لمشروع scikit-learn الأساسي. فيما يلي بعض المشاريع التي توفر واجهات مماثلة لـ scikit-learn لخوارزميات التعلم الإضافية والبنى التحتية والمهام.
+
+**السلاسل الزمنية والتنبؤ**
+
+- `Darts <https://unit8co.github.io/darts/>`_ : مكتبة بايثون للتنبؤ والكشف عن الانحرافات في السلاسل الزمنية. تحتوي على مجموعة متنوعة من النماذج، من الكلاسيكيات مثل ARIMA إلى الشبكات العصبية العميقة. يمكن استخدام جميع نماذج التنبؤ بنفس الطريقة، باستخدام وظائف fit() وpredict() ، المشابهة لـ scikit-learn.
+
+- `sktime <https://github.com/alan-turing-institute/sktime>`_ : صندوق أدوات متوافق مع scikit-learn للتعلم الآلي مع السلاسل الزمنية بما في ذلك تصنيف/انحدار السلاسل الزمنية والتنبؤ (الإشراف/لوحة).
+
+- `skforecast <https://github.com/JoaquinAmatRodrigo/skforecast>`_ : مكتبة بايثون تسهل استخدام منقحات scikit-learn كمتنبئين متعدد الخطوات. كما أنه يعمل مع أي منقح متوافق مع واجهة برمجة تطبيقات scikit-learn.
+
+- `tslearn <https://github.com/tslearn-team/tslearn>`_ : مكتبة تعلم آلي للسلاسل الزمنية توفر أدوات للتحضير واستخراج الميزات، بالإضافة إلى نماذج مخصصة للتجميع والتصنيف والانحدار.
+
+**تعزيز التدرج (الشجرة)**
+
+ملاحظة: لدى scikit-learn معززات التدرج الحديثة الخاصة بها: :class:`~sklearn.ensemble.HistGradientBoostingClassifier` و:class:`~sklearn.ensemble.HistGradientBoostingRegressor`.
+
+- `XGBoost <https://github.com/dmlc/xgboost>`_ : XGBoost هي مكتبة معززة للتوزيع التدريجي مصممة لتكون فعالة ومرنة وقابلة للتنقل.
+
+- `LightGBM <https://lightgbm.readthedocs.io>`_ : LightGBM هو إطار عمل لتعزيز التدرج يستخدم خوارزميات التعلم الشجري. تم تصميمه لتوزيع وكفاءة.
+
+**التعلم المنظم**
+
+- `HMMLearn <https://github.com/hmmlearn/hmmlearn>`_ : تنفيذ نماذج ماركوف المخفية التي كانت في السابق جزءًا من scikit-learn.
+
+- `PyStruct <https://pystruct.github.io>`_ : حقول ماركوف الشرطية العامة والتنبؤ المنظم.
+
+- `pomegranate <https://github.com/jmschrei/pomegranate>`_ : النمذجة الاحتمالية للبايثون، مع التركيز على نماذج ماركوف المخفية.
+
+- `sklearn-crfsuite <https://github.com/TeamHG-Memex/sklearn-crfsuite>`_ : حقول ماركوف الشرطية الخطية (`CRFsuite <http://www.chokkan.org/software/crfsuite/>`_ wrapper with sklearn-like API).
+
+**الشبكات العصبية العميقة، إلخ.**
+
+- `skorch <https://github.com/dnouri/skorch>`_ : مكتبة شبكات عصبية متوافقة مع scikit-learn والتي تغلف PyTorch.
+
+- `scikeras <https://github.com/adriangb/scikeras>`_ : يوفر غلافًا حول Keras للواجهة مع scikit-learn. SciKeras هو الخلف لـ `tf.keras.wrappers.scikit_learn`.
+
+**التعلم الاتحادي**
+
+- `Flower <https://flower.dev/>`_ : إطار عمل تعلم اتحادي ودود مع نهج موحد يمكنه الاتحاد مع أي حمل عمل، وأي إطار عمل للتعلم الآلي، وأي لغة برمجة.
+
+**التعلم الآلي لحماية الخصوصية**
+
+- `Concrete ML <https://github.com/zama-ai/concrete-ml/>`_ : إطار عمل للتعلم الآلي لحماية الخصوصية مبني على `Concrete <https://github.com/zama-ai/concrete>`_ ، مع ارتباطات بإطارات عمل التعلم الآلي التقليدية، بفضل التشفير المتجانس تمامًا. واجهات برمجة التطبيقات الخاصة بما يسمى النماذج المدمجة في Concrete ML قريبة جدًا من واجهات برمجة تطبيقات scikit-learn.
+
+**نطاق واسع**
+
+- `mlxtend <https://github.com/rasbt/mlxtend>`_ : يتضمن عددًا من المقدرات الإضافية بالإضافة إلى برامج مساعدة لتصور النماذج.
+
+- `scikit-lego <https://github.com/koaning/scikit-lego>`_ : عدد من المحولات والمقاييس والنماذج المتوافقة مع scikit-learn، مع التركيز على حل مهام الصناعة العملية.
+
+**الانحدار والتصنيف الآخر**
+
+- `ML-Ensemble <https://mlens.readthedocs.io/>`_ : التعلم التجميعي المعمم (التكديس، المزج، subsemble، التجميعات العميقة، إلخ).
+
+- `lightning <https://github.com/scikit-learn-contrib/lightning>`_ : محلات النماذج الخطية السريعة ذات الحالة الفنية (SDCA، AdaGrad، SVRG، SAG، إلخ...).
+
+- `py-earth <https://github.com/scikit-learn-contrib/py-earth>`_ : الانحدار متعدد المتغيرات للسبل التكيفية.
+
+- `gplearn <https://github.com/trevorstephens/gplearn>`_ : البرمجة الوراثية للمهام الانحدار الرمزية.
+
+- `scikit-multilearn <https://github.com/scikit-multilearn/scikit-multilearn>`_ : التصنيف متعدد التصنيفات مع التركيز على التلاعب في مساحة التسمية.
+
+- `seglearn <https://github.com/dmbee/seglearn>`_ : التعلم التسلسلي والتعلم التسلسلي باستخدام التجزئة النافذة المنزلقة.
+
+- `fastFM <https://github.com/ibayer/fastFM>`_ : تنفيذ عامل التصفية السريع المتوافق مع scikit-learn
+
+**التحليل والتجميع**
+
+- `lda <https://github.com/lda-project/lda/>`_ : تنفيذ سريع لتخصيص ديريتشليت الكامن في Cython والذي يستخدم `Gibbs sampling <https://en.wikipedia.org/wiki/Gibbs_sampling>`_ لأخذ العينات من التوزيع الاحتمالي الحقيقي. (يستخدم تنفيذ scikit-learn :class:`~sklearn.decomposition.LatentDirichletAllocation` `التفكير المتغير <https://en.wikipedia.org/wiki/Variational_Bayesian_methods>`_ لأخذ العينات من تقريب قابل للتعقب لتوزيع الموضوع اللاحق.)
+
+- `kmodes <https://github.com/nicodv/kmodes>`_ : خوارزمية k-modes clustering للبيانات الفئوية، وعدد من تنوعاتها.
+
+- `hdbscan <https://github.com/scikit-learn-contrib/hdbscan>`_ : خوارزميات HDBSCAN وRobust Single Linkage clustering للتجميع متغير الكثافة المتين. اعتبارًا من إصدار scikit-learn 1.3.0، هناك :class:`~sklearn.cluster.HDBSCAN`.
+
+- `spherecluster <https://github.com/clara-labs/spherecluster>`_ : إجراءات التجميع الكروي K-means ومزيج von Mises Fisher للبيانات الموجودة على hypersphere الوحدة.
+
+**معالجة مسبقة**
+
+- `categorical-encoding <https://github.com/scikit-learn-contrib/categorical-encoding>`_ : مكتبة من encoders الفئوية المتوافقة مع sklearn. اعتبارًا من إصدار scikit-learn 1.3.0، هناك :class:`~sklearn.preprocessing.TargetEncoder`.
+
+- `imbalanced-learn <https://github.com/scikit-learn-contrib/imbalanced-learn>`_ : طرق مختلفة لأسفل وأخذ عينات من مجموعات البيانات.
+
+- `Feature-engine <https://github.com/solegalli/feature_engine>`_ : مكتبة من المحولات المتوافقة مع sklearn لملء البيانات المفقودة، والترميز الفئوي، وتحويل المتغيرات، والتقسيم، ومعالجة القيم الشاذة، والمزيد. تسمح Feature-engine بتطبيق خطوات المعالجة المسبقة على مجموعات متغيرة مختارة وهي متوافقة تمامًا مع خط أنابيب Scikit-learn.
+
+**تحليل البيانات الطوبولوجية**
+
+- `giotto-tda <https://github.com/giotto-ai/giotto-tda>`_ : مكتبة لتحليل البيانات الطوبولوجية تهدف إلى توفير واجهة برمجة تطبيقات متوافقة مع scikit-learn. فهو يوفر أدوات لتحويل إدخالات البيانات (سحب النقاط، والرسوم البيانية، والسلاسل الزمنية، والصور) إلى أشكال مناسبة لحسابات الملخصات الطوبولوجية، ومكونات مخصصة لاستخراج مجموعات من الميزات ذات الأصل الطوبولوجي، والتي يمكن استخدامها جنبًا إلى جنب مع طرق استخراج الميزات الأخرى في scikit-learn.
+
+التعلم الإحصائي مع بايثون
 --------------------------
+حزم أخرى مفيدة لتحليل البيانات والتعلم الآلي.
 
-Not everything belongs or is mature enough for the central scikit-learn
-project. The following are projects providing interfaces similar to
-scikit-learn for additional learning algorithms, infrastructures
-and tasks.
+- `Pandas <https://pandas.pydata.org/>`_ : أدوات للعمل مع البيانات غير المتجانسة والعمودية، والاستعلامات العلائقية، والسلاسل الزمنية والإحصاءات الأساسية.
 
-**Time series and forecasting**
+- `statsmodels <https://www.statsmodels.org>`_ : تقدير وتحليل النماذج الإحصائية. يركز أكثر على الاختبارات الإحصائية وأقل على التنبؤ من scikit-learn.
 
-- `Darts <https://unit8co.github.io/darts/>`_ Darts is a Python library for
-  user-friendly forecasting and anomaly detection on time series. It contains a variety
-  of models, from classics such as ARIMA to deep neural networks. The forecasting
-  models can all be used in the same way, using fit() and predict() functions, similar
-  to scikit-learn.
+- `PyMC <https://www.pymc.io/>`_ : النماذج الإحصائية الباييسية وخوارزميات التجهيز.
 
-- `sktime <https://github.com/alan-turing-institute/sktime>`_ A scikit-learn compatible
-  toolbox for machine learning with time series including time series
-  classification/regression and (supervised/panel) forecasting.
+- `Seaborn <https://stanford.edu/~mwaskom/software/seaborn/>`_ : مكتبة عرض مستندة إلى matplotlib. يوفر واجهة عالية المستوى لرسم الرسومات الإحصائية الجذابة.
 
-- `skforecast <https://github.com/JoaquinAmatRodrigo/skforecast>`_ A python library
-  that eases using scikit-learn regressors as multi-step forecasters. It also works
-  with any regressor compatible with the scikit-learn API.
+- `scikit-survival <https://scikit-survival.readthedocs.io/>`_ : مكتبة لتنفيذ النماذج للتعلم من بيانات وقت الحدث الخاضعة للرقابة (يطلق عليها أيضًا تحليل البقاء). النماذج متوافقة تمامًا مع scikit-learn.
 
-- `tslearn <https://github.com/tslearn-team/tslearn>`_ A machine learning library for
-  time series that offers tools for pre-processing and feature extraction as well as
-  dedicated models for clustering, classification and regression.
-
-**Gradient (tree) boosting**
-
-Note scikit-learn own modern gradient boosting estimators
-:class:`~sklearn.ensemble.HistGradientBoostingClassifier` and
-:class:`~sklearn.ensemble.HistGradientBoostingRegressor`.
-
-- `XGBoost <https://github.com/dmlc/xgboost>`_ XGBoost is an optimized distributed
-  gradient boosting library designed to be highly efficient, flexible and portable.
-
-- `LightGBM <https://lightgbm.readthedocs.io>`_ LightGBM is a gradient boosting
-  framework that uses tree based learning algorithms. It is designed to be distributed
-  and efficient.
-
-**Structured learning**
-
-- `HMMLearn <https://github.com/hmmlearn/hmmlearn>`_ Implementation of hidden
-  markov models that was previously part of scikit-learn.
-
-- `PyStruct <https://pystruct.github.io>`_ General conditional random fields
-  and structured prediction.
-
-- `pomegranate <https://github.com/jmschrei/pomegranate>`_ Probabilistic modelling
-  for Python, with an emphasis on hidden Markov models.
-
-- `sklearn-crfsuite <https://github.com/TeamHG-Memex/sklearn-crfsuite>`_
-  Linear-chain conditional random fields
-  (`CRFsuite <http://www.chokkan.org/software/crfsuite/>`_ wrapper with
-  sklearn-like API).
-
-
-**Deep neural networks etc.**
-
-- `skorch <https://github.com/dnouri/skorch>`_ A scikit-learn compatible
-  neural network library that wraps PyTorch.
-
-- `scikeras <https://github.com/adriangb/scikeras>`_ provides a wrapper around
-  Keras to interface it with scikit-learn. SciKeras is the successor
-  of `tf.keras.wrappers.scikit_learn`.
-
-**Federated Learning**
-
-- `Flower <https://flower.dev/>`_ A friendly federated learning framework with a
-  unified approach that can federate any workload, any ML framework, and any programming language.
-
-**Privacy Preserving Machine Learning**
-
-- `Concrete ML <https://github.com/zama-ai/concrete-ml/>`_ A privacy preserving
-  ML framework built on top of `Concrete
-  <https://github.com/zama-ai/concrete>`_, with bindings to traditional ML
-  frameworks, thanks to fully homomorphic encryption. APIs of so-called
-  Concrete ML built-in models are very close to scikit-learn APIs.
-
-**Broad scope**
-
-- `mlxtend <https://github.com/rasbt/mlxtend>`_ Includes a number of additional
-  estimators as well as model visualization utilities.
-
-- `scikit-lego <https://github.com/koaning/scikit-lego>`_ A number of scikit-learn compatible
-  custom transformers, models and metrics, focusing on solving practical industry tasks.
-
-**Other regression and classification**
-
-- `ML-Ensemble <https://mlens.readthedocs.io/>`_ Generalized
-  ensemble learning (stacking, blending, subsemble, deep ensembles,
-  etc.).
-
-- `lightning <https://github.com/scikit-learn-contrib/lightning>`_ Fast
-  state-of-the-art linear model solvers (SDCA, AdaGrad, SVRG, SAG, etc...).
-
-- `py-earth <https://github.com/scikit-learn-contrib/py-earth>`_ Multivariate
-  adaptive regression splines
-
-- `gplearn <https://github.com/trevorstephens/gplearn>`_ Genetic Programming
-  for symbolic regression tasks.
-
-- `scikit-multilearn <https://github.com/scikit-multilearn/scikit-multilearn>`_
-  Multi-label classification with focus on label space manipulation.
-
-- `seglearn <https://github.com/dmbee/seglearn>`_ Time series and sequence
-  learning using sliding window segmentation.
-
-- `fastFM <https://github.com/ibayer/fastFM>`_ Fast factorization machine
-  implementation compatible with scikit-learn
-
-**Decomposition and clustering**
-
-- `lda <https://github.com/lda-project/lda/>`_: Fast implementation of latent
-  Dirichlet allocation in Cython which uses `Gibbs sampling
-  <https://en.wikipedia.org/wiki/Gibbs_sampling>`_ to sample from the true
-  posterior distribution. (scikit-learn's
-  :class:`~sklearn.decomposition.LatentDirichletAllocation` implementation uses
-  `variational inference
-  <https://en.wikipedia.org/wiki/Variational_Bayesian_methods>`_ to sample from
-  a tractable approximation of a topic model's posterior distribution.)
-
-- `kmodes <https://github.com/nicodv/kmodes>`_ k-modes clustering algorithm for
-  categorical data, and several of its variations.
-
-- `hdbscan <https://github.com/scikit-learn-contrib/hdbscan>`_ HDBSCAN and Robust Single
-  Linkage clustering algorithms for robust variable density clustering.
-  As of scikit-learn version 1.3.0, there is :class:`~sklearn.cluster.HDBSCAN`.
-
-- `spherecluster <https://github.com/clara-labs/spherecluster>`_ Spherical
-  K-means and mixture of von Mises Fisher clustering routines for data on the
-  unit hypersphere.
-
-**Pre-processing**
-
-- `categorical-encoding
-  <https://github.com/scikit-learn-contrib/categorical-encoding>`_ A
-  library of sklearn compatible categorical variable encoders.
-  As of scikit-learn version 1.3.0, there is
-  :class:`~sklearn.preprocessing.TargetEncoder`.
-
-- `imbalanced-learn
-  <https://github.com/scikit-learn-contrib/imbalanced-learn>`_ Various
-  methods to under- and over-sample datasets.
-
-- `Feature-engine <https://github.com/solegalli/feature_engine>`_ A library
-  of sklearn compatible transformers for missing data imputation, categorical
-  encoding, variable transformation, discretization, outlier handling and more.
-  Feature-engine allows the application of preprocessing steps to selected groups
-  of variables and it is fully compatible with the Scikit-learn Pipeline.
-
-**Topological Data Analysis**
-
-- `giotto-tda <https://github.com/giotto-ai/giotto-tda>`_ A library for
-  `Topological Data Analysis
-  <https://en.wikipedia.org/wiki/Topological_data_analysis>`_ aiming to
-  provide a scikit-learn compatible API. It offers tools to transform data
-  inputs (point clouds, graphs, time series, images) into forms suitable for
-  computations of topological summaries, and components dedicated to
-  extracting sets of scalar features of topological origin, which can be used
-  alongside other feature extraction methods in scikit-learn.
-
-Statistical learning with Python
---------------------------------
-Other packages useful for data analysis and machine learning.
-
-- `Pandas <https://pandas.pydata.org/>`_ Tools for working with heterogeneous and
-  columnar data, relational queries, time series and basic statistics.
-
-- `statsmodels <https://www.statsmodels.org>`_ Estimating and analysing
-  statistical models. More focused on statistical tests and less on prediction
-  than scikit-learn.
-
-- `PyMC <https://www.pymc.io/>`_ Bayesian statistical models and
-  fitting algorithms.
-
-- `Seaborn <https://stanford.edu/~mwaskom/software/seaborn/>`_ Visualization library based on
-  matplotlib. It provides a high-level interface for drawing attractive statistical graphics.
-
-- `scikit-survival <https://scikit-survival.readthedocs.io/>`_ A library implementing
-  models to learn from censored time-to-event data (also called survival analysis).
-  Models are fully compatible with scikit-learn.
-
-Recommendation Engine packages
+حزم محرك التوصية
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- `implicit <https://github.com/benfred/implicit>`_, Library for implicit
-  feedback datasets.
+- `implicit <https://github.com/benfred/implicit>`_ ، مكتبة لمجموعات التعليقات غير المباشرة.
 
-- `lightfm <https://github.com/lyst/lightfm>`_ A Python/Cython
-  implementation of a hybrid recommender system.
+- `lightfm <https://github.com/lyst/lightfm>`_ : تنفيذ Python/Cython لنظام التوصية الهجين.
 
-- `OpenRec <https://github.com/ylongqi/openrec>`_ TensorFlow-based
-  neural-network inspired recommendation algorithms.
+- `OpenRec <https://github.com/ylongqi/openrec>`_ : خوارزميات التوصية المستوحاة من الشبكات العصبية القائمة على TensorFlow.
 
-- `Surprise Lib <https://surpriselib.com/>`_ Library for explicit feedback
-  datasets.
+- `Surprise Lib <https://surpriselib.com/>`_ : مكتبة لمجموعات التعليقات المباشرة.
 
-Domain specific packages
+الحزم المحددة المجال
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- `scikit-network <https://scikit-network.readthedocs.io/>`_ Machine learning on graphs.
+- `scikit-network <https://scikit-network.readthedocs.io/>`_ : التعلم الآلي على الرسوم البيانية.
 
-- `scikit-image <https://scikit-image.org/>`_ Image processing and computer
-  vision in python.
+- `scikit-image <https://scikit-image.org/>`_ : معالجة الصور والرؤية الحاسوبية في بايثون.
 
-- `Natural language toolkit (nltk) <https://www.nltk.org/>`_ Natural language
-  processing and some machine learning.
+- `Natural language toolkit (nltk) <https://www.nltk.org/>`_ : معالجة اللغة الطبيعية وبعض التعلم الآلي.
 
-- `gensim <https://radimrehurek.com/gensim/>`_  A library for topic modelling,
-  document indexing and similarity retrieval
+- `gensim <https://radimrehurek.com/gensim/>`_ : مكتبة لوضع نماذج الموضوعات وفهرسة الوثائق واسترجاع التشابه.
 
-- `NiLearn <https://nilearn.github.io/>`_ Machine learning for neuro-imaging.
+- `NiLearn <https://nilearn.github.io/>`_ : التعلم الآلي للتصوير العصبي.
 
-- `AstroML <https://www.astroml.org/>`_  Machine learning for astronomy.
+- `AstroML <https://www.astroml.org/>`_ : التعلم الآلي لعلم الفلك.
 
-Translations of scikit-learn documentation
+ترجمات وثائق scikit-learn
 ------------------------------------------
 
-Translation's purpose is to ease reading and understanding in languages
-other than English. Its aim is to help people who do not understand English
-or have doubts about its interpretation. Additionally, some people prefer
-to read documentation in their native language, but please bear in mind that
-the only official documentation is the English one [#f1]_.
+الغرض من الترجمة هو تسهيل القراءة والفهم بلغات أخرى غير اللغة الإنجليزية. تهدف إلى مساعدة الأشخاص الذين لا يفهمون اللغة الإنجليزية أو لديهم شكوك بشأن تفسيرها. بالإضافة إلى ذلك، يفضل بعض الأشخاص قراءة الوثائق بلغتهم الأم، ولكن يرجى ملاحظة أن الوثائق الرسمية الوحيدة هي الوثائق باللغة الإنجليزية [#f1]_.
 
-Those translation efforts are community initiatives and we have no control
-on them.
-If you want to contribute or report an issue with the translation, please
-contact the authors of the translation.
-Some available translations are linked here to improve their dissemination
-and promote community efforts.
+هذه الجهود الترجمية هي مبادرات مجتمعية وليس لدينا أي سيطرة عليها.
+إذا كنت تريد المساهمة أو الإبلاغ عن مشكلة في الترجمة، يرجى الاتصال بمؤلفي الترجمة.
+ترتبط بعض الترجمات المتوفرة هنا لتحسين نشرها وتعزيز جهود المجتمع.
 
-- `Chinese translation <https://sklearn.apachecn.org/>`_
+- `الترجمة الصينية <https://sklearn.apachecn.org/>`_
   (`source <https://github.com/apachecn/sklearn-doc-zh>`__)
-- `Persian translation <https://sklearn.ir/>`_
+- `الترجمة الفارسية <https://sklearn.ir/>`_
   (`source <https://github.com/mehrdad-dev/scikit-learn>`__)
-- `Spanish translation <https://qu4nt.github.io/sklearn-doc-es/>`_
+- `الترجمة الإسبانية <https://qu4nt.github.io/sklearn-doc-es/>`_
   (`source <https://github.com/qu4nt/sklearn-doc-es>`__)
-- `Korean translation <https://panda5176.github.io/scikit-learn-korean/>`_
+- `الترجمة الكورية <https://panda5176.github.io/scikit-learn-korean/>`_
   (`source <https://github.com/panda5176/scikit-learn-korean>`__)
 
 
