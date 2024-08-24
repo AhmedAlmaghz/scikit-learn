@@ -1,73 +1,60 @@
 ===========================================
-External Resources, Videos and Talks
+الموارد الخارجية، الفيديوهات، والمحاضرات
 ===========================================
 
-New to Scientific Python?
+جديد في بايثون العلمية؟
 ==========================
-For those that are still new to the scientific Python ecosystem, we highly
-recommend the `Python Scientific Lecture Notes
-<https://scipy-lectures.org>`_. This will help you find your footing a
-bit and will definitely improve your scikit-learn experience.  A basic
-understanding of NumPy arrays is recommended to make the most of scikit-learn.
+بالنسبة لأولئك الذين لا يزالون حديثي العهد بنظام بايثون العلمي، فإننا نوصي بشدة بقراءة `ملاحظات المحاضرة العلمية بايثون <https://scipy-lectures.org>`_. سوف يساعدك هذا على إيجاد موطئ قدم قليلًا وسوف يحسن بالتأكيد تجربتك في بايثون العلمية. يوصى بفهم أساسي لمصفوفات بايثون العلمية للاستفادة القصوى من بايثون العلمية.
 
-External Tutorials
+الدروس الخارجية
 ===================
 
-There are several online tutorials available which are geared toward
-specific subject areas:
+هناك العديد من الدروس المتاحة عبر الإنترنت والتي تستهدف مجالات موضوعية محددة:
 
-- `Machine Learning for NeuroImaging in Python <https://nilearn.github.io/>`_
-- `Machine Learning for Astronomical Data Analysis <https://github.com/astroML/sklearn_tutorial>`_
+- `تعلم الآلة لتصوير الدماغ في بايثون <https://nilearn.github.io/>`_
+- `تعلم الآلة لتحليل البيانات الفلكية <https://github.com/astroML/sklearn_tutorial>`_
 
 .. _videos:
 
-Videos
+الفيديوهات
 ======
 
-- An introduction to scikit-learn `Part
-  I <https://conference.scipy.org/scipy2013/tutorial_detail.php?id=107>`_ and
-  `Part II <https://conference.scipy.org/scipy2013/tutorial_detail.php?id=111>`_ at Scipy 2013
-  by `Gael Varoquaux`_, `Jake Vanderplas`_  and `Olivier Grisel`_. Notebooks on
-  `github <https://github.com/jakevdp/sklearn_scipy2013>`_.
+- مقدمة إلى بايثون العلمية `الجزء
+  الأول <https://conference.scipy.org/scipy2013/tutorial_detail.php?id=107>`_ و
+  `الجزء الثاني <https://conference.scipy.org/scipy2013/tutorial_detail.php?id=111>`_ في مؤتمر ساي باي 2013
+  بواسطة `جايل فاروكو <https://gael-varoquaux.info>`_، و`جيك فاندربلاس <http://www.vanderplas.com>`_، و`أوليفييه جريسل <https://twitter.com/ogrisel>`_. الدفاتر على
+  `جيثب <https://github.com/jakevdp/sklearn_scipy2013>`_.
 
-- `Introduction to scikit-learn
-  <http://videolectures.net/icml2010_varaquaux_scik/>`_ by `Gael Varoquaux`_ at
-  ICML 2010
+- `مقدمة إلى بايثون العلمية
+  <http://videolectures.net/icml2010_varaquaux_scik/>`_ بواسطة `جايل فاروكو <https://gael-varoquaux.info>`_ في
+  مؤتمر ICML 2010
 
-  A three minute video from a very early stage of scikit-learn, explaining the
-  basic idea and approach we are following.
+  فيديو مدته ثلاث دقائق من مرحلة مبكرة جدًا من بايثون العلمية، يشرح الفكرة الأساسية والنهج الذي نتبعه.
 
-- `Introduction to statistical learning with scikit-learn <https://archive.org/search.php?query=scikit-learn>`_
-  by `Gael Varoquaux`_ at SciPy 2011
+- `مقدمة إلى التعلم الإحصائي باستخدام بايثون العلمية <https://archive.org/search.php?query=scikit-learn>`_
+  بواسطة `جايل فاروكو <https://gael-varoquaux.info>`_ في مؤتمر ساي باي 2011
 
-  An extensive tutorial, consisting of four sessions of one hour.
-  The tutorial covers the basics of machine learning,
-  many algorithms and how to apply them using scikit-learn.
+  درس شامل، يتكون من أربع جلسات مدة كل منها ساعة.
+  يغطي الدرس أساسيات تعلم الآلة،
+  العديد من الخوارزميات وكيفية تطبيقها باستخدام بايثون العلمية.
 
-- `Statistical Learning for Text Classification with scikit-learn and NLTK
-  <https://pyvideo.org/video/417/pycon-2011--statistical-machine-learning-for-text>`_
-  (and `slides <https://www.slideshare.net/ogrisel/statistical-machine-learning-for-text-classification-with-scikitlearn-and-nltk>`_)
-  by `Olivier Grisel`_ at PyCon 2011
+- `التعلم الإحصائي لتصنيف النصوص باستخدام بايثون العلمية ومكتبة معالجة النصوص الطبيعية <https://pyvideo.org/video/417/pycon-2011--statistical-machine-learning-for-text>`_
+  (والشرائح <https://www.slideshare.net/ogrisel/statistical-machine-learning-for-text-classification-with-scikitlearn-and-nltk>)
+  بواسطة `أوليفييه جريسل <https://twitter.com/ogrisel>`_ في مؤتمر باي كون 2011
 
-  Thirty minute introduction to text classification. Explains how to
-  use NLTK and scikit-learn to solve real-world text classification
-  tasks and compares against cloud-based solutions.
+  مقدمة مدتها ثلاثون دقيقة لتصنيف النصوص. يشرح كيفية
+  استخدام مكتبة معالجة النصوص الطبيعية بايثون و بايثون العلمية لحل مهام تصنيف النصوص الواقعية ومقارنتها بالحلول القائمة على السحابة.
 
-- `Introduction to Interactive Predictive Analytics in Python with scikit-learn <https://www.youtube.com/watch?v=Zd5dfooZWG4>`_
-  by `Olivier Grisel`_ at PyCon 2012
+- `مقدمة إلى التحليلات التنبؤية التفاعلية في بايثون باستخدام بايثون العلمية <https://www.youtube.com/watch?v=Zd5dfooZWG4>`_
+  بواسطة `أوليفييه جريسل <https://twitter.com/ogrisel>`_ في مؤتمر باي كون 2012
 
-  3-hours long introduction to prediction tasks using scikit-learn.
+  مقدمة مدتها 3 ساعات لمهام التنبؤ باستخدام بايثون العلمية.
 
-- `scikit-learn - Machine Learning in Python <https://www.youtube.com/watch?v=cHZONQ2-x7I>`_
-  by `Jake Vanderplas`_ at the 2012 PyData workshop at Google
+- `بايثون العلمية - تعلم الآلة في بايثون <https://www.youtube.com/watch?v=cHZONQ2-x7I>`_
+  بواسطة `جيك فاندربلاس <http://www.vanderplas.com>`_ في ورشة عمل باي داتا 2012 في جوجل
 
-  Interactive demonstration of some scikit-learn features. 75 minutes.
+  عرض توضيحي تفاعلي لبعض ميزات بايثون العلمية. 75 دقيقة.
 
-- `scikit-learn tutorial <https://www.youtube.com/watch?v=cHZONQ2-x7I>`_ by `Jake Vanderplas`_ at PyData NYC 2012
+- `درس بايثون العلمية <https://www.youtube.com/watch?v=cHZONQ2-x7I>`_ بواسطة `جيك فاندربلاس <http://www.vanderplas.com>`_ في مؤتمر باي داتا نيويورك 2012
 
-  Presentation using the online tutorial, 45 minutes.
-
-
-.. _Gael Varoquaux: https://gael-varoquaux.info
-.. _Jake Vanderplas: http://www.vanderplas.com
-.. _Olivier Grisel: https://twitter.com/ogrisel
+  عرض تقديمي باستخدام الدرس التفاعلي، مدته 45 دقيقة.
