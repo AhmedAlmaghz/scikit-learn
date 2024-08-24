@@ -1,24 +1,17 @@
+يتم في هذا الملف تعيين أسماء المساهمين إلى عناوين URL الخاصة بهم. وينبغي أن يستخدم في الغالب للمساهمين الأساسيين، وفي بعض الأحيان للمساهمين الذين لا يرغبون في أن تكون صفحتهم على GitHub هي عنوان URL المستهدف الخاص بهم. وقد تم استخدامه تاريخياً لربط جميع أسماء المساهمين، ويجب الآن تفضيل ":user:". كما أنه يحدد استبدالات ReST الأخرى.
 
-..
-    This file maps contributor names to their URLs. It should mostly be used
-    for core contributors, and occasionally for contributors who do not want
-    their github page to be their URL target. Historically it was used to
-    hyperlink all contributors' names, and ``:user:`` should now be preferred.
-    It also defines other ReST substitutions.
-
-.. role:: raw-html(raw)
+.. دور:: raw-html (raw)
    :format: html
 
-.. role:: raw-latex(raw)
+.. دور:: raw-latex (raw)
    :format: latex
 
-.. |MajorFeature| replace:: :raw-html:`<span class="badge text-bg-success">Major Feature</span>` :raw-latex:`{\small\sc [Major Feature]}`
-.. |Feature| replace:: :raw-html:`<span class="badge text-bg-success">Feature</span>` :raw-latex:`{\small\sc [Feature]}`
-.. |Efficiency| replace:: :raw-html:`<span class="badge text-bg-info">Efficiency</span>` :raw-latex:`{\small\sc [Efficiency]}`
-.. |Enhancement| replace:: :raw-html:`<span class="badge text-bg-info">Enhancement</span>` :raw-latex:`{\small\sc [Enhancement]}`
-.. |Fix| replace:: :raw-html:`<span class="badge text-bg-danger">Fix</span>` :raw-latex:`{\small\sc [Fix]}`
-.. |API| replace:: :raw-html:`<span class="badge text-bg-warning">API Change</span>` :raw-latex:`{\small\sc [API Change]}`
-
+.. |MajorFeature| استبدال:: :raw-html:`<span class="badge text-bg-success">الميزة الرئيسية</span>` :raw-latex:``{\small\sc [الميزة الرئيسية]}``
+.. |Feature| استبدال:: :raw-html:`<span class="badge text-bg-success">ميزة</span>` :raw-latex:``{\small\sc [ميزة]}``
+.. |Efficiency| استبدال:: :raw-html:`<span class="badge text-bg-info">الكفاءة</span>` :raw-latex:``{\small\sc [الكفاءة]}``
+.. |Enhancement| استبدال:: :raw-html:`<span class="badge text-bg-info">التحسين</span>` :raw-latex:``{\small\sc [التحسين]}``
+.. |Fix| استبدال:: :raw-html:`<span class="badge text-bg-danger">إصلاح</span>` :raw-latex:``{\small\sc [إصلاح]}``
+.. |API| استبدال:: :raw-html:`<span class="badge text-bg-warning">تغيير واجهة برمجة التطبيقات</span>` :raw-latex:``{\small\sc [تغيير واجهة برمجة التطبيقات]}``
 
 .. _Olivier Grisel: https://twitter.com/ogrisel
 
