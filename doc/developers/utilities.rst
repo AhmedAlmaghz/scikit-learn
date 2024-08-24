@@ -1,72 +1,43 @@
 .. _developers-utils:
 
 ========================
-Utilities for Developers
+الأدوات المساعدة للمطورين
 ========================
 
-Scikit-learn contains a number of utilities to help with development.  These are
-located in :mod:`sklearn.utils`, and include tools in a number of categories.
-All the following functions and classes are in the module :mod:`sklearn.utils`.
+يحتوي Scikit-learn على عدد من الأدوات المساعدة لتسهيل التطوير. يمكن العثور على هذه الأدوات في :mod:`sklearn.utils`، وتتضمن أدوات في العديد من الفئات. جميع الوظائف والصفوف التالية موجودة في الوحدة النمطية :mod:`sklearn.utils`.
 
-.. warning ::
+.. warning::
 
-   These utilities are meant to be used internally within the scikit-learn
-   package.  They are not guaranteed to be stable between versions of
-   scikit-learn.  Backports, in particular, will be removed as the scikit-learn
-   dependencies evolve.
-
+   القصد من هذه الأدوات المساعدة هو استخدامها داخليًا ضمن حزمة scikit-learn. لا يُضمن توافقها بين إصدارات scikit-learn. سيتم إزالة عمليات إعادة البناء، على وجه الخصوص، مع تطور تبعيات scikit-learn.
 
 .. currentmodule:: sklearn.utils
 
-Validation Tools
+أدوات التحقق من الصحة
 ================
 
-These are tools used to check and validate input.  When you write a function
-which accepts arrays, matrices, or sparse matrices as arguments, the following
-should be used when applicable.
+هذه هي الأدوات المستخدمة للتحقق من صحة الإدخال. عند كتابة دالة تقبل المصفوفات أو المصفوفات أو المصفوفات النادرة كوسيطات، يجب استخدام ما يلي عند الانطباق.
 
-- :func:`assert_all_finite`: Throw an error if array contains NaNs or Infs.
+- :func:`assert_all_finite`: قم برمي خطأ إذا كانت المصفوفة تحتوي على قيم غير محدودة أو لا تحتوي على قيم رقمية (NaN).
 
-- :func:`as_float_array`: convert input to an array of floats.  If a sparse
-  matrix is passed, a sparse matrix will be returned.
+- :func:`as_float_array`: تحويل الإدخال إلى مصفوفة من الأرقام العائمة. إذا تم تمرير مصفوفة نادرة، فسيتم إرجاع مصفوفة نادرة.
 
-- :func:`check_array`: check that input is a 2D array, raise error on sparse
-  matrices. Allowed sparse matrix formats can be given optionally, as well as
-  allowing 1D or N-dimensional arrays. Calls :func:`assert_all_finite` by
-  default.
+- :func:`check_array`: التحقق من أن الإدخال هو مصفوفة ثنائية الأبعاد، وإطلاق خطأ في المصفوفات النادرة. يمكن تحديد تنسيقات المصفوفة النادرة المسموح بها بشكل اختياري، وكذلك السماح بمصفوفات أحادية البعد أو متعددة الأبعاد. يستدعي :func:`assert_all_finite` بشكل افتراضي.
 
-- :func:`check_X_y`: check that X and y have consistent length, calls
-  check_array on X, and column_or_1d on y. For multilabel classification or
-  multitarget regression, specify multi_output=True, in which case check_array
-  will be called on y.
+- :func:`check_X_y`: التحقق من أن X و y لهما طول متسق، واستدعاء check_array على X، و column_or_1d على y. بالنسبة لتصنيف التسميات المتعددة أو الانحدار متعدد الأهداف، حدد multi_output=True، وفي هذه الحالة سيتم استدعاء check_array على y.
 
-- :func:`indexable`: check that all input arrays have consistent length and can
-  be sliced or indexed using safe_index.  This is used to validate input for
-  cross-validation.
+- :func:`indexable`: التحقق من أن جميع المصفوفات المدخلة لها طول متسق ويمكن تقسيمها أو فهرسة باستخدام safe_index. يتم استخدام هذا للتحقق من صحة الإدخال للتحقق من الصحة.
 
-- :func:`validation.check_memory` checks that input is ``joblib.Memory``-like,
-  which means that it can be converted into a
-  ``sklearn.utils.Memory`` instance (typically a str denoting
-  the ``cachedir``) or has the same interface.
+- :func:`validation.check_memory` يتحقق من أن الإدخال هو ``joblib.Memory``-like، مما يعني أنه يمكن تحويله إلى مثيل ``sklearn.utils.Memory`` (عادةً ما يكون سلسلة تحدد ``cachedir``) أو لديه نفس الواجهة.
 
-If your code relies on a random number generator, it should never use
-functions like ``numpy.random.random`` or ``numpy.random.normal``.  This
-approach can lead to repeatability issues in unit tests.  Instead, a
-``numpy.random.RandomState`` object should be used, which is built from
-a ``random_state`` argument passed to the class or function.  The function
-:func:`check_random_state`, below, can then be used to create a random
-number generator object.
+إذا اعتمد الكود الخاص بك على مولد أرقام عشوائية، فيجب ألا يستخدم أبدًا وظائف مثل ``numpy.random.random`` أو ``numpy.random.normal``. يمكن أن يؤدي هذا النهج إلى مشكلات في قابلية التكرار في اختبارات الوحدة. بدلاً من ذلك، يجب استخدام كائن ``numpy.random.RandomState``، والذي يتم بناؤه من وسيطة ``random_state`` التي يتم تمريرها إلى الفئة أو الدالة. يمكن بعد ذلك استخدام الدالة :func:`check_random_state`، أدناه، لإنشاء كائن مولد رقم عشوائي.
 
-- :func:`check_random_state`: create a ``np.random.RandomState`` object from
-  a parameter ``random_state``.
+- :func:`check_random_state`: إنشاء كائن ``np.random.RandomState`` من وسيطة ``random_state``.
 
-  - If ``random_state`` is ``None`` or ``np.random``, then a
-    randomly-initialized ``RandomState`` object is returned.
-  - If ``random_state`` is an integer, then it is used to seed a new
-    ``RandomState`` object.
-  - If ``random_state`` is a ``RandomState`` object, then it is passed through.
+  - إذا كانت ``random_state`` هي ``None`` أو ``np.random``، فسيتم إرجاع كائن ``RandomState`` الذي تم تهيئته بشكل عشوائي.
+  - إذا كانت ``random_state`` عبارة عن عدد صحيح، فسيتم استخدامه لبذر كائن ``RandomState`` جديد.
+  - إذا كانت ``random_state`` عبارة عن كائن ``RandomState``، فسيتم تمريره كما هو.
 
-For example::
+على سبيل المثال::
 
     >>> from sklearn.utils import check_random_state
     >>> random_state = 0
@@ -74,152 +45,114 @@ For example::
     >>> random_state.rand(4)
     array([0.5488135 , 0.71518937, 0.60276338, 0.54488318])
 
-When developing your own scikit-learn compatible estimator, the following
-helpers are available.
+عند تطوير برنامج تقدير متوافق مع scikit-learn الخاص بك، تكون برامج المساعدة التالية متاحة.
 
-- :func:`validation.check_is_fitted`: check that the estimator has been fitted
-  before calling ``transform``, ``predict``, or similar methods. This helper
-  allows to raise a standardized error message across estimator.
+- :func:`validation.check_is_fitted`: التحقق من أن المثمن قد تم ضبطه قبل استدعاء ``transform`` أو ``predict`` أو طرق مماثلة. يسمح هذا المساعد برفع رسالة خطأ موحدة عبر المثمن.
 
-- :func:`validation.has_fit_parameter`: check that a given parameter is
-  supported in the ``fit`` method of a given estimator.
+- :func:`validation.has_fit_parameter`: التحقق من أن معلمة معينة مدعومة في طريقة "التناسب" لمقدّر معين.
 
-Efficient Linear Algebra & Array Operations
+عمليات الجبر الخطي والصفيف الفعالة
 ===========================================
 
-- :func:`extmath.randomized_range_finder`: construct an orthonormal matrix
-  whose range approximates the range of the input.  This is used in
-  :func:`extmath.randomized_svd`, below.
+- :func:`extmath.randomized_range_finder`: إنشاء مصفوفة متعامدة يكون نطاقها تقريبيًا لنطاق الإدخال. يتم استخدام هذا في :func:`extmath.randomized_svd`، أدناه.
 
-- :func:`extmath.randomized_svd`: compute the k-truncated randomized SVD.
-  This algorithm finds the exact truncated singular values decomposition
-  using randomization to speed up the computations. It is particularly
-  fast on large matrices on which you wish to extract only a small
-  number of components.
+- :func:`extmath.randomized_svd`: حساب SVD المعياري المعياري المعياري المعياري. يجد هذا الخوارزمية القيمة الدقيقة للتفرد المعياري المعياري المعياري باستخدام العشوائية لتسريع الحسابات. إنه سريع بشكل خاص في المصفوفات الكبيرة التي ترغب في استخراج عدد قليل فقط من المكونات منها.
 
 - `arrayfuncs.cholesky_delete`:
-  (used in :func:`~sklearn.linear_model.lars_path`)  Remove an
-  item from a cholesky factorization.
+  (يستخدم في :func:`~sklearn.linear_model.lars_path`) إزالة عنصر من تحليل تشوليسكي.
 
-- :func:`arrayfuncs.min_pos`: (used in ``sklearn.linear_model.least_angle``)
-  Find the minimum of the positive values within an array.
+- :func:`arrayfuncs.min_pos`: (يستخدم في ``sklearn.linear_model.least_angle``)
+  البحث عن الحد الأدنى من القيم الإيجابية داخل مصفوفة.
 
+- :func:`extmath.fast_logdet`: حساب سجل محدد مصفوفة بكفاءة.
 
-- :func:`extmath.fast_logdet`: efficiently compute the log of the determinant
-  of a matrix.
+- :func:`extmath.density`: احسب كثافة متجه نادرة بكفاءة
 
-- :func:`extmath.density`: efficiently compute the density of a sparse vector
+- :func:`extmath.safe_sparse_dot`: دوت المنتج الذي سيتعامل بشكل صحيح مع الإدخالات النادرة ``scipy.sparse``. إذا كانت الإدخالات كثيفة، فهي مكافئة لـ ``numpy.dot``.
 
-- :func:`extmath.safe_sparse_dot`: dot product which will correctly handle
-  ``scipy.sparse`` inputs.  If the inputs are dense, it is equivalent to
-  ``numpy.dot``.
+- :func:`extmath.weighted_mode`: امتداد لـ ``scipy.stats.mode`` والذي يسمح لكل عنصر أن يكون له وزن حقيقي.
 
-- :func:`extmath.weighted_mode`: an extension of ``scipy.stats.mode`` which
-  allows each item to have a real-valued weight.
+- :func:`resample`: إعادة أخذ عينات المصفوفات أو المصفوفات النادرة بطريقة متسقة. يستخدم في :func:`shuffle`، أدناه.
 
-- :func:`resample`: Resample arrays or sparse matrices in a consistent way.
-  used in :func:`shuffle`, below.
+- :func:`shuffle`: خلط المصفوفات أو المصفوفات النادرة بطريقة متسقة. يستخدم في :func:`~sklearn.cluster.k_means`.
 
-- :func:`shuffle`: Shuffle arrays or sparse matrices in a consistent way.
-  Used in :func:`~sklearn.cluster.k_means`.
-
-
-Efficient Random Sampling
+العينات العشوائية الفعالة
 =========================
 
-- :func:`random.sample_without_replacement`: implements efficient algorithms
-  for sampling ``n_samples`` integers from a population of size ``n_population``
-  without replacement.
+- :func:`random.sample_without_replacement`: تنفيذ خوارزميات فعالة لأخذ عينات ``n_samples`` من الأعداد الصحيحة من عدد سكان يبلغ عددهم ``n_population`` بدون استبدال.
 
-
-Efficient Routines for Sparse Matrices
+الروتينات الفعالة للمصفوفات النادرة
 ======================================
 
-The ``sklearn.utils.sparsefuncs`` cython module hosts compiled extensions to
-efficiently process ``scipy.sparse`` data.
+تستضيف وحدة ``sklearn.utils.sparsefuncs`` cython ملحقات مجمعة لمعالجة بيانات ``scipy.sparse`` بكفاءة.
 
-- :func:`sparsefuncs.mean_variance_axis`: compute the means and
-  variances along a specified axis of a CSR matrix.
-  Used for normalizing the tolerance stopping criterion in
+- :func:`sparsefuncs.mean_variance_axis`: حساب المتوسطات والتباينات على طول محور محدد لمصفوفة CSR.
+  يستخدم لتطبيع معيار التوقف في
   :class:`~sklearn.cluster.KMeans`.
 
-- :func:`sparsefuncs_fast.inplace_csr_row_normalize_l1` and
-  :func:`sparsefuncs_fast.inplace_csr_row_normalize_l2`: can be used to normalize
-  individual sparse samples to unit L1 or L2 norm as done in
+- :func:`sparsefuncs_fast.inplace_csr_row_normalize_l1` و
+  :func:`sparsefuncs_fast.inplace_csr_row_normalize_l2`: يمكن استخدامها لتطبيع عينات نادرة فردية لتطبيع L1 أو L2 كما هو الحال في
   :class:`~sklearn.preprocessing.Normalizer`.
 
-- :func:`sparsefuncs.inplace_csr_column_scale`: can be used to multiply the
-  columns of a CSR matrix by a constant scale (one scale per column).
-  Used for scaling features to unit standard deviation in
+- :func:`sparsefuncs.inplace_csr_column_scale`: يمكن استخدامه لمضاعفة أعمدة مصفوفة CSR بمعامل ثابت (مقياس واحد لكل عمود).
+  يستخدم لقياس الميزات إلى انحراف معياري وحدة في
   :class:`~sklearn.preprocessing.StandardScaler`.
 
-- :func:`~sklearn.neighbors.sort_graph_by_row_values`: can be used to sort a
-  CSR sparse matrix such that each row is stored with increasing values. This
-  is useful to improve efficiency when using precomputed sparse distance
-  matrices in estimators relying on nearest neighbors graph.
+- :func:`~sklearn.neighbors.sort_graph_by_row_values`: يمكن استخدامه لفرز مصفوفة نادرة CSR بحيث يتم تخزين كل صف بزيادة القيم. هذا
+  مفيد لتحسين الكفاءة عند استخدام المصفوفات النادرة للمسافات المسبقة في المقدرين الذين يعتمدون على رسم بياني لأقرب جار.
 
-
-Graph Routines
+روتينات الرسم البياني
 ==============
 
 - :func:`graph.single_source_shortest_path_length`:
-  (not currently used in scikit-learn)
-  Return the shortest path from a single source
-  to all connected nodes on a graph.  Code is adapted from `networkx
+  (لا تستخدم حاليًا في scikit-learn)
+  إرجاع أقصر مسار من مصدر واحد
+  إلى جميع العقد المتصلة في الرسم البياني. تم تكييف الكود من `networkx
   <https://networkx.github.io/>`_.
-  If this is ever needed again, it would be far faster to use a single
-  iteration of Dijkstra's algorithm from ``graph_shortest_path``.
+  إذا لزم الأمر مرة أخرى، فسيكون من الأسرع بكثير استخدام تكرار واحد من خوارزمية Dijkstra من ``graph_shortest_path``.
 
-
-Testing Functions
+وظائف الاختبار
 =================
 
-- :func:`discovery.all_estimators` : returns a list of all estimators in
-  scikit-learn to test for consistent behavior and interfaces.
+- :func:`discovery.all_estimators` : إرجاع قائمة بجميع المقدرين في
+  scikit-learn لاختبار السلوك والواجهات المتسقة.
 
-- :func:`discovery.all_displays` : returns a list of all displays (related to
-  plotting API) in scikit-learn to test for consistent behavior and interfaces.
+- :func:`discovery.all_displays` : إرجاع قائمة بجميع العروض (ذات الصلة
+  لواجهة برمجة التطبيقات للرسم) في scikit-learn لاختبار السلوك والواجهات المتسقة.
 
-- :func:`discovery.all_functions` : returns a list all functions in
-  scikit-learn to test for consistent behavior and interfaces.
+- :func:`discovery.all_functions` : إرجاع قائمة بجميع الوظائف في
+  scikit-learn لاختبار السلوك والواجهات المتسقة.
 
-Multiclass and multilabel utility function
+وظيفة المساعدة متعددة التصنيفات والتصنيفات متعددة التصنيفات
 ==========================================
 
-- :func:`multiclass.is_multilabel`: Helper function to check if the task
-  is a multi-label classification one.
+- :func:`multiclass.is_multilabel`: دالة مساعدة للتحقق مما إذا كانت المهمة
+  هي مهمة تصنيف متعددة التصنيفات.
 
-- :func:`multiclass.unique_labels`: Helper function to extract an ordered
-  array of unique labels from different formats of target.
+- :func:`multiclass.unique_labels`: دالة مساعدة لاستخراج مصفوفة مرتبة
+  من التصنيفات الفريدة من تنسيقات الهدف المختلفة.
 
-
-Helper Functions
+وظائف المساعدة
 ================
 
-- :class:`gen_even_slices`: generator to create ``n``-packs of slices going up
-  to ``n``.  Used in :func:`~sklearn.decomposition.dict_learning` and
+- :class:`gen_even_slices`: مولد لإنشاء شرائح "n" من الشرائح التي تصل إلى "n". يستخدم في :func:`~sklearn.decomposition.dict_learning` و
   :func:`~sklearn.cluster.k_means`.
 
-- :class:`gen_batches`: generator to create slices containing batch size elements
-  from 0 to ``n``
+- :class:`gen_batches`: مولد لإنشاء شرائح تحتوي على حجم دفعة من العناصر
+  من 0 إلى "n"
 
-- :func:`safe_mask`: Helper function to convert a mask to the format expected
-  by the numpy array or scipy sparse matrix on which to use it (sparse
-  matrices support integer indices only while numpy arrays support both
-  boolean masks and integer indices).
+- :func:`safe_mask`: دالة مساعدة لتحويل قناع إلى التنسيق المتوقع
+  بواسطة مصفوفة Numpy أو مصفوفة scipy نادرة والتي سيتم استخدامها عليها (تدعم المصفوفات النادرة الفهارس الصحيحة فقط بينما تدعم مصفوفات Numpy الأقنعة المنطقية والفهرسة الصحيحة).
 
-- :func:`safe_sqr`: Helper function for unified squaring (``**2``) of
-  array-likes, matrices and sparse matrices.
+- :func:`safe_sqr`: دالة مساعدة للتربيع الموحد (``** 2``) من
+  تشبه المصفوفات والمصفوفات والمصفوفات النادرة.
 
-
-Hash Functions
+وظائف التجزئة
 ==============
 
-- :func:`murmurhash3_32` provides a python wrapper for the
-  ``MurmurHash3_x86_32`` C++ non cryptographic hash function. This hash
-  function is suitable for implementing lookup tables, Bloom filters,
-  Count Min Sketch, feature hashing and implicitly defined sparse
-  random projections::
+- :func:`murmurhash3_32` يوفر غلاف Python لـ
+  ``MurmurHash3_x86_32`` وظيفة تجزئة C++ غير المشفرة. تعتبر دالة التجزئة هذه مناسبة لتنفيذ جداول البحث وBloom filters
+  وCount Min Sketch والتجزئة الميزة والتجزئة العشوائية النادرة المعرفة ضمنيًا::
 
     >>> from sklearn.utils import murmurhash3_32
     >>> murmurhash3_32("some feature", seed=0) == -384616559
@@ -228,15 +161,14 @@ Hash Functions
     >>> murmurhash3_32("some feature", seed=0, positive=True) == 3910350737
     True
 
-  The ``sklearn.utils.murmurhash`` module can also be "cimported" from
-  other cython modules so as to benefit from the high performance of
-  MurmurHash while skipping the overhead of the Python interpreter.
+  يمكن أيضًا "cimport" وحدة ``sklearn.utils.murmurhash`` من
+  الوحدات النمطية الأخرى لـ Cython للاستفادة من الأداء العالي لـ
+  MurmurHash أثناء تخطي وقت تنفيذ مفسر Python.
 
-
-Warnings and Exceptions
+التحذيرات والاستثناءات
 =======================
 
-- :class:`deprecated`: Decorator to mark a function or class as deprecated.
+- :class:`deprecated`: الديكور لوضع علامة على دالة أو فئة على أنها مهملة.
 
-- :class:`~sklearn.exceptions.ConvergenceWarning`: Custom warning to catch
-  convergence problems. Used in ``sklearn.covariance.graphical_lasso``.
+- :class:`~sklearn.exceptions.ConvergenceWarning`: تحذير مخصص لالتقاط
+  مشكلات التقارب. يستخدم في ``sklearn.covariance.graphical_lasso``.
