@@ -1,26 +1,16 @@
-Getting Started
-===============
+بدء الاستخدام
+================
 
-The purpose of this guide is to illustrate some of the main features that
-``scikit-learn`` provides. It assumes a very basic working knowledge of
-machine learning practices (model fitting, predicting, cross-validation,
-etc.). Please refer to our :ref:`installation instructions
-<installation-instructions>` for installing ``scikit-learn``.
+الغرض من هذا الدليل هو توضيح بعض الميزات الرئيسية التي يوفرها ``scikit-learn``. يفترض وجود معرفة أساسية جدًا بممارسات التعلم الآلي (مثل تكييف النموذج، والتنبؤ، والتحقق من الصلاحية المتقاطعة، وما إلى ذلك). يرجى الرجوع إلى تعليمات التثبيت الخاصة بنا <installation-instructions> لتثبيت ``scikit-learn``.
 
-``Scikit-learn`` is an open source machine learning library that supports
-supervised and unsupervised learning. It also provides various tools for
-model fitting, data preprocessing, model selection, model evaluation,
-and many other utilities.
+``Scikit-learn`` هي مكتبة تعلم آلي مفتوحة المصدر تدعم التعلم المُراقَب وغير المُراقَب. كما يوفر أدوات مختلفة لضبط النماذج، ومعالجة البيانات مسبقًا، واختيار النماذج، وتقييم النماذج، والعديد من المرافق الأخرى.
 
-Fitting and predicting: estimator basics
+الضبط والتنبؤ: أساسيات المُقدِّر
 ----------------------------------------
 
-``Scikit-learn`` provides dozens of built-in machine learning algorithms and
-models, called :term:`estimators`. Each estimator can be fitted to some data
-using its :term:`fit` method.
+يوفر ``Scikit-learn`` عشرات خوارزميات ونماذج التعلم الآلي المدمجة، والتي يُطلق عليها اسم :term: `المُقدِّرات`. يمكن ضبط كل مُقدِّر على بعض البيانات باستخدام طريقة :term: `الضبط` الخاصة به.
 
-Here is a simple example where we fit a
-:class:`~sklearn.ensemble.RandomForestClassifier` to some very basic data::
+فيما يلي مثال بسيط نقوم فيه بضبط :class: `RandomForestClassifier` على بعض البيانات الأساسية جدًا::
 
   >>> from sklearn.ensemble import RandomForestClassifier
   >>> clf = RandomForestClassifier(random_state=0)
@@ -30,43 +20,28 @@ Here is a simple example where we fit a
   >>> clf.fit(X, y)
   RandomForestClassifier(random_state=0)
 
-The :term:`fit` method generally accepts 2 inputs:
+تقبل طريقة :term: `الضبط` عمومًا مدخلين:
 
-- The samples matrix (or design matrix) :term:`X`. The size of ``X``
-  is typically ``(n_samples, n_features)``, which means that samples are
-  represented as rows and features are represented as columns.
-- The target values :term:`y` which are real numbers for regression tasks, or
-  integers for classification (or any other discrete set of values). For
-  unsupervised learning tasks, ``y`` does not need to be specified. ``y`` is
-  usually a 1d array where the ``i`` th entry corresponds to the target of the
-  ``i`` th sample (row) of ``X``.
+- مصفوفة العينات (أو مصفوفة التصميم) :term: `X`. حجم ``X`` هو عادة ``(n_samples، n_features)``، مما يعني أن العينات مُمَثَلة كصفوف والميزات مُمَثَلة كأعمدة.
+- قيم الهدف :term: `y` التي هي أعداد حقيقية لمهام الانحدار، أو أعداد صحيحة للتصنيف (أو أي مجموعة منفصلة أخرى من القيم). بالنسبة لمهام التعلم غير المُراقَب، لا يلزم تحديد ``y``. عادةً ما يكون ``y`` مصفوفة أحادية البعد حيث يتوافق الإدخال ``i`` مع هدف العينة ``i`` (الصف) من ``X``.
 
-Both ``X`` and ``y`` are usually expected to be numpy arrays or equivalent
-:term:`array-like` data types, though some estimators work with other
-formats such as sparse matrices.
+يُتوقع أن يكون كل من ``X`` و ``y`` مصفوفتين Numpy أو أنواع بيانات مماثلة :term: `array-like`، على الرغم من أن بعض المُقدِّرات تعمل بتنسيقات أخرى مثل المصفوفات المُنَضَّدة.
 
-Once the estimator is fitted, it can be used for predicting target values of
-new data. You don't need to re-train the estimator::
+بمجرد ضبط المُقدِّر، يمكن استخدامه للتنبؤ بقيم الهدف لبيانات جديدة. لا تحتاج إلى إعادة تدريب المُقدِّر::
 
   >>> clf.predict(X)  # predict classes of the training data
   array([0, 1])
   >>> clf.predict([[4, 5, 6], [14, 15, 16]])  # predict classes of new data
   array([0, 1])
 
-You can check :ref:`ml_map` on how to choose the right model for your use case.
+يمكنك التحقق من :ref: `ml_map` لمعرفة كيفية اختيار النموذج المناسب لحالتك الاستخدام.
 
-Transformers and pre-processors
+المحوِّلات والمعالجات المُسبَقة
 -------------------------------
 
-Machine learning workflows are often composed of different parts. A typical
-pipeline consists of a pre-processing step that transforms or imputes the
-data, and a final predictor that predicts target values.
+غالبًا ما تتكون تدفقات عمل التعلم الآلي من أجزاء مختلفة. يتكون الأنبوب النموذجي من خطوة معالجة مُسبَقة تقوم بتحويل البيانات أو استكمالها، ومُتنبئ نهائي يتنبأ بقيم الهدف.
 
-In ``scikit-learn``, pre-processors and transformers follow the same API as
-the estimator objects (they actually all inherit from the same
-``BaseEstimator`` class). The transformer objects don't have a
-:term:`predict` method but rather a :term:`transform` method that outputs a
-newly transformed sample matrix ``X``::
+في ``scikit-learn``، تتبع المعالجات المُسبَقة والمحوِّلات نفس واجهة برمجة التطبيقات مثل كائنات المُقدِّر (في الواقع، جميعها ترث من فئة ``BaseEstimator`` نفسها). لا تحتوي كائنات المحوِّل على طريقة :term: `predict` ولكن بدلاً من ذلك تحتوي على طريقة :term: `transform` التي تُخرج مصفوفة عينات مُحوَّلة حديثًا ``X``::
 
   >>> from sklearn.preprocessing import StandardScaler
   >>> X = [[0, 15],
@@ -76,23 +51,14 @@ newly transformed sample matrix ``X``::
   array([[-1.,  1.],
          [ 1., -1.]])
 
-Sometimes, you want to apply different transformations to different features:
-the :ref:`ColumnTransformer<column_transformer>` is designed for these
-use-cases.
+في بعض الأحيان، تريد تطبيق تحويلات مختلفة على ميزات مختلفة: تم تصميم :ref: `ColumnTransformer` لهذه الحالات الاستخدام.
 
-Pipelines: chaining pre-processors and estimators
+الأنابيب: ربط المعالجات المُسبَقة والمُقدِّرات
 --------------------------------------------------
 
-Transformers and estimators (predictors) can be combined together into a
-single unifying object: a :class:`~sklearn.pipeline.Pipeline`. The pipeline
-offers the same API as a regular estimator: it can be fitted and used for
-prediction with ``fit`` and ``predict``. As we will see later, using a
-pipeline will also prevent you from data leakage, i.e. disclosing some
-testing data in your training data.
+يمكن دمج المحوِّلات والمُقدِّرات (المُتنبئين) معًا في كائن موحد: :class: `Pipeline`. يوفر الأنبوب نفس واجهة برمجة التطبيقات مثل المُقدِّر العادي: يمكن ضبطه واستخدامه للتنبؤ باستخدام ``fit`` و ``predict``. كما سنرى لاحقًا، فإن استخدام الأنبوب سيحميك أيضًا من تسرب البيانات، أي الكشف عن بعض بيانات الاختبار في بيانات التدريب الخاصة بك.
 
-In the following example, we :ref:`load the Iris dataset <datasets>`, split it
-into train and test sets, and compute the accuracy score of a pipeline on
-the test data::
+في المثال التالي، نقوم بتحميل مجموعة بيانات Iris :ref: `datasets`، وتقسيمها إلى مجموعات تدريب واختبار، وحساب درجة الدقة لأنبوب على بيانات الاختبار::
 
   >>> from sklearn.preprocessing import StandardScaler
   >>> from sklearn.linear_model import LogisticRegression
@@ -111,29 +77,20 @@ the test data::
   >>> X, y = load_iris(return_X_y=True)
   >>> X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
   ...
-  >>> # fit the whole pipeline
+  >>> # ضبط الأنبوب بالكامل
   >>> pipe.fit(X_train, y_train)
   Pipeline(steps=[('standardscaler', StandardScaler()),
                   ('logisticregression', LogisticRegression())])
-  >>> # we can now use it like any other estimator
+  >>> # يمكننا الآن استخدامه مثل أي مُقدِّر آخر
   >>> accuracy_score(pipe.predict(X_test), y_test)
   0.97...
 
-Model evaluation
+تقييم النموذج
 ----------------
 
-Fitting a model to some data does not entail that it will predict well on
-unseen data. This needs to be directly evaluated. We have just seen the
-:func:`~sklearn.model_selection.train_test_split` helper that splits a
-dataset into train and test sets, but ``scikit-learn`` provides many other
-tools for model evaluation, in particular for :ref:`cross-validation
-<cross_validation>`.
+لا يعني ضبط نموذج على بعض البيانات أنه سيتنبأ جيدًا بالبيانات غير المرئية. يجب تقييم ذلك مباشرةً. لقد رأينا للتو المساعد :func: `train_test_split` الذي يقسم مجموعة بيانات إلى مجموعات تدريب واختبار، ولكن يوفر ``scikit-learn`` العديد من الأدوات الأخرى لتقييم النماذج، خاصةً للتحقق من الصلاحية المتقاطعة :ref: `cross_validation`.
 
-We here briefly show how to perform a 5-fold cross-validation procedure,
-using the :func:`~sklearn.model_selection.cross_validate` helper. Note that
-it is also possible to manually iterate over the folds, use different
-data splitting strategies, and use custom scoring functions. Please refer to
-our :ref:`User Guide <cross_validation>` for more details::
+نُظهِر هنا بإيجاز كيفية إجراء عملية تحقق من الصلاحية متقاطعة بخمسة أضعاف، باستخدام المساعد :func: `cross_validate`. لاحظ أنه من الممكن أيضًا التكرار يدويًا عبر الطيات، واستخدام استراتيجيات تقسيم البيانات المختلفة، واستخدام دالات التسجيل المخصصة. يرجى الرجوع إلى دليل المستخدم الخاص بنا :ref: `cross_validation` لمزيد من التفاصيل::
 
   >>> from sklearn.datasets import make_regression
   >>> from sklearn.linear_model import LinearRegression
@@ -146,26 +103,12 @@ our :ref:`User Guide <cross_validation>` for more details::
   >>> result['test_score']  # r_squared score is high because dataset is easy
   array([1., 1., 1., 1., 1.])
 
-Automatic parameter searches
+عمليات البحث التلقائي عن المعلمات
 ----------------------------
 
-All estimators have parameters (often called hyper-parameters in the
-literature) that can be tuned. The generalization power of an estimator
-often critically depends on a few parameters. For example a
-:class:`~sklearn.ensemble.RandomForestRegressor` has a ``n_estimators``
-parameter that determines the number of trees in the forest, and a
-``max_depth`` parameter that determines the maximum depth of each tree.
-Quite often, it is not clear what the exact values of these parameters
-should be since they depend on the data at hand.
+لجميع المُقدِّرات معلمات (تُسمى غالبًا معلمات فائقة في الأدبيات) يمكن ضبطها. غالبًا ما تعتمد قوة تعميم المُقدِّر بشكل حاسم على بعض المعلمات. على سبيل المثال، لدى :class: `RandomForestRegressor` معلمة ``n_estimators`` تحدد عدد الأشجار في الغابة، ومعلمة ``max_depth`` تحدد العمق الأقصى لكل شجرة. غالبًا ما يكون من غير الواضح ما هي القيم الدقيقة لهذه المعلمات لأنها تعتمد على البيانات المتاحة.
 
-``Scikit-learn`` provides tools to automatically find the best parameter
-combinations (via cross-validation). In the following example, we randomly
-search over the parameter space of a random forest with a
-:class:`~sklearn.model_selection.RandomizedSearchCV` object. When the search
-is over, the :class:`~sklearn.model_selection.RandomizedSearchCV` behaves as
-a :class:`~sklearn.ensemble.RandomForestRegressor` that has been fitted with
-the best set of parameters. Read more in the :ref:`User Guide
-<grid_search>`::
+يوفر ``Scikit-learn`` أدوات للعثور تلقائيًا على أفضل مجموعات المعلمات (عبر التحقق من الصلاحية المتقاطعة). في المثال التالي، نقوم بالبحث عشوائيًا في مساحة المعلمات لنموذج غابة عشوائي باستخدام كائن :class: `RandomizedSearchCV`. عندما ينتهي البحث، يتصرف :class: `RandomizedSearchCV` مثل :class: `RandomForestRegressor` الذي تم ضبطه بأفضل مجموعة من المعلمات. اقرأ المزيد في دليل المستخدم :ref: `grid_search`::
 
   >>> from sklearn.datasets import fetch_california_housing
   >>> from sklearn.ensemble import RandomForestRegressor
@@ -200,32 +143,17 @@ the best set of parameters. Read more in the :ref:`User Guide
 
 .. note::
 
-    In practice, you almost always want to :ref:`search over a pipeline
-    <composite_grid_search>`, instead of a single estimator. One of the main
-    reasons is that if you apply a pre-processing step to the whole dataset
-    without using a pipeline, and then perform any kind of cross-validation,
-    you would be breaking the fundamental assumption of independence between
-    training and testing data. Indeed, since you pre-processed the data
-    using the whole dataset, some information about the test sets are
-    available to the train sets. This will lead to over-estimating the
-    generalization power of the estimator (you can read more in this `Kaggle
-    post <https://www.kaggle.com/alexisbcook/data-leakage>`_).
+    في الممارسة العملية، تريد دائمًا :ref: `البحث في الأنبوب
+    <composite_grid_search>`، بدلاً من مُقدِّر واحد. أحد الأسباب الرئيسية هو أنه إذا قمت بتطبيق خطوة معالجة مُسبَقة على مجموعة البيانات بأكملها دون استخدام الأنبوب، ثم قمت بأي نوع من التحقق من الصلاحية المتقاطعة، فستكون قد كسرت الافتراض الأساسي لاستقلال البيانات التدريبية وبيانات الاختبار. في الواقع، نظرًا لأنك عالجت البيانات مُسبَقًا باستخدام مجموعة البيانات بأكملها، فإن بعض المعلومات حول مجموعات الاختبار متاحة لمجموعات التدريب. سيؤدي هذا إلى المبالغة في تقدير قوة تعميم المُقدِّر (يمكنك قراءة المزيد في هذا المنشور على Kaggle <https://www.kaggle.com/alexisbcook/data-leakage>`_).
 
-    Using a pipeline for cross-validation and searching will largely keep
-    you from this common pitfall.
+    سيحميك استخدام الأنبوب للتحقق من الصلاحية المتقاطعة والبحث إلى حد كبير من هذا الفخ الشائع.
 
 
-Next steps
+الخطوات التالية
 ----------
 
-We have briefly covered estimator fitting and predicting, pre-processing
-steps, pipelines, cross-validation tools and automatic hyper-parameter
-searches. This guide should give you an overview of some of the main
-features of the library, but there is much more to ``scikit-learn``!
+لقد غطينا بإيجاز ضبط المُقدِّر والتنبؤ، وخطوات المعالجة المُسبَقة، والأنابيب، وأدوات التحقق من الصلاحية المتقاطعة، وعمليات البحث التلقائي عن المعلمات الفائقة. يجب أن يمنحك هذا الدليل نظرة عامة على بعض الميزات الرئيسية للمكتبة، ولكن هناك الكثير في ``scikit-learn``!
 
-Please refer to our :ref:`user_guide` for details on all the tools that we
-provide. You can also find an exhaustive list of the public API in the
-:ref:`api_ref`.
+يرجى الرجوع إلى دليل المستخدم الخاص بنا :ref: `user_guide` للحصول على تفاصيل حول جميع الأدوات التي نوفرها. يمكنك أيضًا العثور على قائمة شاملة بواجهة برمجة التطبيقات العامة في :ref: `api_ref`.
 
-You can also look at our numerous :ref:`examples <general_examples>` that
-illustrate the use of ``scikit-learn`` in many different contexts.
+يمكنك أيضًا الاطلاع على العديد من الأمثلة لدينا :ref: `general_examples` التي توضح استخدام ``scikit-learn`` في العديد من السياقات المختلفة.
