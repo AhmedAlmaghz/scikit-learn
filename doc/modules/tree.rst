@@ -1,104 +1,46 @@
-.. _tree:
+شجرة القرار
 
-==============
-Decision Trees
-==============
+**شجرة القرار (DTs)** هي طريقة تعلم إشرافية غير معلمية تستخدم للتصنيف والتنبؤ. الهدف هو إنشاء نموذج يتنبأ بقيمة متغير الهدف عن طريق تعلم قواعد اتخاذ القرار البسيطة المستنبطة من ميزات البيانات. يمكن النظر إلى الشجرة على أنها تقريب ثابت قطاعي.
 
-.. currentmodule:: sklearn.tree
+على سبيل المثال، في المثال أدناه، تتعلم أشجار القرار من البيانات لتقريب منحنى الجيب بمجموعة من قواعد اتخاذ القرار if-then-else. كلما زاد عمق الشجرة، زادت تعقيد قواعد القرار، وزاد ملاءمة النموذج.
 
-**Decision Trees (DTs)** are a non-parametric supervised learning method used
-for :ref:`classification <tree_classification>` and :ref:`regression
-<tree_regression>`. The goal is to create a model that predicts the value of a
-target variable by learning simple decision rules inferred from the data
-features. A tree can be seen as a piecewise constant approximation.
+بعض مزايا أشجار القرار هي:
 
-For instance, in the example below, decision trees learn from data to
-approximate a sine curve with a set of if-then-else decision rules. The deeper
-the tree, the more complex the decision rules and the fitter the model.
+- بسيطة الفهم والتفسير. يمكن تصور الأشجار.
 
-.. figure:: ../auto_examples/tree/images/sphx_glr_plot_tree_regression_001.png
-   :target: ../auto_examples/tree/plot_tree_regression.html
-   :scale: 75
-   :align: center
+- تتطلب القليل من الإعداد للبيانات. غالبًا ما تتطلب التقنيات الأخرى تطبيع البيانات، ويجب إنشاء متغيرات وهمية، ويجب إزالة القيم الفارغة. تدعم بعض مجموعات الأشجار والخوارزميات القيم المفقودة.
 
-Some advantages of decision trees are:
+- تكلفة استخدام الشجرة (أي التنبؤ بالبيانات) لوغاريتمية في عدد نقاط البيانات المستخدمة لتدريب الشجرة.
 
-- Simple to understand and to interpret. Trees can be visualized.
+- القدرة على التعامل مع البيانات العددية والتصنيفية. ومع ذلك، لا يدعم تنفيذ sklearn-learn المتغيرات التصنيفية حاليًا. عادة ما تتخصص التقنيات الأخرى في تحليل مجموعات البيانات التي تحتوي على نوع واحد فقط من المتغيرات. راجع الخوارزميات لمزيد من المعلومات.
 
-- Requires little data preparation. Other techniques often require data
-  normalization, dummy variables need to be created and blank values to
-  be removed. Some tree and algorithm combinations support
-  :ref:`missing values <tree_missing_value_support>`.
+- القدرة على التعامل مع المشكلات متعددة الإخراج.
 
-- The cost of using the tree (i.e., predicting data) is logarithmic in the
-  number of data points used to train the tree.
+- يستخدم نموذج الصندوق الأبيض. إذا كان من الممكن ملاحظة حالة معينة في نموذج، فمن السهل تفسير الشرط باستخدام المنطق البولياني. على النقيض من ذلك، في نموذج الصندوق الأسود (على سبيل المثال، في شبكة عصبية اصطناعية)، قد يكون من الصعب تفسير النتائج.
 
-- Able to handle both numerical and categorical data. However, the scikit-learn
-  implementation does not support categorical variables for now. Other
-  techniques are usually specialized in analyzing datasets that have only one type
-  of variable. See :ref:`algorithms <tree_algorithms>` for more
-  information.
+- من الممكن التحقق من صحة نموذج باستخدام الاختبارات الإحصائية. وهذا يجعل من الممكن مراعاة موثوقية النموذج.
 
-- Able to handle multi-output problems.
+- الأداء جيد حتى إذا كانت افتراضاته منتهكة إلى حد ما بواسطة النموذج الحقيقي الذي تم من خلاله إنشاء البيانات.
 
-- Uses a white box model. If a given situation is observable in a model,
-  the explanation for the condition is easily explained by boolean logic.
-  By contrast, in a black box model (e.g., in an artificial neural
-  network), results may be more difficult to interpret.
+تشمل عيوب أشجار القرار ما يلي:
 
-- Possible to validate a model using statistical tests. That makes it
-  possible to account for the reliability of the model.
+- يمكن أن يؤدي متعلمو شجرة القرار إلى إنشاء أشجار معقدة للغاية لا تعمم البيانات جيدًا. يُعرف هذا الإفراط في الملاءمة. تعد الآليات، مثل التشذيب، وتحديد الحد الأدنى لعدد العينات المطلوبة في عقدة ورقة أو تعيين العمق الأقصى للشجرة، ضرورية لتجنب هذه المشكلة.
 
-- Performs well even if its assumptions are somewhat violated by
-  the true model from which the data were generated.
+- يمكن أن تكون أشجار القرار غير مستقرة لأن التغيرات الطفيفة في البيانات قد تؤدي إلى ظهور شجرة مختلفة تمامًا. يتم تخفيف هذه المشكلة عن طريق استخدام أشجار القرار ضمن مجموعة.
 
+- تنبؤات أشجار القرار ليست سلسة ولا مستمرة، ولكنها تقريبات ثابتة قطاعيًا كما هو موضح في الشكل أعلاه. لذلك، فإنهم لا يجيدون الاستقراء.
 
-The disadvantages of decision trees include:
+- تعتبر مشكلة تعلم شجرة قرار مثالية معروفة NP-كاملة من عدة جوانب للمثالية وحتى للمفاهيم البسيطة. وبالتالي، تستند خوارزميات تعلم شجرة القرار العملية إلى خوارزميات启发式 مثل الخوارزمية الجشعة حيث يتم اتخاذ قرارات محلية مثالية في كل عقدة. لا يمكن لهذه الخوارزميات أن تضمن العودة إلى شجرة القرار المثالية عالميًا. يمكن التخفيف من حدة ذلك عن طريق تدريب أشجار متعددة في متعلم مجموعة، حيث يتم أخذ عينات عشوائية من الميزات والعينات بالاستبدال.
 
-- Decision-tree learners can create over-complex trees that do not
-  generalize the data well. This is called overfitting. Mechanisms
-  such as pruning, setting the minimum number of samples required
-  at a leaf node or setting the maximum depth of the tree are
-  necessary to avoid this problem.
+- هناك مفاهيم يصعب تعلمها لأن أشجار القرار لا تعبر عنها بسهولة، مثل مشكلات XOR أو التكافؤ أو المضاعف.
 
-- Decision trees can be unstable because small variations in the
-  data might result in a completely different tree being generated.
-  This problem is mitigated by using decision trees within an
-  ensemble.
+- ينشئ متعلمو شجرة القرار أشجار متحيزة إذا كانت بعض الفئات تهيمن عليها. لذلك، يوصى بتوازن مجموعة البيانات قبل الملاءمة باستخدام شجرة القرار.
 
-- Predictions of decision trees are neither smooth nor continuous, but
-  piecewise constant approximations as seen in the above figure. Therefore,
-  they are not good at extrapolation.
+التصنيف
 
-- The problem of learning an optimal decision tree is known to be
-  NP-complete under several aspects of optimality and even for simple
-  concepts. Consequently, practical decision-tree learning algorithms
-  are based on heuristic algorithms such as the greedy algorithm where
-  locally optimal decisions are made at each node. Such algorithms
-  cannot guarantee to return the globally optimal decision tree.  This
-  can be mitigated by training multiple trees in an ensemble learner,
-  where the features and samples are randomly sampled with replacement.
+قادر على إجراء التصنيف متعدد الفئات على مجموعة من البيانات.
 
-- There are concepts that are hard to learn because decision trees
-  do not express them easily, such as XOR, parity or multiplexer problems.
-
-- Decision tree learners create biased trees if some classes dominate.
-  It is therefore recommended to balance the dataset prior to fitting
-  with the decision tree.
-
-
-.. _tree_classification:
-
-Classification
-==============
-
-:class:`DecisionTreeClassifier` is a class capable of performing multi-class
-classification on a dataset.
-
-As with other classifiers, :class:`DecisionTreeClassifier` takes as input two arrays:
-an array X, sparse or dense, of shape ``(n_samples, n_features)`` holding the
-training samples, and an array Y of integer values, shape ``(n_samples,)``,
-holding the class labels for the training samples::
+كما هو الحال مع المصنفات الأخرى، يأخذ كإدخال صفيفين: صفيف X، ناقص أو كثيف، بشكل (n_samples، n_features) الذي يحمل عينات التدريب، ومصفوفة Y من القيم الصحيحة، الشكل (n_samples)، الذي يحمل تسميات الفصل لمجموعات التدريب::
 
     >>> from sklearn import tree
     >>> X = [[0, 0], [1, 1]]
@@ -106,27 +48,21 @@ holding the class labels for the training samples::
     >>> clf = tree.DecisionTreeClassifier()
     >>> clf = clf.fit(X, Y)
 
-After being fitted, the model can then be used to predict the class of samples::
+بعد الملاءمة، يمكن بعد ذلك استخدام النموذج للتنبؤ بفئة العينات::
 
     >>> clf.predict([[2., 2.]])
     array([1])
 
-In case that there are multiple classes with the same and highest
-probability, the classifier will predict the class with the lowest index
-amongst those classes.
+في حالة وجود فئات متعددة بنفس الاحتمالية الأعلى، فإن المصنف سيتنبأ بالفئة ذات المؤشر الأدنى من بين تلك الفئات.
 
-As an alternative to outputting a specific class, the probability of each class
-can be predicted, which is the fraction of training samples of the class in a
-leaf::
+كبديل لإخراج فئة محددة، يمكن التنبؤ باحتمالية كل فئة، والتي هي كسر عينات التدريب للفئة في ورقة::
 
     >>> clf.predict_proba([[2., 2.]])
     array([[0., 1.]])
 
-:class:`DecisionTreeClassifier` is capable of both binary (where the
-labels are [-1, 1]) classification and multiclass (where the labels are
-[0, ..., K-1]) classification.
+قادر على كل من التصنيف الثنائي (حيث التصنيفات هي [-1، 1]) والتصنيف متعدد الفئات (حيث التصنيفات هي [0، ...، K-1]).
 
-Using the Iris dataset, we can construct a tree as follows::
+باستخدام مجموعة بيانات Iris، يمكننا إنشاء شجرة كما يلي::
 
     >>> from sklearn.datasets import load_iris
     >>> from sklearn import tree
@@ -135,29 +71,17 @@ Using the Iris dataset, we can construct a tree as follows::
     >>> clf = tree.DecisionTreeClassifier()
     >>> clf = clf.fit(X, y)
 
-Once trained, you can plot the tree with the :func:`plot_tree` function::
+بمجرد التدريب، يمكنك رسم الشجرة باستخدام وظيفة plot_tree::
 
 
     >>> tree.plot_tree(clf)
     [...]
 
-.. figure:: ../auto_examples/tree/images/sphx_glr_plot_iris_dtc_002.png
-   :target: ../auto_examples/tree/plot_iris_dtc.html
-   :scale: 75
-   :align: center
+يمكن أيضًا تصدير الشجرة بتنسيق Graphviz باستخدام مصدر التصدير. إذا كنت تستخدم مدير الحزم conda، فيمكن تثبيت برامج Graphviz الثنائية وحزمة Python باستخدام conda install python-graphviz.
 
-.. dropdown:: Alternative ways to export trees
+بدلاً من ذلك، يمكن تنزيل البرامج الثنائية لـ Graphviz من صفحة مشروع Graphviz الرئيسية، ويمكن تثبيت الغلاف Python من pypi باستخدام pip install graphviz.
 
-  We can also export the tree in `Graphviz
-  <https://www.graphviz.org/>`_ format using the :func:`export_graphviz`
-  exporter. If you use the `conda <https://conda.io>`_ package manager, the graphviz binaries
-  and the python package can be installed with `conda install python-graphviz`.
-
-  Alternatively binaries for graphviz can be downloaded from the graphviz project homepage,
-  and the Python wrapper installed from pypi with `pip install graphviz`.
-
-  Below is an example graphviz export of the above tree trained on the entire
-  iris dataset; the results are saved in an output file `iris.pdf`::
+فيما يلي مثال على تصدير Graphviz للشجرة الموضحة أعلاه والتي تم تدريبها على مجموعة بيانات Iris بالكامل؛ يتم حفظ النتائج في ملف إخراج يسمى iris.pdf::
 
 
       >>> import graphviz # doctest: +SKIP
@@ -165,10 +89,7 @@ Once trained, you can plot the tree with the :func:`plot_tree` function::
       >>> graph = graphviz.Source(dot_data) # doctest: +SKIP
       >>> graph.render("iris") # doctest: +SKIP
 
-  The :func:`export_graphviz` exporter also supports a variety of aesthetic
-  options, including coloring nodes by their class (or value for regression) and
-  using explicit variable and class names if desired. Jupyter notebooks also
-  render these plots inline automatically::
+يدعم مصدر التصدير أيضًا مجموعة متنوعة من الخيارات الجمالية، بما في ذلك تلوين العقد حسب فئاتها (أو قيمتها للتنبؤ) واستخدام أسماء المتغيرات والفئات الصريحة إذا لزم الأمر. تعرض دفاتر Jupyter أيضًا هذه الرسوم البيانية تلقائيًا داخلها::
 
       >>> dot_data = tree.export_graphviz(clf, out_file=None, # doctest: +SKIP
       ...                      feature_names=iris.feature_names,  # doctest: +SKIP
@@ -178,63 +99,16 @@ Once trained, you can plot the tree with the :func:`plot_tree` function::
       >>> graph = graphviz.Source(dot_data)  # doctest: +SKIP
       >>> graph # doctest: +SKIP
 
-  .. only:: html
+أمثلة
 
-      .. figure:: ../images/iris.svg
-        :align: center
+* sphx_glr_auto_examples_tree_plot_iris_dtc.py
+* sphx_glr_auto_examples_tree_plot_unveil_tree_structure.py
 
-  .. only:: latex
+التنبؤ
 
-      .. figure:: ../images/iris.pdf
-        :align: center
+يمكن أيضًا تطبيق أشجار القرار على مشكلات الانحدار، باستخدام فئة DecisionTreeRegressor.
 
-  .. figure:: ../auto_examples/tree/images/sphx_glr_plot_iris_dtc_001.png
-    :target: ../auto_examples/tree/plot_iris_dtc.html
-    :align: center
-    :scale: 75
-
-  Alternatively, the tree can also be exported in textual format with the
-  function :func:`export_text`. This method doesn't require the installation
-  of external libraries and is more compact:
-
-      >>> from sklearn.datasets import load_iris
-      >>> from sklearn.tree import DecisionTreeClassifier
-      >>> from sklearn.tree import export_text
-      >>> iris = load_iris()
-      >>> decision_tree = DecisionTreeClassifier(random_state=0, max_depth=2)
-      >>> decision_tree = decision_tree.fit(iris.data, iris.target)
-      >>> r = export_text(decision_tree, feature_names=iris['feature_names'])
-      >>> print(r)
-      |--- petal width (cm) <= 0.80
-      |   |--- class: 0
-      |--- petal width (cm) >  0.80
-      |   |--- petal width (cm) <= 1.75
-      |   |   |--- class: 1
-      |   |--- petal width (cm) >  1.75
-      |   |   |--- class: 2
-      <BLANKLINE>
-
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_tree_plot_iris_dtc.py`
-* :ref:`sphx_glr_auto_examples_tree_plot_unveil_tree_structure.py`
-
-.. _tree_regression:
-
-Regression
-==========
-
-.. figure:: ../auto_examples/tree/images/sphx_glr_plot_tree_regression_001.png
-   :target: ../auto_examples/tree/plot_tree_regression.html
-   :scale: 75
-   :align: center
-
-Decision trees can also be applied to regression problems, using the
-:class:`DecisionTreeRegressor` class.
-
-As in the classification setting, the fit method will take as argument arrays X
-and y, only that in this case y is expected to have floating point values
-instead of integer values::
+كما هو الحال في إعداد التصنيف، ستأخذ طريقة التجهيز كحجج صفيفين X و y، باستثناء أنه في هذه الحالة، من المتوقع أن تكون y ذات قيم ذات نقطة عائمة بدلاً من قيم صحيحة::
 
     >>> from sklearn import tree
     >>> X = [[0, 0], [2, 2]]
@@ -244,213 +118,116 @@ instead of integer values::
     >>> clf.predict([[1, 1]])
     array([0.5])
 
-.. rubric:: Examples
+أمثلة
 
-* :ref:`sphx_glr_auto_examples_tree_plot_tree_regression.py`
+* sphx_glr_auto_examples_tree_plot_tree_regression.py
 
+مشكلات متعددة الإخراج
+مشكلة المخرجات المتعددة هي مشكلة تعلم إشرافي مع عدة مخرجات يتعين التنبؤ بها، أي عندما يكون Y مصفوفة ثنائية الأبعاد على الشكل (n_samples، n_outputs).
 
-.. _tree_multioutput:
+عندما لا توجد علاقة بين المخرجات، هناك طريقة بسيطة جدًا لحل هذا النوع من المشكلات تتمثل في بناء n من النماذج المستقلة، أي نموذج واحد لكل مخرج، ثم استخدام تلك النماذج للتنبؤ بشكل مستقل بكل مخرج من المخرجات n. ومع ذلك، نظرًا لأنه من المحتمل أن تكون قيم المخرجات المتعلقة بنفس المدخلات مرتبطة ببعضها البعض، فغالبًا ما تكون هناك طريقة أفضل تتمثل في بناء نموذج واحد قادر على التنبؤ في وقت واحد بجميع المخرجات n. أولاً، يتطلب وقت تدريب أقل نظرًا لأنه يتم بناء مُقدِّر واحد فقط. ثانيًا، غالبًا ما يمكن زيادة دقة تعميم المُقدِّر الناتج.
 
-Multi-output problems
-=====================
+فيما يتعلق بشجرة القرارات، يمكن استخدام هذه الاستراتيجية بسهولة لدعم مشكلات المخرجات المتعددة. يتطلب ذلك التغييرات التالية:
 
-A multi-output problem is a supervised learning problem with several outputs
-to predict, that is when Y is a 2d array of shape ``(n_samples, n_outputs)``.
+- تخزين n من قيم المخرجات في الأوراق بدلاً من 1؛
+- استخدام معايير التقسيم التي تحسب متوسط الانخفاض عبر جميع المخرجات n.
 
-When there is no correlation between the outputs, a very simple way to solve
-this kind of problem is to build n independent models, i.e. one for each
-output, and then to use those models to independently predict each one of the n
-outputs. However, because it is likely that the output values related to the
-same input are themselves correlated, an often better way is to build a single
-model capable of predicting simultaneously all n outputs. First, it requires
-lower training time since only a single estimator is built. Second, the
-generalization accuracy of the resulting estimator may often be increased.
+تقدم هذه الوحدة دعمًا لمشكلات المخرجات المتعددة من خلال تنفيذ هذه الاستراتيجية في كل من class:DecisionTreeClassifier و class:DecisionTreeRegressor. إذا تم ضبط شجرة قرار على مصفوفة مخرجات Y ذات الشكل (n_samples، n_outputs)، فسيقوم المُقدِّر الناتج بما يلي:
 
-With regard to decision trees, this strategy can readily be used to support
-multi-output problems. This requires the following changes:
+* إخراج n_output من القيم عند التنبؤ؛
 
-- Store n output values in leaves, instead of 1;
-- Use splitting criteria that compute the average reduction across all
-  n outputs.
+* إخراج قائمة بمصفوفات n_output من احتمالات الفئات عند التنبؤ بالاحتمالات.
 
-This module offers support for multi-output problems by implementing this
-strategy in both :class:`DecisionTreeClassifier` and
-:class:`DecisionTreeRegressor`. If a decision tree is fit on an output array Y
-of shape ``(n_samples, n_outputs)`` then the resulting estimator will:
-
-* Output n_output values upon ``predict``;
-
-* Output a list of n_output arrays of class probabilities upon
-  ``predict_proba``.
-
-The use of multi-output trees for regression is demonstrated in
-:ref:`sphx_glr_auto_examples_tree_plot_tree_regression_multioutput.py`. In this example, the input
-X is a single real value and the outputs Y are the sine and cosine of X.
+يتم توضيح استخدام أشجار المخرجات المتعددة للانحدار في مثال: ref:sphx_glr_auto_examples_tree_plot_tree_regression_multioutput.py. في هذا المثال، يكون المدخل X قيمة حقيقية واحدة والمخرجات Y هي جيب وجيب تمام X.
 
 .. figure:: ../auto_examples/tree/images/sphx_glr_plot_tree_regression_multioutput_001.png
    :target: ../auto_examples/tree/plot_tree_regression_multioutput.html
    :scale: 75
    :align: center
 
-The use of multi-output trees for classification is demonstrated in
-:ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`. In this example, the inputs
-X are the pixels of the upper half of faces and the outputs Y are the pixels of
-the lower half of those faces.
+يتم توضيح استخدام أشجار المخرجات المتعددة للتصنيف في مثال: ref:sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py. في هذا المثال، تكون المدخلات X هي بكسلات النصف العلوي من الوجوه والمخرجات Y هي بكسلات النصف السفلي من تلك الوجوه.
 
 .. figure:: ../auto_examples/miscellaneous/images/sphx_glr_plot_multioutput_face_completion_001.png
    :target: ../auto_examples/miscellaneous/plot_multioutput_face_completion.html
    :scale: 75
-   :align: center
+   :align : center
 
-.. rubric:: Examples
+.. rubric:: الأمثلة
 
-* :ref:`sphx_glr_auto_examples_tree_plot_tree_regression_multioutput.py`
-* :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`
+* :ref:sphx_glr_auto_examples_tree_plot_tree_regression_multioutput.py
+* :ref:sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* M. Dumont et al,  `Fast multi-class image annotation with random subwindows
-  and multiple output randomized trees
-  <http://www.montefiore.ulg.ac.be/services/stochastic/pubs/2009/DMWG09/dumont-visapp09-shortpaper.pdf>`_,
-  International Conference on Computer Vision Theory and Applications 2009
+* M. Dumont et al، Fast multi-class image annotation with random subwindows and multiple output randomized trees، International Conference on Computer Vision Theory and Applications 2009
 
 .. _tree_complexity:
 
-Complexity
+التعقيد
 ==========
 
-In general, the run time cost to construct a balanced binary tree is
-:math:`O(n_{samples}n_{features}\log(n_{samples}))` and query time
-:math:`O(\log(n_{samples}))`.  Although the tree construction algorithm attempts
-to generate balanced trees, they will not always be balanced.  Assuming that the
-subtrees remain approximately balanced, the cost at each node consists of
-searching through :math:`O(n_{features})` to find the feature that offers the
-largest reduction in the impurity criterion, e.g. log loss (which is equivalent to an
-information gain). This has a cost of
-:math:`O(n_{features}n_{samples}\log(n_{samples}))` at each node, leading to a
-total cost over the entire trees (by summing the cost at each node) of
-:math:`O(n_{features}n_{samples}^{2}\log(n_{samples}))`.
+بشكل عام، تبلغ تكلفة وقت التشغيل لبناء شجرة ثنائية متوازنة: math: `O (n_ {samples} n_ {features} log (n_ {samples}))` ووقت الاستعلام: math: `O (log (n_ {samples}))`. على الرغم من أن خوارزمية بناء الشجرة تحاول إنشاء أشجار متوازنة، إلا أنها لن تكون متوازنة دائمًا. بافتراض أن الأشجار الفرعية تظل متوازنة تقريبًا، فإن التكلفة في كل عقدة تتكون من البحث عبر: math: `O (n_ {features})` للعثور على الميزة التي توفر أكبر انخفاض في معيار عدم النقاء، على سبيل المثال. الخسارة اللوجستية (التي تعادل مكسب المعلومات). تبلغ تكلفتها: math: `O (n_ {features} n_ {samples} log (n_ {samples}))` في كل عقدة، مما يؤدي إلى تكلفة إجمالية عبر الأشجار بالكامل (عن طريق جمع التكلفة في كل عقدة) من: math: `O (n_ {features} n_ {samples} ^ 2 log (n_ {samples}))`.
 
 
-Tips on practical use
+نصائح حول الاستخدام العملي
 =====================
 
-* Decision trees tend to overfit on data with a large number of features.
-  Getting the right ratio of samples to number of features is important, since
-  a tree with few samples in high dimensional space is very likely to overfit.
+* تميل أشجار القرارات إلى الإفراط في تناسب البيانات التي تحتوي على عدد كبير من الميزات. من المهم الحصول على النسبة الصحيحة من العينات إلى عدد الميزات، لأن الشجرة ذات العينات القليلة في الفضاء عالي الأبعاد من المحتمل أن تفرط في التناسب.
 
-* Consider performing  dimensionality reduction (:ref:`PCA <PCA>`,
-  :ref:`ICA <ICA>`, or :ref:`feature_selection`) beforehand to
-  give your tree a better chance of finding features that are discriminative.
+* ضع في اعتبارك إجراء تقليل الأبعاد (PCA، ICA، أو feature_selection) مسبقًا لمنح شجرتك فرصة أفضل للعثور على ميزات مميزة.
 
-* :ref:`sphx_glr_auto_examples_tree_plot_unveil_tree_structure.py` will help
-  in gaining more insights about how the decision tree makes predictions, which is
-  important for understanding the important features in the data.
+* سوف يساعد المثال: ref:sphx_glr_auto_examples_tree_plot_unveil_tree_structure.py في اكتساب المزيد من الأفكار حول كيفية قيام شجرة القرارات بالتنبؤات، وهو أمر مهم لفهم الميزات المهمة في البيانات.
 
-* Visualize your tree as you are training by using the ``export``
-  function.  Use ``max_depth=3`` as an initial tree depth to get a feel for
-  how the tree is fitting to your data, and then increase the depth.
+* قم بتصور شجرتك أثناء التدريب باستخدام وظيفة "التصدير". استخدم "max_depth=3" كعمق شجرة أولي للحصول على شعور بكيفية ملاءمة الشجرة لبياناتك، ثم قم بزيادة العمق.
 
-* Remember that the number of samples required to populate the tree doubles
-  for each additional level the tree grows to.  Use ``max_depth`` to control
-  the size of the tree to prevent overfitting.
+* تذكر أن عدد العينات المطلوبة لملء الشجرة يتضاعف لكل مستوى إضافي تنمو فيه الشجرة. استخدم "max_depth" للتحكم في حجم الشجرة لمنع الإفراط في التناسب.
 
-* Use ``min_samples_split`` or ``min_samples_leaf`` to ensure that multiple
-  samples inform every decision in the tree, by controlling which splits will
-  be considered. A very small number will usually mean the tree will overfit,
-  whereas a large number will prevent the tree from learning the data. Try
-  ``min_samples_leaf=5`` as an initial value. If the sample size varies
-  greatly, a float number can be used as percentage in these two parameters.
-  While ``min_samples_split`` can create arbitrarily small leaves,
-  ``min_samples_leaf`` guarantees that each leaf has a minimum size, avoiding
-  low-variance, over-fit leaf nodes in regression problems.  For
-  classification with few classes, ``min_samples_leaf=1`` is often the best
-  choice.
+* استخدم "min_samples_split" أو "min_samples_leaf" لضمان أن العديد من العينات تعلم كل قرار في الشجرة، عن طريق التحكم في الانقسامات التي سيتم أخذها في الاعتبار. عادة ما يعني العدد الصغير جدًا أن الشجرة ستفرط في التناسب، في حين أن العدد الكبير سيمنع الشجرة من تعلم البيانات. جرب "min_samples_leaf=5" كقيمة أولية. إذا اختلف حجم العينة بشكل كبير، فيمكن استخدام رقم عائم كنسبة مئوية في هذين المعلمين. في حين أن "min_samples_split" يمكن أن يخلق أوراقًا صغيرة بشكل تعسفي، فإن "min_samples_leaf" يضمن أن يكون لكل ورقة حد أدنى من الحجم، مما يتجنب عقد أوراق ذات انحدار منخفض، وعقد إفراط في تناسب في مشكلات الانحدار. بالنسبة للتصنيف باستخدام عدد قليل من الفئات، غالبًا ما يكون "min_samples_leaf=1" هو الخيار الأفضل.
 
-  Note that ``min_samples_split`` considers samples directly and independent of
-  ``sample_weight``, if provided (e.g. a node with m weighted samples is still
-  treated as having exactly m samples). Consider ``min_weight_fraction_leaf`` or
-  ``min_impurity_decrease`` if accounting for sample weights is required at splits.
+  لاحظ أن "min_samples_split" يأخذ العينات في الاعتبار مباشرة وبشكل مستقل عن "sample_weight"، إذا تم توفيره (على سبيل المثال، تتم معاملة العقدة التي تحتوي على m من العينات المرجحة على أنها تحتوي بالضبط على m من العينات). ضع في اعتبارك "min_weight_fraction_leaf" أو "min_impurity_decrease" إذا كان المحاسبة للاوزان العينات مطلوبة في الانقسامات.
 
-* Balance your dataset before training to prevent the tree from being biased
-  toward the classes that are dominant. Class balancing can be done by
-  sampling an equal number of samples from each class, or preferably by
-  normalizing the sum of the sample weights (``sample_weight``) for each
-  class to the same value. Also note that weight-based pre-pruning criteria,
-  such as ``min_weight_fraction_leaf``, will then be less biased toward
-  dominant classes than criteria that are not aware of the sample weights,
-  like ``min_samples_leaf``.
+* قم بموازنة مجموعة بياناتك قبل التدريب لمنع الشجرة من التحيز نحو الفئات السائدة. يمكن إجراء موازنة الفئات عن طريق أخذ عدد متساوٍ من العينات من كل فئة، أو يفضل عن طريق تطبيع مجموع أوزان العينات (sample_weight) لكل فئة إلى نفس القيمة. لاحظ أيضًا أن معايير التشذيب المسبق المستندة إلى الوزن، مثل "min_weight_fraction_leaf"، ستكون أقل تحيزًا نحو الفئات السائدة من المعايير التي لا تدرك أوزان العينات، مثل "min_samples_leaf".
 
-* If the samples are weighted, it will be easier to optimize the tree
-  structure using weight-based pre-pruning criterion such as
-  ``min_weight_fraction_leaf``, which ensure that leaf nodes contain at least
-  a fraction of the overall sum of the sample weights.
+* إذا كانت العينات مرجحة، فسيصبح من الأسهل تحسين بنية الشجرة باستخدام معيار تشذيب مسبق يعتمد على الوزن مثل "min_weight_fraction_leaf"، والذي يضمن أن تحتوي عقد الأوراق على الأقل على جزء من إجمالي مجموع أوزان العينات.
 
-* All decision trees use ``np.float32`` arrays internally.
-  If training data is not in this format, a copy of the dataset will be made.
+* تستخدم جميع أشجار القرارات صفائف "np.float32" داخليًا. إذا لم تكن بيانات التدريب بهذا التنسيق، فسيتم إجراء نسخة من مجموعة البيانات.
 
-* If the input matrix X is very sparse, it is recommended to convert to sparse
-  ``csc_matrix`` before calling fit and sparse ``csr_matrix`` before calling
-  predict. Training time can be orders of magnitude faster for a sparse
-  matrix input compared to a dense matrix when features have zero values in
-  most of the samples.
+* إذا كانت مصفوفة الإدخال X متفرقة جدًا، فيوصى بالتحويل إلى "csc_matrix" متفرقة قبل استدعاء fit و "csr_matrix" متفرقة قبل استدعاء التنبؤ. يمكن أن يكون وقت التدريب أسرع بعدة مرات لمصفوفة متفرقة مقارنة بالمصفوفة الكثيفة عندما تكون للميزات قيم صفرية في معظم العينات.
 
 
 .. _tree_algorithms:
 
-Tree algorithms: ID3, C4.5, C5.0 and CART
+خوارزميات الشجرة: ID3 و C4.5 و C5.0 و CART
 ==========================================
 
-What are all the various decision tree algorithms and how do they differ
-from each other? Which one is implemented in scikit-learn?
+ما هي جميع خوارزميات شجرة القرار المختلفة وكيف تختلف عن بعضها البعض؟ أي منها يتم تنفيذه في scikit-learn؟
 
-.. dropdown:: Various decision tree algorithms
+.. dropdown:: خوارزميات شجرة القرار المختلفة
 
-  ID3_ (Iterative Dichotomiser 3) was developed in 1986 by Ross Quinlan.
-  The algorithm creates a multiway tree, finding for each node (i.e. in
-  a greedy manner) the categorical feature that will yield the largest
-  information gain for categorical targets. Trees are grown to their
-  maximum size and then a pruning step is usually applied to improve the
-  ability of the tree to generalize to unseen data.
+  تم تطوير ID3_ (Iterative Dichotomiser 3) في عام 1986 بواسطة Ross Quinlan. تقوم الخوارزمية بإنشاء شجرة متعددة الاتجاهات، حيث تجد لكل عقدة (أي بطريقة جشعة) الميزة الفئوية التي ستعطي أكبر مكسب للمعلومات للمستهدفات الفئوية. يتم تنمية الأشجار إلى حجمها الأقصى ثم يتم عادة تطبيق خطوة التشذيب لتحسين قدرة الشجرة على التعميم على البيانات غير المرئية.
 
-  C4.5 is the successor to ID3 and removed the restriction that features
-  must be categorical by dynamically defining a discrete attribute (based
-  on numerical variables) that partitions the continuous attribute value
-  into a discrete set of intervals. C4.5 converts the trained trees
-  (i.e. the output of the ID3 algorithm) into sets of if-then rules.
-  The accuracy of each rule is then evaluated to determine the order
-  in which they should be applied. Pruning is done by removing a rule's
-  precondition if the accuracy of the rule improves without it.
+  C4.5 هو الخلف لـ ID3 ويزيل القيد الذي يجب أن تكون الميزات فئوية من خلال تعريف سمة منفصلة (بناءً على المتغيرات العددية) تقوم بتقسيم قيمة السمة المستمرة إلى مجموعة من الفواصل الزمنية المحددة بشكل منفصل. يحول C4.5 الأشجار المدربة (أي إخراج خوارزمية ID3) إلى مجموعات من القواعد الشرطية. يتم بعد ذلك تقييم دقة كل قاعدة لتحديد الترتيب الذي يجب تطبيقها به. يتم التشذيب عن طريق إزالة الشرط المسبق للقاعدة إذا تحسنت دقة القاعدة بدونها.
 
-  C5.0 is Quinlan's latest version release under a proprietary license.
-  It uses less memory and builds smaller rulesets than C4.5 while being
-  more accurate.
+  C5.0 هو أحدث إصدار لـ Quinlan تم إصداره بموجب ترخيص مملوك. يستخدم ذاكرة أقل ويبني مجموعات قواعد أصغر من C4.5 مع كونها أكثر دقة.
 
-  CART (Classification and Regression Trees) is very similar to C4.5, but
-  it differs in that it supports numerical target variables (regression) and
-  does not compute rule sets. CART constructs binary trees using the feature
-  and threshold that yield the largest information gain at each node.
+  CART (Classification and Regression Trees) مشابه جدًا لـ C4.5، ولكنه يختلف في أنه يدعم المتغيرات المستهدفة العددية (الانحدار) ولا يحسب مجموعات القواعد. يقوم CART ببناء أشجار ثنائية باستخدام الميزة والعتبة التي تعطي أكبر مكسب للمعلومات في كل عقدة.
 
-scikit-learn uses an optimized version of the CART algorithm; however, the
-scikit-learn implementation does not support categorical variables for now.
+يستخدم scikit-learn إصدارًا محسنًا من خوارزمية CART؛ ومع ذلك، لا يدعم التنفيذ في scikit-learn المتغيرات الفئوية الآن.
 
 .. _ID3: https://en.wikipedia.org/wiki/ID3_algorithm
 
 
 .. _tree_mathematical_formulation:
 
-Mathematical formulation
+الصيغة الرياضية
+فيما يلي الترجمة العربية للنص المُقدم، مع الالتزام بالتعليمات المُرفقة:
+
 ========================
 
-Given training vectors :math:`x_i \in R^n`, i=1,..., l and a label vector
-:math:`y \in R^l`, a decision tree recursively partitions the feature space
-such that the samples with the same labels or similar target values are grouped
-together.
+بالنسبة لمتجهات التدريب :math:`x_i \in R^n`، حيث i=1,..., l ومتجه التصنيف :math:`y \in R^l`، تقوم شجرة القرار بتقسيم مساحة الميزة بشكل متكرر بحيث يتم تجميع العينات التي لها نفس التصنيفات أو قيم الهدف المتشابهة معًا.
 
-Let the data at node :math:`m` be represented by :math:`Q_m` with :math:`n_m`
-samples. For each candidate split :math:`\theta = (j, t_m)` consisting of a
-feature :math:`j` and threshold :math:`t_m`, partition the data into
-:math:`Q_m^{left}(\theta)` and :math:`Q_m^{right}(\theta)` subsets
+دعنا نمثل البيانات في العقدة :math:`m` بـ :math:`Q_m` مع :math:`n_m`
+عينات. بالنسبة لكل مرشح تقسيم :math:`\theta = (j, t_m)` يتكون من ميزة :math:`j` وعتبة :math:`t_m`، قم بتقسيم البيانات إلى المجموعتين الفرعيتين :math:`Q_m^{left}(\theta)` و :math:`Q_m^{right}(\theta)`
 
 .. math::
 
@@ -458,93 +235,85 @@ feature :math:`j` and threshold :math:`t_m`, partition the data into
 
     Q_m^{right}(\theta) = Q_m \setminus Q_m^{left}(\theta)
 
-The quality of a candidate split of node :math:`m` is then computed using an
-impurity function or loss function :math:`H()`, the choice of which depends on
-the task being solved (classification or regression)
+تُحسب جودة مرشح التقسيم للعقدة :math:`m` باستخدام دالة عدم النقاء أو دالة الخسارة :math:`H()`، ويعتمد اختيار الدالة على المهمة التي يتم حلها (تصنيف أو رجوع)
 
 .. math::
 
    G(Q_m, \theta) = \frac{n_m^{left}}{n_m} H(Q_m^{left}(\theta))
    + \frac{n_m^{right}}{n_m} H(Q_m^{right}(\theta))
 
-Select the parameters that minimises the impurity
+قم بتحديد المعلمات التي تقلل من عدم النقاء
 
 .. math::
 
-    \theta^* = \operatorname{argmin}_\theta  G(Q_m, \theta)
+    \theta^* = \operatorname{argmin}_\theta G(Q_m, \theta)
 
-Recurse for subsets :math:`Q_m^{left}(\theta^*)` and
-:math:`Q_m^{right}(\theta^*)` until the maximum allowable depth is reached,
-:math:`n_m < \min_{samples}` or :math:`n_m = 1`.
+كرر العملية للمجموعتين الفرعيتين :math:`Q_m^{left}(\theta^*)` و
+:math:`Q_m^{right}(\theta^*)` حتى يتم الوصول إلى العمق الأقصى المسموح به،
+:math:`n_m < \min_{samples}` أو :math:`n_m = 1`.
 
-Classification criteria
+معايير التصنيف
 -----------------------
 
-If a target is a classification outcome taking on values 0,1,...,K-1,
-for node :math:`m`, let
+إذا كان الهدف ناتج تصنيف يأخذ القيم 0،1,...,K-1،
+بالنسبة للعقدة :math:`m`، دعنا
 
 .. math::
 
     p_{mk} = \frac{1}{n_m} \sum_{y \in Q_m} I(y = k)
 
-be the proportion of class k observations in node :math:`m`. If :math:`m` is a
-terminal node, `predict_proba` for this region is set to :math:`p_{mk}`.
-Common measures of impurity are the following.
+نسبة ملاحظات الفئة k في العقدة :math:`m`. إذا كانت :math:`m` عقدة
+نهائية، يتم تعيين `predict_proba` لهذه المنطقة إلى :math:`p_{mk}`.
+تتمثل مقاييس عدم النقاء الشائعة فيما يلي.
 
-Gini:
+جيني:
 
 .. math::
 
     H(Q_m) = \sum_k p_{mk} (1 - p_{mk})
 
-Log Loss or Entropy:
+خسارة اللوغاريتم أو الإنتروبيا:
 
 .. math::
 
     H(Q_m) = - \sum_k p_{mk} \log(p_{mk})
 
-.. dropdown:: Shannon entropy
+.. dropdown:: إنتروبيا شانون
 
-  The entropy criterion computes the Shannon entropy of the possible classes. It
-  takes the class frequencies of the training data points that reached a given
-  leaf :math:`m` as their probability. Using the **Shannon entropy as tree node
-  splitting criterion is equivalent to minimizing the log loss** (also known as
-  cross-entropy and multinomial deviance) between the true labels :math:`y_i`
-  and the probabilistic predictions :math:`T_k(x_i)` of the tree model :math:`T` for class :math:`k`.
+  يحسب معيار الإنتروبيا إنتروبيا شانون للفئات الممكنة. إنه
+  يأخذ تكرارات الفئات لنقاط البيانات التدريبية التي وصلت إلى ورقة معينة
+  :math:`m` كاحتمالية لها. إن استخدام **إنتروبيا شانون كمعيار لتقسيم عقدة الشجرة يعادل تقليل خسارة اللوغاريتم** (المعروف أيضًا باسم الإنتروبيا المتقاطعة وانحراف متعدد الحدود) بين التصنيفات الحقيقية :math:`y_i`
+والتنبؤات الاحتمالية :math:`T_k(x_i)` لنموذج الشجرة :math:`T` للفئة :math:`k`.
 
-  To see this, first recall that the log loss of a tree model :math:`T`
-  computed on a dataset :math:`D` is defined as follows:
+ولرؤية ذلك، تذكر أولاً أن خسارة اللوغاريتم لنموذج الشجرة
+:math:`T` المحسوب لمجموعة بيانات :math:`D` يتم تعريفه على النحو التالي:
 
-  .. math::
+.. math::
 
       \mathrm{LL}(D, T) = -\frac{1}{n} \sum_{(x_i, y_i) \in D} \sum_k I(y_i = k) \log(T_k(x_i))
 
-  where :math:`D` is a training dataset of :math:`n` pairs :math:`(x_i, y_i)`.
+حيث :math:`D` هي مجموعة بيانات تدريبية مكونة من :math:`n` أزواج :math:`(x_i, y_i)`.
 
-  In a classification tree, the predicted class probabilities within leaf nodes
-  are constant, that is: for all :math:`(x_i, y_i) \in Q_m`, one has:
-  :math:`T_k(x_i) = p_{mk}` for each class :math:`k`.
+في شجرة التصنيف، تكون احتمالية الفئة المتوقعة داخل العقد الورقية
+ثابتة، أي: لكل :math:`(x_i, y_i) \in Q_m`، لدينا:
+:math:`T_k(x_i) = p_{mk)` لكل فئة :math:`k`.
 
-  This property makes it possible to rewrite :math:`\mathrm{LL}(D, T)` as the
-  sum of the Shannon entropies computed for each leaf of :math:`T` weighted by
-  the number of training data points that reached each leaf:
+تسمح هذه الخاصية بإعادة كتابة :math:`\mathrm{LL}(D, T)` كمجموع
+إنتروبيا شانون المحسوبة لكل ورقة من :math:`T` مرجحة بعدد نقاط بيانات التدريب
+التي وصلت إلى كل ورقة:
 
-  .. math::
+.. math::
 
       \mathrm{LL}(D, T) = \sum_{m \in T} \frac{n_m}{n} H(Q_m)
 
-Regression criteria
+معايير الانحدار
 -------------------
 
-If the target is a continuous value, then for node :math:`m`, common
-criteria to minimize as for determining locations for future splits are Mean
-Squared Error (MSE or L2 error), Poisson deviance as well as Mean Absolute
-Error (MAE or L1 error). MSE and Poisson deviance both set the predicted value
-of terminal nodes to the learned mean value :math:`\bar{y}_m` of the node
-whereas the MAE sets the predicted value of terminal nodes to the median
+إذا كانت القيمة المستهدفة قيمة مستمرة، فإن المعايير الشائعة لتقليلها لتحديد مواقع الانقسامات المستقبلية هي متوسط مربع الخطأ (MSE أو خطأ L2)، وانحراف بواسون، بالإضافة إلى متوسط الخطأ المطلق (MAE أو خطأ L1). يحدد كل من MSE وانحراف بواسون القيمة المتوقعة للعقد النهائية إلى القيمة المتوسطة المُتعلمة :math:`\bar{y}_m` للعقدة
+بينما يحدد MAE القيمة المتوقعة للعقد النهائية إلى الوسيط
 :math:`median(y)_m`.
 
-Mean Squared Error:
+متوسط مربع الخطأ:
 
 .. math::
 
@@ -552,20 +321,19 @@ Mean Squared Error:
 
     H(Q_m) = \frac{1}{n_m} \sum_{y \in Q_m} (y - \bar{y}_m)^2
 
-Mean Poisson deviance:
+متوسط انحراف بواسون:
 
 .. math::
 
     H(Q_m) = \frac{2}{n_m} \sum_{y \in Q_m} (y \log\frac{y}{\bar{y}_m}
     - y + \bar{y}_m)
 
-Setting `criterion="poisson"` might be a good choice if your target is a count
-or a frequency (count per some unit). In any case, :math:`y >= 0` is a
-necessary condition to use this criterion. Note that it fits much slower than
-the MSE criterion. For performance reasons the actual implementation minimizes
-the half mean poisson deviance, i.e. the mean poisson deviance divided by 2.
+قد يكون تحديد `criterion="poisson"` خيارًا جيدًا إذا كان هدفك عبارة عن عدد
+أو تكرار (عدد لكل وحدة). وفي جميع الأحوال، :math:`y >= 0` هو
+شرط ضروري لاستخدام هذا المعيار. لاحظ أنه يناسب بشكل أبطأ بكثير من
+معيار MSE. لأسباب تتعلق بالأداء، فإن التنفيذ الفعلي يقلل من نصف انحراف بواسون المتوسط، أي انحراف بواسون المتوسط مقسومًا على 2.
 
-Mean Absolute Error:
+متوسط الخطأ المطلق:
 
 .. math::
 
@@ -573,35 +341,34 @@ Mean Absolute Error:
 
     H(Q_m) = \frac{1}{n_m} \sum_{y \in Q_m} |y - median(y)_m|
 
-Note that it fits much slower than the MSE criterion.
+لاحظ أنه يناسب بشكل أبطأ بكثير من معيار MSE.
 
 .. _tree_missing_value_support:
 
-Missing Values Support
+دعم القيم المفقودة
 ======================
 
-:class:`DecisionTreeClassifier`, :class:`DecisionTreeRegressor`
-have built-in support for missing values using `splitter='best'`, where
-the splits are determined in a greedy fashion.
-:class:`ExtraTreeClassifier`, and :class:`ExtraTreeRegressor` have built-in
-support for missing values for `splitter='random'`, where the splits
-are determined randomly. For more details on how the splitter differs on
-non-missing values, see the :ref:`Forest section <forest>`.
+:class:`DecisionTreeClassifier`، :class:`DecisionTreeRegressor`
+لديهما دعم مدمج للقيم المفقودة باستخدام `splitter='best'`، حيث
+يتم تحديد الانقسامات بطريقة جشعة.
+:class:`ExtraTreeClassifier`، و :class:`ExtraTreeRegressor` لديهما دعم مدمج
+للقيم المفقودة لـ `splitter='random'`، حيث يتم تحديد الانقسامات بشكل عشوائي. لمزيد من التفاصيل حول كيفية اختلاف القاطع على
+القيم غير المفقودة، راجع قسم <الغابة المرجعية`.
 
-The criterion supported when there are missing-values are
-`'gini'`, `'entropy`', or `'log_loss'`, for classification or
-`'squared_error'`, `'friedman_mse'`, or `'poisson'` for regression.
+المعيار المدعوم عند وجود قيم مفقودة هو
+`'gini'`، `'entropy'`، أو `'log_loss'`، للتصنيف أو
+`'squared_error'`، `'friedman_mse'`، أو `'poisson'` للانحدار.
 
-First we will describe how :class:`DecisionTreeClassifier`, :class:`DecisionTreeRegressor`
-handle missing-values in the data.
+سنقوم أولاً بوصف كيفية تعامل :class:`DecisionTreeClassifier`، :class:`DecisionTreeRegressor`
+مع القيم المفقودة في البيانات.
 
-For each potential threshold on the non-missing data, the splitter will evaluate
-the split with all the missing values going to the left node or the right node.
+بالنسبة لكل عتبة محتملة على البيانات غير المفقودة، سيقيم القاطع الانقسام
+مع انتقال جميع القيم المفقودة إلى العقدة اليسرى أو اليمنى.
 
-Decisions are made as follows:
+يتم اتخاذ القرارات على النحو التالي:
 
-- By default when predicting, the samples with missing values are classified
-  with the class used in the split found during training::
+- بشكل افتراضي عند التنبؤ، يتم تصنيف العينات ذات القيم المفقودة
+  باستخدام الفئة المستخدمة في الانقسام الذي تم العثور عليه أثناء التدريب::
 
     >>> from sklearn.tree import DecisionTreeClassifier
     >>> import numpy as np
@@ -613,10 +380,10 @@ Decisions are made as follows:
     >>> tree.predict(X)
     array([0, 0, 1, 1])
 
-- If the criterion evaluation is the same for both nodes,
-  then the tie for missing value at predict time is broken by going to the
-  right node. The splitter also checks the split where all the missing
-  values go to one child and non-missing values go to the other::
+- إذا كان تقييم المعيار هو نفسه لكلتا العقدتين،
+  يتم كسر التعادل للقيمة المفقودة عند التنبؤ بالانتقال إلى
+  العقدة اليمنى. كما يتحقق القاطع من الانقسام الذي تنتقل فيه جميع القيم المفقودة
+  إلى أحد الأبناء والقيم غير المفقودة إلى الآخر::
 
     >>> from sklearn.tree import DecisionTreeClassifier
     >>> import numpy as np
@@ -630,8 +397,8 @@ Decisions are made as follows:
     >>> tree.predict(X_test)
     array([1])
 
-- If no missing values are seen during training for a given feature, then during
-  prediction missing values are mapped to the child with the most samples::
+- إذا لم يتم رؤية أي قيم مفقودة أثناء التدريب لميزة معينة، فسيتم أثناء
+  التنبؤ تعيين القيم المفقودة إلى الطفل الذي يحتوي على معظم العينات::
 
     >>> from sklearn.tree import DecisionTreeClassifier
     >>> import numpy as np
@@ -645,62 +412,50 @@ Decisions are made as follows:
     >>> tree.predict(X_test)
     array([1])
 
-:class:`ExtraTreeClassifier`, and :class:`ExtraTreeRegressor` handle missing values
-in a slightly different way. When splitting a node, a random threshold will be chosen
-to split the non-missing values on. Then the non-missing values will be sent to the
-left and right child based on the randomly selected threshold, while the missing
-values will also be randomly sent to the left or right child. This is repeated for
-every feature considered at each split. The best split among these is chosen.
+:class:`ExtraTreeClassifier`، و :class:`ExtraTreeRegressor` يتعاملان مع القيم المفقودة
+بطريقة مختلفة قليلاً. عند تقسيم عقدة، سيتم اختيار عتبة عشوائية
+للانقسام على القيم غير المفقودة. بعد ذلك، يتم إرسال القيم غير المفقودة إلى الطفل الأيسر والأيمن بناءً على العتبة العشوائية المحددة، بينما يتم أيضًا إرسال القيم المفقودة بشكل عشوائي إلى الطفل الأيسر أو الأيمن. يتم تكرار هذه العملية لكل ميزة يتم أخذها في الاعتبار في كل انقسام. ويتم اختيار أفضل انقسام من بين هذه الانقسامات.
 
-During prediction, the treatment of missing-values is the same as that of the
-decision tree:
+أثناء التنبؤ، يكون التعامل مع القيم المفقودة مماثلاً لطريقة شجرة القرار:
 
-- By default when predicting, the samples with missing values are classified
-  with the class used in the split found during training.
+- بشكل افتراضي عند التنبؤ، يتم تصنيف العينات ذات القيم المفقودة
+  باستخدام الفئة المستخدمة في الانقسام الذي تم العثور عليه أثناء التدريب.
 
-- If no missing values are seen during training for a given feature, then during
-  prediction missing values are mapped to the child with the most samples.
+- إذا لم يتم رؤية أي قيم مفقودة أثناء التدريب لميزة معينة، فسيتم أثناء
+  التنبؤ تعيين القيم المفقودة إلى الطفل الذي يحتوي على معظم العينات.
 
 .. _minimal_cost_complexity_pruning:
 
-Minimal Cost-Complexity Pruning
+التقليم الأمثل لتكلفة التعقيد
 ===============================
 
-Minimal cost-complexity pruning is an algorithm used to prune a tree to avoid
-over-fitting, described in Chapter 3 of [BRE]_. This algorithm is parameterized
-by :math:`\alpha\ge0` known as the complexity parameter. The complexity
-parameter is used to define the cost-complexity measure, :math:`R_\alpha(T)` of
-a given tree :math:`T`:
+التقليم الأمثل لتكلفة التعقيد هو خوارزمية تستخدم لتقليم شجرة لتجنب
+المبالغة في التعلم، موصوفة في الفصل 3 من [BRE]_. يتم معلمجة هذه الخوارزمية بواسطة :math:`\alpha\ge0` المعروف باسم معامل التعقيد. يتم استخدام معامل التعقيد لتعريف تدبير تكلفة التعقيد، :math:`R_\alpha(T)` لشجرة معينة :math:`T`:
 
 .. math::
 
   R_\alpha(T) = R(T) + \alpha|\widetilde{T}|
 
-where :math:`|\widetilde{T}|` is the number of terminal nodes in :math:`T` and :math:`R(T)`
-is traditionally defined as the total misclassification rate of the terminal
-nodes. Alternatively, scikit-learn uses the total sample weighted impurity of
-the terminal nodes for :math:`R(T)`. As shown above, the impurity of a node
-depends on the criterion. Minimal cost-complexity pruning finds the subtree of
-:math:`T` that minimizes :math:`R_\alpha(T)`.
+حيث :math:`|\widetilde{T}|` هو عدد العقد النهائية في :math:`T` و :math:`R(T)`
+يتم تعريفه تقليديًا على أنه معدل الخطأ الإجمالي للتصنيف للعقد
+النهائية. من ناحية أخرى، يستخدم sklearn مجموع عدم النقاء المرجح للعينة للعقد النهائية لـ :math:`R(T)`. كما هو موضح أعلاه، يعتمد عدم نقاء العقدة على المعيار. يجد التقليم الأمثل لتكلفة التعقيد الجزء الفرعي من
+:math:`T` الذي يقلل من :math:`R_\alpha(T)`.
 
-The cost complexity measure of a single node is
-:math:`R_\alpha(t)=R(t)+\alpha`. The branch, :math:`T_t`, is defined to be a
-tree where node :math:`t` is its root. In general, the impurity of a node
-is greater than the sum of impurities of its terminal nodes,
-:math:`R(T_t)<R(t)`. However, the cost complexity measure of a node,
-:math:`t`, and its branch, :math:`T_t`, can be equal depending on
-:math:`\alpha`. We define the effective :math:`\alpha` of a node to be the
-value where they are equal, :math:`R_\alpha(T_t)=R_\alpha(t)` or
-:math:`\alpha_{eff}(t)=\frac{R(t)-R(T_t)}{|T|-1}`. A non-terminal node
-with the smallest value of :math:`\alpha_{eff}` is the weakest link and will
-be pruned. This process stops when the pruned tree's minimal
-:math:`\alpha_{eff}` is greater than the ``ccp_alpha`` parameter.
+إن تدبير تكلفة التعقيد لعقدة واحدة هو
+:math:`R_\alpha(t)=R(t)+\alpha`. الفرع، :math:`T_t`، هو شجرة حيث
+:math:`t` هي العقدة الجذرية. بشكل عام، يكون عدم نقاء العقدة أكبر من مجموع عدم النقاء للعقد
+النهائية، :math:`R(T_t)<R(t)`. ومع ذلك، يمكن أن يكون تدبير تكلفة التعقيد لعقدة،
+:math:`t`، وفرعها، :math:`T_t`، متساويين اعتمادًا على
+:math:`\alpha`. نحن نُعرف :math:`\alpha` الفعال لعقدة على أنه
+القيمة التي يتساويان عندها، :math:`R_\alpha(T_t)=R_\alpha(t)` أو
+:math:`\alpha_{eff}(t)=\frac{R(t)-R(T_t)}{|T|-1}`. العقدة غير النهائية
+مع أقل قيمة لـ :math:`\alpha_{eff}` هي الحلقة الأضعف وسيتم تقليمها. تتوقف هذه العملية عندما يكون :math:`\alpha_{eff}` الأدنى للشجرة المقلمة أكبر من معلمة ``ccp_alpha``.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_tree_plot_cost_complexity_pruning.py`
 
-.. rubric:: References
+.. rubric:: مراجع
 
 .. [BRE] L. Breiman, J. Friedman, R. Olshen, and C. Stone. Classification
   and Regression Trees. Wadsworth, Belmont, CA, 1984.
