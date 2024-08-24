@@ -1,8 +1,5 @@
-.. _user_guide:
-
-==========
-User Guide
-==========
+مرجع المستخدم
+================
 
 .. toctree::
    :numbered:
@@ -22,8 +19,8 @@ User Guide
    machine_learning_map.rst
    presentations.rst
 
-Under Development
------------------
+قيد التطوير
+----------------
 
 .. toctree::
    :numbered:
