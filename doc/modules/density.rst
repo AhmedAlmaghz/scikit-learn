@@ -1,187 +1,103 @@
-.. _density_estimation:
-
+تقدير الكثافة
 ==================
-Density Estimation
-==================
-.. sectionauthor:: Jake Vanderplas <vanderplas@astro.washington.edu>
 
-Density estimation walks the line between unsupervised learning, feature
-engineering, and data modeling.  Some of the most popular and useful
-density estimation techniques are mixture models such as
-Gaussian Mixtures (:class:`~sklearn.mixture.GaussianMixture`), and
-neighbor-based approaches such as the kernel density estimate
-(:class:`~sklearn.neighbors.KernelDensity`).
-Gaussian Mixtures are discussed more fully in the context of
-:ref:`clustering <clustering>`, because the technique is also useful as
-an unsupervised clustering scheme.
+تقدير الكثافة هو الخط الفاصل بين التعلم غير الخاضع للإشراف، وهندسة الميزات، ونمذجة البيانات. بعض تقنيات تقدير الكثافة الأكثر شيوعًا وفائدة هي نماذج الخلط مثل المزيج الغاوسي (:class: ~ sklearn.mixture.GaussianMixture)، والأساليب المستندة إلى الجيران مثل تقدير الكثافة النووية (:class: ~ sklearn.neighbors.KernelDensity).
 
-Density estimation is a very simple concept, and most people are already
-familiar with one common density estimation technique: the histogram.
+يتم مناقشة المزيج الغاوسي بشكل أكثر اكتمالاً في سياق التجميع (: ref: clustering`)، لأن التقنية مفيدة أيضًا كمخطط تجميع غير خاضع للإشراف.
 
-Density Estimation: Histograms
-==============================
-A histogram is a simple visualization of data where bins are defined, and the
-number of data points within each bin is tallied.  An example of a histogram
-can be seen in the upper-left panel of the following figure:
+تقدير الكثافة مفهوم بسيط جدًا، ومعظم الأشخاص على دراية بالفعل بتقنية تقدير الكثافة الشائعة: مخطط توزيع التكرارات.
 
-.. |hist_to_kde| image:: ../auto_examples/neighbors/images/sphx_glr_plot_kde_1d_001.png
-   :target: ../auto_examples/neighbors/plot_kde_1d.html
-   :scale: 80
+تقدير الكثافة: مخططات توزيع التكرارات
+==================================
 
-.. centered:: |hist_to_kde|
+مخطط توزيع التكرارات هو تمثيل مرئي بسيط للبيانات حيث يتم تحديد الخانات، ويتم حساب عدد نقاط البيانات الموجودة داخل كل خانة. يمكن رؤية مثال على مخطط توزيع التكرارات في اللوحة العلوية اليسرى من الشكل التالي:
 
-A major problem with histograms, however, is that the choice of binning can
-have a disproportionate effect on the resulting visualization.  Consider the
-upper-right panel of the above figure.  It shows a histogram over the same
-data, with the bins shifted right.  The results of the two visualizations look
-entirely different, and might lead to different interpretations of the data.
+|hist_to_kde|
 
-Intuitively, one can also think of a histogram as a stack of blocks, one block
-per point.  By stacking the blocks in the appropriate grid space, we recover
-the histogram.  But what if, instead of stacking the blocks on a regular grid,
-we center each block on the point it represents, and sum the total height at
-each location?  This idea leads to the lower-left visualization.  It is perhaps
-not as clean as a histogram, but the fact that the data drive the block
-locations mean that it is a much better representation of the underlying
-data.
+ومع ذلك، تتمثل إحدى المشكلات الرئيسية في مخططات توزيع التكرارات في أن اختيار التخانة يمكن أن يكون له تأثير غير متناسب على التمثيل المرئي الناتج. ضع في اعتبارك اللوحة العلوية اليمنى من الشكل أعلاه. فهو يُظهر مخطط توزيع التكرارات على نفس البيانات، مع تحول الخانات إلى اليمين. تبدو نتائج التمثيلين المرئيين مختلفين تمامًا، وقد تؤدي إلى تفسيرات مختلفة للبيانات.
 
-This visualization is an example of a *kernel density estimation*, in this case
-with a top-hat kernel (i.e. a square block at each point).  We can recover a
-smoother distribution by using a smoother kernel.  The bottom-right plot shows
-a Gaussian kernel density estimate, in which each point contributes a Gaussian
-curve to the total.  The result is a smooth density estimate which is derived
-from the data, and functions as a powerful non-parametric model of the
-distribution of points.
+يمكن للمرء أن يفكر أيضًا بشكل حدسي في مخطط توزيع التكرارات على أنه مكدس من الكتل، كتلة واحدة لكل نقطة. عن طريق تكديس الكتل في مساحة الشبكة المناسبة، نحصل على مخطط توزيع التكرارات. ولكن ماذا لو قمنا، بدلاً من تكديس الكتل على شبكة منتظمة، بمحاذاة كل كتلة مع النقطة التي تمثلها، وجمع الارتفاع الإجمالي في كل موقع؟ تؤدي هذه الفكرة إلى التمثيل المرئي في اللوحة السفلية اليسرى. قد لا يكون هذا التمثيل نظيفًا مثل مخطط توزيع التكرارات، ولكن حقيقة أن البيانات تدفع مواقع الكتل تعني أنها تمثل البيانات الأساسية بشكل أفضل.
 
-.. _kernel_density:
+هذا التمثيل المرئي هو مثال على *تقدير الكثافة النووية*، في هذه الحالة مع نواة على شكل أسطوانة (أي كتلة مربعة في كل نقطة). يمكننا استرداد توزيع أكثر سلاسة باستخدام نواة أكثر سلاسة. يُظهر المخطط السفلي الأيمن تقدير كثافة نواة غاوسي، حيث تساهم كل نقطة بمنحنى غاوسي في الإجمالي. النتيجة هي تقدير كثافة سلس مشتق من البيانات، ويعمل كنموذج غير معلم قوي لتوزيع النقاط.
 
-Kernel Density Estimation
+تقدير الكثافة النووية
 =========================
-Kernel density estimation in scikit-learn is implemented in the
-:class:`~sklearn.neighbors.KernelDensity` estimator, which uses the
-Ball Tree or KD Tree for efficient queries (see :ref:`neighbors` for
-a discussion of these).  Though the above example
-uses a 1D data set for simplicity, kernel density estimation can be
-performed in any number of dimensions, though in practice the curse of
-dimensionality causes its performance to degrade in high dimensions.
 
-In the following figure, 100 points are drawn from a bimodal distribution,
-and the kernel density estimates are shown for three choices of kernels:
+يتم تنفيذ تقدير الكثافة النووية في مجموعة أدوات التعلم في مؤشر كتلة الجسم :class: ~ sklearn.neighbors.KernelDensity`، والذي يستخدم شجرة الكرة أو شجرة KD للاستعلامات الفعالة (راجع: ref: neighbors` لمناقشة هذه الشجرة). على الرغم من أن المثال أعلاه يستخدم مجموعة بيانات أحادية البعد لتبسيط الأمر، إلا أنه يمكن إجراء تقدير الكثافة النووية في أي عدد من الأبعاد، على الرغم من أن لعنة الأبعاد في الممارسة العملية تسبب تدهور أدائها في الأبعاد العالية.
 
-.. |kde_1d_distribution| image:: ../auto_examples/neighbors/images/sphx_glr_plot_kde_1d_003.png
-   :target: ../auto_examples/neighbors/plot_kde_1d.html
-   :scale: 80
+في الشكل التالي، يتم رسم 100 نقطة من توزيع ثنائي النمط، ويتم إظهار تقديرات الكثافة النووية لثلاثة خيارات من النواة:
 
-.. centered:: |kde_1d_distribution|
+|kde_1d_distribution|
 
-It's clear how the kernel shape affects the smoothness of the resulting
-distribution.  The scikit-learn kernel density estimator can be used as
-follows:
+من الواضح كيف يؤثر شكل النواة على سلاسة التوزيع الناتج. يمكن استخدام مُقدِّر الكثافة النووية في مجموعة أدوات التعلم كما يلي:
 
-   >>> from sklearn.neighbors import KernelDensity
-   >>> import numpy as np
-   >>> X = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
-   >>> kde = KernelDensity(kernel='gaussian', bandwidth=0.2).fit(X)
-   >>> kde.score_samples(X)
-   array([-0.41075698, -0.41075698, -0.41076071, -0.41075698, -0.41075698,
-          -0.41076071])
+>>> from sklearn.neighbors import KernelDensity
+>>> import numpy as np
+>>> X = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
+>>> kde = KernelDensity(kernel='gaussian', bandwidth=0.2).fit(X)
+>>> kde.score_samples(X)
+array([-0.41075698, -0.41075698, -0.41076071, -0.41075698, -0.41075698,
+        -0.41076071])
 
-Here we have used ``kernel='gaussian'``, as seen above.
-Mathematically, a kernel is a positive function :math:`K(x;h)`
-which is controlled by the bandwidth parameter :math:`h`.
-Given this kernel form, the density estimate at a point :math:`y` within
-a group of points :math:`x_i; i=1\cdots N` is given by:
+هنا استخدمنا "kernel='gaussian'"، كما هو موضح أعلاه.
+
+رياضيًا، النواة هي دالة إيجابية :math: K (x؛ ح) يتم التحكم فيها بواسطة معلمة عرض النطاق الترددي :math: ح. بالنظر إلى هذا الشكل النووي، فإن تقدير الكثافة في نقطة :math: y داخل مجموعة من النقاط :math: x_i؛ i = 1 \ cdot N يعطى بما يلي:
 
 .. math::
-    \rho_K(y) = \sum_{i=1}^{N} K(y - x_i; h)
+\rho_K (y) = \ sum_ {i = 1} ^ {N} K (y - x_i؛ ح)
 
-The bandwidth here acts as a smoothing parameter, controlling the tradeoff
-between bias and variance in the result.  A large bandwidth leads to a very
-smooth (i.e. high-bias) density distribution.  A small bandwidth leads
-to an unsmooth (i.e. high-variance) density distribution.
+يعمل عرض النطاق الترددي هنا كمعلمة تنعيم، حيث يتحكم في المقايضة بين الانحياز والتشتت في النتيجة. يؤدي عرض النطاق الترددي الكبير إلى توزيع كثافة سلس للغاية (أي عالي الانحياز). يؤدي عرض النطاق الترددي الصغير إلى توزيع كثافة غير سلس (أي عالي التباين).
 
-The parameter `bandwidth` controls this smoothing. One can either set
-manually this parameter or use Scott's and Silvermann's estimation
-methods.
+تتحكم معلمة "bandwidth" في هذا التنعيم. يمكن للمرء إما تعيين هذه المعلمة يدويًا أو استخدام طرق تقدير Scott وSilvermann.
 
-:class:`~sklearn.neighbors.KernelDensity` implements several common kernel
-forms, which are shown in the following figure:
+:class: ~ sklearn.neighbors.KernelDensity` ينفذ العديد من أشكال النواة الشائعة، والتي يتم توضيحها في الشكل التالي:
 
-.. |kde_kernels| image:: ../auto_examples/neighbors/images/sphx_glr_plot_kde_1d_002.png
-   :target: ../auto_examples/neighbors/plot_kde_1d.html
-   :scale: 80
+|kde_kernels|
 
-.. centered:: |kde_kernels|
+.. dropdown:: التعبيرات الرياضية للنواة
 
-.. dropdown:: Kernels' mathematical expressions
+  الشكل الرياضي لهذه النواة هو كما يلي:
 
-  The form of these kernels is as follows:
+  * النواة الغاوسية (النواة = "الغاوسية")
 
-  * Gaussian kernel (``kernel = 'gaussian'``)
+    :math: K (x؛ ح) \ يتناسب مع exp (- \ frac {x ^ 2} {2h ^ 2})
 
-    :math:`K(x; h) \propto \exp(- \frac{x^2}{2h^2} )`
+  * نواة أسطوانية (النواة = "أسطوانية")
 
-  * Tophat kernel (``kernel = 'tophat'``)
+    :math: K (x؛ ح) \ يتناسب مع 1 `إذا: math: x <ح
 
-    :math:`K(x; h) \propto 1` if :math:`x < h`
+  * نواة Epanechnikov (النواة = "Epanechnikov")
 
-  * Epanechnikov kernel (``kernel = 'epanechnikov'``)
+    :math: K (x؛ ح) \ يتناسب مع 1 - \ frac {x ^ 2} {ح ^ 2}
 
-    :math:`K(x; h) \propto 1 - \frac{x^2}{h^2}`
+  * النواة الأسية (النواة = "الأسية")
 
-  * Exponential kernel (``kernel = 'exponential'``)
+    :math: K (x؛ ح) \ يتناسب مع exp (- x / ح)
 
-    :math:`K(x; h) \propto \exp(-x/h)`
+  * النواة الخطية (النواة = "خطية")
 
-  * Linear kernel (``kernel = 'linear'``)
+    :math: K (x؛ ح) \ يتناسب مع 1 - x / ح `إذا: math: x <ح
 
-    :math:`K(x; h) \propto 1 - x/h` if :math:`x < h`
+  * نواة جيب التمام (النواة = "جيب التمام")
 
-  * Cosine kernel (``kernel = 'cosine'``)
+    :math: K (x؛ ح) \ يتناسب مع \ cos (\ frac {\ pi x} {2h}) `إذا: math: x <ح
 
-    :math:`K(x; h) \propto \cos(\frac{\pi x}{2h})` if :math:`x < h`
+يمكن استخدام مُقدِّر الكثافة النووية مع أي من مقاييس المسافة الصالحة (راجع: class: ~ sklearn.metrics.DistanceMetric` للحصول على قائمة بالمقاييس المتاحة)، على الرغم من أن النتائج تكون معيارية بشكل صحيح فقط للمسافة الإقليدية. إحدى المقاييس المفيدة بشكل خاص هي `مسافة Haversine <https://en.wikipedia.org/wiki/Haversine_formula>`_ والتي تقيس المسافة الزاوية بين نقطتين على كرة. فيما يلي مثال على استخدام تقدير الكثافة النووية لتمثيل مرئي للبيانات الجغرافية المكانية، في هذه الحالة توزيع الملاحظات لنوعين مختلفين على القارة الأمريكية الجنوبية:
 
+|species_kde|
 
-The kernel density estimator can be used with any of the valid distance
-metrics (see :class:`~sklearn.metrics.DistanceMetric` for a list of
-available metrics), though the results are properly normalized only
-for the Euclidean metric.  One particularly useful metric is the
-`Haversine distance <https://en.wikipedia.org/wiki/Haversine_formula>`_
-which measures the angular distance between points on a sphere.  Here
-is an example of using a kernel density estimate for a visualization
-of geospatial data, in this case the distribution of observations of two
-different species on the South American continent:
+هناك تطبيق مفيد آخر لتقدير الكثافة النووية وهو تعلم نموذج تناسلي غير معلم لمجموعة بيانات من أجل إجراء عينات جديدة من هذا النموذج التناسلي بكفاءة.
 
-.. |species_kde| image:: ../auto_examples/neighbors/images/sphx_glr_plot_species_kde_001.png
-   :target: ../auto_examples/neighbors/plot_species_kde.html
-   :scale: 80
+فيما يلي مثال على استخدام هذه العملية لإنشاء مجموعة جديدة من الأرقام المكتوبة بخط اليد، باستخدام نواة غاوسية تم تعلمها على إسقاط PCA للبيانات:
 
-.. centered:: |species_kde|
+|digits_kde|
 
-One other useful application of kernel density estimation is to learn a
-non-parametric generative model of a dataset in order to efficiently
-draw new samples from this generative model.
-Here is an example of using this process to
-create a new set of hand-written digits, using a Gaussian kernel learned
-on a PCA projection of the data:
+تتكون البيانات "الجديدة" من تركيبات خطية للبيانات المدخلة، مع أوزان يتم رسمها احتماليًا بالنظر إلى نموذج KDE.
 
-.. |digits_kde| image:: ../auto_examples/neighbors/images/sphx_glr_plot_digits_kde_sampling_001.png
-   :target: ../auto_examples/neighbors/plot_digits_kde_sampling.html
-   :scale: 80
+.. rubric:: أمثلة
 
-.. centered:: |digits_kde|
+* :ref: sphx_glr_auto_examples_neighbors_plot_kde_1d.py: حساب تقديرات الكثافة النووية البسيطة في بُعد واحد.
 
-The "new" data consists of linear combinations of the input data, with weights
-probabilistically drawn given the KDE model.
+* :ref: sphx_glr_auto_examples_neighbors_plot_digits_kde_sampling.py: مثال على استخدام تقدير كثافة النواة لتعلم نموذج تناسلي للبيانات المكتوبة بخط اليد، واستخلاص عينات جديدة من هذا النموذج.
 
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_neighbors_plot_kde_1d.py`: computation of simple kernel
-  density estimates in one dimension.
-
-* :ref:`sphx_glr_auto_examples_neighbors_plot_digits_kde_sampling.py`: an example of using
-  Kernel Density estimation to learn a generative model of the hand-written
-  digits data, and drawing new samples from this model.
-
-* :ref:`sphx_glr_auto_examples_neighbors_plot_species_kde.py`: an example of Kernel Density
-  estimation using the Haversine distance metric to visualize geospatial data
+* :ref: sphx_glr_auto_examples_neighbors_plot_species_kde.py: مثال على تقدير كثافة النواة باستخدام مسافة Haversine لتصور البيانات الجغرافية المكانية.
