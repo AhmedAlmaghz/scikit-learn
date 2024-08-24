@@ -1,46 +1,23 @@
-.. _impute:
-
-============================
-Imputation of missing values
+إكمال القيم المفقودة
 ============================
 
 .. currentmodule:: sklearn.impute
 
-For various reasons, many real world datasets contain missing values, often
-encoded as blanks, NaNs or other placeholders. Such datasets however are
-incompatible with scikit-learn estimators which assume that all values in an
-array are numerical, and that all have and hold meaning. A basic strategy to
-use incomplete datasets is to discard entire rows and/or columns containing
-missing values. However, this comes at the price of losing data which may be
-valuable (even though incomplete). A better strategy is to impute the missing
-values, i.e., to infer them from the known part of the data. See the
-glossary entry on :term:`imputation`.
+لأسباب مختلفة، تحتوي العديد من مجموعات البيانات الواقعية على قيم مفقودة، والتي غالبًا ما تكون مشفرة كمساحات فارغة أو NaN أو أي رموز أخرى. ومع ذلك، لا تتوافق هذه المجموعات مع خوارزميات scikit-learn التي تفترض أن جميع القيم في المصفوفة رقمية، وأن لها معنى. تتمثل إحدى الاستراتيجيات الأساسية لاستخدام مجموعات البيانات غير المكتملة في التخلص من الصفوف و/أو الأعمدة بالكامل التي تحتوي على قيم مفقودة. ومع ذلك، يأتي ذلك مقابل فقدان البيانات التي قد تكون ذات قيمة (على الرغم من عدم اكتمالها). تتمثل الاستراتيجية الأفضل في إكمال القيم المفقودة، أي استنتاجها من الجزء المعروف من البيانات. راجع مدخل المسرد على :term:`imputation`.
 
-
-Univariate vs. Multivariate Imputation
+إكمال أحادي المتغير مقابل متعدد المتغيرات
 ======================================
 
-One type of imputation algorithm is univariate, which imputes values in the
-i-th feature dimension using only non-missing values in that feature dimension
-(e.g. :class:`SimpleImputer`). By contrast, multivariate imputation
-algorithms use the entire set of available feature dimensions to estimate the
-missing values (e.g. :class:`IterativeImputer`).
-
+هناك نوع واحد من خوارزميات الإكمال وهو أحادي المتغير، والذي يكمل القيم في البعد i-th لميزة باستخدام القيم غير المفقودة فقط في ذلك البعد المميز (على سبيل المثال: class:`SimpleImputer`). على النقيض من ذلك، تستخدم خوارزميات الإكمال متعددة المتغيرات مجموعة الميزات المتاحة بالكامل لتقدير القيم المفقودة (على سبيل المثال: class:`IterativeImputer`).
 
 .. _single_imputer:
 
-Univariate feature imputation
+إكمال ميزة أحادية المتغير
 =============================
 
-The :class:`SimpleImputer` class provides basic strategies for imputing missing
-values. Missing values can be imputed with a provided constant value, or using
-the statistics (mean, median or most frequent) of each column in which the
-missing values are located. This class also allows for different missing values
-encodings.
+توفر فئة class:`SimpleImputer` استراتيجيات أساسية لإكمال القيم المفقودة. يمكن إكمال القيم المفقودة باستخدام قيمة ثابتة مقدمة، أو باستخدام الإحصاءات (المتوسط أو الوسيط أو الأكثر تكرارًا) لكل عمود توجد فيه القيم المفقودة. تسمح هذه الفئة أيضًا بمخططات ترميز القيم المفقودة المختلفة.
 
-The following snippet demonstrates how to replace missing values,
-encoded as ``np.nan``, using the mean value of the columns (axis 0)
-that contain the missing values::
+توضح القطعة التالية كيفية استبدال القيم المفقودة، المشفرة كـ ``np.nan``، باستخدام متوسط قيمة الأعمدة (المحور 0) التي تحتوي على القيم المفقودة::
 
     >>> import numpy as np
     >>> from sklearn.impute import SimpleImputer
@@ -53,7 +30,7 @@ that contain the missing values::
      [6.          3.666...]
      [7.          6.        ]]
 
-The :class:`SimpleImputer` class also supports sparse matrices::
+تدعم فئة class:`SimpleImputer` أيضًا المصفوفات المبعثرة::
 
     >>> import scipy.sparse as sp
     >>> X = sp.csc_matrix([[1, 2], [0, -1], [8, 4]])
@@ -66,13 +43,9 @@ The :class:`SimpleImputer` class also supports sparse matrices::
      [6. 3.]
      [7. 6.]]
 
-Note that this format is not meant to be used to implicitly store missing
-values in the matrix because it would densify it at transform time. Missing
-values encoded by 0 must be used with dense input.
+لاحظ أن هذا التنسيق لا يُقصد به استخدامه لتخزين القيم المفقودة ضمنيًا في المصفوفة لأنه سيكثفها في وقت التحويل. يجب استخدام القيم المفقودة المشفرة بواسطة 0 مع الإدخال الكثيف.
 
-The :class:`SimpleImputer` class also supports categorical data represented as
-string values or pandas categoricals when using the ``'most_frequent'`` or
-``'constant'`` strategy::
+تدعم فئة class:`SimpleImputer` أيضًا البيانات الفئوية الممثلة كقيم سلسلة أو فئات Pandas عند استخدام استراتيجية "most_frequent" أو "constant"::
 
     >>> import pandas as pd
     >>> df = pd.DataFrame([["a", "x"],
@@ -87,32 +60,18 @@ string values or pandas categoricals when using the ``'most_frequent'`` or
      ['a' 'y']
      ['b' 'y']]
 
-For another example on usage, see :ref:`sphx_glr_auto_examples_impute_plot_missing_values.py`.
+للحصول على مثال آخر على الاستخدام، راجع: ref:`sphx_glr_auto_examples_impute_plot_missing_values.py`.
 
 .. _iterative_imputer:
 
-
-Multivariate feature imputation
+إكمال ميزة متعددة المتغيرات
 ===============================
 
-A more sophisticated approach is to use the :class:`IterativeImputer` class,
-which models each feature with missing values as a function of other features,
-and uses that estimate for imputation. It does so in an iterated round-robin
-fashion: at each step, a feature column is designated as output ``y`` and the
-other feature columns are treated as inputs ``X``. A regressor is fit on ``(X,
-y)`` for known ``y``. Then, the regressor is used to predict the missing values
-of ``y``.  This is done for each feature in an iterative fashion, and then is
-repeated for ``max_iter`` imputation rounds. The results of the final
-imputation round are returned.
+هناك نهج أكثر تطوراً هو استخدام فئة class:`IterativeImputer`، والتي تقوم بتصميم كل ميزة بالقيم المفقودة كدالة للميزات الأخرى، ويتم استخدام هذا التقدير للإكمال. يقوم بذلك بطريقة دورية متكررة: في كل خطوة، يتم تعيين عمود ميزة كإخراج y ويتم التعامل مع أعمدة الميزات الأخرى على أنها مدخلات X. يتم ضبط مرجع على (X، y) للقيم y المعروفة. بعد ذلك، يتم استخدام المرجع للتنبؤ بالقيم المفقودة من y. يتم ذلك لكل ميزة بطريقة تكرارية، ثم يتم تكرارها لـ max_iter جولات الإكمال. يتم إرجاع نتائج جولة الإكمال الأخيرة.
 
 .. note::
 
-   This estimator is still **experimental** for now: default parameters or
-   details of behaviour might change without any deprecation cycle. Resolving
-   the following issues would help stabilize :class:`IterativeImputer`:
-   convergence criteria (:issue:`14338`), default estimators (:issue:`13286`),
-   and use of random state (:issue:`15611`). To use it, you need to explicitly
-   import ``enable_iterative_imputer``.
+   لا يزال هذا المرجع **تجريبيًا** الآن: قد تتغير معلمات الافتراض أو تفاصيل السلوك دون أي دورة تقاعد. سيساعد حل المشكلات التالية في تثبيت class:`IterativeImputer`: معايير التقارب (:issue:`14338`)، والمراجع الافتراضية (:issue:`13286`)، واستخدام حالة التعشيش العشوائي (:issue:`15611`). لاستخدامه، يجب عليك استيراد "enable_iterative_imputer" بشكل صريح.
 
 ::
 
@@ -123,93 +82,50 @@ imputation round are returned.
     >>> imp.fit([[1, 2], [3, 6], [4, 8], [np.nan, 3], [7, np.nan]])
     IterativeImputer(random_state=0)
     >>> X_test = [[np.nan, 2], [6, np.nan], [np.nan, 6]]
-    >>> # the model learns that the second feature is double the first
+    >>> # يتعلم النموذج أن الميزة الثانية ضعف الأولى
     >>> print(np.round(imp.transform(X_test)))
     [[ 1.  2.]
      [ 6. 12.]
      [ 3.  6.]]
 
-Both :class:`SimpleImputer` and :class:`IterativeImputer` can be used in a
-Pipeline as a way to build a composite estimator that supports imputation.
-See :ref:`sphx_glr_auto_examples_impute_plot_missing_values.py`.
+يمكن استخدام كل من class:`SimpleImputer` و class:`IterativeImputer` في خط أنابيب كطريقة لبناء مرجع مركب يدعم الإكمال.
+راجع: ref:`sphx_glr_auto_examples_impute_plot_missing_values.py`.
 
-Flexibility of IterativeImputer
+مرونة IterativeImputer
 -------------------------------
 
-There are many well-established imputation packages in the R data science
-ecosystem: Amelia, mi, mice, missForest, etc. missForest is popular, and turns
-out to be a particular instance of different sequential imputation algorithms
-that can all be implemented with :class:`IterativeImputer` by passing in
-different regressors to be used for predicting missing feature values. In the
-case of missForest, this regressor is a Random Forest.
-See :ref:`sphx_glr_auto_examples_impute_plot_iterative_imputer_variants_comparison.py`.
+هناك العديد من حزم الإكمال الراسخة في نظام R البيئي لعلوم البيانات: أميليا، mi، الفئران، missForest، إلخ. تعد missForest شائعة، وتتضح أنها مثال محدد لخوارزميات الإكمال التسلسلية المختلفة التي يمكن تنفيذها جميعًا باستخدام class:`IterativeImputer` عن طريق تمرير مراجعات مختلفة للتنبؤ بقيم الميزات المفقودة. في حالة missForest، يكون هذا المرجع عبارة عن Random Forest.
+راجع: ref:`sphx_glr_auto_examples_impute_plot_iterative_imputer_variants_comparison.py`.
 
 
 .. _multiple_imputation:
 
-Multiple vs. Single Imputation
+الإكمال المتعدد مقابل الإكمال الفردي
 ------------------------------
 
-In the statistics community, it is common practice to perform multiple
-imputations, generating, for example, ``m`` separate imputations for a single
-feature matrix. Each of these ``m`` imputations is then put through the
-subsequent analysis pipeline (e.g. feature engineering, clustering, regression,
-classification). The ``m`` final analysis results (e.g. held-out validation
-errors) allow the data scientist to obtain understanding of how analytic
-results may differ as a consequence of the inherent uncertainty caused by the
-missing values. The above practice is called multiple imputation.
+في مجتمع الإحصاء، من الشائع إجراء عمليات إكمال متعددة، مما يؤدي إلى إنشاء، على سبيل المثال، عمليات إكمال m منفصلة لمصفوفة ميزة واحدة. يتم بعد ذلك إدخال كل من هذه الإكمال m في خط أنابيب التحليل اللاحق (على سبيل المثال، هندسة الميزات، التجميع، الانحدار، التصنيف). تسمح نتائج التحليل m النهائية (على سبيل المثال، أخطاء التحقق من الصحة المحجوزة) لعالم البيانات بفهم كيفية اختلاف النتائج التحليلية كنتيجة لعدم اليقين المتأصل الذي تسببه القيم المفقودة. يُطلق على الممارسة المذكورة أعلاه اسم الإكمال المتعدد.
 
-Our implementation of :class:`IterativeImputer` was inspired by the R MICE
-package (Multivariate Imputation by Chained Equations) [1]_, but differs from
-it by returning a single imputation instead of multiple imputations.  However,
-:class:`IterativeImputer` can also be used for multiple imputations by applying
-it repeatedly to the same dataset with different random seeds when
-``sample_posterior=True``. See [2]_, chapter 4 for more discussion on multiple
-vs. single imputations.
+استلهمت عملية تنفيذنا لـ class:`IterativeImputer` من حزمة R MICE (الإكمال متعدد المتغيرات بواسطة المعادلات المتسلسلة) [1]_، ولكنها تختلف عنها من خلال إرجاع إكمال واحد بدلاً من عمليات الإكمال المتعددة. ومع ذلك، يمكن أيضًا استخدام class:`IterativeImputer` للإكمال المتعدد عن طريق تطبيقه بشكل متكرر على نفس مجموعة البيانات باستخدام بذور عشوائية مختلفة عند sample_posterior=True``. راجع [2]_، الفصل 4 لمزيد من المناقشة حول الإكمال المتعدد مقابل الإكمال الفردي.
 
-It is still an open problem as to how useful single vs. multiple imputation is
-in the context of prediction and classification when the user is not
-interested in measuring uncertainty due to missing values.
+لا يزال من المشكلات المفتوحة مدى فائدة الإكمال الفردي مقابل الإكمال المتعدد في سياق التنبؤ والتصنيف عندما لا يكون المستخدم مهتمًا بقياس عدم اليقين بسبب القيم المفقودة.
 
-Note that a call to the ``transform`` method of :class:`IterativeImputer` is
-not allowed to change the number of samples. Therefore multiple imputations
-cannot be achieved by a single call to ``transform``.
+لاحظ أن استدعاء طريقة "التحويل" لـ class:`IterativeImputer` غير مسموح بتغيير عدد العينات. لذلك لا يمكن تحقيق عمليات الإكمال المتعددة من خلال استدعاء واحد لـ "التحويل".
 
-References
+مراجع
 ----------
 
-.. [1] `Stef van Buuren, Karin Groothuis-Oudshoorn (2011). "mice: Multivariate
-   Imputation by Chained Equations in R". Journal of Statistical Software 45:
-   1-67. <https://www.jstatsoft.org/article/view/v045i03>`_
+.. [1] `ستيف فان بويرين، كارين جرووثويس-أودشورن (2011). "الفئران: الإكمال متعدد المتغيرات بواسطة المعادلات المتسلسلة في R". مجلة البرمجيات الإحصائية 45: 1-67. <https://www.jstatsoft.org/article/view/v045i03>`_
 
-.. [2] Roderick J A Little and Donald B Rubin (1986). "Statistical Analysis
-   with Missing Data". John Wiley & Sons, Inc., New York, NY, USA.
+.. [2] رودريك جيه إيه ليتل ودونالد بي روبين (1986). "التحليل الإحصائي باستخدام البيانات المفقودة". جون وايلي وأولاده، نيويورك، نيويورك، الولايات المتحدة الأمريكية.
 
 .. _knnimpute:
 
-Nearest neighbors imputation
+إكمال أقرب جيران
 ============================
 
-The :class:`KNNImputer` class provides imputation for filling in missing values
-using the k-Nearest Neighbors approach. By default, a euclidean distance metric
-that supports missing values,
-:func:`~sklearn.metrics.pairwise.nan_euclidean_distances`, is used to find the
-nearest neighbors. Each missing feature is imputed using values from
-``n_neighbors`` nearest neighbors that have a value for the feature. The
-feature of the neighbors are averaged uniformly or weighted by distance to each
-neighbor. If a sample has more than one feature missing, then the neighbors for
-that sample can be different depending on the particular feature being imputed.
-When the number of available neighbors is less than `n_neighbors` and there are
-no defined distances to the training set, the training set average for that
-feature is used during imputation. If there is at least one neighbor with a
-defined distance, the weighted or unweighted average of the remaining neighbors
-will be used during imputation. If a feature is always missing in training, it
-is removed during `transform`. For more information on the methodology, see
-ref. [OL2001]_.
+توفر فئة class:`KNNImputer` الإكمال لملء القيم المفقودة باستخدام نهج k-Nearest Neighbors. بشكل افتراضي، يتم استخدام مسافة يوكليديانية التي تدعم القيم المفقودة، :func:`~sklearn.metrics.pairwise.nan_euclidean_distances`، للعثور على أقرب الجيران. يتم إكمال كل ميزة مفقودة باستخدام القيم من أقرب الجيران n_neighbors التي تحتوي على قيمة للميزة. يتم حساب متوسط ميزة الجيران بالتساوي أو مرجح حسب المسافة إلى كل جار. إذا كان لدى عينة أكثر من ميزة مفقودة، فيمكن أن يكون لدى الجيران لهذه العينة جيران مختلفون اعتمادًا على الميزة المحددة التي يتم إكمالها. عندما يكون عدد الجيران المتاحين أقل من n_neighbors ولا توجد مسافات محددة لمجموعة التدريب، يتم استخدام متوسط مجموعة التدريب لهذه الميزة أثناء الإكمال. إذا كان هناك جار واحد على الأقل بمسافة محددة، فسيتم استخدام المتوسط المرجح أو غير المرجح لباقي الجيران أثناء الإكمال. إذا كانت الميزة مفقودة دائمًا في التدريب، فسيتم إزالتها أثناء التحويل. لمزيد من المعلومات حول المنهجية، راجع ref. [OL2001]_.
 
-The following snippet demonstrates how to replace missing values,
-encoded as ``np.nan``, using the mean feature value of the two nearest
-neighbors of samples with missing values::
+توضح القطعة التالية كيفية استبدال القيم المفقودة، المشفرة كـ ``np.nan``، باستخدام متوسط قيمة الميزة لأقرب جارين للعينات التي تحتوي على قيم مفقودة::
 
     >>> import numpy as np
     >>> from sklearn.impute import KNNImputer
@@ -222,62 +138,39 @@ neighbors of samples with missing values::
            [5.5, 6. , 5. ],
            [8. , 8. , 7. ]])
 
-For another example on usage, see :ref:`sphx_glr_auto_examples_impute_plot_missing_values.py`.
+للحصول على مثال آخر على الاستخدام، راجع: ref:`sphx_glr_auto_examples_impute_plot_missing_values.py`.
 
 .. rubric:: References
 
-.. [OL2001] `Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown,
-    Trevor Hastie, Robert Tibshirani, David Botstein and Russ B. Altman,
-    Missing value estimation methods for DNA microarrays, BIOINFORMATICS
-    Vol. 17 no. 6, 2001 Pages 520-525.
-    <https://academic.oup.com/bioinformatics/article/17/6/520/272365>`_
+.. [OL2001] `أولغا ترويانسكايا، مايكل كانتور، جافين شيرلوك، بات براون، تريفور هاستي، روبرت تيبشيران، ديفيد بوتستين وروس ب. ألتمان، أساليب تقدير القيمة المفقودة لمصفوفات الدنا الدقيقة، BIOINFORMATICS المجلد 17 رقم 6، 2001 الصفحات 520-525. <https://academic.oup.com/bioinformatics/article/17/6/520/272365>`_
 
-Keeping the number of features constant
+الحفاظ على عدد الميزات ثابتًا
 =======================================
 
-By default, the scikit-learn imputers will drop fully empty features, i.e.
-columns containing only missing values. For instance::
+بشكل افتراضي، ستتخلص برامج إكمال scikit-learn من الميزات الفارغة تمامًا، أي أعمدة تحتوي فقط على قيم مفقودة. على سبيل المثال::
 
   >>> imputer = SimpleImputer()
-  >>> X = np.array([[np.nan, 1], [np.nan, 2], [np.nan, 3]])
+  >>> X = np.array([[np.nan، 1]، [np.nan، 2]، [np.nan، 3]])
   >>> imputer.fit_transform(X)
-  array([[1.],
-         [2.],
+  array([[1.]
+         [2.]
          [3.]])
 
-The first feature in `X` containing only `np.nan` was dropped after the
-imputation. While this feature will not help in predictive setting, dropping
-the columns will change the shape of `X` which could be problematic when using
-imputers in a more complex machine-learning pipeline. The parameter
-`keep_empty_features` offers the option to keep the empty features by imputing
-with a constant values. In most of the cases, this constant value is zero::
+تم إسقاط الميزة الأولى في X التي تحتوي فقط على قيم np.nan بعد الإكمال. بينما لن تساعد هذه الميزة في الإعداد التنبئي، فإن إسقاط الأعمدة سيغير شكل X والذي قد يكون مشكلة عند استخدام برامج الإكمال في خط أنابيب التعلم الآلي الأكثر تعقيدًا. يوفر معلمة keep_empty_features خيار الاحتفاظ بالميزات الفارغة عن طريق الإكمال بقيم ثابتة. في معظم الحالات، تكون هذه القيمة الثابتة صفرًا::
 
   >>> imputer.set_params(keep_empty_features=True)
   SimpleImputer(keep_empty_features=True)
   >>> imputer.fit_transform(X)
-  array([[0., 1.],
-         [0., 2.],
-         [0., 3.]])
+  array([[0.، 1.]
+         [0.، 2.]
+         [0.، 3.]])
 
 .. _missing_indicator:
 
-Marking imputed values
-======================
+وضع علامة على القيم المكتملة
+محول :class:`MissingIndicator` مفيد لتحويل مجموعة بيانات إلى مصفوفة ثنائية مقابلة تشير إلى وجود قيم مفقودة في مجموعة البيانات. وهذا التحول مفيد بالاقتران مع الاستيفاء. عند استخدام الاستيفاء، فإن الحفاظ على المعلومات حول القيم التي كانت مفقودة يمكن أن يكون مفيدًا. لاحظ أن كلاً من :class:`SimpleImputer` و :class:`IterativeImputer` لهما معلمة منطقية ``add_indicator`` (القيمة الافتراضية هي ``False``) والتي عند تعيينها إلى ``True`` توفر طريقة ملائمة لدمج إخراج محول :class:`MissingIndicator` مع إخراج المستوفي.
 
-The :class:`MissingIndicator` transformer is useful to transform a dataset into
-corresponding binary matrix indicating the presence of missing values in the
-dataset. This transformation is useful in conjunction with imputation. When
-using imputation, preserving the information about which values had been
-missing can be informative. Note that both the :class:`SimpleImputer` and
-:class:`IterativeImputer` have the boolean parameter ``add_indicator``
-(``False`` by default) which when set to ``True`` provides a convenient way of
-stacking the output of the :class:`MissingIndicator` transformer with the
-output of the imputer.
-
-``NaN`` is usually used as the placeholder for missing values. However, it
-enforces the data type to be float. The parameter ``missing_values`` allows to
-specify other placeholder such as integer. In the following example, we will
-use ``-1`` as missing values::
+عادةً ما يتم استخدام ``NaN`` كمساحة حجز للقيم المفقودة. ومع ذلك، فإنه يجبر نوع البيانات على أن يكون float. تسمح المعلمة ``missing_values`` بتحديد مساحة حجز أخرى مثل integer. في المثال التالي، سنستخدم ``-1`` كقيم مفقودة::
 
   >>> from sklearn.impute import MissingIndicator
   >>> X = np.array([[-1, -1, 1, 3],
@@ -290,15 +183,12 @@ use ``-1`` as missing values::
          [False,  True,  True],
          [False,  True, False]])
 
-The ``features`` parameter is used to choose the features for which the mask is
-constructed. By default, it is ``'missing-only'`` which returns the imputer
-mask of the features containing missing values at ``fit`` time::
+يستخدم معلمة ``features`` لاختيار الميزات التي يتم بناء القناع لها. بشكل افتراضي، يكون ``'missing-only'`` الذي يعيد قناع المستوفي للميزات التي تحتوي على قيم مفقودة في وقت ``fit``::
 
   >>> indicator.features_
   array([0, 1, 3])
 
-The ``features`` parameter can be set to ``'all'`` to return all features
-whether or not they contain missing values::
+يمكن تعيين معلمة ``features`` إلى ``'all'`` لإرجاع جميع الميزات سواء احتوت على قيم مفقودة أم لا::
 
   >>> indicator = MissingIndicator(missing_values=-1, features="all")
   >>> mask_all = indicator.fit_transform(X)
@@ -309,12 +199,7 @@ whether or not they contain missing values::
   >>> indicator.features_
   array([0, 1, 2, 3])
 
-When using the :class:`MissingIndicator` in a
-:class:`~sklearn.pipeline.Pipeline`, be sure to use the
-:class:`~sklearn.pipeline.FeatureUnion` or
-:class:`~sklearn.compose.ColumnTransformer` to add the indicator features to
-the regular features. First we obtain the `iris` dataset, and add some missing
-values to it.
+عند استخدام :class:`MissingIndicator` في :class:`~sklearn.pipeline.Pipeline`، تأكد من استخدام :class:`~sklearn.pipeline.FeatureUnion` أو :class:`~sklearn.compose.ColumnTransformer` لإضافة ميزات المؤشر إلى الميزات العادية. أولاً، نحصل على مجموعة بيانات `iris`، ونضيف بعض القيم المفقودة إليها.
 
   >>> from sklearn.datasets import load_iris
   >>> from sklearn.impute import SimpleImputer, MissingIndicator
@@ -327,10 +212,7 @@ values to it.
   >>> X_train, X_test, y_train, _ = train_test_split(X, y, test_size=100,
   ...                                                random_state=0)
 
-Now we create a :class:`~sklearn.pipeline.FeatureUnion`. All features will be
-imputed using :class:`SimpleImputer`, in order to enable classifiers to work
-with this data. Additionally, it adds the indicator variables from
-:class:`MissingIndicator`.
+الآن نقوم بإنشاء :class:`~sklearn.pipeline.FeatureUnion`. سيتم استيفاء جميع الميزات باستخدام :class:`SimpleImputer`، وذلك لتمكين المصنفات من العمل مع هذه البيانات. بالإضافة إلى ذلك، فإنه يضيف المتغيرات المؤشر من :class:`MissingIndicator`.
 
   >>> transformer = FeatureUnion(
   ...     transformer_list=[
@@ -341,9 +223,7 @@ with this data. Additionally, it adds the indicator variables from
   >>> results.shape
   (100, 8)
 
-Of course, we cannot use the transformer to make any predictions. We should
-wrap this in a :class:`~sklearn.pipeline.Pipeline` with a classifier (e.g., a
-:class:`~sklearn.tree.DecisionTreeClassifier`) to be able to make predictions.
+بالطبع، لا يمكننا استخدام المحول للتنبؤ. يجب أن نلف هذا في :class:`~sklearn.pipeline.Pipeline` مع مصنف (على سبيل المثال، :class:`~sklearn.tree.DecisionTreeClassifier`) ليكون قادرًا على إجراء تنبؤات.
 
   >>> clf = make_pipeline(transformer, DecisionTreeClassifier())
   >>> clf = clf.fit(X_train, y_train)
@@ -351,11 +231,11 @@ wrap this in a :class:`~sklearn.pipeline.Pipeline` with a classifier (e.g., a
   >>> results.shape
   (100,)
 
-Estimators that handle NaN values
-=================================
+المقدرات التي تتعامل مع قيم NaN
+==============================
 
-Some estimators are designed to handle NaN values without preprocessing.
-Below is the list of these estimators, classified by type
-(cluster, regressor, classifier, transform):
+تم تصميم بعض المقدرات للتعامل مع قيم NaN بدون معالجة مسبقة.
+فيما يلي قائمة بهذه المقدرات، مصنفة حسب النوع
+(عنقود، مرجع، مصنف، تحويل):
 
 .. allow_nan_estimators::
