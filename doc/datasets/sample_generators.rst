@@ -1,104 +1,70 @@
 .. _sample_generators:
 
-Generated datasets
-==================
+المجموعات البيانات المولدة
+==========================
 
 .. currentmodule:: sklearn.datasets
 
-In addition, scikit-learn includes various random sample generators that
-can be used to build artificial datasets of controlled size and complexity.
+بالإضافة إلى ذلك، يتضمن Scikit-learn العديد من مولدات العينات العشوائية التي يمكن استخدامها لإنشاء مجموعات بيانات اصطناعية ذات حجم وتعقيد محكومين.
 
-Generators for classification and clustering
---------------------------------------------
+مولدات التصنيف والتجميع
+------------------------
 
-These generators produce a matrix of features and corresponding discrete
-targets.
+تنتج هذه المولدات مصفوفة من الميزات وأهداف منفصلة مطابقة.
 
-Single label
-~~~~~~~~~~~~
+علامة واحدة
+~~~~~~~~~~
 
-Both :func:`make_blobs` and :func:`make_classification` create multiclass
-datasets by allocating each class one or more normally-distributed clusters of
-points.  :func:`make_blobs` provides greater control regarding the centers and
-standard deviations of each cluster, and is used to demonstrate clustering.
-:func:`make_classification` specializes in introducing noise by way of:
-correlated, redundant and uninformative features; multiple Gaussian clusters
-per class; and linear transformations of the feature space.
+كل من :func:`make_blobs` و :func:`make_classification` ينشئان مجموعات بيانات متعددة الفئات عن طريق تخصيص مجموعة أو أكثر من التجمعات الطبيعية التوزيع لكل فئة. توفر دالة :func:`make_blobs` تحكمًا أكبر فيما يتعلق بمراكز وانحرافات كل تجمع، وتستخدم لتوضيح التجميع. تتخصص دالة :func:`make_classification` في إدخال الضوضاء من خلال: الميزات المرتبطة والزائدة وغير المفيدة؛ مجموعات غاوسية متعددة لكل فئة؛ والتحويلات الخطية لمساحة الميزة.
 
-:func:`make_gaussian_quantiles` divides a single Gaussian cluster into
-near-equal-size classes separated by concentric hyperspheres.
-:func:`make_hastie_10_2` generates a similar binary, 10-dimensional problem.
+يقسم :func:`make_gaussian_quantiles` مجموعة واحدة من التجمعات الغاوسية إلى فئات ذات أحجام متساوية تقريبًا مفصولة بكرات فراغية متحدة المركز. ينشئ :func:`make_hastie_10_2` مشكلة ثنائية الأبعاد مماثلة ذات 10 أبعاد.
 
 .. image:: ../auto_examples/datasets/images/sphx_glr_plot_random_dataset_001.png
    :target: ../auto_examples/datasets/plot_random_dataset.html
    :scale: 50
    :align: center
 
-:func:`make_circles` and :func:`make_moons` generate 2d binary classification
-datasets that are challenging to certain algorithms (e.g. centroid-based
-clustering or linear classification), including optional Gaussian noise.
-They are useful for visualization. :func:`make_circles` produces Gaussian data
-with a spherical decision boundary for binary classification, while
-:func:`make_moons` produces two interleaving half circles.
+تولد دالتا :func:`make_circles` و :func:`make_moons` مجموعات بيانات للتصنيف الثنائي ثنائي الأبعاد التي تشكل تحديًا لبعض الخوارزميات (على سبيل المثال، التجميع القائم على المركز أو التصنيف الخطي)، بما في ذلك الضوضاء الغاوسية الاختيارية. إنها مفيدة للتصور. تنتج دالة :func:`make_circles` بيانات غاوسية مع حد قرار كروي للتصنيف الثنائي، في حين تنتج دالة :func:`make_moons` نصف دائرتين متشابكتين.
 
-Multilabel
-~~~~~~~~~~
+متعدد العلامات
+~~~~~~~~~~~~~
 
-:func:`make_multilabel_classification` generates random samples with multiple
-labels, reflecting a bag of words drawn from a mixture of topics. The number of
-topics for each document is drawn from a Poisson distribution, and the topics
-themselves are drawn from a fixed random distribution. Similarly, the number of
-words is drawn from Poisson, with words drawn from a multinomial, where each
-topic defines a probability distribution over words. Simplifications with
-respect to true bag-of-words mixtures include:
+:func:`make_multilabel_classification` ينشئ عينات عشوائية مع العديد من العلامات، مما يعكس كيسًا من الكلمات المستمدة من مزيج من الموضوعات. يتم رسم عدد الموضوعات لكل مستند من توزيع بواسون، ويتم رسم الموضوعات نفسها من توزيع عشوائي ثابت. وبالمثل، يتم رسم عدد الكلمات من بواسون، مع كلمات من توزيع متعدد الحدود، حيث يحدد كل موضوع توزيع الاحتمالية على الكلمات. تشمل التبسيطات المتعلقة بمزيج الحقائب الفعلية للكلمات ما يلي:
 
-* Per-topic word distributions are independently drawn, where in reality all
-  would be affected by a sparse base distribution, and would be correlated.
-* For a document generated from multiple topics, all topics are weighted
-  equally in generating its bag of words.
-* Documents without labels words at random, rather than from a base
-  distribution.
+* يتم رسم توزيعات الكلمات لكل موضوع بشكل مستقل، في حين أن جميعها في الواقع ستتأثر بتوزيع أساسي نادر، وستكون مرتبطة.
+* بالنسبة للمستند الذي تم إنشاؤه من عدة موضوعات، يتم ترجيح جميع الموضوعات بالتساوي في إنشاء حقيبة الكلمات الخاصة بها.
+* المستندات بدون علامات الكلمات بشكل عشوائي، بدلاً من توزيع أساسي.
 
 .. image:: ../auto_examples/datasets/images/sphx_glr_plot_random_multilabel_dataset_001.png
    :target: ../auto_examples/datasets/plot_random_multilabel_dataset.html
    :scale: 50
    :align: center
 
-Biclustering
-~~~~~~~~~~~~
+التجميع الثنائي
+~~~~~~~~~~~~~~
 
 .. autosummary::
 
    make_biclusters
    make_checkerboard
 
+مولدات الانحدار
+-----------------
 
-Generators for regression
--------------------------
+:func:`make_regression` ينتج أهداف الانحدار كمجموعة خطية عشوائية اختيارية من الميزات العشوائية، مع الضوضاء. قد تكون ميزاتها المفيدة غير مرتبطة أو منخفضة الرتبة (تُفسر قلة من الميزات معظم التباين).
 
-:func:`make_regression` produces regression targets as an optionally-sparse
-random linear combination of random features, with noise. Its informative
-features may be uncorrelated, or low rank (few features account for most of the
-variance).
+تولد مولدات الانحدار الأخرى وظائف بشكل حتمي من الميزات المعشوائية. ينتج :func:`make_sparse_uncorrelated` هدفًا كمجموع خطي لأربع ميزات بمعاملات ثابتة. يشتمل الآخرون على علاقات غير خطية بشكل صريح: يرتبط :func:`make_friedman1` بتحويلات متعددة الحدود والجيوب الزاوية؛ يتضمن :func:`make_friedman2` ضرب الميزة والتباديل؛ و :func:`make_friedman3` مشابه مع تحويل arctan على الهدف.
 
-Other regression generators generate functions deterministically from
-randomized features.  :func:`make_sparse_uncorrelated` produces a target as a
-linear combination of four features with fixed coefficients.
-Others encode explicitly non-linear relations:
-:func:`make_friedman1` is related by polynomial and sine transforms;
-:func:`make_friedman2` includes feature multiplication and reciprocation; and
-:func:`make_friedman3` is similar with an arctan transformation on the target.
-
-Generators for manifold learning
---------------------------------
+مولدات التعلم المنفصل
+-----------------------
 
 .. autosummary::
 
    make_s_curve
    make_swiss_roll
 
-Generators for decomposition
-----------------------------
+مولدات التحليل
+----------------
 
 .. autosummary::
 
