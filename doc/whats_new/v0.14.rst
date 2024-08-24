@@ -1,305 +1,160 @@
+يسعدني أن أساعدك في ترجمة هذا النص إلى اللغة العربية.
+
 .. include:: _contributors.rst
 
 .. currentmodule:: sklearn
 
 ============
-Version 0.14
+الإصدار 0.14
 ============
 
 .. _changes_0_14:
 
-Version 0.14
-===============
-
-**August 7, 2013**
-
-Changelog
----------
-
-- Missing values with sparse and dense matrices can be imputed with the
-  transformer `preprocessing.Imputer` by `Nicolas Trésegnie`_.
-
-- The core implementation of decisions trees has been rewritten from
-  scratch, allowing for faster tree induction and lower memory
-  consumption in all tree-based estimators. By `Gilles Louppe`_.
-
-- Added :class:`ensemble.AdaBoostClassifier` and
-  :class:`ensemble.AdaBoostRegressor`, by `Noel Dawe`_  and
-  `Gilles Louppe`_. See the :ref:`AdaBoost <adaboost>` section of the user
-  guide for details and examples.
-
-- Added `grid_search.RandomizedSearchCV` and
-  `grid_search.ParameterSampler` for randomized hyperparameter
-  optimization. By `Andreas Müller`_.
-
-- Added :ref:`biclustering <biclustering>` algorithms
-  (`sklearn.cluster.bicluster.SpectralCoclustering` and
-  `sklearn.cluster.bicluster.SpectralBiclustering`), data
-  generation methods (:func:`sklearn.datasets.make_biclusters` and
-  :func:`sklearn.datasets.make_checkerboard`), and scoring metrics
-  (:func:`sklearn.metrics.consensus_score`). By `Kemal Eren`_.
-
-- Added :ref:`Restricted Boltzmann Machines<rbm>`
-  (:class:`neural_network.BernoulliRBM`). By `Yann Dauphin`_.
-
-- Python 3 support by :user:`Justin Vincent <justinvf>`, `Lars Buitinck`_,
-  :user:`Subhodeep Moitra <smoitra87>` and `Olivier Grisel`_. All tests now pass under
-  Python 3.3.
-
-- Ability to pass one penalty (alpha value) per target in
-  :class:`linear_model.Ridge`, by @eickenberg and `Mathieu Blondel`_.
-
-- Fixed `sklearn.linear_model.stochastic_gradient.py` L2 regularization
-  issue (minor practical significance).
-  By :user:`Norbert Crombach <norbert>` and `Mathieu Blondel`_ .
-
-- Added an interactive version of `Andreas Müller`_'s
-  `Machine Learning Cheat Sheet (for scikit-learn)
-  <https://peekaboo-vision.blogspot.de/2013/01/machine-learning-cheat-sheet-for-scikit.html>`_
-  to the documentation. See :ref:`Choosing the right estimator <ml_map>`.
-  By `Jaques Grobler`_.
-
-- `grid_search.GridSearchCV` and
-  `cross_validation.cross_val_score` now support the use of advanced
-  scoring function such as area under the ROC curve and f-beta scores.
-  See :ref:`scoring_parameter` for details. By `Andreas Müller`_
-  and `Lars Buitinck`_.
-  Passing a function from :mod:`sklearn.metrics` as ``score_func`` is
-  deprecated.
-
-- Multi-label classification output is now supported by
-  :func:`metrics.accuracy_score`, :func:`metrics.zero_one_loss`,
-  :func:`metrics.f1_score`, :func:`metrics.fbeta_score`,
-  :func:`metrics.classification_report`,
-  :func:`metrics.precision_score` and :func:`metrics.recall_score`
-  by `Arnaud Joly`_.
-
-- Two new metrics :func:`metrics.hamming_loss` and
-  `metrics.jaccard_similarity_score`
-  are added with multi-label support by `Arnaud Joly`_.
-
-- Speed and memory usage improvements in
-  :class:`feature_extraction.text.CountVectorizer` and
-  :class:`feature_extraction.text.TfidfVectorizer`,
-  by Jochen Wersdörfer and Roman Sinayev.
-
-- The ``min_df`` parameter in
-  :class:`feature_extraction.text.CountVectorizer` and
-  :class:`feature_extraction.text.TfidfVectorizer`, which used to be 2,
-  has been reset to 1 to avoid unpleasant surprises (empty vocabularies)
-  for novice users who try it out on tiny document collections.
-  A value of at least 2 is still recommended for practical use.
-
-- :class:`svm.LinearSVC`, :class:`linear_model.SGDClassifier` and
-  :class:`linear_model.SGDRegressor` now have a ``sparsify`` method that
-  converts their ``coef_`` into a sparse matrix, meaning stored models
-  trained using these estimators can be made much more compact.
-
-- :class:`linear_model.SGDClassifier` now produces multiclass probability
-  estimates when trained under log loss or modified Huber loss.
-
-- Hyperlinks to documentation in example code on the website by
-  :user:`Martin Luessi <mluessi>`.
-
-- Fixed bug in :class:`preprocessing.MinMaxScaler` causing incorrect scaling
-  of the features for non-default ``feature_range`` settings. By `Andreas
-  Müller`_.
-
-- ``max_features`` in :class:`tree.DecisionTreeClassifier`,
-  :class:`tree.DecisionTreeRegressor` and all derived ensemble estimators
-  now supports percentage values. By `Gilles Louppe`_.
-
-- Performance improvements in :class:`isotonic.IsotonicRegression` by
-  `Nelle Varoquaux`_.
+الإصدار 0.14
+**7 أغسطس 2013**
 
-- :func:`metrics.accuracy_score` has an option normalize to return
-  the fraction or the number of correctly classified sample
-  by `Arnaud Joly`_.
+سجل التغييرات
 
-- Added :func:`metrics.log_loss` that computes log loss, aka cross-entropy
-  loss. By Jochen Wersdörfer and `Lars Buitinck`_.
+- يمكن تقدير القيم المفقودة مع المصفوفات المتناثرة والكثيفة باستخدام المحول "preprocessing.Imputer" من قبل "Nicolas Trésegnie".
 
-- A bug that caused :class:`ensemble.AdaBoostClassifier`'s to output
-  incorrect probabilities has been fixed.
+- تمت إعادة كتابة التنفيذ الأساسي لشجرة القرارات من الصفر، مما يسمح بتشجير أسرع واستهلاك ذاكرة أقل في جميع المحللين الشجريين. من قبل "Gilles Louppe".
 
-- Feature selectors now share a mixin providing consistent ``transform``,
-  ``inverse_transform`` and ``get_support`` methods. By `Joel Nothman`_.
+- تمت الإضافة: class: 'ensemble.AdaBoostClassifier' و class: 'ensemble.AdaBoostRegressor'، من قبل "Noel Dawe" و "Gilles Louppe". راجع قسم "AdaBoost" في دليل المستخدم للحصول على التفاصيل والأمثلة.
 
-- A fitted `grid_search.GridSearchCV` or
-  `grid_search.RandomizedSearchCV` can now generally be pickled.
-  By `Joel Nothman`_.
+- تمت الإضافة: 'grid_search.RandomizedSearchCV' و 'grid_search.ParameterSampler' للتحسين العشوائي لضبط المعلمات. من قبل "Andreas Müller".
 
-- Refactored and vectorized implementation of :func:`metrics.roc_curve`
-  and :func:`metrics.precision_recall_curve`. By `Joel Nothman`_.
+- تمت الإضافة: مرجع: 'biclustering' و خوارزميات 'sklearn.cluster.bicluster.SpectralCoclustering' و 'sklearn.cluster.bicluster.SpectralBiclustering'، وطرق توليد البيانات: func: 'sklearn.datasets.make_biclusters' و func: 'sklearn.datasets.make_checkerboard'، ومقاييس التقييم: func: 'sklearn.metrics.consensus_score'. من قبل "Kemal Eren".
 
-- The new estimator :class:`sklearn.decomposition.TruncatedSVD`
-  performs dimensionality reduction using SVD on sparse matrices,
-  and can be used for latent semantic analysis (LSA).
-  By `Lars Buitinck`_.
+- تمت الإضافة: مرجع: 'Restricted Boltzmann Machines' و class: 'neural_network.BernoulliRBM'. من قبل "Yann Dauphin".
 
-- Added self-contained example of out-of-core learning on text data
-  :ref:`sphx_glr_auto_examples_applications_plot_out_of_core_classification.py`.
-  By :user:`Eustache Diemert <oddskool>`.
+- دعم Python 3 من قبل: user: 'Justin Vincent <justinvf>'، و 'Lars Buitinck'، و user: 'Subhodeep Moitra <smoitra87>'، و 'Olivier Grisel'. جميع الاختبارات الآن تمر في Python 3.3.
 
-- The default number of components for
-  `sklearn.decomposition.RandomizedPCA` is now correctly documented
-  to be ``n_features``. This was the default behavior, so programs using it
-  will continue to work as they did.
+- القدرة على تمرير عقوبة واحدة (قيمة ألفا) لكل هدف في class: 'linear_model.Ridge'، من قبل @eickenberg و "Mathieu Blondel".
 
-- :class:`sklearn.cluster.KMeans` now fits several orders of magnitude
-  faster on sparse data (the speedup depends on the sparsity). By
-  `Lars Buitinck`_.
+- تم إصلاح مشكلة L2 regularization في sklearn.linear_model.stochastic_gradient.py (أهمية عملية طفيفة). من قبل: user: 'Norbert Crombach <norbert>' و "Mathieu Blondel".
 
-- Reduce memory footprint of FastICA by `Denis Engemann`_ and
-  `Alexandre Gramfort`_.
+- تمت إضافة نسخة تفاعلية من "Cheat Sheet للتعلم الآلي (لـ scikit-learn)" من قبل "Andreas Müller" إلى الوثائق. راجع: ref: 'Choosing the right estimator <ml_map>'. من قبل "Jaques Grobler".
 
-- Verbose output in `sklearn.ensemble.gradient_boosting` now uses
-  a column format and prints progress in decreasing frequency.
-  It also shows the remaining time. By `Peter Prettenhofer`_.
+- grid_search.GridSearchCV و cross_validation.cross_val_score الآن يدعمان استخدام وظيفة تسجيل النتائج المتقدمة مثل المنطقة تحت منحنى ROC ونتائج F-beta. راجع: ref: 'scoring_parameter' للحصول على التفاصيل. من قبل "Andreas Müller" و 'Lars Buitinck'. تمرير دالة من: mod: 'sklearn.metrics' كـ "score_func" تم إهماله.
 
-- `sklearn.ensemble.gradient_boosting` provides out-of-bag improvement
-  `oob_improvement_`
-  rather than the OOB score for model selection. An example that shows
-  how to use OOB estimates to select the number of trees was added.
-  By `Peter Prettenhofer`_.
+- مخرجات التصنيف متعدد التصنيفات مدعومة الآن من قبل: func: 'metrics.accuracy_score'، و func: 'metrics.zero_one_loss'، و func: 'metrics.f1_score'، و func: 'metrics.fbeta_score'، و func: 'metrics.classification_report'، و func: 'metrics.precision_score' و func: 'metrics.recall_score' من قبل "Arnaud Joly".
 
-- Most metrics now support string labels for multiclass classification
-  by `Arnaud Joly`_ and `Lars Buitinck`_.
+- تمت إضافة مقياسين جديدين: func: 'metrics.hamming_loss' و 'metrics.jaccard_similarity_score' مع دعم التصنيف متعدد التصنيفات من قبل "Arnaud Joly".
 
-- New OrthogonalMatchingPursuitCV class by `Alexandre Gramfort`_
-  and `Vlad Niculae`_.
+- تحسينات السرعة واستخدام الذاكرة في class: 'feature_extraction.text.CountVectorizer' و class: 'feature_extraction.text.TfidfVectorizer'، من قبل Jochen Wersdörfer و Roman Sinayev.
 
-- Fixed a bug in `sklearn.covariance.GraphLassoCV`: the
-  'alphas' parameter now works as expected when given a list of
-  values. By Philippe Gervais.
+- تم إعادة تعيين معلمة "min_df" في class: 'feature_extraction.text.CountVectorizer' و class: 'feature_extraction.text.TfidfVectorizer'، والتي كانت 2، إلى 1 لتجنب المفاجآت غير السارة (المفردات الفارغة) للمستخدمين المبتدئين الذين يجربونها على مجموعات وثائق صغيرة. لا يزال يوصى باستخدام قيمة 2 على الأقل للاستخدام العملي.
 
-- Fixed an important bug in `sklearn.covariance.GraphLassoCV`
-  that prevented all folds provided by a CV object to be used (only
-  the first 3 were used). When providing a CV object, execution
-  time may thus increase significantly compared to the previous
-  version (bug results are correct now). By Philippe Gervais.
+- class: 'svm.LinearSVC'، و class: 'linear_model.SGDClassifier' و class: 'linear_model.SGDRegressor' لديها الآن طريقة "sparsify" التي تحول "coef_" إلى مصفوفة متفرقة، مما يعني أن النماذج المخزنة المدربة باستخدام هذه المحللين يمكن أن تكون أكثر إحكاما.
 
-- `cross_validation.cross_val_score` and the `grid_search`
-  module is now tested with multi-output data by `Arnaud Joly`_.
+- class: 'linear_model.SGDClassifier' ينتج الآن تقديرات احتمالية متعددة الفئات عند تدريبه تحت خسارة لوج لوز أو خسارة هابر المعدلة.
 
-- :func:`datasets.make_multilabel_classification` can now return
-  the output in label indicator multilabel format  by `Arnaud Joly`_.
+- روابط إلى وثائق في كود المثال على الموقع من قبل: user: 'Martin Luessi <mluessi>'.
 
-- K-nearest neighbors, :class:`neighbors.KNeighborsRegressor`
-  and :class:`neighbors.RadiusNeighborsRegressor`,
-  and radius neighbors, :class:`neighbors.RadiusNeighborsRegressor` and
-  :class:`neighbors.RadiusNeighborsClassifier` support multioutput data
-  by `Arnaud Joly`_.
+- تم إصلاح خطأ في class: 'preprocessing.MinMaxScaler' يسبب عدم تناسق في تحجيم الميزات لإعدادات "feature_range" غير الافتراضية. من قبل "Andreas Müller".
 
-- Random state in LibSVM-based estimators (:class:`svm.SVC`, :class:`svm.NuSVC`,
-  :class:`svm.OneClassSVM`, :class:`svm.SVR`, :class:`svm.NuSVR`) can now be
-  controlled.  This is useful to ensure consistency in the probability
-  estimates for the classifiers trained with ``probability=True``. By
-  `Vlad Niculae`_.
+- "max_features" في class: 'tree.DecisionTreeClassifier'، و class: 'tree.DecisionTreeRegressor' وجميع المحللين المجمعين المشتقين يدعمون الآن القيم النسبية. من قبل "Gilles Louppe".
 
-- Out-of-core learning support for discrete naive Bayes classifiers
-  :class:`sklearn.naive_bayes.MultinomialNB` and
-  :class:`sklearn.naive_bayes.BernoulliNB` by adding the ``partial_fit``
-  method by `Olivier Grisel`_.
+- تحسينات الأداء في class: 'isotonic.IsotonicRegression' من قبل "Nelle Varoquaux".
 
-- New website design and navigation by `Gilles Louppe`_, `Nelle Varoquaux`_,
-  Vincent Michel and `Andreas Müller`_.
+- func: 'metrics.accuracy_score' لديها خيار التطبيع لإرجاع كسر أو عدد العينات المصنفة بشكل صحيح من قبل "Arnaud Joly".
 
-- Improved documentation on :ref:`multi-class, multi-label and multi-output
-  classification <multiclass>` by `Yannick Schwartz`_ and `Arnaud Joly`_.
+- تمت الإضافة: func: 'metrics.log_loss' الذي يحسب خسارة السجل، المعروف أيضًا باسم خسارة الإنتروبيا. من قبل Jochen Wersdörfer و 'Lars Buitinck'.
 
-- Better input and error handling in the :mod:`sklearn.metrics` module by
-  `Arnaud Joly`_ and `Joel Nothman`_.
+- تم إصلاح خطأ تسبب في خرج احتمالات غير صحيحة من class: 'ensemble.AdaBoostClassifier'.
 
-- Speed optimization of the `hmm` module by :user:`Mikhail Korobov <kmike>`
+- الآن، برامج اختيار الميزات تشترك في mixin توفر طرق "transform" و "inverse_transform" و "get_support" متسقة. من قبل "Joel Nothman".
 
-- Significant speed improvements for :class:`sklearn.cluster.DBSCAN`
-  by `cleverless <https://github.com/cleverless>`_
+- يمكن الآن إجراء التخليل بشكل عام على class: 'grid_search.GridSearchCV' أو class: 'grid_search.RandomizedSearchCV' المناسب. من قبل "Joel Nothman".
 
+- تم إعادة تنظيم وتنفيذ func: 'metrics.roc_curve' و func: 'metrics.precision_recall_curve' باستخدام المتجهات. من قبل "Joel Nothman".
 
-API changes summary
--------------------
+- يقوم المحلل الجديد class: 'sklearn.decomposition.TruncatedSVD' بخفض الأبعاد باستخدام SVD على المصفوفات المتناثرة، ويمكن استخدامه لتحليل المعنى الدلالي الكامن (LSA). من قبل 'Lars Buitinck'.
 
-- The `auc_score` was renamed :func:`metrics.roc_auc_score`.
+- تمت الإضافة: مثال ذاتي الاحتواء للتعلم خارج النواة على بيانات النص: ref: 'sphx_glr_auto_examples_applications_plot_out_of_core_classification.py'. من قبل: user: 'Eustache Diemert <oddskool>'.
 
-- Testing scikit-learn with ``sklearn.test()`` is deprecated. Use
-  ``nosetests sklearn`` from the command line.
+- تم توثيق العدد الافتراضي للمكونات لـ 'sklearn.decomposition.RandomizedPCA' بشكل صحيح على أنه "n_features". كان هذا هو السلوك الافتراضي، لذا ستستمر البرامج التي تستخدمه في العمل كما كانت من قبل.
 
-- Feature importances in :class:`tree.DecisionTreeClassifier`,
-  :class:`tree.DecisionTreeRegressor` and all derived ensemble estimators
-  are now computed on the fly when accessing  the ``feature_importances_``
-  attribute. Setting ``compute_importances=True`` is no longer required.
-  By `Gilles Louppe`_.
+- class: 'sklearn.cluster.KMeans' الآن يناسب عدة أوامر من حيث الحجم بشكل أسرع على البيانات المتناثرة (يعتمد التسريع على مدى ندرة البيانات). من قبل 'Lars Buitinck'.
 
-- :class:`linear_model.lasso_path` and
-  :class:`linear_model.enet_path` can return its results in the same
-  format as that of :class:`linear_model.lars_path`. This is done by
-  setting the ``return_models`` parameter to ``False``. By
-  `Jaques Grobler`_ and `Alexandre Gramfort`_
+- تقليل البصمة الذاكرية لـ FastICA من قبل 'Denis Engemann' و 'Alexandre Gramfort'.
 
-- `grid_search.IterGrid` was renamed to `grid_search.ParameterGrid`.
+- يستخدم الإخراج المفصل في 'sklearn.ensemble.gradient_boosting' الآن تنسيق العمود ويطبع التقدم بوتيرة متناقصة. كما أنه يظهر الوقت المتبقي. من قبل "Peter Prettenhofer".
 
-- Fixed bug in `KFold` causing imperfect class balance in some
-  cases. By `Alexandre Gramfort`_ and Tadej Janež.
+- يوفر 'sklearn.ensemble.gradient_boosting' تحسين خارج الحقيبة 'oob_improvement_' بدلاً من نتيجة OOB لاختيار النموذج. تمت إضافة مثال يوضح كيفية استخدام تقديرات خارج الحقيبة لاختيار عدد الأشجار. من قبل "Peter Prettenhofer".
 
-- :class:`sklearn.neighbors.BallTree` has been refactored, and a
-  :class:`sklearn.neighbors.KDTree` has been
-  added which shares the same interface.  The Ball Tree now works with
-  a wide variety of distance metrics.  Both classes have many new
-  methods, including single-tree and dual-tree queries, breadth-first
-  and depth-first searching, and more advanced queries such as
-  kernel density estimation and 2-point correlation functions.
-  By `Jake Vanderplas`_
+- معظم المقاييس تدعم الآن تسميات السلاسل لتصنيفات متعددة الفئات من قبل "Arnaud Joly" و 'Lars Buitinck'.
 
-- Support for scipy.spatial.cKDTree within neighbors queries has been
-  removed, and the functionality replaced with the new
-  :class:`sklearn.neighbors.KDTree` class.
+- تمت الإضافة: class: 'OrthogonalMatchingPursuitCV' من قبل 'Alexandre Gramfort' و 'Vlad Niculae'.
 
-- :class:`sklearn.neighbors.KernelDensity` has been added, which performs
-  efficient kernel density estimation with a variety of kernels.
+- تم إصلاح خطأ في 'sklearn.covariance.GraphLassoCV': معلمة "alphas" تعمل الآن كما هو متوقع عند إعطائها قائمة بالقيم. من قبل فيليب جيرفيس.
 
-- :class:`sklearn.decomposition.KernelPCA` now always returns output with
-  ``n_components`` components, unless the new parameter ``remove_zero_eig``
-  is set to ``True``. This new behavior is consistent with the way
-  kernel PCA was always documented; previously, the removal of components
-  with zero eigenvalues was tacitly performed on all data.
+- تم إصلاح خطأ مهم في 'sklearn.covariance.GraphLassoCV' الذي منع جميع الطيات المقدمة من قبل كائن CV من الاستخدام (تم استخدام الطيات الثلاثة الأولى فقط). عند توفير كائن CV، قد يزيد وقت التنفيذ بشكل كبير مقارنة بالإصدار السابق (النتائج الصحيحة الآن). من قبل فيليب جيرفيس.
 
-- ``gcv_mode="auto"`` no longer tries to perform SVD on a densified
-  sparse matrix in :class:`sklearn.linear_model.RidgeCV`.
+- cross_validation.cross_val_score ووحدة grid_search تم اختبارهما الآن مع بيانات متعددة الإخراج من قبل "Arnaud Joly".
 
-- Sparse matrix support in `sklearn.decomposition.RandomizedPCA`
-  is now deprecated in favor of the new ``TruncatedSVD``.
+- func: 'datasets.make_multilabel_classification' يمكنه الآن إرجاع الإخراج بتنسيق مؤشر التصنيف متعدد التصنيفات من قبل "Arnaud Joly".
 
-- `cross_validation.KFold` and
-  `cross_validation.StratifiedKFold` now enforce `n_folds >= 2`
-  otherwise a ``ValueError`` is raised. By `Olivier Grisel`_.
+- جيران أقرب-k، class: 'neighbors.KNeighborsRegressor' و class: 'neighbors.RadiusNeighborsRegressor'، وجيران نصف القطر، class: 'neighbors.RadiusNeighborsRegressor' و class: 'neighbors.RadiusNeighborsClassifier' يدعمون بيانات الإخراج المتعددة من قبل "Arnaud Joly".
 
-- :func:`datasets.load_files`'s ``charset`` and ``charset_errors``
-  parameters were renamed ``encoding`` and ``decode_errors``.
+- يمكن الآن التحكم في حالة العشوائية في المحللين القائمين على LibSVM (class: 'svm.SVC'، و class: 'svm.NuSVC'، و class: 'svm.OneClassSVM'، و class: 'svm.SVR'، و class: 'svm.NuSVR'). هذا مفيد لضمان الاتساق في تقديرات الاحتمال للمحللين المدربين باستخدام "probability=True". من قبل 'Vlad Niculae'.
 
-- Attribute ``oob_score_`` in :class:`sklearn.ensemble.GradientBoostingRegressor`
-  and :class:`sklearn.ensemble.GradientBoostingClassifier`
-  is deprecated and has been replaced by ``oob_improvement_`` .
+- دعم التعلم خارج النواة لمصنفي بايز النادرين: class: 'sklearn.naive_bayes.MultinomialNB' و class: 'sklearn.naive_bayes.BernoulliNB' عن طريق إضافة طريقة "partial_fit" من قبل 'Olivier Grisel'.
 
-- Attributes in OrthogonalMatchingPursuit have been deprecated
-  (copy_X, Gram, ...) and precompute_gram renamed precompute
-  for consistency. See #2224.
+- تصميم موقع ويب وتصميم جديدين من قبل "Gilles Louppe" و "Nelle Varoquaux" وفنسنت ميشيل و "Andreas Müller".
 
-- :class:`sklearn.preprocessing.StandardScaler` now converts integer input
-  to float, and raises a warning. Previously it rounded for dense integer
-  input.
+- تحسين الوثائق حول: ref: 'multi-class، multi-label and multi-output classification <multiclass>' من قبل "Yannick Schwartz" و "Arnaud Joly".
 
-- :class:`sklearn.multiclass.OneVsRestClassifier` now has a
-  ``decision_function`` method. This will return the distance of each
-  sample from the decision boundary for each class, as long as the
-  underlying estimators implement the ``decision_function`` method.
-  By `Kyle Kastner`_.
+- معالجة الإدخال والخطأ المحسنة في الوحدة النمطية: mod: 'sklearn.metrics' من قبل "Arnaud Joly" و "Joel Nothman".
 
-- Better input validation, warning on unexpected shapes for y.
+- تحسين سرعة وحدة نمطية 'hmm' من قبل: user: 'Mikhail Korobov <kmike>'.
 
-People
+- تحسينات كبيرة في السرعة لـ class: 'sklearn.cluster.DBSCAN' من قبل 'cleverless <https://github.com/cleverless>'.
+
+ملخص التغييرات في واجهة برمجة التطبيقات
+فيما يلي ترجمة النص إلى اللغة العربية:
+
+- تم تغيير اسم ``auc_score`` إلى :func:``metrics.roc_auc_score``.
+
+- استخدام ``sklearn.test()`` لاختبار scikit-learn أصبح مهملاً. استخدم بدلاً من ذلك ``nosetests sklearn`` من سطر الأوامر.
+
+- أهمية الميزات في :class:``tree.DecisionTreeClassifier``، و:class:``tree.DecisionTreeRegressor``، وجميع مصنفات المجوعات المشتقة يتم حسابها الآن أثناء التنقل عند الوصول إلى سمة ``feature_importances_``. ولم يعد من المطلوب تعيين ``compute_importances=True``. بواسطة `Gilles Louppe`_.
+
+- يمكن لـ :class:``linear_model.lasso_path`` و:class:``linear_model.enet_path`` إرجاع نتائجهما بنفس تنسيق :class:``linear_model.lars_path``. يتم ذلك عن طريق تعيين معلمة ``return_models`` إلى ``False``. بواسطة `Jaques Grobler`_ و`Alexandre Gramfort`_
+
+- تم تغيير اسم `grid_search.IterGrid` إلى `grid_search.ParameterGrid`.
+
+- تم إصلاح خطأ في ``KFold`` يتسبب في عدم توازن مثالي في الفئات في بعض الحالات. بواسطة `Alexandre Gramfort`_ وTadej Janež.
+
+- تمت إعادة صياغة :class:``sklearn.neighbors.BallTree``، وتمت إضافة :class:``sklearn.neighbors.KDTree`` الذي يشارك نفس الواجهة. شجرة الكرة الآن تعمل مع مجموعة متنوعة من مقاييس المسافة. تحتوي كلتا الفئتين على العديد من الطرق الجديدة، بما في ذلك الاستعلامات ذات الشجرة الواحدة والمزدوجة، والبحث بعرض أول وعمق أول، والاستعلامات الأكثر تقدمًا مثل تقدير كثافة النواة ووظائف الارتباط ثنائية النقطة. بواسطة `Jake Vanderplas`_
+
+- تمت إزالة الدعم لـ scipy.spatial.cKDTree ضمن استعلامات الجيران، وتم استبدال الوظيفة بفئة :class:``sklearn.neighbors.KDTree`` الجديدة.
+
+- تمت إضافة :class:``sklearn.neighbors.KernelDensity``، والتي تقوم بتقدير كثافة النواة بكفاءة باستخدام مجموعة متنوعة من النواة.
+
+- :class:``sklearn.decomposition.KernelPCA`` الآن يعيد دائمًا الإخراج مع ``n_components`` المكونات، ما لم يتم تعيين معلمة ``remove_zero_eig`` الجديدة إلى ``True``. هذا السلوك الجديد يتسق مع الطريقة التي تم بها توثيق Kernel PCA دائمًا؛ في السابق، كان يتم ضمنيًا إزالة المكونات ذات القيم الذاتية الصفرية من جميع البيانات.
+
+- لم يعد ``gcv_mode="auto"`` يحاول إجراء SVD على مصفوفة ممتلئة مبعثرة في :class:``sklearn.linear_model.RidgeCV``.
+
+- أصبح دعم المصفوفة المبعثرة في `sklearn.decomposition.RandomizedPCA` مهملاً لصالح ``TruncatedSVD`` الجديدة.
+
+- الآن، يقوم `cross_validation.KFold` و`cross_validation.StratifiedKFold` بفرض ``n_folds >= 2`` وإلا يتم إلقاء ``ValueError``. بواسطة `Olivier Grisel`_.
+
+- تمت إعادة تسمية معلمات ``charset`` و``charset_errors`` في :func:``datasets.load_files`` إلى ``encoding`` و``decode_errors`` على التوالي.
+
+- أصبحت السمة ``oob_score_`` في :class:``sklearn.ensemble.GradientBoostingRegressor`` و:class:``sklearn.ensemble.GradientBoostingClassifier`` مهملة وتم استبدالها بـ ``oob_improvement_``.
+
+- أصبحت السمات في OrthogonalMatchingPursuit مهملة (copy_X، Gram، ...) وتمت إعادة تسمية precompute_gram إلى precompute للاتساق. راجع #2224.
+
+- الآن، يقوم :class:``sklearn.preprocessing.StandardScaler`` بتحويل الإدخال الصحيح إلى float، ويرفع تحذيرًا. في السابق، كان يقوم بالتقريب للإدخال الصحيح الكثيف.
+
+- الآن، لدى :class:``sklearn.multiclass.OneVsRestClassifier`` طريقة ``decision_function``. ستعيد هذه الطريقة مسافة كل عينة من حد القرار لكل فئة، طالما أن المصنفات الأساسية تنفذ طريقة ``decision_function``. بواسطة `Kyle Kastner`_.
+
+- التحقق من صحة الإدخال بشكل أفضل، والتحذير من الأشكال غير المتوقعة لـ y.
+
+الأشخاص
 ------
-List of contributors for release 0.14 by number of commits.
+قائمة المساهمين للإصدار 0.14 حسب عدد الالتزامات.
 
 * 277  Gilles Louppe
 * 245  Lars Buitinck
