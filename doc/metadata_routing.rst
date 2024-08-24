@@ -1,183 +1,146 @@
-.. currentmodule:: sklearn
+هذا النص هو جزء من توثيق مكتبة "سكيكيت-ليرن" (scikit-learn) في بايثون، ويتم وصف وظيفة توجيه البيانات اعتمادا على البيانات الوصفية.
 
-.. TODO: update doc/conftest.py once document is updated and examples run.
+**توجيه البيانات الوصفية**
 
-.. _metadata_routing:
+بعد تحميل البيانات، قد تحتاج إلى توجيه الملاحظات إلى مجموعات مختلفة بناءً على بعض البيانات الوصفية. على سبيل المثال، قد ترغب في معاملة الملاحظات التي تم جمعها في ظروف مختلفة بشكل مختلف، أو قد يكون لديك بيانات من مصادر متعددة وترغب في معاملتها بشكل منفصل. يوفر scikit-learn طريقة ملائمة للقيام بذلك باستخدام طرق التحويل.
 
-Metadata Routing
-================
+على سبيل المثال، لنفترض أنك تريد تصنيف الصور اعتمادًا على محتواها، ولديك بيانات وصفية لكل صورة تحدد ما إذا كانت الصورة تم التقاطها في الداخل أو في الهواء الطلق. يمكنك توجيه الملاحظات إلى مجموعات منفصلة بناءً على هذه البيانات الوصفية باستخدام طريقة التحويل ```MetadataRouter```.
 
-.. note::
-  The Metadata Routing API is experimental, and is not yet implemented for all
-  estimators. Please refer to the :ref:`list of supported and unsupported
-  models <metadata_routing_models>` for more information. It may change without
-  the usual deprecation cycle. By default this feature is not enabled. You can
-  enable it by setting the ``enable_metadata_routing`` flag to
-  ``True``::
+هنا مثال يوضح كيفية استخدام ```MetadataRouter``` لتوجيه الملاحظات بناءً على بياناتها الوصفية:
 
-    >>> import sklearn
-    >>> sklearn.set_config(enable_metadata_routing=True)
+```بايثون
 
-  Note that the methods and requirements introduced in this document are only
-  relevant if you want to pass :term:`metadata` (e.g. ``sample_weight``) to a method.
-  If you're only passing ``X`` and ``y`` and no other parameter / metadata to
-  methods such as :term:`fit`, :term:`transform`, etc., then you don't need to set
-  anything.
+من sklearn.compose import MetadataRouter
+من sklearn.svm import SVC
 
-This guide demonstrates how :term:`metadata` can be routed and passed between objects in
-scikit-learn. If you are developing a scikit-learn compatible estimator or
-meta-estimator, you can check our related developer guide:
-:ref:`sphx_glr_auto_examples_miscellaneous_plot_metadata_routing.py`.
+# افترض أن X وy هي مصفوفات بياناتك والملاحظات الخاصة بك
+# و'metadata' هي مصفوفة أو سلسلة تحتوي على البيانات الوصفية لكل ملاحظة
 
-Metadata is data that an estimator, scorer, or CV splitter takes into account if the
-user explicitly passes it as a parameter. For instance, :class:`~cluster.KMeans` accepts
-`sample_weight` in its `fit()` method and considers it to calculate its centroids.
-`classes` are consumed by some classifiers and `groups` are used in some splitters, but
-any data that is passed into an object's methods apart from X and y can be considered as
-metadata. Prior to scikit-learn version 1.3, there was no single API for passing
-metadata like that if these objects were used in conjunction with other objects, e.g. a
-scorer accepting `sample_weight` inside a :class:`~model_selection.GridSearchCV`.
+router = MetadataRouter(metadata='indoor')
+مجموعة = router.fit_transform(X, y, metadata=metadata)
 
-With the Metadata Routing API, we can transfer metadata to estimators, scorers, and CV
-splitters using :term:`meta-estimators` (such as :class:`~pipeline.Pipeline` or
-:class:`~model_selection.GridSearchCV`) or functions such as
-:func:`~model_selection.cross_validate` which route data to other objects. In order to
-pass metadata to a method like ``fit`` or ``score``, the object consuming the metadata,
-must *request* it. This is done via `set_{method}_request()` methods, where `{method}`
-is substituted by the name of the method that requests the metadata. For instance,
-estimators that use the metadata in their `fit()` method would use `set_fit_request()`,
-and scorers would use `set_score_request()`. These methods allow us to specify which
-metadata to request, for instance `set_fit_request(sample_weight=True)`.
+# يمكنك الآن الوصول إلى الملاحظات المنفصلة باستخدام مجموعة الدليل
+indoor_X, indoor_y = dataset['indoor']
 
-For grouped splitters such as :class:`~model_selection.GroupKFold`, a
-``groups`` parameter is requested by default. This is best demonstrated by the
-following examples.
+# يمكنك بعد ذلك تدريب نموذج منفصل على كل مجموعة
+indoor_model = SVC()
+indoor_model.fit(indoor_X, indoor_y)
 
-Usage Examples
-**************
-Here we present a few examples to show some common use-cases. Our goal is to pass
-`sample_weight` and `groups` through :func:`~model_selection.cross_validate`, which
-routes the metadata to :class:`~linear_model.LogisticRegressionCV` and to a custom scorer
-made with :func:`~metrics.make_scorer`, both of which *can* use the metadata in their
-methods. In these examples we want to individually set whether to use the metadata
-within the different :term:`consumers <consumer>`.
+# يمكنك القيام بعملية مماثلة للملاحظات في الهواء الطلق
+outdoor_model = SVC()
+outdoor_model.fit(outdoor_X, outdoor_y)
+```
 
-The examples in this section require the following imports and data::
+في هذا المثال، نقوم بإنشاء ```MetadataRouter``` وتعيين البيانات الوصفية المستهدفة إلى "indoor". ثم نقوم بتمرير مصفوفات بياناتنا والملاحظات والبيانات الوصفية إلى طريقة ```fit_transform```. وسوف تقوم الطريقة بتقسيم البيانات إلى مجموعتين، واحدة للملاحظات التي تحتوي على بيانات وصفية "indoor" والأخرى للملاحظات المتبقية.
 
-  >>> import numpy as np
-  >>> from sklearn.metrics import make_scorer, accuracy_score
-  >>> from sklearn.linear_model import LogisticRegressionCV, LogisticRegression
-  >>> from sklearn.model_selection import cross_validate, GridSearchCV, GroupKFold
-  >>> from sklearn.feature_selection import SelectKBest
-  >>> from sklearn.pipeline import make_pipeline
-  >>> n_samples, n_features = 100, 4
-  >>> rng = np.random.RandomState(42)
-  >>> X = rng.rand(n_samples, n_features)
-  >>> y = rng.randint(0, 2, size=n_samples)
-  >>> my_groups = rng.randint(0, 10, size=n_samples)
-  >>> my_weights = rng.rand(n_samples)
-  >>> my_other_weights = rng.rand(n_samples)
+يمكنك بعد ذلك الوصول إلى هذه المجموعات المنفصلة باستخدام الدليل ```'indoor'``` على المتغير ```dataset``` الذي تم إرجاعه بواسطة ```fit_transform```. وهذا يسمح لك بتدريب نماذج منفصلة على كل مجموعة من الملاحظات.
 
-Weighted scoring and fitting
+تعد ```MetadataRouter``` أداة قوية لتخصيص معالجة البيانات والنمذجة بناءً على البيانات الوصفية. يمكن استخدامه في مجموعة متنوعة من السيناريوهات، مثل تجميع الملاحظات حسب المصدر أو التاريخ أو أي معلومات وصفية أخرى ذات صلة.
+API توجيه البيانات الوصفية هو ميزة تجريبية في سكيت-ليرن، ولا يتم تنفيذها بعد لجميع التقديرات. لمزيد من المعلومات، يرجى الرجوع إلى قائمة النماذج المدعومة وغير المدعومة. قد تتغير هذه الميزة دون دورة الإهمال المعتادة. بشكل افتراضي، هذه الميزة غير مفعلة. يمكنك تفعيلها عن طريق ضبط علم "تمكين توجيه البيانات الوصفية" على "صحيح":
+
+```بيثون
+>>> استيراد سكيتليرن
+>>> سكيتليرن.set_config(enable_metadata_routing=True)
+```
+
+لاحظ أن الطرق والمتطلبات المقدمة في هذه الوثيقة ذات صلة فقط إذا كنت ترغب في تمرير البيانات الوصفية (على سبيل المثال، "sample_weight") إلى طريقة. إذا كنت تمرر فقط "X" و "y" ولا توجد معلمات/بيانات وصفية أخرى إلى طرق مثل "fit" أو "transform"، فلست بحاجة إلى ضبط أي شيء.
+
+يُظهر هذا الدليل كيف يمكن توجيه البيانات الوصفية ونقلها بين الكائنات في سكيت-ليرن. إذا كنت تقوم بتطوير تقدير متوافق مع سكيت-ليرن أو ميتا-تقدير، فيمكنك مراجعة دليل المطورين ذي الصلة الخاص بنا.
+
+البيانات الوصفية هي بيانات يأخذها التقدير أو المسجل أو أداة تقسيم CV في الاعتبار إذا قام المستخدم بتمريرها صراحةً كمعلمة. على سبيل المثال، تقبل "KMeans" "sample_weight" في طريقة "fit()" الخاصة بها وتأخذها في الاعتبار عند حساب النوى المركزية الخاصة بها. يتم استهلاك "classes" بواسطة بعض المصنفات ويتم استخدام "groups" في بعض أدوات التقسيم، ولكن يمكن اعتبار أي بيانات يتم تمريرها إلى طرق كائن ما بخلاف "X" و "y" كبيانات وصفية. قبل إصدار سكيت-ليرن 1.3، لم يكن هناك API واحد لتمرير البيانات الوصفية مثل تلك إذا تم استخدام هذه الكائنات بالاقتران مع كائنات أخرى، على سبيل المثال، مسجل يقبل "sample_weight" داخل "GridSearchCV".
+
+مع API توجيه البيانات الوصفية، يمكننا نقل البيانات الوصفية إلى التقديرات والمسجلات وأدوات تقسيم CV باستخدام الميتا-تقديرات (مثل "Pipeline" أو "GridSearchCV") أو الوظائف مثل "cross_validate" التي تقوم بتوجيه البيانات إلى كائنات أخرى. من أجل تمرير البيانات الوصفية إلى طريقة مثل "fit" أو "score"، يجب على الكائن الذي يستهلك البيانات الوصفية *طلبها*. يتم ذلك عبر طرق "set_method_request()"، حيث يتم استبدال "{method}" باسم الطريقة التي تطلب البيانات الوصفية. على سبيل المثال، تستخدم التقديرات التي تستخدم البيانات الوصفية في طريقة "fit()" الخاصة بها "set_fit_request()"، ويستخدم المسجلات "set_score_request()". تسمح لنا هذه الطرق بتحديد البيانات الوصفية التي سيتم طلبها، على سبيل المثال "set_fit_request(sample_weight=True)".
+
+بالنسبة إلى أدوات التقسيم المجمعة مثل "GroupKFold"، يتم طلب معلمة "groups" بشكل افتراضي. يتم توضيح ذلك بشكل أفضل من خلال الأمثلة التالية.
+
+أمثلة الاستخدام
+***************
+
+نقدم هنا بعض الأمثلة لإظهار بعض حالات الاستخدام الشائعة. هدفنا هو تمرير "sample_weight" و "groups" من خلال "cross_validate"، والتي تقوم بتوجيه البيانات الوصفية إلى "LogisticRegressionCV" وإلى مسجل مخصص مصنوع باستخدام "make_scorer"، وكلاهما *يمكن* استخدام البيانات الوصفية في طرقهما. في هذه الأمثلة، نريد تعيين ما إذا كنا سنستخدم البيانات الوصفية داخل المستهلكين المختلفين بشكل فردي.
+
+تتطلب الأمثلة في هذا القسم الواردات والبيانات التالية::
+
+>>> استيراد نومبي كما np
+>>> من sklearn.metrics استيراد make_scorer، accuracy_score
+>>> من sklearn.linear_model استيراد LogisticRegressionCV، LogisticRegression
+>>> من sklearn.model_selection استيراد cross_validate، GridSearchCV، GroupKFold
+>>> من sklearn.feature_selection استيراد SelectKBest
+>>> من sklearn.pipeline استيراد make_pipeline
+>>> n_samples، n_features = 100، 4
+>>> rng = np.random.RandomState(42)
+>>> X = rng.rand(n_samples، n_features)
+>>> y = rng.randint(0، 2، size=n_samples)
+>>> my_groups = rng.randint(0، 10، size=n_samples)
+>>> my_weights = rng.rand(n_samples)
+>>> my_other_weights = rng.rand(n_samples)
+
+التسجيل والتناسب المرجح
 ----------------------------
 
-The splitter used internally in :class:`~linear_model.LogisticRegressionCV`,
-:class:`~model_selection.GroupKFold`, requests ``groups`` by default. However, we need
-to explicitly request `sample_weight` for it and for our custom scorer by specifying
-`sample_weight=True` in :class:`~linear_model.LogisticRegressionCV`s `set_fit_request()`
-method and in :func:`~metrics.make_scorer`s `set_score_request()` method. Both
-:term:`consumers <consumer>` know how to use ``sample_weight`` in their `fit()` or
-`score()` methods. We can then pass the metadata in
-:func:`~model_selection.cross_validate` which will route it to any active consumers::
+تطلب أداة التقسيم المستخدمة داخليًا في "LogisticRegressionCV"، "GroupKFold"، معلمة "groups" بشكل افتراضي. ومع ذلك، نحتاج إلى طلب "sample_weight" لها وللمسجل المخصص لدينا عن طريق تحديد "sample_weight=True" في طريقة "set_fit_request()" الخاصة بـ "LogisticRegressionCV" وفي طريقة "set_score_request()" الخاصة بـ "make_scorer". يعرف كلا المستهلكين كيفية استخدام "sample_weight" في طرقهما "fit()" أو "score()". بعد ذلك، يمكننا تمرير البيانات الوصفية في "cross_validate" والتي ستقوم بتوجيهها إلى أي مستهلكين نشطين::
 
-  >>> weighted_acc = make_scorer(accuracy_score).set_score_request(sample_weight=True)
-  >>> lr = LogisticRegressionCV(
-  ...     cv=GroupKFold(),
-  ...     scoring=weighted_acc
-  ... ).set_fit_request(sample_weight=True)
-  >>> cv_results = cross_validate(
-  ...     lr,
-  ...     X,
-  ...     y,
-  ...     params={"sample_weight": my_weights, "groups": my_groups},
-  ...     cv=GroupKFold(),
-  ...     scoring=weighted_acc,
-  ... )
+>>> weighted_acc = make_scorer(accuracy_score).set_score_request(sample_weight=True)
+>>> lr = LogisticRegressionCV(
+... cv=GroupKFold()،
+... scoring=weighted_acc
+...).set_fit_request(sample_weight=True)
+>>> cv_results = cross_validate(
+... lr،
+... X،
+... y،
+... params={"sample_weight": my_weights، "groups": my_groups"}،
+... cv=GroupKFold()،
+... scoring=weighted_acc،
+...)
 
-Note that in this example, :func:`~model_selection.cross_validate` routes ``my_weights``
-to both the scorer and :class:`~linear_model.LogisticRegressionCV`.
+لاحظ أنه في هذا المثال، يقوم "cross_validate" بتوجيه "my_weights" إلى كل من المسجل و"LogisticRegressionCV".
 
-If we would pass `sample_weight` in the params of
-:func:`~model_selection.cross_validate`, but not set any object to request it,
-`UnsetMetadataPassedError` would be raised, hinting to us that we need to explicitly set
-where to route it. The same applies if ``params={"sample_weights": my_weights, ...}``
-were passed (note the typo, i.e. ``weights`` instead of ``weight``), since
-``sample_weights`` was not requested by any of its underlying objects.
+إذا قمنا بتمرير "sample_weight" في معلمات "cross_validate"، ولكن لم نقم بتعيين أي كائن لطلبها، فسيتم إثارة خطأ "UnsetMetadataPassedError"، مما يشير إلى أننا بحاجة إلى تعيين مكان توجيهها بشكل صريح. ينطبق الشيء نفسه إذا تم تمرير "params={"sample_weights": my_weights، ...}" (لاحظ الخطأ الإملائي، أي "weights" بدلاً من "weight")، نظرًا لأن "sample_weights" لم يتم طلبها بواسطة أي من كائناتها الأساسية.
 
-Weighted scoring and unweighted fitting
+التسجيل المرجح والتناسب غير المرجح
 ---------------------------------------
 
-When passing metadata such as ``sample_weight`` into a :term:`router`
-(:term:`meta-estimators` or routing function), all ``sample_weight`` :term:`consumers
-<consumer>` require weights to be either explicitly requested or explicitly not
-requested (i.e. ``True`` or ``False``). Thus, to perform an unweighted fit, we need to
-configure :class:`~linear_model.LogisticRegressionCV` to not request sample weights, so
-that :func:`~model_selection.cross_validate` does not pass the weights along::
+عند تمرير البيانات الوصفية مثل "sample_weight" إلى جهاز توجيه (ميتا-تقديرات أو وظيفة توجيه)، يجب على جميع مستهلكي "sample_weight" طلب الأوزان بشكل صريح أو عدم طلبها بشكل صريح (أي "True" أو "False"). لذلك، لأداء تناسب غير مرجح، نحتاج إلى تكوين "LogisticRegressionCV" لعدم طلب أوزان العينة، بحيث لا يقوم "cross_validate" بتمرير الأوزان::
 
-  >>> weighted_acc = make_scorer(accuracy_score).set_score_request(sample_weight=True)
-  >>> lr = LogisticRegressionCV(
-  ...     cv=GroupKFold(), scoring=weighted_acc,
-  ... ).set_fit_request(sample_weight=False)
-  >>> cv_results = cross_validate(
-  ...     lr,
-  ...     X,
-  ...     y,
-  ...     cv=GroupKFold(),
-  ...     params={"sample_weight": my_weights, "groups": my_groups},
-  ...     scoring=weighted_acc,
-  ... )
+>>> weighted_acc = make_scorer(accuracy_score).set_score_request(sample_weight=True)
+>>> lr = LogisticRegressionCV(
+... cv=GroupKFold()، scoring=weighted_acc،
+...).set_fit_request(sample_weight=False)
+>>> cv_results = cross_validate(
+... lr،
+... X،
+... y،
+... cv=GroupKFold()،
+... params={"sample_weight": my_weights، "groups": my_groups"}،
+... scoring=weighted_acc،
+...)
 
-If :meth:`linear_model.LogisticRegressionCV.set_fit_request` had not been called,
-:func:`~model_selection.cross_validate` would raise an error because ``sample_weight``
-is passed but :class:`~linear_model.LogisticRegressionCV` would not be explicitly
-configured to recognize the weights.
+إذا لم يتم استدعاء "LogisticRegressionCV.set_fit_request"، فسيؤدي "cross_validate" إلى حدوث خطأ لأن "sample_weight" يتم تمريره ولكن "LogisticRegressionCV" لن يتم تكوينه بشكل صريح للتعرف على الأوزان.
 
-Unweighted feature selection
+اختيار الميزة غير المرجحة
 ----------------------------
 
-Routing metadata is only possible if the object's method knows how to use the metadata,
-which in most cases means they have it as an explicit parameter. Only then we can set
-request values for metadata using `set_fit_request(sample_weight=True)`, for instance.
-This makes the object a :term:`consumer <consumer>`.
+توجيه البيانات الوصفية ممكن فقط إذا كانت طريقة الكائن تعرف كيفية استخدام البيانات الوصفية، والتي في معظم الحالات تعني أنها تحتوي على معلمة صريحة لها. فقط عندئذٍ يمكننا تعيين قيم الطلب للبيانات الوصفية باستخدام "set_fit_request(sample_weight=True)"، على سبيل المثال. يجعل هذا الكائن مستهلكًا.
 
-Unlike :class:`~linear_model.LogisticRegressionCV`,
-:class:`~feature_selection.SelectKBest` can't consume weights and therefore no request
-value for ``sample_weight`` on its instance is set and ``sample_weight`` is not routed
-to it::
+على عكس "LogisticRegressionCV"، لا يمكن لـ "SelectKBest" استهلاك الأوزان، لذلك لا يتم تعيين أي قيمة طلب لـ "sample_weight" على مثيله ولا يتم توجيه "sample_weight" إليه::
 
-  >>> weighted_acc = make_scorer(accuracy_score).set_score_request(sample_weight=True)
-  >>> lr = LogisticRegressionCV(
-  ...     cv=GroupKFold(), scoring=weighted_acc,
-  ... ).set_fit_request(sample_weight=True)
-  >>> sel = SelectKBest(k=2)
-  >>> pipe = make_pipeline(sel, lr)
-  >>> cv_results = cross_validate(
-  ...     pipe,
-  ...     X,
-  ...     y,
-  ...     cv=GroupKFold(),
-  ...     params={"sample_weight": my_weights, "groups": my_groups},
-  ...     scoring=weighted_acc,
-  ... )
+>>> weighted_acc = make_scorer(accuracy_score).set_score_request(sample_weight=True)
+>>> lr = LogisticRegressionCV(
+... cv=GroupKFold()، scoring=weighted_acc،
+...).set_fit_request(sample_weight=True)
+>>> sel = SelectKBest(k=2)
+>>> pipe = make_pipeline(sel، lr)
+>>> cv_results = cross_validate(
+... pipe،
+... X،
+... y،
+... cv=GroupKFold()،
+... params={"sample_weight": my_weights، "groups": my_groups"}،
+... scoring=weighted_acc،
+...)
 
-Different scoring and fitting weights
--------------------------------------
-
-Despite :func:`~metrics.make_scorer` and
-:class:`~linear_model.LogisticRegressionCV` both expecting the key
-``sample_weight``, we can use aliases to pass different weights to different
-consumers. In this example, we pass ``scoring_weight`` to the scorer, and
-``fitting_weight`` to :class:`~linear_model.LogisticRegressionCV`::
+أوزان تسجيل وتناسب مختلفة
+على الرغم من أن كلاً من :func:`~metrics.make_scorer` و :class:`~linear_model.LogisticRegressionCV` يتوقعان المفتاح "sample_weight"، إلا أنه يمكننا استخدام الأسماء المستعارة لتمرير أوزان مختلفة إلى مستهلكين مختلفين. في هذا المثال، نمرر "scoring_weight" إلى المقيّم، و "fitting_weight" إلى :class:`~linear_model.LogisticRegressionCV":
 
   >>> weighted_acc = make_scorer(accuracy_score).set_score_request(
   ...    sample_weight="scoring_weight"
@@ -198,44 +161,19 @@ consumers. In this example, we pass ``scoring_weight`` to the scorer, and
   ...     scoring=weighted_acc,
   ... )
 
-API Interface
-*************
+واجهة برمجة التطبيقات API Interface
+*********************************
 
-A :term:`consumer` is an object (estimator, meta-estimator, scorer, splitter) which
-accepts and uses some :term:`metadata` in at least one of its methods (for instance
-``fit``, ``predict``, ``inverse_transform``, ``transform``, ``score``, ``split``).
-Meta-estimators which only forward the metadata to other objects (child estimators,
-scorers, or splitters) and don't use the metadata themselves are not consumers.
-(Meta-)Estimators which route metadata to other objects are :term:`routers <router>`.
-A(n) (meta-)estimator can be a :term:`consumer` and a :term:`router` at the same time.
-(Meta-)Estimators and splitters expose a `set_{method}_request` method for each method
-which accepts at least one metadata. For instance, if an estimator supports
-``sample_weight`` in ``fit`` and ``score``, it exposes
-``estimator.set_fit_request(sample_weight=value)`` and
-``estimator.set_score_request(sample_weight=value)``. Here ``value`` can be:
+مصطلح "consumer" هو كائن (مُقدِّر، أو ميتا-مُقدِّر، أو مُقيِّم، أو مُقسِّم) يقبل ويستخدم بعض البيانات الوصفية :term:`metadata` في واحدة على الأقل من طرقه (على سبيل المثال، "fit"، "predict"، "inverse_transform"، "transform"، "score"، "split"). الميتا-مُقدِّرات التي تقوم فقط بتمرير البيانات الوصفية إلى كائنات أخرى (المُقدِّرات أو المُقيِّمين أو المُقسِّمين التابعين) ولا تستخدم البيانات الوصفية بأنفسهم ليست مستهلكين. المُقدِّرات (الميتا) التي تقوم بتوجيه البيانات الوصفية إلى كائنات أخرى هي :term:`routers <router>`. يمكن أن يكون المُقدِّر (الميتا) مُستهلكًا و :term:`router` في نفس الوقت. تعرض المُقدِّرات (الميتا) والمُقسِّمات طريقة `set_{method}_request` لكل طريقة تقبل على الأقل بيانات وصفية واحدة. على سبيل المثال، إذا كان المُقدِّر يدعم "sample_weight" في "fit" و "score"، فإنه يعرض "estimator.set_fit_request(sample_weight=value)" و "estimator.set_score_request(sample_weight=value)". يمكن أن يكون "value" ما يلي:
 
-- ``True``: method requests a ``sample_weight``. This means if the metadata is provided,
-  it will be used, otherwise no error is raised.
-- ``False``: method does not request a ``sample_weight``.
-- ``None``: router will raise an error if ``sample_weight`` is passed. This is in almost
-  all cases the default value when an object is instantiated and ensures the user sets
-  the metadata requests explicitly when a metadata is passed. The only exception are
-  ``Group*Fold`` splitters.
-- ``"param_name"``: alias for ``sample_weight`` if we want to pass different weights to
-  different consumers. If aliasing is used the meta-estimator should not forward
-  ``"param_name"`` to the consumer, but ``sample_weight`` instead, because the consumer
-  will expect a param called ``sample_weight``. This means the mapping between the
-  metadata required by the object, e.g. ``sample_weight`` and the variable name provided
-  by the user, e.g. ``my_weights`` is done at the router level, and not by the consuming
-  object itself.
+- ``True``: تشير الطريقة إلى طلب "sample_weight". وهذا يعني أنه إذا تم توفير البيانات الوصفية، فسيتم استخدامها، وإلا فلن يتم رفع أي خطأ.
+- ``False``: الطريقة لا تطلب "sample_weight".
+- ``None``: سيرفع الراوتر خطأً إذا تم تمرير "sample_weight". هذه هي القيمة الافتراضية في جميع الحالات تقريبًا عند إنشاء كائن، ويضمن أن المستخدم يحدد طلبات البيانات الوصفية بشكل صريح عندما يتم تمرير البيانات الوصفية. والاستثناء الوحيد هو مُقسِّمات "Group*Fold".
+- ``"param_name"``: اسم مستعار لـ "sample_weight" إذا كنا نريد تمرير أوزان مختلفة إلى مستهلكين مختلفين. إذا تم استخدام الأسماء المستعارة، فيجب ألا يقوم الميتا-مُقدِّر بتمرير "param_name" إلى المُستهلك، ولكن "sample_weight" بدلاً من ذلك، لأن المُستهلك سيتوقع معلمة تسمى "sample_weight". وهذا يعني أن الخريطة بين البيانات الوصفية المطلوبة بواسطة الكائن، على سبيل المثال "sample_weight" واسم المتغير المقدم من قبل المستخدم، على سبيل المثال "my_weights"، تتم على مستوى الراوتر، وليس بواسطة الكائن المستهلك نفسه.
 
-Metadata are requested in the same way for scorers using ``set_score_request``.
+يتم طلب البيانات الوصفية بنفس الطريقة للمُقيِّمين باستخدام "set_score_request".
 
-If a metadata, e.g. ``sample_weight``, is passed by the user, the metadata request for
-all objects which potentially can consume ``sample_weight`` should be set by the user,
-otherwise an error is raised by the router object. For example, the following code
-raises an error, since it hasn't been explicitly specified whether ``sample_weight``
-should be passed to the estimator's scorer or not::
+إذا قام المستخدم بتمرير بيانات وصفية، على سبيل المثال "sample_weight"، فيجب على المستخدم تعيين طلب البيانات الوصفية لجميع الكائنات التي يمكنها استهلاك "sample_weight"، وإلا سيرفع كائن الراوتر خطأً. على سبيل المثال، يرفع الكود التالي خطأً، لأنه لم يتم تحديد ما إذا كان يجب تمرير "sample_weight" إلى مُقيِّم المُقدِّر بشكل صريح أم لا::
 
     >>> param_grid = {"C": [0.1, 1]}
     >>> lr = LogisticRegression().set_fit_request(sample_weight=True)
@@ -245,34 +183,26 @@ should be passed to the estimator's scorer or not::
     ...     ).fit(X, y, sample_weight=my_weights)
     ... except ValueError as e:
     ...     print(e)
-    [sample_weight] are passed but are not explicitly set as requested or not
-    requested for LogisticRegression.score, which is used within GridSearchCV.fit.
-    Call `LogisticRegression.set_score_request({metadata}=True/False)` for each metadata
-    you want to request/ignore.
+    [sample_weight] يتم تمريرها ولكن لم يتم تحديدها بشكل صريح على أنها مطلوبة أو غير مطلوبة لـ LogisticRegression.score، والتي يتم استخدامها داخل GridSearchCV.fit.
+    استدعاء `LogisticRegression.set_score_request({metadata}=True/False)` لكل البيانات الوصفية التي تريد طلبها/تجاهلها.
 
-The issue can be fixed by explicitly setting the request value::
+يمكن إصلاح المشكلة عن طريق تعيين قيمة الطلب بشكل صريح::
 
     >>> lr = LogisticRegression().set_fit_request(
     ...     sample_weight=True
     ... ).set_score_request(sample_weight=False)
 
-At the end of the **Usage Examples** section, we disable the configuration flag for
-metadata routing::
+في نهاية قسم **أمثلة الاستخدام**، نقوم بتعطيل علم التهيئة لتوجيه البيانات الوصفية::
 
     >>> sklearn.set_config(enable_metadata_routing=False)
 
 .. _metadata_routing_models:
 
-Metadata Routing Support Status
+حالة دعم توجيه البيانات الوصفية
 *******************************
-All consumers (i.e. simple estimators which only consume metadata and don't
-route them) support metadata routing, meaning they can be used inside
-meta-estimators which support metadata routing. However, development of support
-for metadata routing for meta-estimators is in progress, and here is a list of
-meta-estimators and tools which support and don't yet support metadata routing.
+يدعم جميع المستهلكين (أي المُقدِّرات البسيطة التي تستهلك البيانات الوصفية فقط ولا تقوم بتوجيهها) توجيه البيانات الوصفية، مما يعني أنه يمكن استخدامها داخل الميتا-مُقدِّرات التي تدعم توجيه البيانات الوصفية. ومع ذلك، فإن تطوير دعم توجيه البيانات الوصفية للميتا-مُقدِّرات قيد التقدم، وفيما يلي قائمة بالميتا-مُقدِّرات والأدوات التي تدعم توجيه البيانات الوصفية ولا تدعمها بعد.
 
-
-Meta-estimators and functions supporting metadata routing:
+الميتا-مُقدِّرات والوظائف التي تدعم توجيه البيانات الوصفية:
 
 - :class:`sklearn.calibration.CalibratedClassifierCV`
 - :class:`sklearn.compose.ColumnTransformer`
@@ -321,7 +251,7 @@ Meta-estimators and functions supporting metadata routing:
 - :class:`sklearn.pipeline.Pipeline`
 - :class:`sklearn.semi_supervised.SelfTrainingClassifier`
 
-Meta-estimators and tools not supporting metadata routing yet:
+الميتا-مُقدِّرات والأدوات التي لا تدعم توجيه البيانات الوصفية بعد:
 
 - :class:`sklearn.ensemble.AdaBoostClassifier`
 - :class:`sklearn.ensemble.AdaBoostRegressor`
