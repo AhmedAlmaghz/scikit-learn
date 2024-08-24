@@ -1,18 +1,10 @@
 .. _visualizations:
 
-==============
-Visualizations
-==============
+===============
+التمثيل المرئي
+===============
 
-Scikit-learn defines a simple API for creating visualizations for machine
-learning. The key feature of this API is to allow for quick plotting and
-visual adjustments without recalculation. We provide `Display` classes that
-expose two methods for creating plots: `from_estimator` and
-`from_predictions`. The `from_estimator` method will take a fitted estimator
-and some data (`X` and `y`) and create a `Display` object. Sometimes, we would
-like to only compute the predictions once and one should use `from_predictions`
-instead. In the following example, we plot a ROC curve for a fitted support
-vector machine:
+يحدد Scikit-learn واجهة برمجة تطبيقات (API) بسيطة لإنشاء التمثيلات المرئية لتعلم الآلة. الميزة الرئيسية لواجهة برمجة التطبيقات هذه هي السماح بالضبط المرئي والرسوم البيانية السريعة دون إعادة الحساب. نوفر فئات "العرض" التي تعرض طريقتين لإنشاء الرسوم البيانية: "from_estimator" و "from_predictions". ستأخذ طريقة "from_estimator" مصنفًا ملائمًا وبعض البيانات ("X" و "y") وتنشئ كائن "عرض". في بعض الأحيان، قد نرغب في حساب التوقعات مرة واحدة فقط، وفي هذه الحالة يجب استخدام "from_predictions" بدلاً من ذلك. في المثال التالي، نقوم برسم منحنى ROC لآلة ناقلات الدعم الملائمة:
 
 .. plot::
    :context: close-figs
@@ -24,21 +16,14 @@ vector machine:
     from sklearn.datasets import load_wine
 
     X, y = load_wine(return_X_y=True)
-    y = y == 2  # make binary
+    y = y == 2  # جعل البيانات ثنائية التصنيف
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
     svc = SVC(random_state=42)
     svc.fit(X_train, y_train)
 
     svc_disp = RocCurveDisplay.from_estimator(svc, X_test, y_test)
 
-The returned `svc_disp` object allows us to continue using the already computed
-ROC curve for SVC in future plots. In this case, the `svc_disp` is a
-:class:`~sklearn.metrics.RocCurveDisplay` that stores the computed values as
-attributes called `roc_auc`, `fpr`, and `tpr`. Be aware that we could get
-the predictions from the support vector machine and then use `from_predictions`
-instead of `from_estimator`. Next, we train a random forest classifier and plot
-the previously computed roc curve again by using the `plot` method of the
-`Display` object.
+يسمح كائن "svc_disp" الذي تم إرجاعه لنا بمواصلة استخدام منحنى ROC المحسوب بالفعل لآلة ناقلات الدعم في الرسوم البيانية المستقبلية. في هذه الحالة، "svc_disp" هو :class:`~sklearn.metrics.RocCurveDisplay` الذي يخزن القيم المحسوبة كسمات تسمى "roc_auc" و "fpr" و "tpr". لاحظ أنه كان بإمكاننا الحصول على التوقعات من آلة ناقلات الدعم ثم استخدام "from_predictions" بدلاً من "from_estimator". بعد ذلك، نقوم بتدريب مصنف غابة عشوائي ونرسم مرة أخرى منحنى ROC المحسوب مسبقًا باستخدام طريقة "plot" لكائن "العرض".
 
 .. plot::
    :context: close-figs
@@ -54,20 +39,19 @@ the previously computed roc curve again by using the `plot` method of the
     rfc_disp = RocCurveDisplay.from_estimator(rfc, X_test, y_test, ax=ax, alpha=0.8)
     svc_disp.plot(ax=ax, alpha=0.8)
 
-Notice that we pass `alpha=0.8` to the plot functions to adjust the alpha
-values of the curves.
+لاحظ أننا نمرر "alpha=0.8" إلى دالات الرسم لتعديل قيم ألفا للمنحنيات.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py`
 * :ref:`sphx_glr_auto_examples_miscellaneous_plot_partial_dependence_visualization_api.py`
 * :ref:`sphx_glr_auto_examples_miscellaneous_plot_display_object_visualization.py`
 * :ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`
 
-Available Plotting Utilities
+أدوات الرسوم البيانية المتاحة
 ============================
 
-Display Objects
+كائنات العرض
 ---------------
 
 .. currentmodule:: sklearn
@@ -84,3 +68,5 @@ Display Objects
    metrics.RocCurveDisplay
    model_selection.LearningCurveDisplay
    model_selection.ValidationCurveDisplay
+
+آمل أن تكون هذه الترجمة مفيدة! إذا كانت هناك أي مصطلحات محددة في النص الأصلي تفضل أن تظل باللغة الإنجليزية، فيرجى إبلاغي بذلك، وسأحرص على تضمينها في الترجمة.
