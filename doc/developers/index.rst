@@ -1,19 +1,21 @@
-.. _developers_guide:
+هذا هو نص مترجم إلى اللغة العربية:
+
+.. _دليل_المطورين:
 
 =================
-Developer's Guide
+دليل المطور
 =================
 
 .. toctree::
 
-   contributing
+   المساهمة
    minimal_reproducer
-   develop
-   tips
-   utilities
-   performance
-   cython
-   advanced_installation
-   bug_triaging
-   maintainer
-   plotting
+   التطوير
+   النصائح
+   المرافق
+   الأداء
+   سايثون
+   التثبيت_المتقدم
+   triage
+   المشرف
+   رسم_البيانات
