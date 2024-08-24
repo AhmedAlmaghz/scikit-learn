@@ -1,8 +1,9 @@
-===========
-Dispatching
-===========
+
+================
+التشغيل التلقائي
+================
 
 .. toctree::
     :maxdepth: 2
 
-    modules/array_api
+    الوحدات/array_api
