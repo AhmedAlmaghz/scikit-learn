@@ -1,59 +1,33 @@
+هذا الفصل يشرح بعض التقنيات غير المُشرف عليها لتخفيض الأبعاد. إذا كان عدد الخصائص (الميزات) لديك كبيرًا، فقد يكون من المفيد تقليله باستخدام خطوة غير مُشرف عليها قبل الخطوات المُشرف عليها. العديد من طرق التعلم غير المُشرف عليها :ref:`unsupervised-learning` تنفذ طريقة "التحويل" :code:`transform` التي يمكن استخدامها لتخفيض الأبعاد. نناقش أدناه مثالين محددين لهذا النمط المستخدم على نطاق واسع.
 
-.. _data_reduction:
+**التنفيذ التتابعي**:
+يمكن تنفيذ تقليل البيانات غير المُشرف عليه والمُقدر المُشرف عليه على التوالي في خطوة واحدة. راجع :ref:`pipeline`.
 
-=====================================
-Unsupervised dimensionality reduction
-=====================================
+PCA: التحليل التكويني الرئيسي
+-----------------------------
 
-If your number of features is high, it may be useful to reduce it with an
-unsupervised step prior to supervised steps. Many of the
-:ref:`unsupervised-learning` methods implement a ``transform`` method that
-can be used to reduce the dimensionality. Below we discuss two specific
-example of this pattern that are heavily used.
+تبحث :class:`decomposition.PCA` عن مجموعة من الميزات التي تلتقط جيدًا تباين الميزات الأصلية. راجع :ref:`decompositions`.
 
-.. topic:: **Pipelining**
-
-    The unsupervised data reduction and the supervised estimator can be
-    chained in one step. See :ref:`pipeline`.
-
-.. currentmodule:: sklearn
-
-PCA: principal component analysis
-----------------------------------
-
-:class:`decomposition.PCA` looks for a combination of features that
-capture well the variance of the original features. See :ref:`decompositions`.
-
-.. rubric:: Examples
-
+**أمثلة**:
 * :ref:`sphx_glr_auto_examples_applications_plot_face_recognition.py`
 
-Random projections
--------------------
+الإسقاطات العشوائية
+---------------------
 
-The module: :mod:`~sklearn.random_projection` provides several tools for data
-reduction by random projections. See the relevant section of the
-documentation: :ref:`random_projection`.
+يوفر الوحدة النمطية :mod:`~sklearn.random_projection` عدة أدوات لتخفيض البيانات من خلال الإسقاطات العشوائية. راجع قسم الوثائق ذي الصلة: :ref:`random_projection`.
 
-.. rubric:: Examples
-
+**أمثلة**:
 * :ref:`sphx_glr_auto_examples_miscellaneous_plot_johnson_lindenstrauss_bound.py`
 
-Feature agglomeration
-------------------------
+تجمع الميزات
+----------------
 
-:class:`cluster.FeatureAgglomeration` applies
-:ref:`hierarchical_clustering` to group together features that behave
-similarly.
+يطبق :class:`cluster.FeatureAgglomeration` التجميع الهرمي لجمع الميزات التي تتصرف بشكل مشابه.
 
-.. rubric:: Examples
-
+**أمثلة**:
 * :ref:`sphx_glr_auto_examples_cluster_plot_feature_agglomeration_vs_univariate_selection.py`
 * :ref:`sphx_glr_auto_examples_cluster_plot_digits_agglomeration.py`
 
-.. topic:: **Feature scaling**
+**مقياس الميزة**:
 
-   Note that if features have very different scaling or statistical
-   properties, :class:`cluster.FeatureAgglomeration` may not be able to
-   capture the links between related features. Using a
-   :class:`preprocessing.StandardScaler` can be useful in these settings.
+لاحظ أنه إذا كانت الميزات ذات مقاييس أو خصائص إحصائية مختلفة جدًا، فقد لا يتمكن :class:`cluster.FeatureAgglomeration` من التقاط الروابط بين الميزات ذات الصلة. قد يكون استخدام :class:`preprocessing.StandardScaler` مفيدًا في هذه الحالات.
