@@ -1,7 +1,7 @@
 .. _model_selection:
 
-Model selection and evaluation
-------------------------------
+اختيار النموذج وتقييمه
+----------------------
 
 .. toctree::
     :maxdepth: 2
