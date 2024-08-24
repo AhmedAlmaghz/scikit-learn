@@ -1,289 +1,219 @@
-.. _kernel_approximation:
+تقريب النواة
+يحتوي هذا البرنامج الفرعي على دوال تقريبية لتمثيل الخرائط التي تتوافق مع نوى معينة، كما هو مستخدم على سبيل المثال في آلات المتجهات الداعمة (راجع: ref: `svm`).
 
-Kernel Approximation
-====================
+تقوم دوال الخصائص التالية بتحويلات غير خطية للإدخال، والتي يمكن استخدامها كأساس للتصنيف الخطي أو الخوارزميات الأخرى.
 
-This submodule contains functions that approximate the feature mappings that
-correspond to certain kernels, as they are used for example in support vector
-machines (see :ref:`svm`).
-The following feature functions perform non-linear transformations of the
-input, which can serve as a basis for linear classification or other
-algorithms.
+..... currentmodule:: sklearn.linear_model
 
-.. currentmodule:: sklearn.linear_model
+الميزة النسبية لاستخدام الخرائط الصريحة التقريبية مقارنة بـ "حيلة النواة <https://en.wikipedia.org/wiki/Kernel_trick>`_، والتي تستخدم الخرائط الضمنية للخصائص، هي أن الخرائط الصريحة يمكن أن تكون أكثر ملاءمة للتعلم عبر الإنترنت ويمكن أن تقلل بشكل كبير من تكلفة التعلم مع مجموعات البيانات الكبيرة جدًا.
 
-The advantage of using approximate explicit feature maps compared to the
-`kernel trick <https://en.wikipedia.org/wiki/Kernel_trick>`_,
-which makes use of feature maps implicitly, is that explicit mappings
-can be better suited for online learning and can significantly reduce the cost
-of learning with very large datasets.
-Standard kernelized SVMs do not scale well to large datasets, but using an
-approximate kernel map it is possible to use much more efficient linear SVMs.
-In particular, the combination of kernel map approximations with
-:class:`SGDClassifier` can make non-linear learning on large datasets possible.
+لا تتوسع SVMs النواة القياسية جيدًا في مجموعات البيانات الكبيرة، ولكن باستخدام خريطة نواة تقريبية، من الممكن استخدام SVMs الخطية الأكثر كفاءة.
 
-Since there has not been much empirical work using approximate embeddings, it
-is advisable to compare results against exact kernel methods when possible.
+وعلى وجه الخصوص، فإن الجمع بين تقريبات خريطة النواة مع: class: `SGDClassifier` يمكن أن يجعل التعلم غير الخطي على مجموعات البيانات الكبيرة ممكنًا.
 
-.. seealso::
+نظرًا لعدم وجود الكثير من العمل التجريبي الذي يستخدم التضمين التقريبي، فمن المستحسن مقارنة النتائج بطرق النواة الدقيقة عند الإمكان.
 
-   :ref:`polynomial_regression` for an exact polynomial transformation.
+..... seealso::
 
-.. currentmodule:: sklearn.kernel_approximation
+: ref: `polynomial_regression` لتحويل متعدد الحدود الدقيق.
 
-.. _nystroem_kernel_approx:
+..... currentmodule:: sklearn.kernel_approximation
 
-Nystroem Method for Kernel Approximation
+..... _nystroem_kernel_approx:
+
+طريقة Nystroem لتقريب النواة
 ----------------------------------------
-The Nystroem method, as implemented in :class:`Nystroem` is a general method for
-reduced rank approximations of kernels. It achieves this by subsampling without
-replacement rows/columns of the data on which the kernel is evaluated. While the
-computational complexity of the exact method is
-:math:`\mathcal{O}(n^3_{\text{samples}})`, the complexity of the approximation
-is :math:`\mathcal{O}(n^2_{\text{components}} \cdot n_{\text{samples}})`, where
-one can set :math:`n_{\text{components}} \ll n_{\text{samples}}` without a
-significative decrease in performance [WS2001]_.
 
-We can construct the eigendecomposition of the kernel matrix :math:`K`, based
-on the features of the data, and then split it into sampled and unsampled data
-points.
+طريقة Nystroem، كما هو منفذ في: class: `Nystroem` هي طريقة عامة لتقريبات الترتيب المنخفض للنوى. ويحقق ذلك عن طريق أخذ عينات بدون استبدال للصفوف/الأعمدة للبيانات التي يتم تقييم النواة عليها. في حين أن التعقيد الحسابي للأسلوب الدقيق هو: math: `O (n^3 _{\ text {samples}})``، فإن تعقيد التقريب هو: math: `O (n^2 _{\ text {components}} \ cdot n_ {\ text {samples}})``، حيث يمكن تعيين: math: `n_ {\ text {components}} \ ll n_ {\ text {samples}}`` بدون انخفاض كبير في الأداء [WS2001] _.
 
-.. math::
+يمكننا إنشاء التحلل الذاتى لنواة المصفوفة: math: `K``، بناءً على ميزات البيانات، ثم تقسيمها إلى بيانات تم أخذ عينات منها وبيانات غير معاينة.
 
-        K = U \Lambda U^T
-        = \begin{bmatrix} U_1 \\ U_2\end{bmatrix} \Lambda \begin{bmatrix} U_1 \\ U_2 \end{bmatrix}^T
-        = \begin{bmatrix} U_1 \Lambda U_1^T & U_1 \Lambda U_2^T \\ U_2 \Lambda U_1^T & U_2 \Lambda U_2^T \end{bmatrix}
-        \equiv \begin{bmatrix} K_{11} & K_{12} \\ K_{21} & K_{22} \end{bmatrix}
+..... math::
 
-where:
+K = U \Lambda U ^ T
+= \ begin {bmatrix} U_1 \\ U_2 \ end {bmatrix} \ Lambda \ begin {bmatrix} U_1 \\ U_2 \ end {bmatrix} ^ T
+= \ begin {bmatrix} U_1 \ Lambda U_1 ^ T & U_1 \ Lambda U_2 ^ T \\ U_2 \ Lambda U_1 ^ T & U_2 \ Lambda U_2 ^ T \ end {bmatrix}
+\ equiv \ begin {bmatrix} K_ {11} & K_ {12} \\ K_ {21} & K_ {22} \ end {bmatrix}
 
-* :math:`U` is orthonormal
-* :math:`\Lambda` is diagonal matrix of eigenvalues
-* :math:`U_1` is orthonormal matrix of samples that were chosen
-* :math:`U_2` is orthonormal matrix of samples that were not chosen
+حيث:
 
-Given that :math:`U_1 \Lambda U_1^T` can be obtained by orthonormalization of
-the matrix :math:`K_{11}`, and :math:`U_2 \Lambda U_1^T` can be evaluated (as
-well as its transpose), the only remaining term to elucidate is
-:math:`U_2 \Lambda U_2^T`. To do this we can express it in terms of the already
-evaluated matrices:
+* :math: `U` هو متعامد
+* :math: `Lambda` هو مصفوفة القطرية للقيم الذاتية
+* :math: `U_1` عبارة عن مصفوفة متعامدة للعينات التي تم اختيارها
+* :math: `U_2` عبارة عن مصفوفة متعامدة للعينات التي لم يتم اختيارها
 
-.. math::
+نظرًا لأنه يمكن الحصول على: math: `U_1 \ Lambda U_1 ^ T` عن طريق التطبيع المتعامد للمصفوفة: math: `K_ {11}`، ويمكن تقييم: math: `U_2 \ Lambda U_1 ^ T` (وكذلك نقلها)، فإن المصطلح المتبقي الوحيد الذي يجب توضيحه هو: math: `U_2 \ Lambda U_2 ^ T`. للقيام بذلك، يمكننا التعبير عنه من حيث المصفوفات التي تم تقييمها بالفعل:
 
-         \begin{align} U_2 \Lambda U_2^T &= \left(K_{21} U_1 \Lambda^{-1}\right) \Lambda \left(K_{21} U_1 \Lambda^{-1}\right)^T
-         \\&= K_{21} U_1 (\Lambda^{-1} \Lambda) \Lambda^{-1} U_1^T K_{21}^T
-         \\&= K_{21} U_1 \Lambda^{-1} U_1^T K_{21}^T
-         \\&= K_{21} K_{11}^{-1} K_{21}^T
-         \\&= \left( K_{21} K_{11}^{-\frac12} \right) \left( K_{21} K_{11}^{-\frac12} \right)^T
-         .\end{align}
+..... math::
 
-During ``fit``, the class :class:`Nystroem` evaluates the basis :math:`U_1`, and
-computes the normalization constant, :math:`K_{11}^{-\frac12}`. Later, during
-``transform``, the kernel matrix is determined between the basis (given by the
-`components_` attribute) and the new data points, ``X``. This matrix is then
-multiplied by the ``normalization_`` matrix for the final result.
+ \ begin {محاذاة} U_2 \ Lambda U_2 ^ T &= left (K_ {21} U_1 \ Lambda ^ {- 1} right) \ Lambda left (K_ {21} U_1 \ Lambda ^ {- 1} right) ^ T
+\\ كان = K_ {21} U_1 left (\ Lambda ^ {- 1} \ Lambda right) \ Lambda ^ {- 1} U_1 ^ T K_ {21} ^ T
+\\ كان = K_ {21} U_1 \ Lambda ^ {- 1} U_1 ^ T K_ {21} ^ T
+\\ كان = K_ {21} K_ {11} ^ {- 1} K_ {21} ^ T
+\\ كان = left (K_ {21} K_ {11} ^ {- \ frac {1} {2}} right) left (K_ {21} K_ {11} ^ {- \ frac {1} {2}} right) ^ T
+. \ end {محاذاة}
 
-By default :class:`Nystroem` uses the ``rbf`` kernel, but it can use any kernel
-function or a precomputed kernel matrix. The number of samples used - which is
-also the dimensionality of the features computed - is given by the parameter
-``n_components``.
+أثناء "التناسب"، تقيِّم الفئة: class: `Nystroem` الأساس: math: `U_1`، وتحسب ثابت التطبيع،: math: `K_ {11} ^ {- \ frac {1} {2}}`. لاحقًا، أثناء "التحويل"، يتم تحديد مصفوفة النواة بين الأساس (معطى بواسطة السمة "components_") ونقاط البيانات الجديدة، "X". يتم بعد ذلك ضرب هذه المصفوفة بمصفوفة "normalization_" للحصول على النتيجة النهائية.
 
-.. rubric:: Examples
+بشكل افتراضي، يستخدم: class: `Nystroem` نواة "rbf"، ولكنه يمكن أن يستخدم أي دالة نواة أو مصفوفة نواة محسوبة مسبقًا. يتم إعطاء عدد العينات المستخدمة - وهو أيضًا أبعاد الميزات المحسوبة - بواسطة معلمة "n_components".
 
-* See the example entitled
-  :ref:`sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`,
-  that shows an efficient machine learning pipeline that uses a
-  :class:`Nystroem` kernel.
+..... rubric:: أمثلة
 
-.. _rbf_kernel_approx:
+* راجع المثال المعنون
+  : ref: `sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`،
+  الذي يوضح خط أنابيب التعلم الآلي الفعال الذي يستخدم نواة: class: `Nystroem`.
 
-Radial Basis Function Kernel
+..... _rbf_kernel_approx:
+
+دالة الأساس الشعاعي
 ----------------------------
 
-The :class:`RBFSampler` constructs an approximate mapping for the radial basis
-function kernel, also known as *Random Kitchen Sinks* [RR2007]_. This
-transformation can be used to explicitly model a kernel map, prior to applying
-a linear algorithm, for example a linear SVM::
+يقوم: class: `RBFSampler` ببناء خريطة تقريبية لدالة الأساس الشعاعي، والمعروفة أيضًا باسم *Random Kitchen Sinks* [RR2007] _. يمكن استخدام هذا التحويل لنمذجة خريطة النواة بشكل صريح، قبل تطبيق خوارزمية خطية، على سبيل المثال SVM الخطي::
 
-    >>> from sklearn.kernel_approximation import RBFSampler
-    >>> from sklearn.linear_model import SGDClassifier
-    >>> X = [[0, 0], [1, 1], [1, 0], [0, 1]]
-    >>> y = [0, 0, 1, 1]
-    >>> rbf_feature = RBFSampler(gamma=1, random_state=1)
-    >>> X_features = rbf_feature.fit_transform(X)
-    >>> clf = SGDClassifier(max_iter=5)
-    >>> clf.fit(X_features, y)
-    SGDClassifier(max_iter=5)
-    >>> clf.score(X_features, y)
-    1.0
+>>> من sklearn.kernel_approximation import RBFSampler
+>>> من sklearn.linear_model import SGDClassifier
+>>> X = [[0،0]، [1،1]، [1،0]، [0،1]]
+>>> y = [0،0،1،1]
+>>> rbf_feature = RBFSampler (gamma = 1، random_state = 1)
+>>> X_features = rbf_feature.fit_transform (X)
+>>> clf = SGDClassifier (max_iter = 5)
+>>> clf.fit (X_features، y)
+SGDClassifier (max_iter = 5)
+>>> clf.score (X_features، y)
+1.0
 
-The mapping relies on a Monte Carlo approximation to the
-kernel values. The ``fit`` function performs the Monte Carlo sampling, whereas
-the ``transform`` method performs the mapping of the data.  Because of the
-inherent randomness of the process, results may vary between different calls to
-the ``fit`` function.
+يعتمد التحويل على تقريب مونت كارلو لقيم النواة. تقوم دالة "التناسب" بتنفيذ أخذ العينات مونت كارلو، في حين أن طريقة "التحويل" تقوم بتحويل البيانات. نظرًا للعشوائية المتأصلة في العملية، قد تختلف النتائج بين مكالمات مختلفة لدالة "التناسب".
 
-The ``fit`` function takes two arguments:
-``n_components``, which is the target dimensionality of the feature transform,
-and ``gamma``, the parameter of the RBF-kernel.  A higher ``n_components`` will
-result in a better approximation of the kernel and will yield results more
-similar to those produced by a kernel SVM. Note that "fitting" the feature
-function does not actually depend on the data given to the ``fit`` function.
-Only the dimensionality of the data is used.
-Details on the method can be found in [RR2007]_.
+تأخذ دالة "التناسب" حجتين: "n_components"، وهو البعد المستهدف لتحويل الميزة، و"gamma"، وهو معلمة دالة RBF-kernel. ستؤدي قيمة أعلى لـ "n_components" إلى تقريب أفضل للنواة وستنتج نتائج أكثر تشابهًا لتلك التي ينتجها SVM النووي. لاحظ أن "تناسب" دالة الميزة لا يعتمد في الواقع على البيانات المقدمة إلى دالة "التناسب".
 
-For a given value of ``n_components`` :class:`RBFSampler` is often less accurate
-as :class:`Nystroem`. :class:`RBFSampler` is cheaper to compute, though, making
-use of larger feature spaces more efficient.
+يتم استخدام أبعاد البيانات فقط. يمكن العثور على التفاصيل حول الأسلوب في [RR2007] _.
 
-.. figure:: ../auto_examples/miscellaneous/images/sphx_glr_plot_kernel_approximation_002.png
-    :target: ../auto_examples/miscellaneous/plot_kernel_approximation.html
-    :scale: 50%
-    :align: center
+بالنسبة لقيمة معينة من "n_components"، غالبًا ما يكون: class: `RBFSampler` أقل دقة من: class: `Nystroem`. : class: `RBFSampler` أرخص في الحساب، مما يجعل استخدام مساحات الميزات الأكبر أكثر كفاءة.
 
-    Comparing an exact RBF kernel (left) with the approximation (right)
+..... figure:: ../auto_examples/miscellaneous/images/sphx_glr_plot_kernel_approximation_002.png
+: target: ../auto_examples/miscellaneous/plot_kernel_approximation.html
+: scale: 50٪
+: align: center
 
-.. rubric:: Examples
+مقارنة نواة RBF الدقيقة (يسار) بالتقريب (يمين)
 
-* :ref:`sphx_glr_auto_examples_miscellaneous_plot_kernel_approximation.py`
+..... rubric:: أمثلة
 
-.. _additive_chi_kernel_approx:
+* : ref: `sphx_glr_auto_examples_miscellaneous_plot_kernel_approximation.py`
 
-Additive Chi Squared Kernel
+..... _additive_chi_kernel_approx:
+
+دالة النواة التربيعية الإضافية
 ---------------------------
 
-The additive chi squared kernel is a kernel on histograms, often used in computer vision.
+دالة النواة التربيعية الإضافية هي نواة على التوزيعات التكرارية، والتي تستخدم غالبًا في رؤية الكمبيوتر.
 
-The additive chi squared kernel as used here is given by
+دالة النواة التربيعية الإضافية المستخدمة هنا هي:
 
-.. math::
+..... math::
 
-        k(x, y) = \sum_i \frac{2x_iy_i}{x_i+y_i}
+k (x، y) = \ sum_i \ frac {2x_iy_i} {x_i + y_i}
 
-This is not exactly the same as :func:`sklearn.metrics.pairwise.additive_chi2_kernel`.
-The authors of [VZ2010]_ prefer the version above as it is always positive
-definite.
-Since the kernel is additive, it is possible to treat all components
-:math:`x_i` separately for embedding. This makes it possible to sample
-the Fourier transform in regular intervals, instead of approximating
-using Monte Carlo sampling.
+هذا لا يتوافق بالضبط مع: func: `sklearn.metrics.pairwise.additive_chi2_kernel`. يفضل مؤلفو [VZ2010] _ الإصدار أعلاه لأنه إيجابي محدد دائمًا.
 
-The class :class:`AdditiveChi2Sampler` implements this component wise
-deterministic sampling. Each component is sampled :math:`n` times, yielding
-:math:`2n+1` dimensions per input dimension (the multiple of two stems
-from the real and complex part of the Fourier transform).
-In the literature, :math:`n` is usually chosen to be 1 or 2, transforming
-the dataset to size ``n_samples * 5 * n_features`` (in the case of :math:`n=2`).
+نظرًا لأن النواة مضافة، فمن الممكن معاملة جميع المكونات: math: `x_i` بشكل منفصل للتضمين. وهذا يجعل من الممكن أخذ عينات من تحويل فورييه في فترات منتظمة، بدلاً من التقريب باستخدام أخذ العينات مونت كارلو.
 
-The approximate feature map provided by :class:`AdditiveChi2Sampler` can be combined
-with the approximate feature map provided by :class:`RBFSampler` to yield an approximate
-feature map for the exponentiated chi squared kernel.
-See the [VZ2010]_ for details and [VVZ2010]_ for combination with the :class:`RBFSampler`.
+تنفذ الفئة: class: `AdditiveChi2Sampler` أخذ العينات المحددة المكونة من المكونات. يتم أخذ عينات من كل مكون: math: `n` مرة، مما يؤدي إلى: math: `2n + 1` أبعاد لكل بعد إدخال (ينتج الضرب في اثنين عن الجزء الحقيقي والتخيلي لتحويل فورييه).
 
-.. _skewed_chi_kernel_approx:
+في الأدبيات، يتم عادةً اختيار: math: `n` لتكون 1 أو 2، مما يحول مجموعة البيانات إلى حجم "n_samples * 5 * n_features" (في حالة: math: `n = 2`).
 
-Skewed Chi Squared Kernel
+يمكن دمج خريطة الميزة التقريبية التي يوفرها: class: `AdditiveChi2Sampler` مع خريطة الميزة التقريبية التي يوفرها: class: `RBFSampler` لإنتاج خريطة ميزة تقريبية لدالة النواة التربيعية الأسية.
+
+راجع [VZ2010] _ للتفاصيل و [VVZ2010] _ للجمع مع: class: `RBFSampler`.
+
+..... _skewed_chi_kernel_approx:
+
+دالة النواة التربيعية المنحرفة
 -------------------------
 
-The skewed chi squared kernel is given by:
+دالة النواة التربيعية المنحرفة هي:
 
-.. math::
+..... math::
 
-        k(x,y) = \prod_i \frac{2\sqrt{x_i+c}\sqrt{y_i+c}}{x_i + y_i + 2c}
+k (x، y) = \ prod_i \ frac {2 \ sqrt {x_i + c} \ sqrt {y_i + c}} {x_i + y_i + 2c}
 
 
-It has properties that are similar to the exponentiated chi squared kernel
-often used in computer vision, but allows for a simple Monte Carlo
-approximation of the feature map.
+لديك خصائص مشابهة لدالة النواة التربيعية الأسية المستخدمة غالبًا في رؤية الكمبيوتر، ولكنها تسمح بتقريب مونت كارلو البسيط لخريطة الميزة.
 
-The usage of the :class:`SkewedChi2Sampler` is the same as the usage described
-above for the :class:`RBFSampler`. The only difference is in the free
-parameter, that is called :math:`c`.
-For a motivation for this mapping and the mathematical details see [LS2010]_.
+يتم استخدام: class: `SkewedChi2Sampler` بنفس طريقة الاستخدام الموضحة أعلاه لـ: class: `RBFSampler`. الفرق الوحيد هو في المعلمة الحرة، والتي يطلق عليها: math: `c`.
 
-.. _polynomial_kernel_approx:
+للاطلاع على الدافع وراء هذا التحويل والتفاصيل الرياضية، راجع [LS2010] _.
 
-Polynomial Kernel Approximation via Tensor Sketch
+..... _polynomial_kernel_approx:
+
+تقريب دالة النواة متعددة الحدود عبر رسم تخطيطي للمخطط
 -------------------------------------------------
 
-The :ref:`polynomial kernel <polynomial_kernel>` is a popular type of kernel
-function given by:
+دالة النواة متعددة الحدود: ref: `polynomial_kernel` هي نوع شائع من دالة النواة معطاة بواسطة:
 
-.. math::
+..... math::
 
-        k(x, y) = (\gamma x^\top y +c_0)^d
+k (x، y) = (\ gamma x ^ top y +c_0) ^ d
 
-where:
+حيث:
 
-* ``x``, ``y`` are the input vectors
-* ``d`` is the kernel degree
+* ``x``، ``y`` هما متجهات الإدخال
+* ``d`` هو درجة النواة
 
-Intuitively, the feature space of the polynomial kernel of degree `d`
-consists of all possible degree-`d` products among input features, which enables
-learning algorithms using this kernel to account for interactions between features.
+بديهياً، تتكون مساحة الميزة لدالة النواة متعددة الحدود من الدرجة `d`
 
-The TensorSketch [PP2013]_ method, as implemented in :class:`PolynomialCountSketch`, is a
-scalable, input data independent method for polynomial kernel approximation.
-It is based on the concept of Count sketch [WIKICS]_ [CCF2002]_ , a dimensionality
-reduction technique similar to feature hashing, which instead uses several
-independent hash functions. TensorSketch obtains a Count Sketch of the outer product
-of two vectors (or a vector with itself), which can be used as an approximation of the
-polynomial kernel feature space. In particular, instead of explicitly computing
-the outer product, TensorSketch computes the Count Sketch of the vectors and then
-uses polynomial multiplication via the Fast Fourier Transform to compute the
-Count Sketch of their outer product.
+من جميع المنتجات المحتملة من الدرجة `d` بين ميزات الإدخال، مما يمكّن
 
-Conveniently, the training phase of TensorSketch simply consists of initializing
-some random variables. It is thus independent of the input data, i.e. it only
-depends on the number of input features, but not the data values.
-In addition, this method can transform samples in
-:math:`\mathcal{O}(n_{\text{samples}}(n_{\text{features}} + n_{\text{components}} \log(n_{\text{components}})))`
-time, where :math:`n_{\text{components}}` is the desired output dimension,
-determined by ``n_components``.
+خوارزميات التعلم التي تستخدم هذه النواة من مراعاة التفاعلات بين الميزات.
 
-.. rubric:: Examples
+تعد طريقة TensorSketch [PP2013] _، كما هو منفذ في: class: `PolynomialCountSketch`، طريقة قابلة للتطوير ومستقلة عن بيانات الإدخال لتقريب دالة النواة متعددة الحدود.
 
-* :ref:`sphx_glr_auto_examples_kernel_approximation_plot_scalable_poly_kernels.py`
+يستند إلى مفهوم Count sketch [WIKICS] _ [CCF2002] _، وهي تقنية لخفض الأبعاد تشبه تجزئة الميزات، والتي تستخدم بدلاً من ذلك عدة دوال تجزئة مستقلة. يحصل TensorSketch على رسم تخطيطي للعدد من حاصل الضرب الخارجي لمتجهين (أو متجه مع نفسه)، والذي يمكن استخدامه كتقريب لمساحة ميزة دالة النواة متعددة الحدود. على وجه الخصوص، بدلاً من حساب الضرب الخارجي بشكل صريح، يحسب TensorSketch رسم تخطيطي للعدد من المتجهات ثم يستخدم الضرب متعدد الحدود عبر التحويل المتقطع السريع لحساب رسم تخطيطي للعدد من حاصل الضرب الخارجي.
 
-.. _tensor_sketch_kernel_approx:
+لحسن الحظ، تتكون مرحلة التدريب لـ TensorSketch ببساطة من تهيئة بعض المتغيرات العشوائية. وبالتالي فهو مستقل عن بيانات الإدخال، أي أنه يعتمد فقط على عدد ميزات الإدخال، وليس على قيم البيانات.
 
-Mathematical Details
---------------------
+بالإضافة إلى ذلك، يمكن لهذه الطريقة تحويل العينات في: math: `O (n_ {\ text {samples}} (n_ {\ text {features}} + n_ {\ text {components}} \ log (n_ {\ text {components}})))`
 
-Kernel methods like support vector machines or kernelized
-PCA rely on a property of reproducing kernel Hilbert spaces.
-For any positive definite kernel function :math:`k` (a so called Mercer kernel),
-it is guaranteed that there exists a mapping :math:`\phi`
-into a Hilbert space :math:`\mathcal{H}`, such that
+الوقت، حيث: math: `n_ {\ text {components}}` هو البعد المطلوب،
+
+يتم تحديده بواسطة "n_components".
+
+..... rubric:: أمثلة
+
+* : ref: `sphx_glr_auto_examples_kernel_approximation_plot_scalable_poly_kernels.py`
+
+..... _tensor_sketch_kernel_approx:
+
+التفاصيل الرياضية
+تعتمد طرق النواة مثل آلات المتجهات الداعمة أو التحليل الرئيسي المُحسّن باستخدام النواة على خاصية فضاءات هيلبرت ذات النواة القابلة للتكرار. بالنسبة لأي دالة نواة محددة إيجابية :math:`k` (ما يسمى نواة ميرسر)، من المضمون وجود تطبيق :math:`\phi` إلى فضاء هيلبرت :math:`\mathcal{H}`، بحيث
 
 .. math::
 
         k(x,y) = \langle \phi(x), \phi(y) \rangle
 
-Where :math:`\langle \cdot, \cdot \rangle` denotes the inner product in the
-Hilbert space.
+حيث :math:`\langle \cdot, \cdot \rangle` يرمز إلى المنتج الداخلي في
+فضاء هيلبرت.
 
-If an algorithm, such as a linear support vector machine or PCA,
-relies only on the scalar product of data points :math:`x_i`, one may use
-the value of :math:`k(x_i, x_j)`, which corresponds to applying the algorithm
-to the mapped data points :math:`\phi(x_i)`.
-The advantage of using :math:`k` is that the mapping :math:`\phi` never has
-to be calculated explicitly, allowing for arbitrary large
-features (even infinite).
+إذا كانت خوارزمية، مثل آلة المتجهات الداعمة الخطية أو التحليل الرئيسي،
+تعتمد فقط على المنتج القياسي لنقاط البيانات :math:`x_i`، فيمكن استخدام
+قيمة :math:`k(x_i, x_j)`، والتي تتوافق مع تطبيق الخوارزمية
+على نقاط البيانات المُمَثَلة :math:`\phi(x_i)`.
+تكمن ميزة استخدام :math:`k` في أنه لا يلزم أبدًا حساب التطبيق :math:`\phi` بشكل صريح، مما يسمح بميزات كبيرة جدًا
+(حتى اللانهاية).
 
-One drawback of kernel methods is, that it might be necessary
-to store many kernel values :math:`k(x_i, x_j)` during optimization.
-If a kernelized classifier is applied to new data :math:`y_j`,
-:math:`k(x_i, y_j)` needs to be computed to make predictions,
-possibly for many different :math:`x_i` in the training set.
+أحد عيوب طرق النواة هو أنه قد يكون من الضروري
+تخزين العديد من قيم النواة :math:`k(x_i, x_j)` أثناء التحسين.
+إذا تم تطبيق مُصنِّف مُحسَّن باستخدام النواة على بيانات جديدة :math:`y_j`،
+فيجب حساب :math:`k(x_i, y_j)` للتنبؤ،
+وربما بالنسبة للعديد من :math:`x_i` المختلفة في مجموعة التدريب.
 
-The classes in this submodule allow to approximate the embedding
-:math:`\phi`, thereby working explicitly with the representations
-:math:`\phi(x_i)`, which obviates the need to apply the kernel
-or store training examples.
+تسمح الفئات في هذا الوحدة الفرعية بحساب التضمين التقريبي
+:math:`\phi`، وبالتالي العمل بشكل صريح مع التمثيلات
+:math:`\phi(x_i)`، مما يلغي الحاجة إلى تطبيق النواة
+أو تخزين أمثلة التدريب.
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [WS2001] `"Using the Nyström method to speed up kernel machines"
   <https://papers.nips.cc/paper_files/paper/2000/hash/19de10adbaa1b2ee13f77f679fa1483a-Abstract.html>`_
