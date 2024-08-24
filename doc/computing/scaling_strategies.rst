@@ -1,136 +1,88 @@
 .. _scaling_strategies:
 
-Strategies to scale computationally: bigger data
+استراتيجيات للتوسع الحسابي: بيانات أكبر
 =================================================
 
-For some applications the amount of examples, features (or both) and/or the
-speed at which they need to be processed are challenging for traditional
-approaches. In these cases scikit-learn has a number of options you can
-consider to make your system scale.
+بالنسبة لبعض التطبيقات، فإن كمية الأمثلة أو الميزات (أو كليهما) و/أو السرعة التي تحتاج إلى معالجتها تشكل تحديًا للأساليب التقليدية. في هذه الحالات، يوفر scikit-learn عددًا من الخيارات التي يمكنك مراعاتها لجعل نظامك قابلاً للتطوير.
 
-Scaling with instances using out-of-core learning
+التوسع باستخدام مثيلات باستخدام التعلم خارج النواة
 --------------------------------------------------
 
-Out-of-core (or "external memory") learning is a technique used to learn from
-data that cannot fit in a computer's main memory (RAM).
+التعلم خارج النواة (أو "الذاكرة الخارجية") هو تقنية مستخدمة للتعلم من البيانات التي لا يمكن أن تتسع في الذاكرة الرئيسية للكمبيوتر (RAM).
 
-Here is a sketch of a system designed to achieve this goal:
+فيما يلي مخطط لنظام مصمم لتحقيق هذا الهدف:
 
-1. a way to stream instances
-2. a way to extract features from instances
-3. an incremental algorithm
+1. طريقة لبث المثيلات
+2. طريقة لاستخراج الميزات من المثيلات
+3. خوارزمية متزايدة
 
-Streaming instances
+بث مثيلات
 ....................
 
-Basically, 1. may be a reader that yields instances from files on a
-hard drive, a database, from a network stream etc. However,
-details on how to achieve this are beyond the scope of this documentation.
+بشكل أساسي، قد يكون 1. قارئًا يقوم بإرجاع مثيلات من ملفات على محرك أقراص ثابت أو قاعدة بيانات أو من دفق شبكة، وما إلى ذلك. ومع ذلك، فإن التفاصيل حول كيفية تحقيق ذلك تتجاوز نطاق هذه الوثيقة.
 
-Extracting features
+استخراج الميزات
 ...................
 
-\2. could be any relevant way to extract features among the
-different :ref:`feature extraction <feature_extraction>` methods supported by
-scikit-learn. However, when working with data that needs vectorization and
-where the set of features or values is not known in advance one should take
-explicit care. A good example is text classification where unknown terms are
-likely to be found during training. It is possible to use a stateful
-vectorizer if making multiple passes over the data is reasonable from an
-application point of view. Otherwise, one can turn up the difficulty by using
-a stateless feature extractor. Currently the preferred way to do this is to
-use the so-called :ref:`hashing trick<feature_hashing>` as implemented by
-:class:`sklearn.feature_extraction.FeatureHasher` for datasets with categorical
-variables represented as list of Python dicts or
-:class:`sklearn.feature_extraction.text.HashingVectorizer` for text documents.
+يمكن أن يكون \ 2. أي طريقة ذات صلة لاستخراج الميزات من بين طرق استخراج الميزات المختلفة \ ref: `feature_extraction` \ التي يدعمها scikit-learn. ومع ذلك، عند العمل مع البيانات التي تحتاج إلى تمثيل إحصائي وحيث لا تكون مجموعة الميزات أو القيم معروفة مسبقًا، يجب توخي الحذر الصريح. مثال جيد هو تصنيف النص حيث من المحتمل العثور على مصطلحات غير معروفة أثناء التدريب. من الممكن استخدام جهاز تمثيل إحصائي يحتفظ بحالته إذا كان من المعقول من وجهة نظر التطبيق إجراء عدة تمريرات عبر البيانات. وإلا، يمكنك زيادة الصعوبة باستخدام مستخرج ميزات لا يحتفظ بحالته. في الوقت الحالي، تتمثل الطريقة المفضلة للقيام بذلك في استخدام ما يسمى بـ: ref: `feature_hashing` \ كما هو منفذ بواسطة: class: `sklearn.feature_extraction.FeatureHasher` \ لمجموعات البيانات ذات المتغيرات الفئوية الممثلة على أنها قائمة من القواميس بايثون أو: class: `sklearn.feature_extraction.text.HashingVectorizer` \ لوثائق النص.
 
-Incremental learning
+التعلم المتزايد
 .....................
 
-Finally, for 3. we have a number of options inside scikit-learn. Although not
-all algorithms can learn incrementally (i.e. without seeing all the instances
-at once), all estimators implementing the ``partial_fit`` API are candidates.
-Actually, the ability to learn incrementally from a mini-batch of instances
-(sometimes called "online learning") is key to out-of-core learning as it
-guarantees that at any given time there will be only a small amount of
-instances in the main memory. Choosing a good size for the mini-batch that
-balances relevancy and memory footprint could involve some tuning [1]_.
+أخيرًا، بالنسبة لـ 3. لدينا عدد من الخيارات داخل scikit-learn. على الرغم من أن الخوارزميات لا يمكنها جميعًا التعلم بشكل متزايد (أي دون رؤية جميع المثيلات في وقت واحد)، إلا أن جميع التقديرات التي تنفذ واجهة برمجة التطبيقات "partial_fit" هي مرشحة. في الواقع، فإن القدرة على التعلم بشكل متزايد من دفعة مصغرة من المثيلات (تسمى أحيانًا "التعلم عبر الإنترنت") هي مفتاح التعلم خارج النواة حيث تضمن أنه في أي وقت معين، لن يكون هناك سوى كمية صغيرة من المثيلات في الذاكرة الرئيسية. قد يتضمن اختيار حجم جيد لدفعة مصغرة توازنًا بين الملاءمة وبصمة الذاكرة [1] _.
 
-Here is a list of incremental estimators for different tasks:
+فيما يلي قائمة بالتقديرات المتزايدة لمهام مختلفة:
 
-- Classification
-    + :class:`sklearn.naive_bayes.MultinomialNB`
-    + :class:`sklearn.naive_bayes.BernoulliNB`
-    + :class:`sklearn.linear_model.Perceptron`
-    + :class:`sklearn.linear_model.SGDClassifier`
-    + :class:`sklearn.linear_model.PassiveAggressiveClassifier`
-    + :class:`sklearn.neural_network.MLPClassifier`
-- Regression
-    + :class:`sklearn.linear_model.SGDRegressor`
-    + :class:`sklearn.linear_model.PassiveAggressiveRegressor`
-    + :class:`sklearn.neural_network.MLPRegressor`
-- Clustering
-    + :class:`sklearn.cluster.MiniBatchKMeans`
-    + :class:`sklearn.cluster.Birch`
-- Decomposition / feature Extraction
-    + :class:`sklearn.decomposition.MiniBatchDictionaryLearning`
-    + :class:`sklearn.decomposition.IncrementalPCA`
-    + :class:`sklearn.decomposition.LatentDirichletAllocation`
-    + :class:`sklearn.decomposition.MiniBatchNMF`
-- Preprocessing
-    + :class:`sklearn.preprocessing.StandardScaler`
-    + :class:`sklearn.preprocessing.MinMaxScaler`
-    + :class:`sklearn.preprocessing.MaxAbsScaler`
+- التصنيف
+    +: class: `sklearn.naive_bayes.MultinomialNB`
+    +: class: `sklearn.naive_bayes.BernoulliNB`
+    +: class: `sklearn.linear_model.Perceptron`
+    +: class: `sklearn.linear_model.SGDClassifier`
+    +: class: `sklearn.linear_model.PassiveAggressiveClassifier`
+    +: class: `sklearn.neural_network.MLPClassifier`
+- الانحدار
+    +: class: `sklearn.linear_model.SGDRegressor`
+    +: class: `sklearn.linear_model.PassiveAggressiveRegressor`
+    +: class: `sklearn.neural_network.MLPRegressor`
+- التجميع
+    +: class: `sklearn.cluster.MiniBatchKMeans`
+    +: class: `sklearn.cluster.Birch`
+- التحليل / استخراج الميزات
+    +: class: `sklearn.decomposition.MiniBatchDictionaryLearning`
+    +: class: `sklearn.decomposition.IncrementalPCA`
+    +: class: `sklearn.decomposition.LatentDirichletAllocation`
+    +: class: `sklearn.decomposition.MiniBatchNMF`
+- ما قبل المعالجة
+    +: class: `sklearn.preprocessing.StandardScaler`
+    +: class: `sklearn.preprocessing.MinMaxScaler`
+    +: class: `sklearn.preprocessing.MaxAbsScaler`
 
-For classification, a somewhat important thing to note is that although a
-stateless feature extraction routine may be able to cope with new/unseen
-attributes, the incremental learner itself may be unable to cope with
-new/unseen targets classes. In this case you have to pass all the possible
-classes to the first ``partial_fit`` call using the ``classes=`` parameter.
+بالنسبة للتصنيف، من المهم ملاحظة أنه على الرغم من أن روتين استخراج الميزات الذي لا يحتفظ بحالته قد يكون قادرًا على التعامل مع الصفات/القيم الجديدة/غير المرئية، إلا أن المتعلم المتزايد نفسه قد لا يتمكن من التعامل مع فئات الأهداف الجديدة/غير المرئية. في هذه الحالة، يجب تمرير جميع الفئات الممكنة إلى أول مكالمة "partial_fit" باستخدام معلمة "classes=".
 
-Another aspect to consider when choosing a proper algorithm is that not all of
-them put the same importance on each example over time. Namely, the
-``Perceptron`` is still sensitive to badly labeled examples even after many
-examples whereas the ``SGD*`` and ``PassiveAggressive*`` families are more
-robust to this kind of artifacts. Conversely, the latter also tend to give less
-importance to remarkably different, yet properly labeled examples when they
-come late in the stream as their learning rate decreases over time.
+هناك جانب آخر يجب مراعاته عند اختيار خوارزمية مناسبة وهو أن الخوارزميات لا تعطي جميعها نفس الأهمية لكل مثال بمرور الوقت. على وجه التحديد، لا يزال "Perceptron" حساسًا للنماذج التي تحمل علامات خاطئة حتى بعد العديد من الأمثلة، في حين أن عائلات "SGD*" و"PassiveAggressive*" أكثر مقاومة لهذا النوع من الآثار. على العكس من ذلك، تميل هذه الأخيرة أيضًا إلى إعطاء أهمية أقل للأمثلة المختلفة بشكل ملحوظ، ولكنها مصنفة بشكل صحيح عندما تأتي في وقت متأخر من الدفق حيث ينخفض معدل تعلمها بمرور الوقت.
 
-Examples
+أمثلة
 ..........
 
-Finally, we have a full-fledged example of
-:ref:`sphx_glr_auto_examples_applications_plot_out_of_core_classification.py`. It is aimed at
-providing a starting point for people wanting to build out-of-core learning
-systems and demonstrates most of the notions discussed above.
+أخيرًا، لدينا مثال كامل المواصفات على: ref: `sphx_glr_auto_examples_applications_plot_out_of_core_classification.py`. يهدف إلى توفير نقطة انطلاق للأشخاص الذين يرغبون في بناء أنظمة التعلم خارج النواة ويظهر معظم المفاهيم التي تمت مناقشتها أعلاه.
 
-Furthermore, it also shows the evolution of the performance of different
-algorithms with the number of processed examples.
+علاوة على ذلك، فإنه يظهر أيضًا تطور أداء الخوارزميات المختلفة مع عدد من الأمثلة المعالجة.
 
-.. |accuracy_over_time| image::  ../auto_examples/applications/images/sphx_glr_plot_out_of_core_classification_001.png
+.. |accuracy_over_time| image:: ../auto_examples/applications/images/sphx_glr_plot_out_of_core_classification_001.png
     :target: ../auto_examples/applications/plot_out_of_core_classification.html
     :scale: 80
 
 .. centered:: |accuracy_over_time|
 
-Now looking at the computation time of the different parts, we see that the
-vectorization is much more expensive than learning itself. From the different
-algorithms, ``MultinomialNB`` is the most expensive, but its overhead can be
-mitigated by increasing the size of the mini-batches (exercise: change
-``minibatch_size`` to 100 and 10000 in the program and compare).
+والآن عند النظر في وقت الحساب للأجزاء المختلفة، نرى أن التمثيل الإحصائي أكثر تكلفة بكثير من التعلم نفسه. من بين الخوارزميات المختلفة، فإن "MultinomialNB" هي الأكثر تكلفة، ولكن يمكن تخفيف عبء العمل الإضافي عن طريق زيادة حجم الدفعات المصغرة (التمرين: تغيير "minibatch_size" إلى 100 و10000 في البرنامج ومقارنتهما).
 
-.. |computation_time| image::  ../auto_examples/applications/images/sphx_glr_plot_out_of_core_classification_003.png
+.. |computation_time| image:: ../auto_examples/applications/images/sphx_glr_plot_out_of_core_classification_003.png
     :target: ../auto_examples/applications/plot_out_of_core_classification.html
     :scale: 80
 
 .. centered:: |computation_time|
 
-
-Notes
+ملاحظات
 ......
 
-.. [1] Depending on the algorithm the mini-batch size can influence results or
-       not. SGD*, PassiveAggressive*, and discrete NaiveBayes are truly online
-       and are not affected by batch size. Conversely, MiniBatchKMeans
-       convergence rate is affected by the batch size. Also, its memory
-       footprint can vary dramatically with batch size.
+.. [1] اعتمادًا على الخوارزمية، يمكن أن يؤثر حجم الدفعة المصغرة على النتائج أو لا. SGD*، PassiveAggressive*، وNaiveBayes المنفصلة هي عبر الإنترنت حقًا ولا تتأثر بحجم الدفعة. على العكس من ذلك، يتأثر معدل تقارب MiniBatchKMeans بحجم الدفعة. أيضًا، يمكن أن تختلف بصمة ذاكرته بشكل كبير مع حجم الدفعة.
