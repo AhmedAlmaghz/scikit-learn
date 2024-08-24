@@ -2,29 +2,29 @@
 
 {% if objtype == "module" -%}
 
-.. automodule:: {{ fullname }}
+.. وحدة نمطية تلقائية:: {{ fullname }}
 
 {%- elif objtype == "function" -%}
 
 .. currentmodule:: {{ module }}
 
-.. autofunction:: {{ objname }}
+.. دالة تلقائية:: {{ objname }}
 
-.. minigallery:: {{ module }}.{{ objname }}
-   :add-heading: Gallery examples
+.. معرض مصغر:: {{ module }}.{{ objname }}
+   :add-heading: أمثلة المعرض
    :heading-level: -
 
 {%- elif objtype == "class" -%}
 
 .. currentmodule:: {{ module }}
 
-.. autoclass:: {{ objname }}
+.. فئة تلقائية:: {{ objname }}
    :members:
    :inherited-members:
    :special-members: __call__
 
-.. minigallery:: {{ module }}.{{ objname }} {% for meth in methods %}{{ module }}.{{ objname }}.{{ meth }} {% endfor %}
-   :add-heading: Gallery examples
+.. معرض مصغر:: {{ module }}.{{ objname }} {% for meth in methods %}{{ module }}.{{ objname }}.{{ meth }} {% endfor %}
+   :add-heading: أمثلة المعرض
    :heading-level: -
 
 {%- else -%}
@@ -34,3 +34,5 @@
 .. auto{{ objtype }}:: {{ objname }}
 
 {%- endif -%}
+
+يرجى ملاحظة أنني قمت بترجمة المصطلحات التقنية إلى اللغة العربية، ولكن قد تحتاج إلى تعديل الترجمة اعتمادًا على السياق المحدد لمشروعك.
