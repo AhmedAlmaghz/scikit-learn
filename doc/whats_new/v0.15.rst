@@ -1,625 +1,471 @@
-.. include:: _contributors.rst
+هذا النص هو سجل تغييرات لمكتبة "سكيت-ليرن" (scikit-learn) للإصدار 0.15، والذي تم إصداره في عام 2014. وهو يوضح الإصلاحات والتحسينات التي تم إجراؤها في الإصدار 0.15 والإصدارات الفرعية اللاحقة.
 
-.. currentmodule:: sklearn
+**الإصدار 0.15**
 
-============
-Version 0.15
-============
+**4 سبتمبر 2014**
 
-.. _changes_0_15_2:
+**إصلاح الأخطاء:**
+- تم إصلاح التعامل مع معلمة "p" في مسافة مينكوفسكي التي تم تجاهلها سابقًا في نماذج أقرب الجيران. بواسطة: نيكولاي مايوروف.
+- تم إصلاح الأخطاء في معلمة "ألفا" المكررة في "لاسو لارس" مع التوقف المبكر على بايثون 32 بت. بواسطة: أوليفييه جريسل وفابيان بيدريجوسا.
+- تم إصلاح البناء تحت نظام التشغيل ويندوز عند بناء سكيت-ليرن باستخدام "مايكروسوفت فيجوال سي++" (MSVC) في حين تم بناء "نمباي" باستخدام "مينج و" (MinGW). بواسطة: أوليفييه جريسل وفيديريكو فاجي.
+- تم إصلاح خطأ في فيض فهرس المصفوفة في محلول الانحدار المنسق. بواسطة: جيل فاريقنوكس.
+- تم تحسين التعامل مع تحذيرات الإهمال في "نمباي 1.9". بواسطة: جيل فاريقنوكس.
+- تمت إزالة نسخة البيانات غير الضرورية في "ك-مينس". بواسطة: جيل فاريقنوكس.
+- تم إغلاق الملفات المفتوحة بشكل صريح لتجنب التحذيرات في بايثون 3. بواسطة: كالفين جايلز.
+- الآن، يقوم "التحويل" في "التحليل التمييزي الخطي" بمشروع الإدخال على أكثر الاتجاهات تمييزًا. بواسطة: مارتن بيلينجر.
+- تم إصلاح فيض محتمل في "تري.سيف ريلوك" بواسطة: لارس بوتينك.
+- تم تحسين الأداء في "إيزوتونيك ريجريشن". بواسطة: روبرت برادشو.
+- لم تعد "نوز" (nose) تعتمد على وقت التشغيل لاستيراد "سكيلرن"، ولكن فقط لتشغيل الاختبارات. بواسطة: جويل نوثمان.
+- تم إصلاح العديد من الأخطاء في الوثائق والموقع بواسطة: جويل نوثمان، ولارس بوتينك، ومات بيكو، وغيرهم.
 
-Version 0.15.2
-==============
+**الإصدار 0.15.1**
 
-**September 4, 2014**
+**1 أغسطس 2014**
 
-Bug fixes
----------
+**إصلاح الأخطاء:**
+- تم جعل "كروس فاليداشن.كروس فال سكور" تستخدم "كفولد" بدلاً من "ستراتيفيد كفولد" في مشكلات التصنيف متعدد الإخراج. بواسطة: نيكولاي مايوروف.
+- تم دعم العلامات غير المرئية في "لابل بيناريزر" لاستعادة السلوك الافتراضي للإصدار 0.14.1 للتوافق مع الإصدارات السابقة. بواسطة: حمزة الصالحي.
+- تم إصلاح معيار التوقف في "ك-مينس" الذي منع اكتشاف التقارب المبكر. بواسطة: إدوارد راف وجيل فاريقنوكس.
+- تم إصلاح سلوك "ون فيز ون كلاسيفاير" في حالة التعادل على مستوى تصويت الفئة الواحدة عن طريق حساب مجموع درجات التنبؤ الصحيحة لكل فئة. بواسطة: أندرياس مولر.
+- تم جعل "كروس فاليداشن.كروس فال سكور" و"غريد سيرش.غريد سيرش سي في" تقبل القوائم بايثون كمدخلات للبيانات. وهذا مفيد بشكل خاص للتحقق من صحة التعلم الآلي واختيار النموذج في أنابيب معالجة النصوص. بواسطة: أندرياس مولر.
+- تم إصلاح فحوصات إدخال البيانات لمعظم البرامج النصية التقديرية لقبول بيانات الإدخال التي تنفذ بروتوكول "نمباي" "__أراي__". هذه هي الحالة بالنسبة لـ "بانداس.سيرياس" و"بانداس.داتافريم" في الإصدارات الحديثة من "بانداس". بواسطة: جيل فاريقنوكس.
+- تم إصلاح تراجع "إس جي دي كلاسيفاير" مع "كلاس ويغت" على البيانات ذات العلامات غير المتجاورة. بواسطة: أوليفييه جريسل.
 
-- Fixed handling of the ``p`` parameter of the Minkowski distance that was
-  previously ignored in nearest neighbors models. By :user:`Nikolay
-  Mayorov <nmayorov>`.
+**الإصدار 0.15**
+**15 يوليو 2014**
 
-- Fixed duplicated alphas in :class:`linear_model.LassoLars` with early
-  stopping on 32 bit Python. By `Olivier Grisel`_ and `Fabian Pedregosa`_.
+أبرز المميزات:
 
-- Fixed the build under Windows when scikit-learn is built with MSVC while
-  NumPy is built with MinGW. By `Olivier Grisel`_ and :user:`Federico
-  Vaggi <FedericoV>`.
+- العديد من التحسينات في السرعة والذاكرة في جميع أنحاء الكود
 
-- Fixed an array index overflow bug in the coordinate descent solver. By
-  `Gael Varoquaux`_.
+- تحسينات كبيرة في السرعة والذاكرة في الغابات العشوائية (والأشجار الإضافية) التي تستفيد أيضًا من الحوسبة المتوازية.
 
-- Better handling of numpy 1.9 deprecation warnings. By `Gael Varoquaux`_.
+- ملاءمة تدريجية لـ: class: `BernoulliRBM <neural_network.BernoulliRBM>`
 
-- Removed unnecessary data copy in :class:`cluster.KMeans`.
-  By `Gael Varoquaux`_.
+- تمت الإضافة: class: `cluster.AgglomerativeClustering` للتجمع الهرمي التجميعي مع استراتيجيات الربط المتوسطة والكاملة والوارد.
 
-- Explicitly close open files to avoid ``ResourceWarnings`` under Python 3.
-  By Calvin Giles.
+- تمت الإضافة: class: `linear_model.RANSACRegressor` لنماذج الانحدار القوية.
 
-- The ``transform`` of :class:`discriminant_analysis.LinearDiscriminantAnalysis`
-  now projects the input on the most discriminant directions. By Martin Billinger.
+- تمت إضافة خفض الأبعاد مع: class: `manifold.TSNE` والتي يمكن استخدامها لتصور البيانات عالية الأبعاد.
 
-- Fixed potential overflow in ``_tree.safe_realloc`` by `Lars Buitinck`_.
+سجل التغييرات
 
-- Performance optimization in :class:`isotonic.IsotonicRegression`.
-  By Robert Bradshaw.
+الميزات الجديدة
 
-- ``nose`` is non-longer a runtime dependency to import ``sklearn``, only for
-  running the tests. By `Joel Nothman`_.
+- تمت الإضافة: class: `ensemble.BaggingClassifier` و class: `ensemble.BaggingRegressor` meta-estimators لدمج أي نوع من المُقدِّر الأساسي. راجع قسم: ref: `Bagging <bagging>` في دليل المستخدم للحصول على التفاصيل والأمثلة. بواسطة `Gilles Louppe`_.
 
-- Many documentation and website fixes by `Joel Nothman`_, `Lars Buitinck`_
-  :user:`Matt Pico <MattpSoftware>`, and others.
+- خوارزمية اختيار الميزة غير الخاضعة للإشراف الجديدة: class: `feature_selection.VarianceThreshold`، بواسطة `Lars Buitinck`_.
 
-.. _changes_0_15_1:
+- تمت الإضافة: class: `linear_model.RANSACRegressor` meta-estimator للتناسب القوي لنماذج الانحدار. بواسطة: user: `Johannes Schönberger <ahojnnes>`.
 
-Version 0.15.1
-==============
+- تمت الإضافة: class: `cluster.AgglomerativeClustering` للتجمع الهرمي التجميعي مع استراتيجيات الربط المتوسطة والكاملة والوارد، بواسطة `Nelle Varoquaux`_ و`Gael Varoquaux`_.
 
-**August 1, 2014**
+- تمت إضافة برامج البناء المختصرة: func: `pipeline.make_pipeline` و func: `pipeline.make_union` بواسطة `Lars Buitinck`_.
 
-Bug fixes
----------
+- خيار الخلط لـ `cross_validation.StratifiedKFold`.
+  بواسطة: user: `Jeffrey Blackburne <jblackburne>`.
 
-- Made `cross_validation.cross_val_score` use
-  `cross_validation.KFold` instead of
-  `cross_validation.StratifiedKFold` on multi-output classification
-  problems. By :user:`Nikolay Mayorov <nmayorov>`.
+- التعلم التزايدي (``partial_fit``) لخوارزمية Naive Bayes الغاوسية بواسطة Imran Haque.
 
-- Support unseen labels :class:`preprocessing.LabelBinarizer` to restore
-  the default behavior of 0.14.1 for backward compatibility. By
-  :user:`Hamzeh Alsalhi <hamsal>`.
+- تمت الإضافة ``partial_fit`` إلى: class: `BernoulliRBM <neural_network.BernoulliRBM>`
+  بواسطة: user: `Danny Sullivan <dsullivan7>`.
 
-- Fixed the :class:`cluster.KMeans` stopping criterion that prevented early
-  convergence detection. By Edward Raff and `Gael Varoquaux`_.
+- تمت إضافة أداة `learning_curve` ل
+  رسم الأداء فيما يتعلق بحجم التدريب. راجع
+  :ref: `sphx_glr_auto_examples_model_selection_plot_learning_curve.py`. بواسطة Alexander Fabisch.
 
-- Fixed the behavior of :class:`multiclass.OneVsOneClassifier`.
-  in case of ties at the per-class vote level by computing the correct
-  per-class sum of prediction scores. By `Andreas Müller`_.
+- أضف الخيار الإيجابي في: class: `LassoCV <linear_model.LassoCV>` و
+  : class: `ElasticNetCV <linear_model.ElasticNetCV>`.
+  بواسطة Brian Wignall و`Alexandre Gramfort`_.
 
-- Made `cross_validation.cross_val_score` and
-  `grid_search.GridSearchCV` accept Python lists as input data.
-  This is especially useful for cross-validation and model selection of
-  text processing pipelines. By `Andreas Müller`_.
+- تمت الإضافة: class: `linear_model.MultiTaskElasticNetCV` و
+  : class: `linear_model.MultiTaskLassoCV`. بواسطة `Manoj Kumar`_.
 
-- Fixed data input checks of most estimators to accept input data that
-  implements the NumPy ``__array__`` protocol. This is the case for
-  for ``pandas.Series`` and ``pandas.DataFrame`` in recent versions of
-  pandas. By `Gael Varoquaux`_.
+- تمت الإضافة: class: `manifold.TSNE`. بواسطة Alexander Fabisch.
 
-- Fixed a regression for :class:`linear_model.SGDClassifier` with
-  ``class_weight="auto"`` on data with non-contiguous labels. By
-  `Olivier Grisel`_.
+التحسينات
 
+- أضف دعم الإدخال المتناثر إلى: class: `ensemble.AdaBoostClassifier` و
+  : class: `ensemble.AdaBoostRegressor` meta-estimators.
+  بواسطة: user: `Hamzeh Alsalhi <hamsal>`.
 
-.. _changes_0_15:
+- تحسينات الذاكرة لأشجار القرار، بواسطة `Arnaud Joly`_.
 
-Version 0.15
-============
+- يمكن الآن بناء أشجار القرار بطريقة أفضل أولاً عن طريق استخدام ``max_leaf_nodes``
+  كمعايير للتوقف. تمت إعادة تنظيم شفرة الشجرة لاستخدام المكدس أو طابور الأولوية لبناء الشجرة.
+  بواسطة `Peter Prettenhofer`_ و`Gilles Louppe`_.
 
-**July 15, 2014**
+- يمكن الآن تركيب أشجار القرار على صفائف على طراز Fortran وC،
+  والمصفوفات غير المستمرة دون الحاجة إلى إجراء نسخة.
+  إذا كان صفيف الإدخال له نوع بيانات مختلف عن ``np.float32``، فسيتم إجراء نسخة على طراز Fortran
+  نظرًا لأن تخطيط الذاكرة على طراز Fortran له مزايا السرعة. بواسطة `Peter Prettenhofer`_ و`Gilles Louppe`_.
 
-Highlights
------------
+- تحسين سرعة أشجار الانحدار عن طريق تحسين
+  حساب معيار متوسط ​​خطأ المربعات. أدى هذا إلى
+  تحسين سرعة الشجرة، والغابة، ووحدات البت في شجرة التدرج. بواسطة `Arnaud Joly`_
 
-- Many speed and memory improvements all across the code
+- الآن ``img_to_graph`` و ``grid_tograph`` الدالات في
+  : mod: `sklearn.feature_extraction.image` return ``np.ndarray``
+  بدلاً من ``np.matrix`` عند ``return_as=np.ndarray``.  راجع قسم الملاحظات للحصول على مزيد من المعلومات حول التوافق.
 
-- Huge speed and memory improvements to random forests (and extra
-  trees) that also benefit better from parallel computing.
+- تم تغيير التخزين الداخلي لأشجار القرار لاستخدام صفيف بنية.
+  هذا الإصلاح بعض الأخطاء الطفيفة، مع تحسين التعليمات البرمجية وتوفير مكسب سرعة صغير. بواسطة `Joel Nothman`_.
 
-- Incremental fit to :class:`BernoulliRBM <neural_network.BernoulliRBM>`
+- تقليل استخدام الذاكرة والعبء الزائد عند الملاءمة والتنبؤ بالغابات
+  من الأشجار العشوائية بالتوازي مع ``n_jobs! = 1`` عن طريق الاستفادة من backend الجديد
+  من joblib 0.8 وإطلاق GIL في شفرة Cython لتناسب الشجرة.  بواسطة `Olivier Grisel`_ و`Gilles Louppe`_.
 
-- Added :class:`cluster.AgglomerativeClustering` for hierarchical
-  agglomerative clustering with average linkage, complete linkage and
-  ward strategies.
+- تحسين السرعة في الوحدة النمطية `sklearn.ensemble.gradient_boosting`.
+  بواسطة `Gilles Louppe`_ و`Peter Prettenhofer`_.
 
-- Added :class:`linear_model.RANSACRegressor` for robust regression
-  models.
+- تحسينات مختلفة على الوحدة النمطية `sklearn.ensemble.gradient_boosting`
+  : حجة ``warm_start`` لتناسب الأشجار الإضافية،
+  حجة ``max_leaf_nodes`` لتناسب أشجار GBM،
+  حجة ``monitor`` fit لتفتيش المُقدِّر أثناء التدريب، وإعادة تنظيم شفرة واضحة. بواسطة `Peter Prettenhofer`_.
 
-- Added dimensionality reduction with :class:`manifold.TSNE` which can be
-  used to visualize high-dimensional data.
+- أسرع `sklearn.ensemble.ExtraTrees` عن طريق تخزين قيم الميزات المؤقتة.
+  بواسطة `Arnaud Joly`_.
 
+- خوارزمية بناء الأشجار الأسرع القائمة على العمق مثل شجرة القرار،
+  الغابة العشوائية، الأشجار الإضافية أو تعزيز شجرة التدرج (مع استراتيجية النمو القائمة على العمق)
+  عن طريق تجنب محاولة الانقسام على الميزات الثابتة الموجودة
+  في مجموعة العينات الفرعية. بواسطة `Arnaud Joly`_.
 
-Changelog
----------
+- أضف معلمة ``min_weight_fraction_leaf`` pre-pruning إلى الطرق القائمة على الشجرة:
+  كسر الوزن الأدنى لعينات الإدخال المطلوبة في عقدة ورقة. بواسطة `Noel Dawe`_.
 
-New features
-............
+- تمت الإضافة: func: `metrics.pairwise_distances_argmin_min`، بواسطة Philippe Gervais.
 
-- Added :class:`ensemble.BaggingClassifier` and
-  :class:`ensemble.BaggingRegressor` meta-estimators for ensembling
-  any kind of base estimator. See the :ref:`Bagging <bagging>` section of
-  the user guide for details and examples. By `Gilles Louppe`_.
+- تمت الإضافة: طريقة التنبؤ إلى: class: `cluster.AffinityPropagation` و
+  : class: `cluster.MeanShift`، بواسطة `Mathieu Blondel`_.
 
-- New unsupervised feature selection algorithm
-  :class:`feature_selection.VarianceThreshold`, by `Lars Buitinck`_.
+- تم تحسين عمليات الضرب المتجهي والمصفوفي في جميع أنحاء المكتبة
+  بواسطة `Denis Engemann`_، و`Alexandre Gramfort`_.
+  على وجه الخصوص، يجب أن تستهلك ذاكرة أقل مع إصدارات NumPy القديمة
+  (قبل 1.7.2).
 
-- Added :class:`linear_model.RANSACRegressor` meta-estimator for the robust
-  fitting of regression models. By :user:`Johannes Schönberger <ahojnnes>`.
+- أمثلة الدقة والاستدعاء الآن استخدام train_test_split، ولديها المزيد
+  شرح سبب فائدة هذه المقاييس. بواسطة `Kyle Kastner`_
 
-- Added :class:`cluster.AgglomerativeClustering` for hierarchical
-  agglomerative clustering with average linkage, complete linkage and
-  ward strategies, by  `Nelle Varoquaux`_ and `Gael Varoquaux`_.
+- خوارزمية التدريب لـ: class: `decomposition.NMF` أسرع للمصفوفات المتناثرة
+  ولديها تعقيد ذاكرة أقل بكثير، مما يعني أنه سيتم
+  زيادة النطاق بسلاسة إلى مجموعات بيانات كبيرة. بواسطة `Lars Buitinck`_.
 
-- Shorthand constructors :func:`pipeline.make_pipeline` and
-  :func:`pipeline.make_union` were added by `Lars Buitinck`_.
+- تمت الإضافة svd_method option مع القيمة الافتراضية إلى "randomized" إلى
+  : class: `decomposition.FactorAnalysis` لتوفير الذاكرة
+  تسريع الحساب بشكل كبير من قبل `Denis Engemann`_،
+  و`Alexandre Gramfort`_.
 
-- Shuffle option for `cross_validation.StratifiedKFold`.
-  By :user:`Jeffrey Blackburne <jblackburne>`.
+- تم تغيير `cross_validation.StratifiedKFold` لمحاولة
+  الحفاظ على أكبر قدر ممكن من الترتيب الأصلي للعينات حتى لا تخفي الإفراط في الملاءمة
+  على مجموعات البيانات التي تحتوي على مستوى غير تافه من
+  اعتماد العينات.
+  بواسطة `Daniel Nouri`_ و`Olivier Grisel`_.
 
-- Incremental learning (``partial_fit``) for Gaussian Naive Bayes by
-  Imran Haque.
+- أضف دعم الإخراج المتعدد إلى: class: `gaussian_process.GaussianProcessRegressor`
+  بواسطة John Novak.
 
-- Added ``partial_fit`` to :class:`BernoulliRBM
-  <neural_network.BernoulliRBM>`
-  By :user:`Danny Sullivan <dsullivan7>`.
+- دعم مصفوفات المسافة المحسوبة مسبقًا في أقرب جيران المُقدِّرين
+  بواسطة `Robert Layton`_ و`Joel Nothman`_.
 
-- Added `learning_curve` utility to
-  chart performance with respect to training size. See
-  :ref:`sphx_glr_auto_examples_model_selection_plot_learning_curve.py`. By Alexander Fabisch.
+- تم تحسين حسابات المعيار لـ NumPy 1.6 والإصدارات الأحدث بواسطة
+  `Lars Buitinck`_. على وجه الخصوص، لم تعد خوارزمية k-means بحاجة إلى
+  هيكل بيانات مؤقت بحجم الإدخال الخاص بها.
 
-- Add positive option in :class:`LassoCV <linear_model.LassoCV>` and
-  :class:`ElasticNetCV <linear_model.ElasticNetCV>`.
-  By Brian Wignall and `Alexandre Gramfort`_.
+- : class: `dummy.DummyClassifier` يمكن الآن استخدامه للتنبؤ بقيمة إخراج ثابتة. بواسطة `Manoj Kumar`_.
 
-- Added :class:`linear_model.MultiTaskElasticNetCV` and
-  :class:`linear_model.MultiTaskLassoCV`. By `Manoj Kumar`_.
+- : class: `dummy.DummyRegressor` لديه الآن معلمة استراتيجية والتي تسمح
+  للتنبؤ بالمتوسط، الوسيط لمجموعة التدريب أو
+  قيمة الإخراج الثابتة. بواسطة: user: `Maheshakya Wijewardena <maheshakya>`.
 
-- Added :class:`manifold.TSNE`. By Alexander Fabisch.
+- إخراج تصنيف التسميات المتعددة بتنسيق مؤشر التسميات المتعددة
+  الآن مدعوم من قبل: func: `metrics.roc_auc_score` و
+  : func: `metrics.average_precision_score` بواسطة `Arnaud Joly`_.
 
-Enhancements
-............
-
-- Add sparse input support to :class:`ensemble.AdaBoostClassifier` and
-  :class:`ensemble.AdaBoostRegressor` meta-estimators.
-  By :user:`Hamzeh Alsalhi <hamsal>`.
-
-- Memory improvements of decision trees, by `Arnaud Joly`_.
-
-- Decision trees can now be built in best-first manner by using ``max_leaf_nodes``
-  as the stopping criteria. Refactored the tree code to use either a
-  stack or a priority queue for tree building.
-  By `Peter Prettenhofer`_ and `Gilles Louppe`_.
-
-- Decision trees can now be fitted on fortran- and c-style arrays, and
-  non-continuous arrays without the need to make a copy.
-  If the input array has a different dtype than ``np.float32``, a fortran-
-  style copy will be made since fortran-style memory layout has speed
-  advantages. By `Peter Prettenhofer`_ and `Gilles Louppe`_.
-
-- Speed improvement of regression trees by optimizing the
-  the computation of the mean square error criterion. This lead
-  to speed improvement of the tree, forest and gradient boosting tree
-  modules. By `Arnaud Joly`_
-
-- The ``img_to_graph`` and ``grid_tograph`` functions in
-  :mod:`sklearn.feature_extraction.image` now return ``np.ndarray``
-  instead of ``np.matrix`` when ``return_as=np.ndarray``.  See the
-  Notes section for more information on compatibility.
-
-- Changed the internal storage of decision trees to use a struct array.
-  This fixed some small bugs, while improving code and providing a small
-  speed gain. By `Joel Nothman`_.
-
-- Reduce memory usage and overhead when fitting and predicting with forests
-  of randomized trees in parallel with ``n_jobs != 1`` by leveraging new
-  threading backend of joblib 0.8 and releasing the GIL in the tree fitting
-  Cython code.  By `Olivier Grisel`_ and `Gilles Louppe`_.
-
-- Speed improvement of the `sklearn.ensemble.gradient_boosting` module.
-  By `Gilles Louppe`_ and `Peter Prettenhofer`_.
-
-- Various enhancements to the `sklearn.ensemble.gradient_boosting`
-  module: a ``warm_start`` argument to fit additional trees,
-  a ``max_leaf_nodes`` argument to fit GBM style trees,
-  a ``monitor`` fit argument to inspect the estimator during training, and
-  refactoring of the verbose code. By `Peter Prettenhofer`_.
-
-- Faster `sklearn.ensemble.ExtraTrees` by caching feature values.
-  By `Arnaud Joly`_.
-
-- Faster depth-based tree building algorithm such as decision tree,
-  random forest, extra trees or gradient tree boosting (with depth based
-  growing strategy) by avoiding trying to split on found constant features
-  in the sample subset. By `Arnaud Joly`_.
-
-- Add ``min_weight_fraction_leaf`` pre-pruning parameter to tree-based
-  methods: the minimum weighted fraction of the input samples required to be
-  at a leaf node. By `Noel Dawe`_.
-
-- Added :func:`metrics.pairwise_distances_argmin_min`, by Philippe Gervais.
-
-- Added predict method to :class:`cluster.AffinityPropagation` and
-  :class:`cluster.MeanShift`, by `Mathieu Blondel`_.
-
-- Vector and matrix multiplications have been optimised throughout the
-  library by `Denis Engemann`_, and `Alexandre Gramfort`_.
-  In particular, they should take less memory with older NumPy versions
-  (prior to 1.7.2).
-
-- Precision-recall and ROC examples now use train_test_split, and have more
-  explanation of why these metrics are useful. By `Kyle Kastner`_
-
-- The training algorithm for :class:`decomposition.NMF` is faster for
-  sparse matrices and has much lower memory complexity, meaning it will
-  scale up gracefully to large datasets. By `Lars Buitinck`_.
-
-- Added svd_method option with default value to "randomized" to
-  :class:`decomposition.FactorAnalysis` to save memory and
-  significantly speedup computation by `Denis Engemann`_, and
-  `Alexandre Gramfort`_.
-
-- Changed `cross_validation.StratifiedKFold` to try and
-  preserve as much of the original ordering of samples as possible so as
-  not to hide overfitting on datasets with a non-negligible level of
-  samples dependency.
-  By `Daniel Nouri`_ and `Olivier Grisel`_.
-
-- Add multi-output support to :class:`gaussian_process.GaussianProcessRegressor`
-  by John Novak.
-
-- Support for precomputed distance matrices in nearest neighbor estimators
-  by `Robert Layton`_ and `Joel Nothman`_.
-
-- Norm computations optimized for NumPy 1.6 and later versions by
-  `Lars Buitinck`_. In particular, the k-means algorithm no longer
-  needs a temporary data structure the size of its input.
-
-- :class:`dummy.DummyClassifier` can now be used to predict a constant
-  output value. By `Manoj Kumar`_.
-
-- :class:`dummy.DummyRegressor` has now a strategy parameter which allows
-  to predict the mean, the median of the training set or a constant
-  output value. By :user:`Maheshakya Wijewardena <maheshakya>`.
-
-- Multi-label classification output in multilabel indicator format
-  is now supported by :func:`metrics.roc_auc_score` and
-  :func:`metrics.average_precision_score` by `Arnaud Joly`_.
-
-- Significant performance improvements (more than 100x speedup for
-  large problems) in :class:`isotonic.IsotonicRegression` by
+- تحسينات الأداء الكبيرة (أكثر من 100x تسريع للمشاكل الكبيرة) في
+  : class: `isotonic.IsotonicRegression` بواسطة
   `Andrew Tulloch`_.
 
-- Speed and memory usage improvements to the SGD algorithm for linear
-  models: it now uses threads, not separate processes, when ``n_jobs>1``.
-  By `Lars Buitinck`_.
+- تحسينات السرعة واستخدام الذاكرة لخوارزمية SGD للنماذج الخطية:
+  يستخدم الآن الخيوط، وليس العمليات المنفصلة، عندما ``n_jobs> 1``.
+  بواسطة `Lars Buitinck`_.
 
-- Grid search and cross validation allow NaNs in the input arrays so that
-  preprocessors such as `preprocessing.Imputer` can be trained within the cross
-  validation loop, avoiding potentially skewed results.
+- تسمح عمليات البحث الشبكي والتحقق من صحة متقاطعة بوجود NaNs في صفائف الإدخال حتى
+  يمكن تدريب المعالجات المسبقة مثل `preprocessing.Imputer` داخل حلقة التحقق من الصحة المتقاطعة،
+  تجنب النتائج المنحرفة المحتملة.
 
-- Ridge regression can now deal with sample weights in feature space
-  (only sample space until then). By :user:`Michael Eickenberg <eickenberg>`.
-  Both solutions are provided by the Cholesky solver.
+- يمكن الآن التعامل مع الانحدار الخطي مع أوزان العينات في مساحة الميزة
+  (مساحة العينة فقط حتى الآن). بواسطة: user: `Michael Eickenberg <eickenberg>`.
+  يوفر كل من حلول محدد Cholesky.
 
-- Several classification and regression metrics now support weighted
-  samples with the new ``sample_weight`` argument:
-  :func:`metrics.accuracy_score`,
-  :func:`metrics.zero_one_loss`,
-  :func:`metrics.precision_score`,
-  :func:`metrics.average_precision_score`,
-  :func:`metrics.f1_score`,
-  :func:`metrics.fbeta_score`,
-  :func:`metrics.recall_score`,
-  :func:`metrics.roc_auc_score`,
-  :func:`metrics.explained_variance_score`,
-  :func:`metrics.mean_squared_error`,
-  :func:`metrics.mean_absolute_error`,
-  :func:`metrics.r2_score`.
-  By `Noel Dawe`_.
+- تدعم العديد من مقاييس التصنيف والانحدار الآن العينات المرجحة مع
+  حجة "sample_weight" الجديدة:
+  : func: `metrics.accuracy_score`،
+  : func: `metrics.zero_one_loss`،
+  : func: `metrics.precision_score`،
+  : func: `metrics.average_precision_score`،
+  : func: `metrics.f1_score`،
+  : func: `metrics.fbeta_score`،
+  : func: `metrics.recall_score`،
+  : func:`metrics.roc_auc_score`،
+  : func: `metrics.explained_variance_score`،
+  : func: `metrics.mean_squared_error`،
+  : func: `metrics.mean_absolute_error`،
+  : func: `metrics.r2_score`.
+  بواسطة `Noel Dawe`_.
 
-- Speed up of the sample generator
-  :func:`datasets.make_multilabel_classification`. By `Joel Nothman`_.
+- تسريع مولد العينات
+  : func: `datasets.make_multilabel_classification`. بواسطة `Joel Nothman`_.
 
-Documentation improvements
-...........................
+تحسينات التوثيق
 
-- The Working With Text Data tutorial
-  has now been worked in to the main documentation's tutorial section.
-  Includes exercises and skeletons for tutorial presentation.
-  Original tutorial created by several authors including
-  `Olivier Grisel`_, Lars Buitinck and many others.
-  Tutorial integration into the scikit-learn documentation
-  by `Jaques Grobler`_
+- تمت إضافة البرنامج التعليمي "العمل باستخدام بيانات النص"
+  تم الآن دمجه في قسم البرنامج التعليمي للتوثيق الرئيسي.
+  يتضمن تمارين وهياكل عظمية لعرض البرنامج التعليمي.
+  تم إنشاء البرنامج التعليمي الأصلي بواسطة العديد من المؤلفين بما في ذلك
+  `Olivier Grisel`_، Lars Buitinck والعديد من الآخرين.
+  تكامل البرنامج التعليمي في وثائق scikit-learn
+  بواسطة `Jaques Grobler`_
 
-- Added :ref:`Computational Performance <computational_performance>`
-  documentation. Discussion and examples of prediction latency / throughput
-  and different factors that have influence over speed. Additional tips for
-  building faster models and choosing a relevant compromise between speed
-  and predictive power.
-  By :user:`Eustache Diemert <oddskool>`.
+- تمت الإضافة: ref: `Computational Performance <computational_performance>`
+  التوثيق. مناقشة وأمثلة عن الكمون التنبؤي / الإنتاجية
+  والعوامل المختلفة التي لها تأثير على السرعة. نصائح إضافية ل
+  بناء نماذج أسرع واختيار حل وسط ذي صلة بين السرعة والقوة التنبؤية.
+  بواسطة: user: `Eustache Diemert <oddskool>`.
 
-Bug fixes
-.........
+إصلاحات الأخطاء
 
-- Fixed bug in :class:`decomposition.MiniBatchDictionaryLearning` :
-  ``partial_fit`` was not working properly.
+- إصلاح الخطأ في: class: `decomposition.MiniBatchDictionaryLearning` :
+  لم يكن ``partial_fit`` يعمل بشكل صحيح.
 
-- Fixed bug in `linear_model.stochastic_gradient` :
-  ``l1_ratio`` was used as ``(1.0 - l1_ratio)`` .
+- إصلاح الخطأ في `linear_model.stochastic_gradient` :
+  تم استخدام ``l1_ratio`` كـ ``(1.0 - l1_ratio)`` .
 
-- Fixed bug in :class:`multiclass.OneVsOneClassifier` with string
-  labels
+- إصلاح الخطأ في: class: `multiclass.OneVsOneClassifier` مع التسميات التسلسلية
 
-- Fixed a bug in :class:`LassoCV <linear_model.LassoCV>` and
-  :class:`ElasticNetCV <linear_model.ElasticNetCV>`: they would not
-  pre-compute the Gram matrix with ``precompute=True`` or
-  ``precompute="auto"`` and ``n_samples > n_features``. By `Manoj Kumar`_.
+- إصلاح خطأ في: class: `LassoCV <linear_model.LassoCV>` و
+  : class: `ElasticNetCV <linear_model.ElasticNetCV>`: لن يتم
+  حساب مصفوفة غرام مسبقًا باستخدام ``precompute=True`` أو
+  ``precompute="auto"`` و ``n_samples> n_features``. بواسطة `Manoj Kumar`_.
 
-- Fixed incorrect estimation of the degrees of freedom in
-  :func:`feature_selection.f_regression` when variates are not centered.
-  By :user:`Virgile Fritsch <VirgileFritsch>`.
+- إصلاح تقدير غير صحيح لدرجات الحرية في
+  : func: `feature_selection.f_regression` عندما لا تكون المتغيرات ممركزة.
+  بواسطة: user: `Virgile Fritsch <VirgileFritsch>`.
 
-- Fixed a race condition in parallel processing with
-  ``pre_dispatch != "all"`` (for instance, in ``cross_val_score``).
-  By `Olivier Grisel`_.
+- إصلاح حالة سباق في المعالجة المتوازية مع
+  ``pre_dispatch! = "all"`` (على سبيل المثال، في ``cross_val_score``).
+  بواسطة `Olivier Grisel`_.
 
-- Raise error in :class:`cluster.FeatureAgglomeration` and
-  `cluster.WardAgglomeration` when no samples are given,
-  rather than returning meaningless clustering.
+- رفع الخطأ في: class: `cluster.FeatureAgglomeration` و
+  `cluster.WardAgglomeration` عندما لا يتم إعطاء أي عينات،
+  بدلاً من إرجاع التجميع عديم المعنى.
 
-- Fixed bug in `gradient_boosting.GradientBoostingRegressor` with
-  ``loss='huber'``: ``gamma`` might have not been initialized.
+- إصلاح الخطأ في `gradient_boosting.GradientBoostingRegressor` مع
+  ``loss='huber'``: ``gamma`` قد لا يتم تهيئتها.
 
-- Fixed feature importances as computed with a forest of randomized trees
-  when fit with ``sample_weight != None`` and/or with ``bootstrap=True``.
-  By `Gilles Louppe`_.
+- إصلاح أهمية الميزات كما تم حسابها مع غابة من الأشجار العشوائية
+  عند الملاءمة مع ``sample_weight! = None`` و/ أو مع ``bootstrap=True``.
+  بواسطة `Gilles Louppe`_.
 
-API changes summary
--------------------
+ملخص التغييرات في واجهة برمجة التطبيقات
+تم إهمال sklearn.hmm. ومن المقرر إزالته في الإصدار 0.17.
 
-- `sklearn.hmm` is deprecated. Its removal is planned
-  for the 0.17 release.
+- تم إزالة استخدام covariance.EllipticEnvelop بعد إهماله. يرجى استخدام covariance.EllipticEnvelope بدلاً من ذلك.
 
-- Use of `covariance.EllipticEnvelop` has now been removed after
-  deprecation.
-  Please use :class:`covariance.EllipticEnvelope` instead.
+- تم إهمال cluster.Ward. استخدم cluster.AgglomerativeClustering بدلاً من ذلك.
 
-- `cluster.Ward` is deprecated. Use
-  :class:`cluster.AgglomerativeClustering` instead.
+- تم إهمال cluster.WardClustering. استخدم cluster.AgglomerativeClustering بدلاً من ذلك.
 
-- `cluster.WardClustering` is deprecated. Use
-- :class:`cluster.AgglomerativeClustering` instead.
+- تم إهمال cross_validation.Bootstrap. يوصى باستخدام cross_validation.KFold أو cross_validation.ShuffleSplit بدلاً من ذلك.
 
-- `cross_validation.Bootstrap` is deprecated.
-  `cross_validation.KFold` or
-  `cross_validation.ShuffleSplit` are recommended instead.
+- تم إهمال الدعم المباشر لتنسيق التسميات المتعددة لتسلسل التسلسلات (أو قائمة القوائم). لتحويل إلى ومن تنسيق مصفوفة المؤشرات الثنائية المدعومة، استخدم preprocessing.MultiLabelBinarizer. بواسطة Joel Nothman.
 
-- Direct support for the sequence of sequences (or list of lists) multilabel
-  format is deprecated. To convert to and from the supported binary
-  indicator matrix format, use
-  :class:`preprocessing.MultiLabelBinarizer`.
-  By `Joel Nothman`_.
+- أضف طريقة التسجيل إلى decomposition.PCA باتباع نموذج PCA الاحتمالي وقم بإهمال نموذج ProbabilisticPCA الذي لا ينفذ التسجيل بشكل صحيح. كما يستغل الحساب الآن مبرهنة عكس المصفوفة للحصول على حساب أسرع. بواسطة Alexandre Gramfort.
 
-- Add score method to :class:`decomposition.PCA` following the model of
-  probabilistic PCA and deprecate
-  `ProbabilisticPCA` model whose
-  score implementation is not correct. The computation now also exploits the
-  matrix inversion lemma for faster computation. By `Alexandre Gramfort`_.
+- تعيد طريقة التسجيل في decomposition.FactorAnalysis الآن متوسط اللوغاريتم الاحتمالي للعينات. استخدم score_samples للحصول على اللوغاريتم الاحتمالي لكل عينة. بواسطة Alexandre Gramfort.
 
-- The score method of :class:`decomposition.FactorAnalysis`
-  now returns the average log-likelihood of the samples. Use score_samples
-  to get log-likelihood of each sample. By `Alexandre Gramfort`_.
+- تم إهمال إنشاء أقنعة منطقية (الإعداد "indices=False") من مولدات التقسيم الصحيحة. سيتم إزالة الدعم للأقنعة في الإصدار 0.17. تقوم المولدات بإرجاع مصفوفات من المؤشرات بشكل افتراضي منذ الإصدار 0.10. بواسطة Joel Nothman.
 
-- Generating boolean masks (the setting ``indices=False``)
-  from cross-validation generators is deprecated.
-  Support for masks will be removed in 0.17.
-  The generators have produced arrays of indices by default since 0.10.
-  By `Joel Nothman`_.
+- يتم الآن اعتبار المصفوفات أحادية البعد التي تحتوي على سلاسل مع dtype=object (كما هو مستخدم في Pandas) أهداف تصنيف صالحة. ويصلح هذا مشكلة تراجع في بعض التصنيفات منذ الإصدار 0.13. بواسطة Joel Nothman.
 
-- 1-d arrays containing strings with ``dtype=object`` (as used in Pandas)
-  are now considered valid classification targets. This fixes a regression
-  from version 0.13 in some classifiers. By `Joel Nothman`_.
+- إصلاح سمة "explained_variance_ratio_" الخاطئة في RandomizedPCA. بواسطة Alexandre Gramfort.
 
-- Fix wrong ``explained_variance_ratio_`` attribute in
-  `RandomizedPCA`.
-  By `Alexandre Gramfort`_.
+- ضبط المعاملات alpha لكل نسبة l1_ratio بدلاً من mean_l1_ratio في linear_model.ElasticNetCV وlinear_model.LassoCV. يغير هذا شكل "alphas_" من "(n_alphas,)" إلى "(n_l1_ratio, n_alphas)" إذا كان "l1_ratio" المقدم عبارة عن كائن شبيه بالمصفوفة أحادية البعد بطول أكبر من واحد. بواسطة Manoj Kumar.
 
-- Fit alphas for each ``l1_ratio`` instead of ``mean_l1_ratio`` in
-  :class:`linear_model.ElasticNetCV` and :class:`linear_model.LassoCV`.
-  This changes the shape of ``alphas_`` from ``(n_alphas,)`` to
-  ``(n_l1_ratio, n_alphas)`` if the ``l1_ratio`` provided is a 1-D array like
-  object of length greater than one.
-  By `Manoj Kumar`_.
+- إصلاح linear_model.ElasticNetCV وlinear_model.LassoCV عند ضبط المعامل وتكون بيانات الإدخال متفرقة. لم يتم حساب الشبكة التلقائية للمعاملات alpha بشكل صحيح وكان التقييم مع normalize خاطئًا. بواسطة Manoj Kumar.
 
-- Fix :class:`linear_model.ElasticNetCV` and :class:`linear_model.LassoCV`
-  when fitting intercept and input data is sparse. The automatic grid
-  of alphas was not computed correctly and the scaling with normalize
-  was wrong. By `Manoj Kumar`_.
+- إصلاح العدد الأقصى الخاطئ للميزات المحددة (max_features) في كل انقسام لأشجار القرار والغابات العشوائية وتعزيز شجرة التدرج. في السابق، بدأ العد للميزات المحددة فقط بعد ميزة غير ثابتة واحدة في الانقسام. سيؤثر إصلاح هذا الخطأ على الأداء الحسابي وأداء التعميم لهذه الخوارزميات في وجود ميزات ثابتة. لإعادة أداء التعميم السابق، يجب تعديل قيمة max_features. بواسطة Arnaud Joly.
 
-- Fix wrong maximal number of features drawn (``max_features``) at each split
-  for decision trees, random forests and gradient tree boosting.
-  Previously, the count for the number of drawn features started only after
-  one non constant features in the split. This bug fix will affect
-  computational and generalization performance of those algorithms in the
-  presence of constant features. To get back previous generalization
-  performance, you should modify the value of ``max_features``.
-  By `Arnaud Joly`_.
+- إصلاح العدد الأقصى الخاطئ للميزات المحددة (max_features) في كل انقسام لـ ensemble.ExtraTreesClassifier وensemble.ExtraTreesRegressor. في السابق، كان يتم حساب الميزات غير الثابتة فقط في الانقسام على أنها محددة. الآن يتم حساب الميزات الثابتة على أنها محددة. علاوة على ذلك، يجب أن تكون هناك ميزة واحدة على الأقل غير ثابتة لإجراء انقسام صالح. سيؤثر إصلاح هذا الخطأ على الأداء الحسابي وأداء التعميم لأشجار إضافية في وجود ميزات ثابتة. لإعادة أداء التعميم السابق، يجب تعديل قيمة max_features. بواسطة Arnaud Joly.
 
-- Fix wrong maximal number of features drawn (``max_features``) at each split
-  for :class:`ensemble.ExtraTreesClassifier` and
-  :class:`ensemble.ExtraTreesRegressor`. Previously, only non constant
-  features in the split was counted as drawn. Now constant features are
-  counted as drawn. Furthermore at least one feature must be non constant
-  in order to make a valid split. This bug fix will affect
-  computational and generalization performance of extra trees in the
-  presence of constant features. To get back previous generalization
-  performance, you should modify the value of ``max_features``.
-  By `Arnaud Joly`_.
+- إصلاح utils.class_weight.compute_class_weight عندما يكون class_weight="auto". في السابق، كان معطوبًا لإدخال dtype غير صحيح، وكانت المصفوفة المرجحة التي تم إرجاعها خاطئة. بواسطة Manoj Kumar.
 
-- Fix :func:`utils.class_weight.compute_class_weight` when ``class_weight=="auto"``.
-  Previously it was broken for input of non-integer ``dtype`` and the
-  weighted array that was returned was wrong. By `Manoj Kumar`_.
+- إصلاح cross_validation.Bootstrap لإرجاع ValueError عندما تكون n_train + n_test > n. بواسطة Ronald Phlypo.
 
-- Fix `cross_validation.Bootstrap` to return ``ValueError``
-  when ``n_train + n_test > n``. By :user:`Ronald Phlypo <rphlypo>`.
-
-
-People
+الأشخاص
 ------
 
-List of contributors for release 0.15 by number of commits.
+قائمة المساهمين في الإصدار 0.15 حسب عدد الالتزامات.
 
-* 312	Olivier Grisel
-* 275	Lars Buitinck
-* 221	Gael Varoquaux
-* 148	Arnaud Joly
-* 134	Johannes Schönberger
-* 119	Gilles Louppe
-* 113	Joel Nothman
-* 111	Alexandre Gramfort
-*  95	Jaques Grobler
-*  89	Denis Engemann
-*  83	Peter Prettenhofer
-*  83	Alexander Fabisch
-*  62	Mathieu Blondel
-*  60	Eustache Diemert
-*  60	Nelle Varoquaux
-*  49	Michael Bommarito
-*  45	Manoj-Kumar-S
-*  28	Kyle Kastner
-*  26	Andreas Mueller
-*  22	Noel Dawe
-*  21	Maheshakya Wijewardena
-*  21	Brooke Osborn
-*  21	Hamzeh Alsalhi
-*  21	Jake VanderPlas
-*  21	Philippe Gervais
-*  19	Bala Subrahmanyam Varanasi
-*  12	Ronald Phlypo
-*  10	Mikhail Korobov
-*   8	Thomas Unterthiner
-*   8	Jeffrey Blackburne
+* 312	أوليفييه جريسيل
+* 275	لارس فيتنيك
+* 221	غايل فاروكو
+* 148	أرنو جولي
+* 134	يوهانس شونبرجر
+* 119	جيلز لوب
+* 113	جويل نوثمان
+* 111	ألكسندر جرامفورت
+*  95	جايك جروبلر
+*  89	دينيس إنجيمان
+*  83	بيتر بريتنهوفر
+*  83	ألكسندر فابيش
+*  62	ماثيو بلونديل
+*  60	يوستاش ديمرت
+*  60	نيل فاروكو
+*  49	مايكل بوماريتو
+*  45	مانوج كومار
+*  28	كايل كاستنر
+*  26	أندرياس مولر
+*  22	نويل داو
+*  21	ماهيشاكيا ويجيواردينا
+*  21	بروك أوزبورن
+*  21	حمزة الصالحي
+*  21	جيك فانديربلاس
+*  21	فيليب جيرفيس
+*  19	بالا سوبراهمانيان فاراناسي
+*  12	رونالد فلايبو
+*  10	ميخائيل كوروبوف
+*   8	توماس أونترثينر
+*   8	جيفري بلاكبيرن
 *   8	eltermann
 *   8	bwignall
-*   7	Ankit Agrawal
-*   7	CJ Carey
-*   6	Daniel Nouri
-*   6	Chen Liu
-*   6	Michael Eickenberg
+*   7	أنكيت أغروال
+*   7	سي جيه كاري
+*   6	دانيال نوري
+*   6	تشين ليو
+*   6	مايكل إيكنبرغ
 *   6	ugurthemaster
-*   5	Aaron Schumacher
-*   5	Baptiste Lagarde
-*   5	Rajat Khanduja
-*   5	Robert McGibbon
-*   5	Sergio Pascual
-*   4	Alexis Metaireau
-*   4	Ignacio Rossi
-*   4	Virgile Fritsch
-*   4	Sebastian Säger
-*   4	Ilambharathi Kanniah
+*   5	آرون شوماخر
+*   5	بابتست لاجارد
+*   5	راجات خاندوجا
+*   5	روبرت ماكجيبون
+*   5	سيرجيو باسكوال
+*   4	ألكسيس ميتيريو
+*   4	إجناسيو روسي
+*   4	فيرجيل فيرتش
+*   4	سيباستيان سيجر
+*   4	إيلامبهاراتي كانياه
 *   4	sdenton4
-*   4	Robert Layton
-*   4	Alyssa
-*   4	Amos Waterland
-*   3	Andrew Tulloch
+*   4	روبرت لايتون
+*   4	أليسا
+*   4	آموس وترلاند
+*   3	أندرو تولوتش
 *   3	murad
-*   3	Steven Maude
-*   3	Karol Pysniak
-*   3	Jacques Kvam
+*   3	ستيفن مود
+*   3	كارول بيسنياك
+*   3	جاكيس كفام
 *   3	cgohlke
 *   3	cjlin
-*   3	Michael Becker
+*   3	مايكل بيكر
 *   3	hamzeh
-*   3	Eric Jacobsen
-*   3	john collins
+*   3	إريك جاكوبسن
+*   3	جون كولينز
 *   3	kaushik94
-*   3	Erwin Marsi
+*   3	إروين مارسي
 *   2	csytracy
 *   2	LK
-*   2	Vlad Niculae
-*   2	Laurent Direr
-*   2	Erik Shilts
-*   2	Raul Garreta
-*   2	Yoshiki Vázquez Baeza
-*   2	Yung Siang Liau
-*   2	abhishek thakur
-*   2	James Yu
-*   2	Rohit Sivaprasad
-*   2	Roland Szabo
+*   2	فلاد نيكولاي
+*   2	لوران ديرير
+*   2	إريك شيلتس
+*   2	راؤول جاريتا
+*   2	يوشيكي فاسكيز بايزا
+*   2	يونغ سيانج لياو
+*   2	أبهيشيك ثاكور
+*   2	جيمس يو
+*   2	روهيت سيفابراساد
+*   2	رولاند زابو
 *   2	amormachine
-*   2	Alexis Mignon
-*   2	Oscar Carlsson
-*   2	Nantas Nardelli
+*   2	ألكسيس مينيون
+*   2	أوسكار كارلسون
+*   2	نانتاس نارديلي
 *   2	jess010
 *   2	kowalski87
-*   2	Andrew Clegg
-*   2	Federico Vaggi
-*   2	Simon Frid
-*   2	Félix-Antoine Fortin
-*   1	Ralf Gommers
+*   2	أندرو كليغ
+*   2	فيديريكو فاجي
+*   2	سايمون فريد
+*   2	فيليكس-أنتوان فورتين
+*   1	رالف جومورز
 *   1	t-aft
-*   1	Ronan Amicel
-*   1	Rupesh Kumar Srivastava
-*   1	Ryan Wang
-*   1	Samuel Charron
-*   1	Samuel St-Jean
-*   1	Fabian Pedregosa
-*   1	Skipper Seabold
-*   1	Stefan Walk
-*   1	Stefan van der Walt
-*   1	Stephan Hoyer
-*   1	Allen Riddell
-*   1	Valentin Haenel
-*   1	Vijay Ramesh
-*   1	Will Myers
-*   1	Yaroslav Halchenko
-*   1	Yoni Ben-Meshulam
-*   1	Yury V. Zaytsev
+*   1	رونان أميسيل
+*   1	روبنس كومار سريفاستافا
+*   1	ريان وانج
+*   1	صموئيل شارون
+*   1	صموئيل سانت-جين
+*   1	فابيان بيدريجوسا
+*   1	سكيبير سيبولد
+*   1	ستيفان ووك
+*   1	ستيفان فان دير والت
+*   1	ستيفان هوير
+*   1	ألين ريديل
+*   1	فالنتين هينيل
+*   1	فيجاي راميش
+*   1	ويل مايرز
+*   1	ياروسلاف هالنكو
+*   1	يوني بن-ميشولام
+*   1	يوري في. زايتسيف
 *   1	adrinjalali
 *   1	ai8rahim
 *   1	alemagnani
-*   1	alex
-*   1	benjamin wilson
+*   1	أليكس
+*   1	بنجامين ويلسون
 *   1	chalmerlowe
 *   1	dzikie drożdże
 *   1	jamestwebber
 *   1	matrixorz
 *   1	popo
 *   1	samuela
-*   1	François Boulogne
-*   1	Alexander Measure
-*   1	Ethan White
-*   1	Guilherme Trein
-*   1	Hendrik Heuer
-*   1	IvicaJovic
-*   1	Jan Hendrik Metzen
-*   1	Jean Michel Rouly
-*   1	Eduardo Ariño de la Rubia
-*   1	Jelle Zijlstra
-*   1	Eddy L O Jansson
-*   1	Denis
-*   1	John
-*   1	John Schmidt
-*   1	Jorge Cañardo Alastuey
-*   1	Joseph Perla
-*   1	Joshua Vredevoogd
-*   1	José Ricardo
-*   1	Julien Miotte
-*   1	Kemal Eren
-*   1	Kenta Sato
-*   1	David Cournapeau
-*   1	Kyle Kelley
-*   1	Daniele Medri
-*   1	Laurent Luce
-*   1	Laurent Pierron
-*   1	Luis Pedro Coelho
-*   1	DanielWeitzenfeld
-*   1	Craig Thompson
-*   1	Chyi-Kwei Yau
-*   1	Matthew Brett
-*   1	Matthias Feurer
-*   1	Max Linke
-*   1	Chris Filo Gorgolewski
-*   1	Charles Earl
-*   1	Michael Hanke
-*   1	Michele Orrù
-*   1	Bryan Lunt
-*   1	Brian Kearns
-*   1	Paul Butler
-*   1	Paweł Mandera
-*   1	Peter
-*   1	Andrew Ash
-*   1	Pietro Zambelli
+*   1	فرانسوا بولوني
+*   1	ألكسندر ميسور
+*   1	إيثان وايت
+*   1	جواو تريند
+*   1	هندريك هوير
+*   1	إيفيكا يوفيتش
+*   1	جان هندريك ميتزن
+*   1	جان ميشيل رولي
+*   1	إدواردو أري نو دي لا روبيا
+*   1	جيله زيلسترا
+*   1	إدي إل أو جانسون
+*   1	دينيس
+*   1	جون
+*   1	جون شميت
+*   1	خورخي كاناردو ألاستو
+*   1	جوزيف بيرلا
+*   1	جوشوا فرديفوجت
+*   1	خوسيه ريكاردو
+*   1	جوليان ميوت
+*   1	كمال إرين
+*   1	كيتا ساتو
+*   1	ديفيد كورنايبو
+*   1	كايل كيلي
+*   1	دانييلي ميدري
+*   1	لوران لوس
+*   1	لوران بييرون
+*   1	لويس بيدرو كويلهو
+*   1	دانييل ويتزينفيلد
+*   1	كريج تومسون
+*   1	تشيي-كوي ياو
+*   1	ماثيو بريت
+*   1	ماتياس فيورر
+*   1	ماكس لينك
+*   1	كريس فيلو جورجلزفسكي
+*   1	تشارلز إيرل
+*   1	مايكل هانك
+*   1	ميشيل أور
+*   1	برايان لونت
+*   1	برايان كيرنز
+*   1	بول بتلر
+*   1	باويل مانديرا
+*   1	بيتر
+*   1	أندرو آش
+*   1	بيترو زامبيلي
 *   1	staubda
