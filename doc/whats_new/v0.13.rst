@@ -1,396 +1,255 @@
-.. include:: _contributors.rst
+الإصدار 0.13.1
+~~~~~~~~~~~~~~
 
-.. currentmodule:: sklearn
+**23 فبراير 2013**
 
-============
-Version 0.13
-============
+يصلح إصدار 0.13.1 بعض الأخطاء فقط ولا يضيف أي وظائف جديدة.
 
-.. _changes_0_13_1:
+سجل التغييرات
++++++++++++++
 
-Version 0.13.1
-==============
+- تم إصلاح خطأ في الاختبار ناتج عن تفسير دالة ``cross_validation.train_test_split`` على أنها اختبار بواسطة `Yaroslav Halchenko`_.
 
-**February 23, 2013**
+- تم إصلاح خطأ في إعادة تعيين المجموعات الصغيرة في :class:`cluster.MiniBatchKMeans` بواسطة `Gael Varoquaux`_.
 
-The 0.13.1 release only fixes some bugs and does not add any new functionality.
+- تم إصلاح القيمة الافتراضية لـ ``gamma`` في :class:`decomposition.KernelPCA` بواسطة `Lars Buitinck`_.
 
-Changelog
----------
+- تم تحديث joblib إلى الإصدار ``0.7.0d`` بواسطة `Gael Varoquaux`_.
 
-- Fixed a testing error caused by the function `cross_validation.train_test_split` being
-  interpreted as a test by `Yaroslav Halchenko`_.
+- تم إصلاح عملية قياس الانحراف في :class:`ensemble.GradientBoostingClassifier` بواسطة `Peter Prettenhofer`_.
 
-- Fixed a bug in the reassignment of small clusters in the :class:`cluster.MiniBatchKMeans`
-  by `Gael Varoquaux`_.
+- تم تحسين كسر التعادل في :class:`multiclass.OneVsOneClassifier` بواسطة `Andreas Müller`_.
 
-- Fixed default value of ``gamma`` in :class:`decomposition.KernelPCA` by `Lars Buitinck`_.
+- تحسينات طفيفة أخرى على الاختبارات والتوثيق.
 
-- Updated joblib to ``0.7.0d`` by `Gael Varoquaux`_.
-
-- Fixed scaling of the deviance in :class:`ensemble.GradientBoostingClassifier` by `Peter Prettenhofer`_.
-
-- Better tie-breaking in :class:`multiclass.OneVsOneClassifier` by `Andreas Müller`_.
-
-- Other small improvements to tests and documentation.
-
-People
-------
-List of contributors for release 0.13.1 by number of commits.
+الأشخاص
+++++++++
+قائمة المساهمين في الإصدار 0.13.1 حسب عدد الالتزامات.
 
 * 16  `Lars Buitinck`_
 * 12  `Andreas Müller`_
-*  8  `Gael Varoquaux`_
-*  5  Robert Marchman
-*  3  `Peter Prettenhofer`_
-*  2  Hrishikesh Huilgolkar
-*  1  Bastiaan van den Berg
-*  1  Diego Molla
-*  1  `Gilles Louppe`_
-*  1  `Mathieu Blondel`_
-*  1  `Nelle Varoquaux`_
-*  1  Rafael Cunha de Almeida
-*  1  Rolando Espinoza La fuente
-*  1  `Vlad Niculae`_
-*  1  `Yaroslav Halchenko`_
+* 8  `Gael Varoquaux`_
+* 5  Robert Marchman
+* 3  `Peter Prettenhofer`_
+* 2  Hrishikesh Huilgolkar
+* 1  Bastiaan van den Berg
+* 1  Diego Molla
+* 1  `Gilles Louppe`_
+* 1  `Mathieu Blondel`_
+* 1  `Nelle Varoquaux`_
+* 1  Rafael Cunha de Almeida
+* 1  Rolando Espinoza La fuente
+* 1  `Vlad Niculae`_
+* 1  `Yaroslav Halchenko`_
 
+الإصدار 0.13
+~~~~~~~~~~~~
 
-.. _changes_0_13:
+هذا هو الإصدار الأول من Scikit-learn الذي يتضمن تغييرات كبيرة. لقد تم توثيق معظمها في `دليل ترحيل الإصدار 0.13`_، ولكن تم أيضًا توضيح بعضها أدناه.
 
-Version 0.13
-============
+.. _`دليل ترحيل الإصدار 0.13`: http://scikit-learn.org/stable/whats_new.html#version-0-13
+**21 يناير 2013**
 
-**January 21, 2013**
-
-New Estimator Classes
+فئات المُقدر الجديدة
 ---------------------
 
-- :class:`dummy.DummyClassifier` and :class:`dummy.DummyRegressor`, two
-  data-independent predictors by `Mathieu Blondel`_. Useful to sanity-check
-  your estimators. See :ref:`dummy_estimators` in the user guide.
-  Multioutput support added by `Arnaud Joly`_.
+- :class:`dummy.DummyClassifier` و :class:`dummy.DummyRegressor`، مُقدِّران مستقلان عن البيانات بواسطة `Mathieu Blondel`_. مفيدة لاختبار سلامة مُقدِّراتك. راجع :ref:`dummy_estimators` في دليل المستخدم. تمت إضافة دعم الإخراج المتعدد بواسطة `Arnaud Joly`_.
 
-- :class:`decomposition.FactorAnalysis`, a transformer implementing the
-  classical factor analysis, by `Christian Osendorfer`_ and `Alexandre
-  Gramfort`_. See :ref:`FA` in the user guide.
+- :class:`decomposition.FactorAnalysis`، محوِّل ينفذ تحليل العوامل الكلاسيكي، بواسطة `Christian Osendorfer`_ و `Alexandre Gramfort`_. راجع :ref:`FA` في دليل المستخدم.
 
-- :class:`feature_extraction.FeatureHasher`, a transformer implementing the
-  "hashing trick" for fast, low-memory feature extraction from string fields
-  by `Lars Buitinck`_ and :class:`feature_extraction.text.HashingVectorizer`
-  for text documents by `Olivier Grisel`_  See :ref:`feature_hashing` and
-  :ref:`hashing_vectorizer` for the documentation and sample usage.
+- :class:`feature_extraction.FeatureHasher`، محوِّل ينفذ "خدعة التجزئة" للاستخراج السريع والمُقتصد للذاكرة للميزات من الحقول النصية بواسطة `Lars Buitinck`_ و :class:`feature_extraction.text.HashingVectorizer` لوثائق النص بواسطة `Olivier Grisel`_ راجع :ref:`feature_hashing` و :ref:`hashing_vectorizer` للاطلاع على الوثائق والاستخدام النموذجي.
 
-- :class:`pipeline.FeatureUnion`, a transformer that concatenates
-  results of several other transformers by `Andreas Müller`_. See
-  :ref:`feature_union` in the user guide.
+- :class:`pipeline.FeatureUnion`، محوِّل يقوم بدمج نتائج العديد من المحولات الأخرى بواسطة `Andreas Müller`_. راجع :ref:`feature_union` في دليل المستخدم.
 
-- :class:`random_projection.GaussianRandomProjection`,
-  :class:`random_projection.SparseRandomProjection` and the function
-  :func:`random_projection.johnson_lindenstrauss_min_dim`. The first two are
-  transformers implementing Gaussian and sparse random projection matrix
-  by `Olivier Grisel`_ and `Arnaud Joly`_.
-  See :ref:`random_projection` in the user guide.
+- :class:`random_projection.GaussianRandomProjection`، :class:`random_projection.SparseRandomProjection` ووظيفة :func:`random_projection.johnson_lindenstrauss_min_dim`. الأولان هما محوِّلان ينفذان مصفوفة الإسقاط العشوائي الغاوسي والمُبعثر بواسطة `Olivier Grisel`_ و `Arnaud Joly`_. راجع :ref:`random_projection` في دليل المستخدم.
 
-- :class:`kernel_approximation.Nystroem`, a transformer for approximating
-  arbitrary kernels by `Andreas Müller`_. See
-  :ref:`nystroem_kernel_approx` in the user guide.
+- :class:`kernel_approximation.Nystroem`، محوِّل لتقريب النواة التعسفية بواسطة `Andreas Müller`_. راجع :ref:`nystroem_kernel_approx` في دليل المستخدم.
 
-- :class:`preprocessing.OneHotEncoder`, a transformer that computes binary
-  encodings of categorical features by `Andreas Müller`_. See
-  :ref:`preprocessing_categorical_features` in the user guide.
+- :class:`preprocessing.OneHotEncoder`، محوِّل يحسب الترميزات الثنائية للميزات الفئوية بواسطة `Andreas Müller`_. راجع :ref:`preprocessing_categorical_features` في دليل المستخدم.
 
-- :class:`linear_model.PassiveAggressiveClassifier` and
-  :class:`linear_model.PassiveAggressiveRegressor`, predictors implementing
-  an efficient stochastic optimization for linear models by `Rob Zinkov`_ and
-  `Mathieu Blondel`_. See :ref:`passive_aggressive` in the user
-  guide.
+- :class:`linear_model.PassiveAggressiveClassifier` و :class:`linear_model.PassiveAggressiveRegressor`، مُقدِّرات تنفذ تحسينًا احتماليًا فعالًا للنماذج الخطية بواسطة `Rob Zinkov`_ و `Mathieu Blondel`_. راجع :ref:`passive_aggressive` في دليل المستخدم.
 
-- :class:`ensemble.RandomTreesEmbedding`, a transformer for creating high-dimensional
-  sparse representations using ensembles of totally random trees by  `Andreas Müller`_.
-  See :ref:`random_trees_embedding` in the user guide.
+- :class:`ensemble.RandomTreesEmbedding`، محوِّل لإنشاء تمثيلات مُبعثرة عالية الأبعاد باستخدام مجموعات من الأشجار العشوائية تمامًا بواسطة `Andreas Müller`_. راجع :ref:`random_trees_embedding` في دليل المستخدم.
 
-- :class:`manifold.SpectralEmbedding` and function
-  :func:`manifold.spectral_embedding`, implementing the "laplacian
-  eigenmaps" transformation for non-linear dimensionality reduction by Wei
-  Li. See :ref:`spectral_embedding` in the user guide.
+- :class:`manifold.SpectralEmbedding` ووظيفة :func:`manifold.spectral_embedding`، التي تنفذ تحويل "خرائط لابلاسيان" للاختزال غير الخطي للأبعاد بواسطة Wei Li. راجع :ref:`spectral_embedding` في دليل المستخدم.
 
-- :class:`isotonic.IsotonicRegression` by `Fabian Pedregosa`_, `Alexandre Gramfort`_
-  and `Nelle Varoquaux`_,
+- :class:`isotonic.IsotonicRegression` بواسطة `Fabian Pedregosa`_، `Alexandre Gramfort`_ و `Nelle Varoquaux`_،
 
-
-Changelog
+سجل التغييرات
 ---------
 
-- :func:`metrics.zero_one_loss` (formerly ``metrics.zero_one``) now has
-  option for normalized output that reports the fraction of
-  misclassifications, rather than the raw number of misclassifications. By
-  Kyle Beauchamp.
+- :func:`metrics.zero_one_loss` (كان يُسمى سابقًا ``metrics.zero_one``) لديه الآن خيار للناتج المعياري الذي يُبلغ عن نسبة التصنيفات الخاطئة، بدلاً من العدد الخام للتصنيفات الخاطئة. بواسطة Kyle Beauchamp.
 
-- :class:`tree.DecisionTreeClassifier` and all derived ensemble models now
-  support sample weighting, by `Noel Dawe`_  and `Gilles Louppe`_.
+- :class:`tree.DecisionTreeClassifier` وجميع نماذج المجوعة المشتقة تدعم الآن ترجيح العينات، بواسطة `Noel Dawe`_ و `Gilles Louppe`_.
 
-- Speedup improvement when using bootstrap samples in forests of randomized
-  trees, by `Peter Prettenhofer`_  and `Gilles Louppe`_.
+- تحسين السرعة عند استخدام عينات التمهيد في غابات الأشجار العشوائية، بواسطة `Peter Prettenhofer`_ و `Gilles Louppe`_.
 
-- Partial dependence plots for :ref:`gradient_boosting` in
-  `ensemble.partial_dependence.partial_dependence` by `Peter
-  Prettenhofer`_. See :ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py` for an
-  example.
+- مخططات التبعية الجزئية لـ :ref:`gradient_boosting` في `ensemble.partial_dependence.partial_dependence` بواسطة `Peter Prettenhofer`_. راجع :ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py` لمثال.
 
-- The table of contents on the website has now been made expandable by
-  `Jaques Grobler`_.
+- تم الآن توسيع جدول المحتويات على الموقع بواسطة `Jaques Grobler`_.
 
-- :class:`feature_selection.SelectPercentile` now breaks ties
-  deterministically instead of returning all equally ranked features.
+- :class:`feature_selection.SelectPercentile` يكسر الآن التعادل بشكل حاسم بدلاً من إرجاع جميع الميزات ذات الترتيب المتساوي.
 
-- :class:`feature_selection.SelectKBest` and
-  :class:`feature_selection.SelectPercentile` are more numerically stable
-  since they use scores, rather than p-values, to rank results. This means
-  that they might sometimes select different features than they did
-  previously.
+- :class:`feature_selection.SelectKBest` و :class:`feature_selection.SelectPercentile` أكثر استقرارًا من الناحية العددية لأنهما يستخدمان الدرجات، بدلاً من القيم الاحتمالية، لترتيب النتائج. وهذا يعني أنها قد تختار في بعض الأحيان ميزات مختلفة عما كانت عليه في السابق.
 
-- Ridge regression and ridge classification fitting with ``sparse_cg`` solver
-  no longer has quadratic memory complexity, by `Lars Buitinck`_ and
-  `Fabian Pedregosa`_.
+- لم يعد الانحدار والتصنيف الضمني باستخدام مُحسِّن ``sparse_cg`` لهما تعقيد ذاكري تربيعي، بواسطة `Lars Buitinck`_ و `Fabian Pedregosa`_.
 
-- Ridge regression and ridge classification now support a new fast solver
-  called ``lsqr``, by `Mathieu Blondel`_.
+- الانحدار والتصنيف الضمني يدعمان الآن مُحسِّنًا سريعًا جديدًا يسمى ``lsqr``، بواسطة `Mathieu Blondel`_.
 
-- Speed up of :func:`metrics.precision_recall_curve` by Conrad Lee.
+- تسريع :func:`metrics.precision_recall_curve` بواسطة Conrad Lee.
 
-- Added support for reading/writing svmlight files with pairwise
-  preference attribute (qid in svmlight file format) in
-  :func:`datasets.dump_svmlight_file` and
-  :func:`datasets.load_svmlight_file` by `Fabian Pedregosa`_.
+- تمت إضافة دعم لقراءة/كتابة ملفات svmlight مع سمة التفضيل الزوجي (qid في تنسيق ملف svmlight) في :func:`datasets.dump_svmlight_file` و :func:`datasets.load_svmlight_file` بواسطة `Fabian Pedregosa`_.
 
-- Faster and more robust :func:`metrics.confusion_matrix` and
-  :ref:`clustering_evaluation` by Wei Li.
+- :func:`metrics.confusion_matrix` و :ref:`clustering_evaluation` أسرع وأكثر متانة بواسطة Wei Li.
 
-- `cross_validation.cross_val_score` now works with precomputed kernels
-  and affinity matrices, by `Andreas Müller`_.
+- `cross_validation.cross_val_score` يعمل الآن مع نوى مُسبقة الحساب ومصفوفات التشابه، بواسطة `Andreas Müller`_.
 
-- LARS algorithm made more numerically stable with heuristics to drop
-  regressors too correlated as well as to stop the path when
-  numerical noise becomes predominant, by `Gael Varoquaux`_.
+- جعل خوارزمية LARS أكثر استقرارًا من الناحية العددية باستخدام قواعد لحذف المُتوقعين المترابطين للغاية وكذلك لإيقاف المسار عندما يصبح الضجيج العددي سائدًا، بواسطة `Gael Varoquaux`_.
 
-- Faster implementation of :func:`metrics.precision_recall_curve` by
-  Conrad Lee.
+- تنفيذ أسرع لـ :func:`metrics.precision_recall_curve` بواسطة Conrad Lee.
 
-- New kernel `metrics.chi2_kernel` by `Andreas Müller`_, often used
-  in computer vision applications.
+- نواة جديدة `metrics.chi2_kernel` بواسطة `Andreas Müller`_، تُستخدم غالبًا في تطبيقات رؤية الكمبيوتر.
 
-- Fix of longstanding bug in :class:`naive_bayes.BernoulliNB` fixed by
-  Shaun Jackman.
+- إصلاح خطأ طويل الأمد في :class:`naive_bayes.BernoulliNB` بواسطة Shaun Jackman.
 
-- Implemented ``predict_proba`` in :class:`multiclass.OneVsRestClassifier`,
-  by Andrew Winterman.
+- تم تنفيذ ``predict_proba`` في :class:`multiclass.OneVsRestClassifier`، بواسطة Andrew Winterman.
 
-- Improve consistency in gradient boosting: estimators
-  :class:`ensemble.GradientBoostingRegressor` and
-  :class:`ensemble.GradientBoostingClassifier` use the estimator
-  :class:`tree.DecisionTreeRegressor` instead of the
-  `tree._tree.Tree` data structure by `Arnaud Joly`_.
+- تحسين الاتساق في التعزيز التدريجي: تستخدم المُقدِّرات :class:`ensemble.GradientBoostingRegressor` و :class:`ensemble.GradientBoostingClassifier` المُقدِّر :class:`tree.DecisionTreeRegressor` بدلاً من بنية البيانات `tree._tree.Tree` بواسطة `Arnaud Joly`_.
 
-- Fixed a floating point exception in the :ref:`decision trees <tree>`
-  module, by Seberg.
+- إصلاح استثناء النقطة العائمة في وحدة نماذج :ref:`decision trees <tree>`، بواسطة Seberg.
 
-- Fix :func:`metrics.roc_curve` fails when y_true has only one class
-  by Wei Li.
+- إصلاح :func:`metrics.roc_curve` يفشل عندما يكون لدى y_true فئة واحدة فقط بواسطة Wei Li.
 
-- Add the :func:`metrics.mean_absolute_error` function which computes the
-  mean absolute error. The :func:`metrics.mean_squared_error`,
-  :func:`metrics.mean_absolute_error` and
-  :func:`metrics.r2_score` metrics support multioutput by `Arnaud Joly`_.
+- إضافة دالة :func:`metrics.mean_absolute_error` التي تحسب متوسط الخطأ المطلق. تدعم المقاييس :func:`metrics.mean_squared_error`، :func:`metrics.mean_absolute_error` و :func:`metrics.r2_score` الإخراج المتعدد بواسطة `Arnaud Joly`_.
 
-- Fixed ``class_weight`` support in :class:`svm.LinearSVC` and
-  :class:`linear_model.LogisticRegression` by `Andreas Müller`_. The meaning
-  of ``class_weight`` was reversed as erroneously higher weight meant less
-  positives of a given class in earlier releases.
+- إصلاح دعم ``class_weight`` في :class:`svm.LinearSVC` و :class:`linear_model.LogisticRegression` بواسطة `Andreas Müller`_. كان معنى ``class_weight`` معكوسًا حيث كان يعني الوزن الأعلى عددًا أقل من الإيجابيات لفئة معينة في الإصدارات السابقة.
 
-- Improve narrative documentation and consistency in
-  :mod:`sklearn.metrics` for regression and classification metrics
-  by `Arnaud Joly`_.
+- تحسين الوثائق السردية والاتساق في :mod:`sklearn.metrics` لمقاييس الانحدار والتصنيف بواسطة `Arnaud Joly`_.
 
-- Fixed a bug in :class:`sklearn.svm.SVC` when using csr-matrices with
-  unsorted indices by Xinfan Meng and `Andreas Müller`_.
+- إصلاح خطأ في :class:`sklearn.svm.SVC` عند استخدام مصفوفات csr بمؤشرات غير مرتبة بواسطة Xinfan Meng و `Andreas Müller`_.
 
-- :class:`cluster.MiniBatchKMeans`: Add random reassignment of cluster centers
-  with little observations attached to them, by `Gael Varoquaux`_.
+- :class:`cluster.MiniBatchKMeans`: إضافة إعادة تعيين عشوائي لمراكز التجميع مع القليل من الملاحظات المرفقة بها، بواسطة `Gael Varoquaux`_.
 
-
-API changes summary
+ملخص التغييرات في واجهة برمجة التطبيقات
 -------------------
-- Renamed all occurrences of ``n_atoms`` to ``n_components`` for consistency.
-  This applies to :class:`decomposition.DictionaryLearning`,
-  :class:`decomposition.MiniBatchDictionaryLearning`,
-  :func:`decomposition.dict_learning`, :func:`decomposition.dict_learning_online`.
+- تمت إعادة تسمية جميع حالات ``n_atoms`` إلى ``n_components`` للاتساق. ينطبق هذا على :class:`decomposition.DictionaryLearning`، :class:`decomposition.MiniBatchDictionaryLearning`، :func:`decomposition.dict_learning`، :func:`decomposition.dict_learning_online`.
 
-- Renamed all occurrences of ``max_iters`` to ``max_iter`` for consistency.
-  This applies to `semi_supervised.LabelPropagation` and
-  `semi_supervised.label_propagation.LabelSpreading`.
+- تمت إعادة تسمية جميع حالات ``max_iters`` إلى ``max_iter`` للاتساق. ينطبق هذا على `semi_supervised.LabelPropagation` و `semi_supervised.label_propagation.LabelSpreading`.
 
-- Renamed all occurrences of ``learn_rate`` to ``learning_rate`` for
-  consistency in `ensemble.BaseGradientBoosting` and
-  :class:`ensemble.GradientBoostingRegressor`.
+- تمت إعادة تسمية جميع حالات ``learn_rate`` إلى ``learning_rate`` للاتساق في `ensemble.BaseGradientBoosting` و :class:`ensemble.GradientBoostingRegressor`.
 
-- The module ``sklearn.linear_model.sparse`` is gone. Sparse matrix support
-  was already integrated into the "regular" linear models.
+- تمت إزالة الوحدة النمطية ``sklearn.linear_model.sparse``. كان دعم المصفوفة المُبعثرة مدمجًا بالفعل في النماذج الخطية "العادية".
 
-- `sklearn.metrics.mean_square_error`, which incorrectly returned the
-  accumulated error, was removed. Use :func:`metrics.mean_squared_error` instead.
+- تمت إزالة `sklearn.metrics.mean_square_error`، التي كانت تُعيد الخطأ المتراكم بشكل غير صحيح. استخدم :func:`metrics.mean_squared_error` بدلاً من ذلك.
 
-- Passing ``class_weight`` parameters to ``fit`` methods is no longer
-  supported. Pass them to estimator constructors instead.
+- لم يعد تمرير معلمات ``class_weight`` إلى طرق ``fit`` مدعومًا. قم بتمريرها إلى منشئي المُقدِّر بدلاً من ذلك.
 
-- GMMs no longer have ``decode`` and ``rvs`` methods. Use the ``score``,
-  ``predict`` or ``sample`` methods instead.
+- لم تعد نماذج المزج الغاوسي تحتوي على طرق ``decode`` و ``rvs``. استخدم طرق ``score`` أو ``predict`` أو ``sample`` بدلاً من ذلك.
 
-- The ``solver`` fit option in Ridge regression and classification is now
-  deprecated and will be removed in v0.14. Use the constructor option
-  instead.
+- تم الآن إهمال خيار "solver" fit في الانحدار والتصنيف الضمني وسيتم إزالته في الإصدار 0.14. استخدم خيار المنشئ بدلاً من ذلك.
 
-- `feature_extraction.text.DictVectorizer` now returns sparse
-  matrices in the CSR format, instead of COO.
+- `feature_extraction.text.DictVectorizer` تعيد الآن مصفوفات مُبعثرة بتنسيق CSR، بدلاً من COO.
 
-- Renamed ``k`` in `cross_validation.KFold` and
-  `cross_validation.StratifiedKFold` to ``n_folds``, renamed
-  ``n_bootstraps`` to ``n_iter`` in ``cross_validation.Bootstrap``.
+- تمت إعادة تسمية ``k`` في `cross_validation.KFold` و `cross_validation.StratifiedKFold` إلى ``n_folds``، وتمت إعادة تسمية ``n_bootstraps`` إلى ``n_iter`` في ``cross_validation.Bootstrap``.
 
-- Renamed all occurrences of ``n_iterations`` to ``n_iter`` for consistency.
-  This applies to `cross_validation.ShuffleSplit`,
-  `cross_validation.StratifiedShuffleSplit`,
-  :func:`utils.extmath.randomized_range_finder` and
-  :func:`utils.extmath.randomized_svd`.
+- تمت إعادة تسمية جميع حالات ``n_iterations`` إلى ``n_iter`` للاتساق. ينطبق هذا على `cross_validation.ShuffleSplit`، `cross_validation.StratifiedShuffleSplit`، :func:`utils.extmath.randomized_range_finder` و :func:`utils.extmath.randomized_svd`.
 
-- Replaced ``rho`` in :class:`linear_model.ElasticNet` and
-  :class:`linear_model.SGDClassifier` by ``l1_ratio``. The ``rho`` parameter
-  had different meanings; ``l1_ratio`` was introduced to avoid confusion.
-  It has the same meaning as previously ``rho`` in
-  :class:`linear_model.ElasticNet` and ``(1-rho)`` in
-  :class:`linear_model.SGDClassifier`.
+- استبدال ``rho`` في :class:`linear_model.ElasticNet` و :class:`linear_Multiplier.SGDClassifier` بـ ``l1_ratio``. كان لمعلمة ``rho`` معانٍ مختلفة؛ تم تقديم ``l1_ratio`` لتجنب الالتباس. لها نفس معنى ``rho`` سابقًا في :class:`linear_model.ElasticNet` و ``(1-rho)`` في :class:`linear_model.SGDClassifier`.
 
-- :class:`linear_model.LassoLars` and :class:`linear_model.Lars` now
-  store a list of paths in the case of multiple targets, rather than
-  an array of paths.
+- :class:`linear_model.LassoLars` و :class:`linear_model.Lars` تخزنان الآن قائمة من المسارات في حالة وجود أهداف متعددة، بدلاً من مصفوفة من المسارات.
 
-- The attribute ``gmm`` of `hmm.GMMHMM` was renamed to ``gmm_``
-  to adhere more strictly with the API.
+- تمت إعادة تسمية سمة ``gmm`` من `hmm.GMMHMM` إلى ``gmm_`` للالتزام بشكل أكثر صرامة بواجهة برمجة التطبيقات.
 
-- `cluster.spectral_embedding` was moved to
-  :func:`manifold.spectral_embedding`.
+- تم نقل `cluster.spectral_embedding` إلى :func:`manifold.spectral_embedding`.
 
-- Renamed ``eig_tol`` in :func:`manifold.spectral_embedding`,
-  :class:`cluster.SpectralClustering` to ``eigen_tol``, renamed ``mode``
-  to ``eigen_solver``.
+- تمت إعادة تسمية ``eig_tol`` في :func:`manifold.spectral_embedding`، :class:`cluster.SpectralClustering` إلى ``eigen_tol``، وتمت إعادة تسمية ``mode`` إلى ``eigen_solver``.
 
-- Renamed ``mode`` in :func:`manifold.spectral_embedding` and
-  :class:`cluster.SpectralClustering` to ``eigen_solver``.
+- تمت إعادة تسمية ``mode`` في :func:`manifold.spectral_embedding` و :class:`cluster.SpectralClustering` إلى ``eigen_solver``.
 
-- ``classes_`` and ``n_classes_`` attributes of
-  :class:`tree.DecisionTreeClassifier` and all derived ensemble models are
-  now flat in case of single output problems and nested in case of
-  multi-output problems.
+- سمات ``classes_`` و ``n_classes_`` من :class:`tree.DecisionTreeClassifier` وجميع نماذج المجوعة المشتقة مسطحة الآن في حالة مشكلات الإخراج الفردي ومُضمَّنة في حالة مشكلات الإخراج المتعدد.
 
-- The ``estimators_`` attribute of
-  :class:`ensemble.GradientBoostingRegressor` and
-  :class:`ensemble.GradientBoostingClassifier` is now an
-  array of :class:`tree.DecisionTreeRegressor`.
+- سمة ``estimators_`` من :class:`ensemble.GradientBoostingRegressor` و :class:`ensemble.GradientBoostingClassifier` هي الآن مصفوفة من :class:`tree.DecisionTreeRegressor`.
 
-- Renamed ``chunk_size`` to ``batch_size`` in
-  :class:`decomposition.MiniBatchDictionaryLearning` and
-  :class:`decomposition.MiniBatchSparsePCA` for consistency.
+- تمت إعادة تسمية ``chunk_size`` إلى ``batch_size`` في :class:`decomposition.MiniBatchDictionaryLearning` و :class:`decomposition.MiniBatchSparsePCA` للاتساق.
 
-- :class:`svm.SVC` and :class:`svm.NuSVC` now provide a ``classes_``
-  attribute and support arbitrary dtypes for labels ``y``.
-  Also, the dtype returned by ``predict`` now reflects the dtype of
-  ``y`` during ``fit`` (used to be ``np.float``).
+- :class:`svm.SVC` و :class:`svm.NuSVC` توفر الآن سمة ``classes_`` وتدعم أنواع البيانات التعسفية للملصقات ``y``. أيضًا، يعكس نوع البيانات الذي تُعيده ``predict`` الآن نوع البيانات من ``y`` أثناء ``fit`` (كان يُستخدم سابقًا ``np.float``).
 
-- Changed default test_size in `cross_validation.train_test_split`
-  to None, added possibility to infer ``test_size`` from ``train_size`` in
-  `cross_validation.ShuffleSplit` and
-  `cross_validation.StratifiedShuffleSplit`.
+- تم تغيير حجم الاختبار الافتراضي في `cross_validation.train_test_split` إلى None، وتمت إضافة إمكانية استنتاج ``test_size`` من ``train_size`` في `cross_validation.ShuffleSplit` و `cross_validation.StratifiedShuffleSplit`.
 
-- Renamed function `sklearn.metrics.zero_one` to
-  `sklearn.metrics.zero_one_loss`. Be aware that the default behavior
-  in `sklearn.metrics.zero_one_loss` is different from
-  `sklearn.metrics.zero_one`: ``normalize=False`` is changed to
-  ``normalize=True``.
+- تمت إعادة تسمية دالة `sklearn.metrics.zero_one` إلى `sklearn.metrics.zero_one_loss`. لاحظ أن السلوك الافتراضي في `sklearn.metrics.zero_one_loss` يختلف عن `sklearn.metrics.zero_one`: تم تغيير ``normalize=False`` إلى ``normalize=True``.
 
-- Renamed function `metrics.zero_one_score` to
-  :func:`metrics.accuracy_score`.
+- تمت إعادة تسمية دالة `metrics.zero_one_score` إلى :func:`metrics.accuracy_score`.
 
-- :func:`datasets.make_circles` now has the same number of inner and outer points.
+- :func:`datasets.make_circles` لديه الآن نفس عدد النقاط الداخلية والخارجية.
 
-- In the Naive Bayes classifiers, the ``class_prior`` parameter was moved
-  from ``fit`` to ``__init__``.
+- في مُصنِّفات Bayes الساذجة، تم نقل معلمة ``class_prior`` من ``fit`` إلى ``__init__``.
 
 People
-------
-List of contributors for release 0.13 by number of commits.
+فيما يلي قائمة المساهمين في الإصدار 0.13 حسب عدد الالتزامات:
 
-* 364  `Andreas Müller`_
-* 143  `Arnaud Joly`_
-* 137  `Peter Prettenhofer`_
-* 131  `Gael Varoquaux`_
-* 117  `Mathieu Blondel`_
-* 108  `Lars Buitinck`_
-* 106  Wei Li
-* 101  `Olivier Grisel`_
-*  65  `Vlad Niculae`_
-*  54  `Gilles Louppe`_
-*  40  `Jaques Grobler`_
-*  38  `Alexandre Gramfort`_
-*  30  `Rob Zinkov`_
-*  19  Aymeric Masurelle
-*  18  Andrew Winterman
-*  17  `Fabian Pedregosa`_
-*  17  Nelle Varoquaux
-*  16  `Christian Osendorfer`_
-*  14  `Daniel Nouri`_
-*  13  :user:`Virgile Fritsch <VirgileFritsch>`
-*  13  syhw
-*  12  `Satrajit Ghosh`_
-*  10  Corey Lynch
-*  10  Kyle Beauchamp
-*   9  Brian Cheung
-*   9  Immanuel Bayer
-*   9  mr.Shu
-*   8  Conrad Lee
-*   8  `James Bergstra`_
-*   7  Tadej Janež
-*   6  Brian Cajes
-*   6  `Jake Vanderplas`_
-*   6  Michael
-*   6  Noel Dawe
-*   6  Tiago Nunes
-*   6  cow
-*   5  Anze
-*   5  Shiqiao Du
-*   4  Christian Jauvin
-*   4  Jacques Kvam
-*   4  Richard T. Guy
-*   4  `Robert Layton`_
-*   3  Alexandre Abraham
-*   3  Doug Coleman
-*   3  Scott Dickerson
-*   2  ApproximateIdentity
-*   2  John Benediktsson
-*   2  Mark Veronda
-*   2  Matti Lyra
-*   2  Mikhail Korobov
-*   2  Xinfan Meng
-*   1  Alejandro Weinstein
-*   1  `Alexandre Passos`_
-*   1  Christoph Deil
-*   1  Eugene Nizhibitsky
-*   1  Kenneth C. Arnold
-*   1  Luis Pedro Coelho
-*   1  Miroslav Batchkarov
-*   1  Pavel
-*   1  Sebastian Berg
-*   1  Shaun Jackman
-*   1  Subhodeep Moitra
-*   1  bob
-*   1  dengemann
-*   1  emanuele
-*   1  x006
+* 364 أندرياس مولر
+* 143 أرنو جولي
+* 137 بيتر بريتنهوفر
+* 131 جيل فاروكو
+* 117 ماثيو بلونديل
+* 108 لارس بوتينك
+* 106 وي لي
+* 101 أوليفييه جريسل
+* 65 فلاد نيكولاي
+* 54 جيل لوب
+* 40 جاك جروبلر
+* 38 ألكسندر جرامفورت
+* 30 روب زينكوف
+* 19 ايمريك ماسوريل
+* 18 أندرو وينترمان
+* 17 فابيان بيدريجوسا
+* 17 نيل فاروكو
+* 16 كريستيان أوسندورفر
+* 14 دانيال نوري
+* 13 فيرجيل فيريش
+* 13 syhw
+* 12 ساتراجيت غوش
+* 10 كوري لينش
+* 10 كايل بيشامب
+* 9 بريان تشيونغ
+* 9 ايمانويل باير
+* 9 السيد شو
+* 8 كونراد لي
+* 8 جيمس بيرجسترا
+* 7 تاديج جانيز
+* 6 بريان كاجيس
+* 6 جيك فانديربلاس
+* 6 مايكل
+* 6 نويل داو
+* 6 تياجو نونيس
+* 6 بقرة
+* 5 أنزي
+* 5 شي تشياو دو
+* 4 كريستيان جوفين
+* 4 جاكيس كفام
+* 4 ريتشارد تي. جواي
+* 4 روبرت لايتون
+* 3 ألكسندر أبراهام
+* 3 دوغ كولمان
+* 3 سكوت ديكرسون
+* 2 ApproximateIdentity
+* 2 جون بينيديكتسون
+* 2 مارك فيروندا
+* 2 ماتي ليرا
+* 2 ميخائيل كوروبوف
+* 2 شينفان مينغ
+* 1 أليخاندرو وينشتاين
+* 1 ألكسندر باسوس
+* 1 كريستوف ديل
+* 1 يوجين نيزهيبيتسكي
+* 1 كينيث سي. أرنولد
+* 1 لويس بيدرو كويلهو
+* 1 ميروسلاف باتشكاروف
+* 1 بافيل
+* 1 سيباستيان بيرج
+* 1 شون جاكمان
+* 1 سوبهوديب موترا
+* 1 بوب
+* 1 دينغيمان
+* 1 إيمانويل
+* 1 x006
