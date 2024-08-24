@@ -3,35 +3,25 @@
 .. _feature_selection:
 
 =================
-Feature selection
+اختيار الخصائص
 =================
 
-
-The classes in the :mod:`sklearn.feature_selection` module can be used
-for feature selection/dimensionality reduction on sample sets, either to
-improve estimators' accuracy scores or to boost their performance on very
-high-dimensional datasets.
-
+يمكن استخدام الفئات في وحدة :mod:`sklearn.feature_selection` لاختيار الخصائص/الحد من الأبعاد على مجموعات العينات، إما لتحسين درجات دقة المُقدّر أو لتعزيز أدائه على مجموعات البيانات عالية الأبعاد للغاية.
 
 .. _variance_threshold:
 
-Removing features with low variance
+إزالة الخصائص ذات التباين المنخفض
 ===================================
 
-:class:`VarianceThreshold` is a simple baseline approach to feature selection.
-It removes all features whose variance doesn't meet some threshold.
-By default, it removes all zero-variance features,
-i.e. features that have the same value in all samples.
+:class:`VarianceThreshold` هي طريقة بسيطة لاختيار الخصائص بناءً على خط الأساس. إنه يزيل جميع الميزات التي لا يفي تباينها بعتبة معينة. بشكل افتراضي، فإنه يزيل جميع الميزات ذات التباين الصفري، أي الميزات التي لها نفس القيمة في جميع العينات.
 
-As an example, suppose that we have a dataset with boolean features,
-and we want to remove all features that are either one or zero (on or off)
-in more than 80% of the samples.
-Boolean features are Bernoulli random variables,
-and the variance of such variables is given by
+على سبيل المثال، لنفترض أن لدينا مجموعة بيانات ذات ميزات منطقية، ونريد إزالة جميع الميزات التي تكون إما واحدًا أو صفرًا (تشغيل أو إيقاف) في أكثر من 80% من العينات.
+
+الميزات المنطقية هي متغيرات برنولي عشوائية، ويُعطى تباين هذه المتغيرات بالصيغة التالية:
 
 .. math:: \mathrm{Var}[X] = p(1 - p)
 
-so we can select using the threshold ``.8 * (1 - .8)``::
+لذلك، يمكننا الاختيار باستخدام العتبة ``.8 * (1 - .8)``::
 
   >>> from sklearn.feature_selection import VarianceThreshold
   >>> X = [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0, 1, 1], [0, 1, 0], [0, 1, 1]]
@@ -44,34 +34,25 @@ so we can select using the threshold ``.8 * (1 - .8)``::
          [1, 0],
          [1, 1]])
 
-As expected, ``VarianceThreshold`` has removed the first column,
-which has a probability :math:`p = 5/6 > .8` of containing a zero.
+كما هو متوقع، قام ``VarianceThreshold`` بإزالة العمود الأول، والذي لديه احتمال :math:`p = 5/6 > .8` لاحتواء الصفر.
 
 .. _univariate_feature_selection:
 
-Univariate feature selection
+اختيار ميزة أحادي المتغير
 ============================
 
-Univariate feature selection works by selecting the best features based on
-univariate statistical tests. It can be seen as a preprocessing step
-to an estimator. Scikit-learn exposes feature selection routines
-as objects that implement the ``transform`` method:
+يعمل اختيار ميزة أحادي المتغير عن طريق اختيار أفضل الميزات بناءً على اختبارات إحصائية أحادية المتغير. يمكن اعتباره خطوة ما قبل المعالجة لمُقدّر. تعرض Scikit-learn روتينات اختيار الميزات ككائنات تقوم بتنفيذ طريقة "التحويل":
 
-* :class:`SelectKBest` removes all but the :math:`k` highest scoring features
+* :class:`SelectKBest` يزيل كل شيء باستثناء :math:`k` الميزات ذات الدرجات الأعلى
 
-* :class:`SelectPercentile` removes all but a user-specified highest scoring
-  percentage of features
+* :class:`SelectPercentile` يزيل كل شيء باستثناء نسبة مئوية محددة من المستخدم لأعلى الميزات التي تم تسجيلها
 
-* using common univariate statistical tests for each feature:
-  false positive rate :class:`SelectFpr`, false discovery rate
-  :class:`SelectFdr`, or family wise error :class:`SelectFwe`.
+* باستخدام الاختبارات الإحصائية أحادية المتغير الشائعة لكل ميزة:
+  معدل الإيجابيات الخاطئة :class:`SelectFpr`، ومعدل الاكتشاف الخاطئ :class:`SelectFdr`، أو الخطأ الكلي للعائلة :class:`SelectFwe`.
 
-* :class:`GenericUnivariateSelect` allows to perform univariate feature
-  selection with a configurable strategy. This allows to select the best
-  univariate selection strategy with hyper-parameter search estimator.
+* :class:`GenericUnivariateSelect` يسمح بإجراء اختيار ميزة أحادي المتغير باستخدام استراتيجية قابلة للتكوين. يتيح ذلك اختيار أفضل استراتيجية اختيار أحادي المتغير باستخدام مُقدّر البحث عن أفضل وسيط.
 
-For instance, we can use a F-test to retrieve the two
-best features for a dataset as follows:
+على سبيل المثال، يمكننا استخدام اختبار F-test لاسترداد أفضل ميزتين لمجموعة بيانات كما يلي:
 
   >>> from sklearn.datasets import load_iris
   >>> from sklearn.feature_selection import SelectKBest
@@ -83,38 +64,27 @@ best features for a dataset as follows:
   >>> X_new.shape
   (150, 2)
 
-These objects take as input a scoring function that returns univariate scores
-and p-values (or only scores for :class:`SelectKBest` and
-:class:`SelectPercentile`):
+تأخذ هذه الكائنات كإدخال دالة تسجيل تعيد درجات أحادية المتغير والقيم p (أو الدرجات فقط لـ :class:`SelectKBest` و :class:`SelectPercentile`):
 
-* For regression: :func:`r_regression`, :func:`f_regression`, :func:`mutual_info_regression`
+* للانحدار: :func:`r_regression`، :func:`f_regression`، :func:`mutual_info_regression`
 
-* For classification: :func:`chi2`, :func:`f_classif`, :func:`mutual_info_classif`
+* للتصنيف: :func:`chi2`، :func:`f_classif`، :func:`mutual_info_classif`
 
-The methods based on F-test estimate the degree of linear dependency between
-two random variables. On the other hand, mutual information methods can capture
-any kind of statistical dependency, but being nonparametric, they require more
-samples for accurate estimation. Note that the :math:`\chi^2`-test should only be
-applied to non-negative features, such as frequencies.
+تقدر الطرق المستندة إلى اختبار F درجة الاعتماد الخطي بين متغيرين عشوائيين. من ناحية أخرى، يمكن لطرق المعلومات المتبادلة التقاط أي نوع من الاعتماد الإحصائي، ولكن نظرًا لأنها غير معلمية، فإنها تتطلب المزيد من العينات للتقدير الدقيق. لاحظ أنه يجب تطبيق اختبار :math:`\chi^2` فقط على الميزات غير السالبة، مثل الترددات.
 
-.. topic:: Feature selection with sparse data
+.. topic:: اختيار الميزة مع البيانات المتناثرة
 
-   If you use sparse data (i.e. data represented as sparse matrices),
-   :func:`chi2`, :func:`mutual_info_regression`, :func:`mutual_info_classif`
-   will deal with the data without making it dense.
+   إذا كنت تستخدم بيانات متناثرة (أي بيانات ممثلة على شكل مصفوفات متناثرة)، فسيتم التعامل مع :func:`chi2`، :func:`mutual_info_regression`، :func:`mutual_info_classif` مع البيانات دون جعلها كثيفة.
 
 .. warning::
 
-    Beware not to use a regression scoring function with a classification
-    problem, you will get useless results.
+    احترس من عدم استخدام دالة تسجيل الانحدار مع مشكلة التصنيف، فستحصل على نتائج عديمة الفائدة.
 
 .. note::
 
-    The :class:`SelectPercentile` and :class:`SelectKBest` support unsupervised
-    feature selection as well. One needs to provide a `score_func` where `y=None`.
-    The `score_func` should use internally `X` to compute the scores.
+    تدعم :class:`SelectPercentile` و :class:`SelectKBest` اختيار الميزات غير الخاضعة للإشراف أيضًا. يجب توفير دالة `score_func` حيث `y=None`. يجب أن تستخدم `score_func` داخليًا `X` لحساب الدرجات.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_feature_selection_plot_feature_selection.py`
 
@@ -122,74 +92,46 @@ applied to non-negative features, such as frequencies.
 
 .. _rfe:
 
-Recursive feature elimination
+القضاء على الميزة التراجعية
 =============================
 
-Given an external estimator that assigns weights to features (e.g., the
-coefficients of a linear model), the goal of recursive feature elimination (:class:`RFE`)
-is to select features by recursively considering smaller and smaller sets of
-features. First, the estimator is trained on the initial set of features and
-the importance of each feature is obtained either through any specific attribute
-(such as ``coef_``, ``feature_importances_``) or callable. Then, the least important
-features are pruned from current set of features. That procedure is recursively
-repeated on the pruned set until the desired number of features to select is
-eventually reached.
+بالنظر إلى مُقدّر خارجي يعين الأوزان للميزات (مثل معاملات نموذج خطي)، فإن الهدف من القضاء على الميزة التراجعية (:class:`RFE`) هو اختيار الميزات عن طريق النظر بشكل متكرر في مجموعات أصغر وأصغر من الميزات. أولاً، يتم تدريب المُقدّر على مجموعة الميزات الأولية ويتم الحصول على أهمية كل ميزة إما من خلال أي سمة محددة (مثل "coef_"، "feature_importances_") أو callable. ثم يتم تقليم الميزات الأقل أهمية من المجموعة الحالية من الميزات. يتم تكرار هذا الإجراء بشكل متكرر على المجموعة المقلمة حتى يتم الوصول إلى العدد المرغوب من الميزات التي سيتم اختيارها في النهاية.
 
-:class:`RFECV` performs RFE in a cross-validation loop to find the optimal
-number of features. In more details, the number of features selected is tuned
-automatically by fitting an :class:`RFE` selector on the different
-cross-validation splits (provided by the `cv` parameter). The performance
-of the :class:`RFE` selector are evaluated using `scorer` for different number
-of selected features and aggregated together. Finally, the scores are averaged
-across folds and the number of features selected is set to the number of
-features that maximize the cross-validation score.
+يؤدي :class:`RFECV` إلى RFE في حلقة تصحيح عكسي للعثور على العدد الأمثل من الميزات. بمزيد من التفاصيل، يتم ضبط عدد الميزات المحددة تلقائيًا عن طريق ملاءمة مُحدد :class:`RFE` على تقسيمات التصحيح العكسي المختلفة (التي يوفرها معلمة `cv`). يتم تقييم أداء مُحدد :class:`RFE` باستخدام "scorer" لعدد مختلف من الميزات المحددة وتجميعها معًا. أخيرًا، يتم حساب متوسط الدرجات عبر الطيات ويتم تعيين عدد الميزات المحددة إلى عدد الميزات التي تحقق أقصى درجات التصحيح العكسي.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_digits.py`: A recursive feature elimination example
-  showing the relevance of pixels in a digit classification task.
+* :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_digits.py`: مثال على القضاء على الميزة التراجعية
+  إظهار أهمية البكسل في مهمة تصنيف الرقم.
 
-* :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`: A recursive feature
-  elimination example with automatic tuning of the number of features
-  selected with cross-validation.
+* :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`: مثال على القضاء على الميزة التراجعية
+  مثال مع الضبط التلقائي لعدد الميزات المحددة باستخدام التصحيح العكسي.
 
 .. _select_from_model:
 
-Feature selection using SelectFromModel
+اختيار الميزة باستخدام SelectFromModel
 =======================================
 
-:class:`SelectFromModel` is a meta-transformer that can be used alongside any
-estimator that assigns importance to each feature through a specific attribute (such as
-``coef_``, ``feature_importances_``) or via an `importance_getter` callable after fitting.
-The features are considered unimportant and removed if the corresponding
-importance of the feature values are below the provided
-``threshold`` parameter. Apart from specifying the threshold numerically,
-there are built-in heuristics for finding a threshold using a string argument.
-Available heuristics are "mean", "median" and float multiples of these like
-"0.1*mean". In combination with the `threshold` criteria, one can use the
-`max_features` parameter to set a limit on the number of features to select.
+:class:`SelectFromModel` هو محول عام يمكن استخدامه جنبًا إلى جنب مع أي مُقدّر يعين الأهمية لكل ميزة من خلال سمة محددة (مثل "coef_"، "feature_importances_") أو عبر callable `importance_getter` بعد التجهيز. تعتبر الميزات غير مهمة ويتم إزالتها إذا كانت الأهمية المقابلة لقيم الميزة أقل من معلمة "threshold" المقدمة. بالإضافة إلى تحديد العتبة رقميًا، هناك استراتيجيات مدمجة للعثور على عتبة باستخدام حجة سلسلة. الاستراتيجيات المتوفرة هي "mean"، "median" ومضاعفات الأرقام العشرية لهذه القيم مثل "0.1*mean". بالاشتراك مع معلمة `threshold`، يمكن استخدام معلمة `max_features` لتحديد حد على عدد الميزات التي سيتم اختيارها.
 
-For examples on how it is to be used refer to the sections below.
+للاطلاع على أمثلة حول كيفية استخدامها، راجع الأقسام أدناه.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_feature_selection_plot_select_from_model_diabetes.py`
 
 .. _l1_feature_selection:
 
-L1-based feature selection
+اختيار الميزة المستندة إلى L1
 --------------------------
 
 .. currentmodule:: sklearn
 
-:ref:`Linear models <linear_model>` penalized with the L1 norm have
-sparse solutions: many of their estimated coefficients are zero. When the goal
-is to reduce the dimensionality of the data to use with another classifier,
-they can be used along with :class:`~feature_selection.SelectFromModel`
-to select the non-zero coefficients. In particular, sparse estimators useful
-for this purpose are the :class:`~linear_model.Lasso` for regression, and
-of :class:`~linear_model.LogisticRegression` and :class:`~svm.LinearSVC`
-for classification::
+:ref:`نماذج خطية <linear_model>` المعاقب عليها بمعيار L1 لها
+حلول متفرقة: العديد من معاملاتها المقدرة هي صفر. عندما يكون الهدف هو تقليل أبعاد البيانات لاستخدامها مع مُصنّف آخر، يمكن استخدامها جنبًا إلى جنب مع :class:`~feature_selection.SelectFromModel`
+لتحديد المعاملات غير الصفرية. على وجه الخصوص، فإن المقدرات المتناثرة المفيدة لهذا الغرض هي :class:`~linear_model.Lasso` للانحدار، و
+:class:`~linear_model.LogisticRegression` و :class:`~svm.LinearSVC`
+للتصنيف::
 
   >>> from sklearn.svm import LinearSVC
   >>> from sklearn.datasets import load_iris
@@ -203,11 +145,11 @@ for classification::
   >>> X_new.shape
   (150, 3)
 
-With SVMs and logistic-regression, the parameter C controls the sparsity:
-the smaller C the fewer features selected. With Lasso, the higher the
-alpha parameter, the fewer features selected.
+مع SVMs والانحدار اللوجستي، يتحكم معلمة C في التفرقة:
+كلما قل C، قل عدد الميزات المحددة. مع Lasso، كلما زادت
+قيمة معلمة alpha، قل عدد الميزات المحددة.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_dense_vs_sparse_data.py`.
 
@@ -215,40 +157,31 @@ alpha parameter, the fewer features selected.
 
 .. dropdown:: L1-recovery and compressive sensing
 
-  For a good choice of alpha, the :ref:`lasso` can fully recover the
-  exact set of non-zero variables using only few observations, provided
-  certain specific conditions are met. In particular, the number of
-  samples should be "sufficiently large", or L1 models will perform at
-  random, where "sufficiently large" depends on the number of non-zero
-  coefficients, the logarithm of the number of features, the amount of
-  noise, the smallest absolute value of non-zero coefficients, and the
-  structure of the design matrix X. In addition, the design matrix must
-  display certain specific properties, such as not being too correlated.
+  بالنسبة للاختيار الجيد لمعلمة alpha، يمكن أن يسترد :ref:`lasso` تمامًا
+  مجموعة المتغيرات غير الصفرية تمامًا باستخدام عدد قليل من الملاحظات، بشرط
+  تلبية شروط محددة. على وجه الخصوص، يجب أن يكون عدد
+  يجب أن تكون العينات "كبيرة بما يكفي"، أو ستؤدي نماذج L1 أداءً عشوائيًا، حيث "كبيرة بما يكفي" تعتمد على عدد المعاملات غير الصفرية، واللوغاريتم من عدد الميزات، ومقدار
+  الضوضاء، وأصغر قيمة مطلقة للمعاملات غير الصفرية، وهيكل مصفوفة التصميم X. بالإضافة إلى ذلك، يجب أن تعرض مصفوفة التصميم خصائص محددة، مثل عدم وجود ارتباط كبير.
 
-  There is no general rule to select an alpha parameter for recovery of
-  non-zero coefficients. It can by set by cross-validation
-  (:class:`~sklearn.linear_model.LassoCV` or
-  :class:`~sklearn.linear_model.LassoLarsCV`), though this may lead to
-  under-penalized models: including a small number of non-relevant variables
-  is not detrimental to prediction score. BIC
-  (:class:`~sklearn.linear_model.LassoLarsIC`) tends, on the opposite, to set
-  high values of alpha.
+  لا توجد قاعدة عامة لاختيار معلمة alpha لاسترداد المعاملات غير الصفرية. يمكن تعيينه بواسطة التصحيح العكسي
+  (:class:`~sklearn.linear_model.LassoCV` أو
+  :class:`~sklearn.linear_model.LassoLarsCV`)، على الرغم من أن هذا قد يؤدي إلى
+  نماذج ناقصة العقاب: بما في ذلك عدد صغير من المتغيرات غير ذات الصلة ليس ضارًا
+  على درجة التنبؤ. يميل BIC
+  (:class:`~sklearn.linear_model.LassoLarsIC`)، على العكس من ذلك، إلى تعيين
+  قيم عالية من alpha.
 
-  .. rubric:: References
+  .. rubric:: المراجع
 
-  Richard G. Baraniuk "Compressive Sensing", IEEE Signal
-  Processing Magazine [120] July 2007
+  Richard G. Baraniuk "Compressive Sensing"، IEEE Signal
+  معالجة مجلة [120] يوليو 2007
   http://users.isr.ist.utl.pt/~aguiar/CS_notes.pdf
 
 
-Tree-based feature selection
+اختيار ميزة شجرة القرار
 ----------------------------
 
-Tree-based estimators (see the :mod:`sklearn.tree` module and forest
-of trees in the :mod:`sklearn.ensemble` module) can be used to compute
-impurity-based feature importances, which in turn can be used to discard irrelevant
-features (when coupled with the :class:`~feature_selection.SelectFromModel`
-meta-transformer)::
+يمكن استخدام المقدرات القائمة على الشجرة (راجع وحدة :mod:`sklearn.tree` وغابة الأشجار في وحدة :mod:`sklearn.ensemble`) لحساب أهمية الميزات القائمة على عدم النقاء، والتي يمكن استخدامها بعد ذلك لتجاهل الميزات غير ذات الصلة (عند اقترانها بالمحول الميتا :class:`~feature_selection.SelectFromModel`)::
 
   >>> from sklearn.ensemble import ExtraTreesClassifier
   >>> from sklearn.datasets import load_iris
@@ -265,84 +198,27 @@ meta-transformer)::
   >>> X_new.shape               # doctest: +SKIP
   (150, 2)
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances.py`: example on
-  synthetic data showing the recovery of the actually meaningful features.
+* :ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances.py`: مثال على
+  بيانات اصطناعية تظهر استرداد الميزات ذات الصلة بالفعل.
 
-* :ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances_faces.py`: example
-  on face recognition data.
+* :ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances_faces.py`: مثال
+  على بيانات التعرف على الوجه.
 
 .. _sequential_feature_selection:
 
-Sequential Feature Selection
-============================
+اختيار الميزة التسلسلية
+يسمح اختيار السمات المتسلسل [sfs] _ (SFS) المتاح في محول :class: ~ sklearn.feature_selection.SequentialFeatureSelector بتحديد السمات إما للأمام أو للخلف:
 
-Sequential Feature Selection [sfs]_ (SFS) is available in the
-:class:`~sklearn.feature_selection.SequentialFeatureSelector` transformer.
-SFS can be either forward or backward:
+يعد اختيار السمات المتسلسل للأمام إجراءً جشعاً يجد بشكل تكراري أفضل سمة جديدة لإضافتها إلى مجموعة السمات المحددة. وبشكل ملموس، نبدأ في البداية بدون أي سمات ونبحث عن السمة الواحدة التي تعظم نتيجة التحقق من الصحة المتقاطعة عند تدريب مُقدِّر على هذه السمة الوحيدة. بمجرد اختيار أول سمة، نكرر الإجراء عن طريق إضافة سمة جديدة إلى مجموعة السمات المحددة. يتوقف الإجراء عند الوصول إلى عدد السمات المحددة المطلوب، كما يحدده معامل n_features_to_select.
 
-Forward-SFS is a greedy procedure that iteratively finds the best new feature
-to add to the set of selected features. Concretely, we initially start with
-zero features and find the one feature that maximizes a cross-validated score
-when an estimator is trained on this single feature. Once that first feature
-is selected, we repeat the procedure by adding a new feature to the set of
-selected features. The procedure stops when the desired number of selected
-features is reached, as determined by the `n_features_to_select` parameter.
+أما اختيار السمات المتسلسل للخلف فيتبع الفكرة نفسها ولكنه يعمل في الاتجاه المعاكس: بدلاً من البدء بدون أي سمات وإضافة السمات بطريقة جشعة، نبدأ بجميع السمات ونزيلها بطريقة جشعة من المجموعة. يتحكم معامل "الاتجاه" في ما إذا كان يتم استخدام اختيار السمات المتسلسل للأمام أو للخلف.
 
-Backward-SFS follows the same idea but works in the opposite direction:
-instead of starting with no features and greedily adding features, we start
-with *all* the features and greedily *remove* features from the set. The
-`direction` parameter controls whether forward or backward SFS is used.
+يختلف اختيار السمات المتسلسل عمومًا عن طريق الاختيار للأمام والاختيار للخلف لا يحقق نتائج مكافئة. أيضًا، قد يكون أحدهما أسرع بكثير من الآخر اعتمادًا على عدد السمات المطلوبة: إذا كان لدينا 10 سمات ونريد 7 سمات محددة، فإن الاختيار المتجه للأمام يتطلب 7 تكرارات بينما يحتاج الاختيار المتجه للخلف إلى 3 تكرارات فقط.
 
-.. dropdown:: Details on Sequential Feature Selection
+يختلف SFS عن :class: ~ sklearn.feature_selection.RFE و :class: ~ sklearn.feature_selection.SelectFromModel في أنه لا يتطلب من النموذج الأساسي الكشف عن معامل "coef_" أو "feature_importances_". ومع ذلك، فقد يكون أبطأ نظرًا لضرورة تقييم المزيد من النماذج مقارنة بالطرق الأخرى. على سبيل المثال، في الاختيار المتجه للخلف، تتطلب التكرار الذي ينتقل من استخدام "m" سمة إلى "m - 1" سمة باستخدام التحقق من الصحة المتقاطع k-fold ملاءمة نماذج "m * k"، في حين أن :class: ~ sklearn.feature_selection.RFE سيتطلب ملاءمة واحدة فقط، و :class: ~ sklearn.feature_selection.SelectFromModel دائمًا ما يقوم بملاءمة واحدة فقط ولا يتطلب أي تكرارات.
 
-  In general, forward and backward selection do not yield equivalent results.
-  Also, one may be much faster than the other depending on the requested number
-  of selected features: if we have 10 features and ask for 7 selected features,
-  forward selection would need to perform 7 iterations while backward selection
-  would only need to perform 3.
+يمكن استخدام اختيار السمات كخطوة ما قبل المعالجة قبل التعلم الفعلي. الطريقة الموصى بها للقيام بذلك في Scikit-learn هي استخدام :class: ~ pipeline.Pipeline:
 
-  SFS differs from :class:`~sklearn.feature_selection.RFE` and
-  :class:`~sklearn.feature_selection.SelectFromModel` in that it does not
-  require the underlying model to expose a `coef_` or `feature_importances_`
-  attribute. It may however be slower considering that more models need to be
-  evaluated, compared to the other approaches. For example in backward
-  selection, the iteration going from `m` features to `m - 1` features using k-fold
-  cross-validation requires fitting `m * k` models, while
-  :class:`~sklearn.feature_selection.RFE` would require only a single fit, and
-  :class:`~sklearn.feature_selection.SelectFromModel` always just does a single
-  fit and requires no iterations.
-
-  .. rubric:: References
-
-  .. [sfs] Ferri et al, `Comparative study of techniques for
-      large-scale feature selection
-      <https://citeseerx.ist.psu.edu/doc_view/pid/5fedabbb3957bbb442802e012d829ee0629a01b6>`_.
-
-
-.. rubric:: Examples
-
-* :ref:`sphx_glr_auto_examples_feature_selection_plot_select_from_model_diabetes.py`
-
-Feature selection as part of a pipeline
-=======================================
-
-Feature selection is usually used as a pre-processing step before doing
-the actual learning. The recommended way to do this in scikit-learn is
-to use a :class:`~pipeline.Pipeline`::
-
-  clf = Pipeline([
-    ('feature_selection', SelectFromModel(LinearSVC(penalty="l1"))),
-    ('classification', RandomForestClassifier())
-  ])
-  clf.fit(X, y)
-
-In this snippet we make use of a :class:`~svm.LinearSVC`
-coupled with :class:`~feature_selection.SelectFromModel`
-to evaluate feature importances and select the most relevant features.
-Then, a :class:`~ensemble.RandomForestClassifier` is trained on the
-transformed output, i.e. using only relevant features. You can perform
-similar operations with the other feature selection methods and also
-classifiers that provide a way to evaluate feature importances of course.
-See the :class:`~pipeline.Pipeline` examples for more details.
+في هذا المقطع، نستخدم :class: ~ svm.LinearSVC مقترنًا بـ :class: ~ feature_selection.SelectFromModel لتقييم أهمية السمات واختيار أكثرها ملاءمة. بعد ذلك، يتم تدريب :class: ~ ensemble.RandomForestClassifier على الإخراج المحول، أي باستخدام السمات ذات الصلة فقط. يمكنك إجراء عمليات مماثلة باستخدام طرق اختيار السمات الأخرى والتصنيفات التي توفر طريقة لتقييم أهمية السمات. راجع أمثلة :class: ~ pipeline.Pipeline لمزيد من التفاصيل.
