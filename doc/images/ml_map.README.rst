@@ -1,20 +1,12 @@
-The scikit-learn machine learning cheat sheet was originally created by Andreas Mueller:
+تم إنشاء غشاء Scikit-learn Machine Learning Cheat Sheet في الأصل بواسطة أندرياس مولر:
 https://peekaboo-vision.blogspot.de/2013/01/machine-learning-cheat-sheet-for-scikit.html
 
-The current version of the chart is located at `doc/images/ml_map.svg` in SVG+XML
-format, created using [draw.io](https://draw.io/). To edit the chart, open the file in
-draw.io, make changes, and save. This should update the chart in-place. Another option
-would be to re-export the chart as SVG and replace the existing file. The options used
-for exporting the chart are:
+تقع النسخة الحالية من المخطط في `doc/images/ml_map.svg` بتنسيق SVG+XML، تم إنشاؤها باستخدام [draw.io](https://draw.io/). لتحرير المخطط، افتح الملف في draw.io، وأجر التغييرات، ثم احفظها. يجب أن يؤدي هذا إلى تحديث المخطط في مكانه. يتمثل الخيار الآخر في إعادة تصدير المخطط بتنسيق SVG واستبدال الملف الموجود. والخيارات المستخدمة لتصدير المخطط هي:
 
-- Zoom: 100%
-- Border width: 15
-- Size: Diagram
-- Transparent Background: False
-- Appearance: Light
+- التكبير: 100%
+- عرض الحدود: 15
+- الحجم: رسم بياني
+- الخلفية الشفافة: خطأ
+- المظهر: ضوء
 
-Each node in the chart that contains an estimator should have a link, where the root
-directory is at `../../`. Note that after updating or re-exporting the SVG, the links
-may be prefixed with e.g. `https://app.diagrams.net/`. Remember to check and remove
-them, for instance by replacing all occurrences of `https://app.diagrams.net/../../`
-with `../../`.
+يجب أن تحتوي كل عقدة في المخطط تحتوي على مقدر على رابط، حيث يكون الدليل الجذر في `../../`. لاحظ أنه بعد تحديث أو إعادة تصدير SVG، قد يتم إضافة بادئة للروابط، على سبيل المثال `https://app.diagrams.net/`. تذكر التحقق منها وإزالتها، على سبيل المثال عن طريق استبدال جميع حالات `https://app.diagrams.net/../../` بـ `../../`.
