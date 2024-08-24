@@ -1,121 +1,100 @@
 =======
-Support
+الدعم
 =======
 
-There are several channels to connect with scikit-learn developers for assistance, feedback, or contributions.
+هناك عدة قنوات للتواصل مع مطوري scikit-learn للحصول على المساعدة أو تقديم الملاحظات أو المساهمات.
 
-**Note**: Communications on all channels should respect our `Code of Conduct <https://github.com/scikit-learn/scikit-learn/blob/main/CODE_OF_CONDUCT.md>`_.
+**ملاحظة**: يجب أن تحترم الاتصالات على جميع القنوات `مدونة السلوك <https://github./scikit-learn/scikit-learn/blob/main/CODE_OF_CONDUCT.md>`_.
 
 
 .. _announcements_and_notification:
 
-Mailing Lists
+قوائم البريد الإلكتروني
 =============
 
-- **Main Mailing List**: Join the primary discussion 
-  platform for scikit-learn at `scikit-learn Mailing List       
+- **قائمة البريد الرئيسية**: انضم إلى منصة المناقشة الأساسية لـ scikit-learn على `قائمة بريد scikit-learn       
   <https://mail.python.org/mailman/listinfo/scikitlearn>`_.
 
-- **Commit Updates**: Stay informed about repository 
-  updates and test failures on the `scikit-learn-commits list 
-  <https://lists.sourceforge.net/lists/listinfo/scikit-learn-commits>`_.
+- **تحديثات الالتزام**: ابق على اطلاع دائم بتحديثات المستودع وأخطاء الاختبار على قائمة "scikit-learn-commits" `<https://lists.sourceforge.net/lists/listinfo/scikit-learn-commits>`_.
 
 .. _user_questions:
 
-User Questions
+أسئلة المستخدمين
 ==============
 
-If you have questions, this is our general workflow.
+إذا كان لديك أي أسئلة، فهذا هو سير عملنا العام.
 
-- **Stack Overflow**: Some scikit-learn developers support users using the 
-  `[scikit-learn] <https://stackoverflow.com/questions/tagged/scikit-learn>`_ 
-  tag.
+- **Stack Overflow**: يدعم بعض مطوري scikit-learn المستخدمين باستخدام الوسم `[scikit-learn] <https://stackoverflow.com/questions/tagged/scikit-learn>`_.
 
-- **General Machine Learning Queries**: For broader machine learning 
-  discussions, visit `Stack Exchange <https://stats.stackexchange.com/>`_.
+- **استفسارات عامة حول التعلم الآلي**: للحصول على مناقشات أوسع حول التعلم الآلي، قم بزيارة `Stack Exchange <https://stats.stackexchange.com/>`_.
 
-When posting questions:
+عند نشر الأسئلة:
 
-- Please use a descriptive question in the title field (e.g. no "Please 
-  help with scikit-learn!" as this is not a question) 
+- يرجى استخدام سؤال وصفي في حقل العنوان (على سبيل المثال، لا "يرجى المساعدة مع scikit-learn!" حيث أن هذا ليس سؤالاً) 
 
-- Provide detailed context, expected results, and actual observations.
+- تقديم سياق مفصل، والنتائج المتوقعة، والملاحظات الفعلية.
 
-- Include code and data snippets (preferably minimalistic scripts, 
-  up to ~20 lines).
+- تضمين مقتطفات من التعليمات البرمجية والبيانات (يفضل أن تكون نصوصًا بسيطة، حتى 20 سطرًا تقريبًا).
 
-- Describe your data and preprocessing steps, including sample size, 
-  feature types (categorical or numerical), and the target for supervised 
-  learning tasks (classification type or regression).
+- وصف بياناتك وخطوات المعالجة المسبقة، بما في ذلك حجم العينة، وأنواع الميزات (فئوية أو رقمية)، والهدف لمهام التعلم الخاضع للإشراف (نوع التصنيف أو الانحدار).
 
-**Note**: Avoid asking user questions on the bug tracker to keep 
-the focus on development.
+**ملاحظة**: تجنب طرح أسئلة المستخدم على متتبع الأخطاء للحفاظ على التركيز على التطوير.
 
-- `GitHub Discussions <https://github.com/scikit-learn/scikit-learn/discussions>`_
-  Usage questions such as methodological
+- `مناقشات GitHub <https://github./scikit-learn/scikit-learn/discussions>`_
+  أسئلة الاستخدام مثل المنهجية
 
 - `Stack Overflow <https://stackoverflow.com/questions/tagged/scikit-learn>`_
-  Programming/user questions with `[scikit-learn]` tag
+  أسئلة البرمجة/المستخدم مع علامة `[scikit-learn]`
 
-- `GitHub Bug Tracker <https://github.com/scikit-learn/scikit-learn/issues>`_
-  Bug reports - Please do not ask usage questions on the issue tracker.
+- `متتبع الأخطاء في GitHub <https://github.com/scikit-learn/scikit-learn/issues>`_
+  تقارير الأخطاء - يرجى عدم طرح أسئلة الاستخدام على متتبع المشكلات.
 
-- `Discord Server <https://discord.gg/h9qyrK8Jc8>`_
-  Current pull requests - Post any specific PR-related questions on your PR, 
-  and you can share a link to your PR on this server.
+- `خادم Discord <https://discord.gg/h9qyrK8Jc8>`_
+  طلبات السحب الحالية - قم بنشر أي أسئلة محددة تتعلق بدمج طلبات السحب على طلب السحب الخاص بك، ويمكنك مشاركة رابط طلب السحب على هذا الخادم.
 
 .. _bug_tracker:
 
-Bug Tracker
+متتبع الأخطاء
 ===========
 
-Encountered a bug? Report it on our `issue tracker
+هل واجهت خطأ؟ قم بالإبلاغ عنه على `متتبع المشكلات الخاص بنا
 <https://github.com/scikit-learn/scikit-learn/issues>`_
 
-Include in your report:
+تضمن تقريرك ما يلي:
 
-- Steps or scripts to reproduce the bug.
+- الخطوات أو النصوص البرمجية لتكرار الخطأ.
 
-- Expected and observed outcomes.
+- النتائج المتوقعة والملاحظة.
 
-- Python or gdb tracebacks, if applicable.
+- آثار Python أو GDB، إذا كان ذلك قابلاً للتطبيق.
 
-- The ideal bug report contains a :ref:`short reproducible code snippet
-  <minimal_reproducer>`, this way anyone can try to reproduce the bug easily.
+- يحتوي تقرير الخطأ المثالي على مقتطف برمجي قابل للتكرار `<minimal_reproducer>`، بهذه الطريقة يمكن لأي شخص أن يحاول بسهولة إعادة إنتاج الخطأ.
 
-- If your snippet is longer than around 50 lines, please link to a 
-  `gist <https://gist.github.com>`_ or a github repo.
+- إذا كان المقتطف الخاص بك أطول من حوالي 50 سطرًا، فيرجى توفير رابط إلى 
+  `gist <https://gist.github.com>`_ أو مستودع github.
 
-**Tip**: Gists are Git repositories; you can push data files to them using Git.
+**نصيحة**: Gists هي مستودعات Git؛ يمكنك دفع ملفات البيانات إليها باستخدام Git.
 
 .. _social_media:
 
-Social Media
+وسائل التواصل الاجتماعي
 ============
 
-scikit-learn has presence on various social media platforms to share
-updates with the community. The platforms are not monitored for user
-questions.
+يتواجد scikit-learn على مختلف منصات وسائل التواصل الاجتماعي لمشاركة التحديثات مع المجتمع. ولا يتم مراقبة هذه المنصات لأسئلة المستخدمين.
 
 .. _gitter:
 
 Gitter
 ======
 
-**Note**: The scikit-learn Gitter room is no longer an active community. 
-For live discussions and support, please refer to the other channels 
-mentioned in this document.
+**ملاحظة**: لم تعد غرفة scikit-learn على Gitter مجتمعًا نشطًا. للحصول على مناقشات ودعم مباشر، يرجى الرجوع إلى القنوات الأخرى المذكورة في هذه الوثيقة.
 
 .. _documentation_resources:
 
-Documentation Resources
+موارد التوثيق
 =======================
 
-This documentation is for |release|. Find documentation for other versions 
-`here <https://scikit-learn.org/dev/versions.html>`__.
+هذه الوثيقة مخصصة لـ |release|. يمكن العثور على وثائق الإصدارات الأخرى `هنا <https://scikit-learn.org/dev/versions.html>`__.
 
-Older versions' printable PDF documentation is available `here
-<https://sourceforge.net/projects/scikit-learn/files/documentation/>`_.
-Building the PDF documentation is no longer supported in the website,
-but you can still generate it locally by following the
-:ref:`building documentation instructions <building_documentation>`.
+تتوفر وثائق PDF القابلة للطباعة للإصدارات القديمة `هنا
+<https://sourceforge.net/projects/scikit-learn/files/documentation/>`_. ولم يعد إنشاء وثائق PDF مدعومًا على الموقع، ولكن يمكنك إنشاءها محليًا باتباع تعليمات :ref:`بناء الوثائق <building_documentation>`.
