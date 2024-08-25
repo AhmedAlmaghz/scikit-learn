@@ -1,0 +1,239 @@
+{
+ "ColumnTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "ColumnTransformer"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "SplineTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "SplineTransformer"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "compose.ColumnTransformer.get_feature_names_out": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "compose.ColumnTransformer",
+   "module_short": "compose.ColumnTransformer",
+   "name": "get_feature_names_out"
+  }
+ ],
+ "decomposition.PCA": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "decomposition",
+   "module_short": "decomposition",
+   "name": "PCA"
+  }
+ ],
+ "ensemble.HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "inspection.PartialDependenceDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "inspection",
+   "module_short": "inspection",
+   "name": "PartialDependenceDisplay"
+  }
+ ],
+ "linear_model.Lasso": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "Lasso"
+  }
+ ],
+ "linear_model.QuantileRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "QuantileRegressor"
+  }
+ ],
+ "linear_model.SGDOneClassSVM": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "SGDOneClassSVM"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "SGDOneClassSVM"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "SGDOneClassSVM"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "metrics.ConfusionMatrixDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "metrics",
+   "module_short": "metrics",
+   "name": "ConfusionMatrixDisplay"
+  }
+ ],
+ "metrics.DetCurveDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "metrics",
+   "module_short": "metrics",
+   "name": "DetCurveDisplay"
+  }
+ ],
+ "metrics.PrecisionRecallDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "metrics",
+   "module_short": "metrics",
+   "name": "PrecisionRecallDisplay"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "preprocessing.SplineTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "SplineTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "SplineTransformer"
+  }
+ ],
+ "preprocessing.StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "sklearn.ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "sklearn.metrics.mean_pinball_loss": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "mean_pinball_loss"
+  }
+ ],
+ "svm.OneClassSVM": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "svm",
+   "module_short": "svm",
+   "name": "OneClassSVM"
+  }
+ ]
+}
