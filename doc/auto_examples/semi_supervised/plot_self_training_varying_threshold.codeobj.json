@@ -1,0 +1,119 @@
+{
+ "SVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  }
+ ],
+ "SelfTrainingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.semi_supervised",
+   "module_short": "sklearn.semi_supervised",
+   "name": "SelfTrainingClassifier"
+  }
+ ],
+ "StratifiedKFold": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "StratifiedKFold"
+  }
+ ],
+ "accuracy_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "accuracy_score"
+  }
+ ],
+ "datasets.load_breast_cancer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_breast_cancer"
+  }
+ ],
+ "np.append": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "append"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.empty": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "empty"
+  }
+ ],
+ "np.max": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "max"
+  }
+ ],
+ "np.unique": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "unique"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplot"
+  }
+ ],
+ "shuffle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils",
+   "module_short": "sklearn.utils",
+   "name": "shuffle"
+  }
+ ]
+}
