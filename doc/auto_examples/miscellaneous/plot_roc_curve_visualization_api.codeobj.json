@@ -1,0 +1,83 @@
+{
+ "RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "RocCurveDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.RocCurveDisplay",
+   "module_short": "sklearn.metrics.RocCurveDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "SVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  }
+ ],
+ "load_wine": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_wine"
+  }
+ ],
+ "plt.gca": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "gca"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "sklearn.metrics.RocCurveDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics.RocCurveDisplay",
+   "module_short": "sklearn.metrics.RocCurveDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "sklearn.metrics.RocCurveDisplay.plot": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics.RocCurveDisplay",
+   "module_short": "sklearn.metrics.RocCurveDisplay",
+   "name": "plot"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
