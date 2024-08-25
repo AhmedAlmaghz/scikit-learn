@@ -1,0 +1,63 @@
+
+
+Examples using ``sklearn.preprocessing.OneHotEncoder``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to apply different preprocessing and feature extraction pipelines to different subsets of features, using ColumnTransformer. This is particularly handy for the case of datasets that contain heterogeneous data types, since we may want to scale the numeric features and one-hot encode the categorical ones.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_column_transformer_mixed_types_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_column_transformer_mixed_types.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Column Transformer with Mixed Types</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_column_transformer_mixed_types.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The TargetEncoder uses the value of the target to encode each categorical feature. In this example, we will compare three different approaches for handling categorical features: TargetEncoder, OrdinalEncoder, OneHotEncoder and dropping the category.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_target_encoder_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Target Encoder with Other Encoders</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
