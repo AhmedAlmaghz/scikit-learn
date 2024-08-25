@@ -1,0 +1,63 @@
+
+
+Examples using ``sklearn.feature_extraction.text.CountVectorizer``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, semi-supervised classifiers are trained on the 20 newsgroups dataset (which will be automatically downloaded).">
+
+.. only:: html
+
+  .. image:: /auto_examples/semi_supervised/images/thumb/sphx_glr_plot_semi_supervised_newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Semi-supervised Classification on a Text Dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_newsgroups.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example we illustrate text vectorization, which is the process of representing non-numerical input data (such as dictionaries or text documents) as vectors of real numbers.">
+
+.. only:: html
+
+  .. image:: /auto_examples/text/images/thumb/sphx_glr_plot_hashing_vs_dict_vectorizer_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_text_plot_hashing_vs_dict_vectorizer.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">FeatureHasher and DictVectorizer Comparison</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_text_plot_hashing_vs_dict_vectorizer.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
