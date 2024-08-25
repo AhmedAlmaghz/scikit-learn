@@ -1,0 +1,63 @@
+
+
+Examples using ``sklearn.base.BaseEstimator``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The __sklearn_is_fitted__ method is a convention used in scikit-learn for checking whether an estimator object has been fitted or not. This method is typically implemented in custom estimator classes that are built on top of scikit-learn&#x27;s base classes like BaseEstimator or its subclasses.">
+
+.. only:: html
+
+  .. image:: /auto_examples/developing_estimators/images/thumb/sphx_glr_sklearn_is_fitted_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_developing_estimators_sklearn_is_fitted.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">__sklearn_is_fitted__ as Developer API</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_developing_estimators_sklearn_is_fitted.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example presents how to chain KNeighborsTransformer and TSNE in a pipeline. It also shows how to wrap the packages nmslib and pynndescent to replace KNeighborsTransformer and perform approximate nearest neighbors. These packages can be installed with pip install nmslib pynndescent.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_approximate_nearest_neighbors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_approximate_nearest_neighbors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Approximate nearest neighbors in TSNE</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_approximate_nearest_neighbors.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
