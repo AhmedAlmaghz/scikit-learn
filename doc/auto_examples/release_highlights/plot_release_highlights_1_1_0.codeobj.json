@@ -1,0 +1,532 @@
+{
+ "BisectingKMeans": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "BisectingKMeans"
+  }
+ ],
+ "ColumnTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "ColumnTransformer"
+  }
+ ],
+ "HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "KMeans": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "MiniBatchNMF": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "MiniBatchNMF"
+  }
+ ],
+ "OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "SelectKBest": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_selection",
+   "module_short": "sklearn.feature_selection",
+   "name": "SelectKBest"
+  }
+ ],
+ "SimpleImputer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.impute",
+   "module_short": "sklearn.impute",
+   "name": "SimpleImputer"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "cluster.AffinityPropagation": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "AffinityPropagation"
+  }
+ ],
+ "cluster.Birch": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "Birch"
+  }
+ ],
+ "cluster.BisectingKMeans": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "BisectingKMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "BisectingKMeans"
+  }
+ ],
+ "cluster.KMeans": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "KMeans"
+  }
+ ],
+ "cluster.MeanShift": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "MeanShift"
+  }
+ ],
+ "cluster.OPTICS": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "OPTICS"
+  }
+ ],
+ "cluster.SpectralClustering": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "SpectralClustering"
+  }
+ ],
+ "decomposition.MiniBatchNMF": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "decomposition",
+   "module_short": "decomposition",
+   "name": "MiniBatchNMF"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "decomposition",
+   "module_short": "decomposition",
+   "name": "MiniBatchNMF"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "decomposition",
+   "module_short": "decomposition",
+   "name": "MiniBatchNMF"
+  }
+ ],
+ "decomposition.NMF": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "decomposition",
+   "module_short": "decomposition",
+   "name": "NMF"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "feature_selection.mutual_info_regression": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "feature_selection",
+   "module_short": "feature_selection",
+   "name": "mutual_info_regression"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "linear_model.GammaRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "GammaRegressor"
+  }
+ ],
+ "linear_model.LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "linear_model.PoissonRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "PoissonRegressor"
+  }
+ ],
+ "linear_model.TweedieRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "TweedieRegressor"
+  }
+ ],
+ "make_blobs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_blobs"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "manifold.Isomap": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "manifold",
+   "module_short": "manifold",
+   "name": "Isomap"
+  }
+ ],
+ "manifold.LocallyLinearEmbedding": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "manifold",
+   "module_short": "manifold",
+   "name": "LocallyLinearEmbedding"
+  }
+ ],
+ "manifold.TSNE": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "manifold",
+   "module_short": "manifold",
+   "name": "TSNE"
+  }
+ ],
+ "manifold.trustworthiness": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "manifold",
+   "module_short": "manifold",
+   "name": "trustworthiness"
+  }
+ ],
+ "metrics.pairwise_distances_argmin": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "metrics",
+   "module_short": "metrics",
+   "name": "pairwise_distances_argmin"
+  }
+ ],
+ "metrics.pairwise_distances_argmin_min": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "metrics",
+   "module_short": "metrics",
+   "name": "pairwise_distances_argmin_min"
+  }
+ ],
+ "neighbors.KNeighborsClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "KNeighborsClassifier"
+  }
+ ],
+ "neighbors.KNeighborsRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "KNeighborsRegressor"
+  }
+ ],
+ "neighbors.LocalOutlierFactor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "LocalOutlierFactor"
+  }
+ ],
+ "neighbors.NearestNeighbors": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "NearestNeighbors"
+  }
+ ],
+ "neighbors.NearestNeighbors.kneighbors": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors.NearestNeighbors",
+   "module_short": "neighbors.NearestNeighbors",
+   "name": "kneighbors"
+  }
+ ],
+ "neighbors.NearestNeighbors.radius_neighbors": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors.NearestNeighbors",
+   "module_short": "neighbors.NearestNeighbors",
+   "name": "radius_neighbors"
+  }
+ ],
+ "neighbors.RadiusNeighborsClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "RadiusNeighborsClassifier"
+  }
+ ],
+ "neighbors.RadiusNeighborsRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "RadiusNeighborsRegressor"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.cos": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "cos"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.sum": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sum"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "pd.Series": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "Series"
+  }
+ ],
+ "pipeline.Pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "pipeline",
+   "module_short": "pipeline",
+   "name": "Pipeline"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.tight_layout": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "tight_layout"
+  }
+ ],
+ "preprocessing.OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "OneHotEncoder"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "semi_supervised.LabelPropagation": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "semi_supervised",
+   "module_short": "semi_supervised",
+   "name": "LabelPropagation"
+  }
+ ],
+ "semi_supervised.LabelSpreading": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "semi_supervised",
+   "module_short": "semi_supervised",
+   "name": "LabelSpreading"
+  }
+ ]
+}
