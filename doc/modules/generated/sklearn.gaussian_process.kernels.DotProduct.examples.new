@@ -1,0 +1,77 @@
+
+
+Examples using ``sklearn.gaussian_process.kernels.DotProduct``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates GPC on XOR data. Compared are a stationary, isotropic kernel (RBF) and a non-stationary kernel (DotProduct). On this particular dataset, the DotProduct kernel obtains considerably better results because the class-boundaries are linear and coincide with the coordinate axes. In general, stationary kernels often obtain better results.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_xor_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_xor.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Illustration of Gaussian process classification (GPC) on the XOR dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_xor.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the prior and posterior of a GaussianProcessRegressor with different kernels. Mean, standard deviation, and 5 samples are shown for both prior and posterior distributions.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_prior_posterior_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_prior_posterior.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Illustration of prior and posterior Gaussian process for different kernels</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_prior_posterior.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A two-dimensional classification example showing iso-probability lines for the predicted probabilities.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_isoprobability_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_isoprobability.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Iso-probability lines for Gaussian Processes classification (GPC)</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_isoprobability.py`
