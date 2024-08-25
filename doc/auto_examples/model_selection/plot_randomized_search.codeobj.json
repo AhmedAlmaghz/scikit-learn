@@ -1,0 +1,101 @@
+{
+ "GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "RandomizedSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "RandomizedSearchCV"
+  }
+ ],
+ "SGDClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "SGDClassifier"
+  }
+ ],
+ "load_digits": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_digits"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.flatnonzero": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "flatnonzero"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.power": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "power"
+  }
+ ],
+ "stats.loguniform": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.stats",
+   "module_short": "scipy.stats",
+   "name": "loguniform"
+  }
+ ],
+ "stats.uniform": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.stats",
+   "module_short": "scipy.stats",
+   "name": "uniform"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
