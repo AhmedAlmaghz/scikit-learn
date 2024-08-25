@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The PCA does an unsupervised dimensionality reduction, while the logistic regression does the prediction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_digits_pipe_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_digits_pipe.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Pipelining: chaining a PCA and a logistic regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_digits_pipe.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example visualizes some training loss curves for different stochastic learning strategies, including SGD and Adam. Because of time-constraints, we use several small datasets, for which L-BFGS might be more suitable. The general trend shown in these examples seems to carry over to larger datasets, however.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neural_networks/images/thumb/sphx_glr_plot_mlp_training_curves_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neural_networks_plot_mlp_training_curves.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Compare Stochastic learning strategies for MLPClassifier</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neural_networks_plot_mlp_training_curves.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="An example comparing nearest neighbors classification with and without Neighborhood Components Analysis.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A tutorial exercise for using different SVM kernels.">
+
+.. only:: html
+
+  .. image:: /auto_examples/exercises/images/thumb/sphx_glr_plot_iris_exercise_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_exercises_plot_iris_exercise.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SVM Exercise</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_exercises_plot_iris_exercise.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
