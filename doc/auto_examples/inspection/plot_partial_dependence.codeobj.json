@@ -1,0 +1,278 @@
+{
+ "ColumnTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "ColumnTransformer"
+  }
+ ],
+ "HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "MLPRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neural_network",
+   "module_short": "sklearn.neural_network",
+   "name": "MLPRegressor"
+  }
+ ],
+ "OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "OrdinalEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OrdinalEncoder"
+  }
+ ],
+ "PartialDependenceDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "QuantileTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "QuantileTransformer"
+  }
+ ],
+ "clone": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn",
+   "name": "clone"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.meshgrid": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "meshgrid"
+  }
+ ],
+ "partial_dependence": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "partial_dependence"
+  }
+ ],
+ "plt.cm.BuPu": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "BuPu"
+  }
+ ],
+ "plt.colorbar": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "colorbar"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "product": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "itertools",
+   "module_short": "itertools",
+   "name": "product"
+  }
+ ],
+ "sklearn.ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "sklearn.inspection.PartialDependenceDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "sklearn.neural_network.MLPRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neural_network",
+   "module_short": "sklearn.neural_network",
+   "name": "MLPRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neural_network",
+   "module_short": "sklearn.neural_network",
+   "name": "MLPRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neural_network",
+   "module_short": "sklearn.neural_network",
+   "name": "MLPRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neural_network",
+   "module_short": "sklearn.neural_network",
+   "name": "MLPRegressor"
+  }
+ ],
+ "sklearn.preprocessing.OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "sklearn.preprocessing.OrdinalEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OrdinalEncoder"
+  }
+ ],
+ "sklearn.preprocessing.QuantileTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "QuantileTransformer"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
