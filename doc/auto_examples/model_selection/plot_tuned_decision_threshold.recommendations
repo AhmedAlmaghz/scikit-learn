@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 1.5! Many bug fixes and improvements were added, as well as some key new features. Below we detail the highlights of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_1_5&gt;.">
+
+.. only:: html
+
+  .. image:: /auto_examples/release_highlights/images/thumb/sphx_glr_plot_release_highlights_1_5_0_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_release_highlights_plot_release_highlights_1_5_0.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 1.5</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_release_highlights_plot_release_highlights_1_5_0.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Once a classifier is trained, the output of the predict method outputs class label predictions corresponding to a thresholding of either the decision_function or the predict_proba output. For a binary classifier, the default threshold is defined as a posterior probability estimate of 0.5 or a decision score of 0.0.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_cost_sensitive_learning_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_cost_sensitive_learning.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Post-tuning the decision threshold for cost-sensitive learning</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_cost_sensitive_learning.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the effect of a varying threshold on self-training. The breast_cancer dataset is loaded, and labels are deleted such that only 50 out of 569 samples have labels. A SelfTrainingClassifier is fitted on this dataset, with varying thresholds.">
+
+.. only:: html
+
+  .. image:: /auto_examples/semi_supervised/images/thumb/sphx_glr_plot_self_training_varying_threshold_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_semi_supervised_plot_self_training_varying_threshold.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Effect of varying threshold for self-training</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_semi_supervised_plot_self_training_varying_threshold.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A Recursive Feature Elimination (RFE) example with automatic tuning of the number of features selected with cross-validation.">
+
+.. only:: html
+
+  .. image:: /auto_examples/feature_selection/images/thumb/sphx_glr_plot_rfe_with_cross_validation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Recursive feature elimination with cross-validation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
