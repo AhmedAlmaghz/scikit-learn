@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Comparison of different linear SVM classifiers on a 2D projection of the iris dataset. We only consider the first 2 features of this dataset:">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_iris_svc_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_iris_svc.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot different SVM classifiers in the iris dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_iris_svc.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Show below is a logistic-regression classifiers decision boundaries on the first two dimensions (sepal length and width) of the iris dataset. The datapoints are colored according to their labels.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_iris_logistic_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_iris_logistic.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Logistic Regression 3-class Classifier</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_iris_logistic.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the maximum margin separating hyperplane within a two-class separable dataset using a Support Vector Machine classifier with linear kernel.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_separating_hyperplane_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SVM: Maximum margin separating hyperplane</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sample usage of Nearest Centroid classification. It will plot the decision boundaries for each class.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nearest_centroid_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nearest_centroid.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Nearest Centroid Classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nearest_centroid.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
