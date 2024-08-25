@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Shows the effect of collinearity in the coefficients of an estimator.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ridge_path_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_path.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot Ridge coefficients as a function of the regularization</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_path.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In linear models, the target value is modeled as a linear combination of the features (see the linear_model User Guide section for a description of a set of linear models available in scikit-learn). Coefficients in multiple linear models represent the relationship between the given feature, X_i and the target, y, assuming that all the other features remain constant (conditional dependence). This is different from plotting X_i versus y and fitting a linear relationship: in that case all possible values of the other features are taken into account in the estimation (marginal dependence).">
+
+.. only:: html
+
+  .. image:: /auto_examples/inspection/images/thumb/sphx_glr_plot_linear_model_coefficient_interpretation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Common pitfalls in the interpretation of coefficients of linear models</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" Train l1-penalized logistic regression models on a binary classification problem derived from the Iris dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_path_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_path.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Regularization path of L1- Logistic Regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_path.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The following example illustrates the effect of scaling the regularization parameter when using svm for svm_classification. For SVC classification, we are interested in a risk minimization for the equation:">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_svm_scale_c_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_svm_scale_c.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Scaling the regularization parameter for SVCs</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_svm_scale_c.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
