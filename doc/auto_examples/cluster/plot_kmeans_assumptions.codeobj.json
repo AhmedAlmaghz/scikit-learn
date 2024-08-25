@@ -1,0 +1,119 @@
+{
+ "GaussianMixture": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.mixture",
+   "module_short": "sklearn.mixture",
+   "name": "GaussianMixture"
+  }
+ ],
+ "KMeans": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  }
+ ],
+ "make_blobs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_blobs"
+  }
+ ],
+ "np.dot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "dot"
+  }
+ ],
+ "np.vstack": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "vstack"
+  }
+ ],
+ "plt.scatter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "scatter"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.suptitle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "suptitle"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "sklearn.cluster.KMeans": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  }
+ ],
+ "sklearn.datasets.make_blobs": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_blobs"
+  }
+ ],
+ "sklearn.mixture.GaussianMixture": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.mixture",
+   "module_short": "sklearn.mixture",
+   "name": "GaussianMixture"
+  }
+ ]
+}
