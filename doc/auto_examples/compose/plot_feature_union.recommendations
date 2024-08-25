@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This notebook is an example of using univariate feature selection to improve classification accuracy on a noisy dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/feature_selection/images/thumb/sphx_glr_plot_feature_selection_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_feature_selection_plot_feature_selection.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Univariate Feature Selection</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_feature_selection_plot_feature_selection.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to perform univariate feature selection before running a SVC (support vector classifier) to improve the classification scores. We use the iris dataset (4 features) and add 36 non-informative features. We can find that our model achieves best performance when we select around 10% of features.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_svm_anova_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_svm_anova.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SVM-Anova: SVM with univariate feature selection</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_svm_anova.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Comparison of different linear SVM classifiers on a 2D projection of the iris dataset. We only consider the first 2 features of this dataset:">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_iris_svc_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_iris_svc.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot different SVM classifiers in the iris dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_iris_svc.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Compare randomized search and grid search for optimizing hyperparameters of a linear SVM with SGD training. All parameters that influence the learning are searched simultaneously (except for the number of estimators, which poses a time / quality tradeoff).">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_randomized_search_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_randomized_search.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing randomized search and grid search for hyperparameter estimation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_randomized_search.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
