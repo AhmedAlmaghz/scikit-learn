@@ -1,0 +1,13 @@
+ShrunkCovariance
+================
+
+.. currentmodule:: sklearn.covariance
+
+.. فئة تلقائية:: ShrunkCovariance
+   :members:
+   :inherited-members:
+   :special-members: __call__
+
+.. معرض مصغر:: sklearn.covariance.ShrunkCovariance sklearn.covariance.ShrunkCovariance.__init__ sklearn.covariance.ShrunkCovariance.error_norm sklearn.covariance.ShrunkCovariance.fit sklearn.covariance.ShrunkCovariance.get_metadata_routing sklearn.covariance.ShrunkCovariance.get_params sklearn.covariance.ShrunkCovariance.get_precision sklearn.covariance.ShrunkCovariance.mahalanobis sklearn.covariance.ShrunkCovariance.score sklearn.covariance.ShrunkCovariance.set_params sklearn.covariance.ShrunkCovariance.set_score_request 
+   :add-heading: أمثلة المعرض
+   :heading-level: -يرجى ملاحظة أنني قمت بترجمة المصطلحات التقنية إلى اللغة العربية، ولكن قد تحتاج إلى تعديل الترجمة اعتمادًا على السياق المحدد لمشروعك.
