@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="For greyscale image data where pixel values can be interpreted as degrees of blackness on a white background, like handwritten digit recognition, the Bernoulli Restricted Boltzmann machine model (BernoulliRBM) can perform effective non-linear feature extraction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neural_networks/images/thumb/sphx_glr_plot_rbm_logistic_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Restricted Boltzmann Machine features for digit classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we fit a linear model with positive constraints on the regression coefficients and compare the estimated coefficients to a classic linear regression.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_nnls_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_nnls.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Non-negative least squares</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_nnls.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here a sine function is fit with a polynomial of order 3, for values close to zero.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_robust_fit_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_robust_fit.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Robust linear estimator fitting</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_robust_fit.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Ridge regression is basically minimizing a penalised version of the least-squared function. The penalising shrinks the value of the regression coefficients. Despite the few data points in each dimension, the slope of the prediction is much more stable and the variance in the line itself is greatly reduced, in comparison to that of the standard linear regression">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ols_ridge_variance_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ols_ridge_variance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Ordinary Least Squares and Ridge Regression Variance</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_ols_ridge_variance.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
