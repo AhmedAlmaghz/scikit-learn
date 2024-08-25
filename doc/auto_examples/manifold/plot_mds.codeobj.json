@@ -1,0 +1,191 @@
+{
+ "LineCollection": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.collections",
+   "module_short": "matplotlib.collections",
+   "name": "LineCollection"
+  }
+ ],
+ "PCA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "PCA"
+  }
+ ],
+ "euclidean_distances": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "euclidean_distances"
+  }
+ ],
+ "manifold.MDS": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "MDS"
+  }
+ ],
+ "np.abs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "abs"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.fill_diagonal": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "fill_diagonal"
+  }
+ ],
+ "np.finfo": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "finfo"
+  }
+ ],
+ "np.float32": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float32"
+  }
+ ],
+ "np.full": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "full"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.random.rand": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "rand"
+  }
+ ],
+ "np.sqrt": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sqrt"
+  }
+ ],
+ "np.where": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "where"
+  }
+ ],
+ "plt.Normalize": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "Normalize"
+  }
+ ],
+ "plt.axes": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "axes"
+  }
+ ],
+ "plt.cm.Blues": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "Blues"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.scatter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "scatter"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ]
+}
