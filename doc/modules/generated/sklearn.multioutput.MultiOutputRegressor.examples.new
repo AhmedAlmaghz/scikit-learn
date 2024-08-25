@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.multioutput.MultiOutputRegressor``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="An example to compare multi-output regression with random forest and the multiclass meta-estimator.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_random_forest_regression_multioutput_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_random_forest_regression_multioutput.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing random forests and the multi-output meta estimator</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_random_forest_regression_multioutput.py`
