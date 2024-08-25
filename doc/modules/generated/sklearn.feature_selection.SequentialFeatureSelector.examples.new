@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.feature_selection.SequentialFeatureSelector``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates and compares two approaches for feature selection: SelectFromModel which is based on feature importance, and SequentialFeatureSelector which relies on a greedy approach.">
+
+.. only:: html
+
+  .. image:: /auto_examples/feature_selection/images/thumb/sphx_glr_plot_select_from_model_diabetes_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_feature_selection_plot_select_from_model_diabetes.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Model-based and sequential feature selection</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_feature_selection_plot_select_from_model_diabetes.py`
