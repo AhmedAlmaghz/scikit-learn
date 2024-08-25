@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The rows being the samples and the columns being: Sepal Length, Sepal Width, Petal Length and Petal Width.">
+
+.. only:: html
+
+  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_iris_dataset_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_datasets_plot_iris_dataset.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">The Iris Dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_datasets_plot_iris_dataset.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sample usage of Neighborhood Components Analysis for dimensionality reduction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_dim_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Dimensionality Reduction with Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Incremental principal component analysis (IPCA) is typically used as a replacement for principal component analysis (PCA) when the dataset to be decomposed is too large to fit in memory. IPCA builds a low-rank approximation for the input data using an amount of memory which is independent of the number of input data samples. It is still dependent on the input data features, but changing the batch size allows for control of memory usage.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_incremental_pca_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_incremental_pca.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Incremental PCA</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_decomposition_plot_incremental_pca.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Principal Component Analysis applied to the Iris dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_pca_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_pca_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">PCA example with Iris Data-set</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_decomposition_plot_pca_iris.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
