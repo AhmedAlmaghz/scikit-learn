@@ -1,0 +1,119 @@
+{
+ "ConvergenceWarning": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.exceptions",
+   "module_short": "sklearn.exceptions",
+   "name": "ConvergenceWarning"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "OneVsRestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsRestClassifier"
+  }
+ ],
+ "fetch_20newsgroups_vectorized": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_20newsgroups_vectorized"
+  }
+ ],
+ "np.concatenate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "concatenate"
+  }
+ ],
+ "np.mean": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "mean"
+  }
+ ],
+ "np.sum": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sum"
+  }
+ ],
+ "np.unique": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "unique"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "timeit.default_timer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "timeit",
+   "module_short": "timeit",
+   "name": "default_timer"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ],
+ "warnings.filterwarnings": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "warnings",
+   "module_short": "warnings",
+   "name": "filterwarnings"
+  }
+ ]
+}
