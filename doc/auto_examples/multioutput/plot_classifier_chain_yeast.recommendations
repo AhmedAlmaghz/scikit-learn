@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we discuss the problem of classification when the target variable is composed of more than two classes. This is called multiclass classification.">
+
+.. only:: html
+
+  .. image:: /auto_examples/multiclass/images/thumb/sphx_glr_plot_multiclass_overview_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_multiclass_plot_multiclass_overview.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Overview of multiclass training meta-estimators</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_multiclass_plot_multiclass_overview.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to statistically compare the performance of models trained and evaluated using GridSearchCV.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_grid_search_stats_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Statistical comparison of models using grid search</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the classification probability for different classifiers. We use a 3 class dataset, and we classify it with a Support Vector classifier, L1 and L2 penalized logistic regression (multinomial multiclass), a One-Vs-Rest version with logistic regression, and Gaussian process classification.">
+
+.. only:: html
+
+  .. image:: /auto_examples/classification/images/thumb/sphx_glr_plot_classification_probability_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_classification_plot_classification_probability.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot classification probability</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_classification_plot_classification_probability.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Transform your features into a higher dimensional, sparse space. Then train a linear model on these features.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_feature_transformation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_feature_transformation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Feature transformations with ensembles of trees</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_feature_transformation.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
