@@ -1,0 +1,110 @@
+{
+ "IsotonicRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.isotonic",
+   "module_short": "sklearn.isotonic",
+   "name": "IsotonicRegression"
+  }
+ ],
+ "LineCollection": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.collections",
+   "module_short": "matplotlib.collections",
+   "name": "LineCollection"
+  }
+ ],
+ "LinearRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LinearRegression"
+  }
+ ],
+ "check_random_state": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils",
+   "module_short": "sklearn.utils",
+   "name": "check_random_state"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.full": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "full"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.log1p": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "log1p"
+  }
+ ],
+ "np.newaxis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "newaxis"
+  }
+ ],
+ "np.ones": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ones"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ]
+}
