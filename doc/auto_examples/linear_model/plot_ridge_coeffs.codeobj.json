@@ -1,0 +1,106 @@
+{
+ "Ridge": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Ridge"
+  }
+ ],
+ "make_regression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_regression"
+  }
+ ],
+ "mean_squared_error": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "mean_squared_error"
+  }
+ ],
+ "np.logspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "logspace"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "pd.Index": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "Index"
+  }
+ ],
+ "pd.Series": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "Series"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.linear_model.HuberRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "HuberRegressor"
+  }
+ ],
+ "sklearn.linear_model.Ridge": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Ridge"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Ridge"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Ridge"
+  }
+ ]
+}
