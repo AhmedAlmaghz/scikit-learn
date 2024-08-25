@@ -1,0 +1,56 @@
+
+
+Examples using ``sklearn.linear_model.ARDRegression``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example compares two different bayesian regressors:">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ard_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Linear Bayesian Regressors</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The present example compares three l1-based regression models on a synthetic signal obtained from sparse and correlated features that are further corrupted with additive gaussian noise:">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_and_elasticnet_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_and_elasticnet.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">L1-based models for Sparse Signals</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_and_elasticnet.py`
