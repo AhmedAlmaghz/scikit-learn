@@ -1,0 +1,42 @@
+
+
+Examples using ``sklearn.metrics.hinge_loss``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="SVCs aim to find a hyperplane that effectively separates the classes in their training data by maximizing the margin between the outermost data points of each class. This is achieved by finding the best weight vector w that defines the decision boundary hyperplane and minimizes the sum of hinge losses for misclassified samples, as measured by the hinge_loss function. By default, regularization is applied with the parameter C=1, which allows for a certain degree of misclassification tolerance.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_svm_kernels_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_svm_kernels.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot classification boundaries with different SVM Kernels</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_svm_kernels.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
