@@ -1,0 +1,77 @@
+
+
+Examples using ``sklearn.ensemble.AdaBoostClassifier``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how boosting can improve the prediction accuracy on a multi-label classification problem. It reproduces a similar experiment as depicted by Figure 1 in Zhu et al [1]_.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_adaboost_multiclass_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_multiclass.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multi-class AdaBoosted Decision Trees</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_multiclass.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surfaces of forests of randomized trees trained on pairs of features of the iris dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_forest_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_forest_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot the decision surfaces of ensembles of trees on the iris dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_forest_iris.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example fits an AdaBoosted decision stump on a non-linearly separable classification dataset composed of two &quot;Gaussian quantiles&quot; clusters (see sklearn.datasets.make_gaussian_quantiles) and plots the decision boundary and decision scores. The distributions of decision scores are shown separately for samples of class A and B. The predicted class label for each sample is determined by the sign of the decision score. Samples with decision scores greater than zero are classified as B, and are otherwise classified as A. The magnitude of a decision score determines the degree of likeness with the predicted class label. Additionally, a new dataset could be constructed containing a desired purity of class B, for example, by only selecting samples with a decision score above some value.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_adaboost_twoclass_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_twoclass.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Two-class AdaBoost</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_twoclass.py`
