@@ -1,0 +1,359 @@
+{
+ "EllipticEnvelope": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.covariance",
+   "module_short": "sklearn.covariance",
+   "name": "EllipticEnvelope"
+  }
+ ],
+ "IsolationForest": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "IsolationForest"
+  }
+ ],
+ "LocalOutlierFactor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "LocalOutlierFactor"
+  }
+ ],
+ "Nystroem": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.kernel_approximation",
+   "module_short": "sklearn.kernel_approximation",
+   "name": "Nystroem"
+  }
+ ],
+ "SGDOneClassSVM": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "SGDOneClassSVM"
+  }
+ ],
+ "make_blobs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_blobs"
+  }
+ ],
+ "make_moons": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_moons"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "matplotlib.rcParams": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "rcParams"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.c_": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "c_"
+  }
+ ],
+ "np.concatenate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "concatenate"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.meshgrid": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "meshgrid"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "plt.contour": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "contour"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.gca": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "gca"
+  }
+ ],
+ "plt.scatter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "scatter"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplot"
+  }
+ ],
+ "plt.subplots_adjust": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots_adjust"
+  }
+ ],
+ "plt.text": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "text"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xlim": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xlim"
+  }
+ ],
+ "plt.xticks": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xticks"
+  }
+ ],
+ "plt.ylim": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylim"
+  }
+ ],
+ "plt.yticks": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "yticks"
+  }
+ ],
+ "sklearn.covariance.EllipticEnvelope": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.covariance",
+   "module_short": "sklearn.covariance",
+   "name": "EllipticEnvelope"
+  }
+ ],
+ "sklearn.ensemble.IsolationForest": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "IsolationForest"
+  }
+ ],
+ "sklearn.linear_model.SGDOneClassSVM": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "SGDOneClassSVM"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "SGDOneClassSVM"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "SGDOneClassSVM"
+  }
+ ],
+ "sklearn.neighbors.LocalOutlierFactor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "LocalOutlierFactor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "LocalOutlierFactor"
+  }
+ ],
+ "sklearn.svm.OneClassSVM": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "OneClassSVM"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "OneClassSVM"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "OneClassSVM"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "OneClassSVM"
+  }
+ ],
+ "svm.OneClassSVM": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "OneClassSVM"
+  }
+ ],
+ "time.time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
