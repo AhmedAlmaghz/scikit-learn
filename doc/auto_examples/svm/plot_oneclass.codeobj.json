@@ -1,0 +1,119 @@
+{
+ "DecisionBoundaryDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection.DecisionBoundaryDisplay",
+   "module_short": "sklearn.inspection.DecisionBoundaryDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "matplotlib.font_manager.FontProperties": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.font_manager",
+   "module_short": "matplotlib.font_manager",
+   "name": "FontProperties"
+  }
+ ],
+ "mlines.Line2D": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.lines",
+   "module_short": "matplotlib.lines",
+   "name": "Line2D"
+  }
+ ],
+ "np.concatenate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "concatenate"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.meshgrid": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "meshgrid"
+  }
+ ],
+ "np.r_": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "r_"
+  }
+ ],
+ "np.random.randn": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "randn"
+  }
+ ],
+ "np.random.uniform": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "uniform"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "svm.OneClassSVM": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "OneClassSVM"
+  }
+ ]
+}
