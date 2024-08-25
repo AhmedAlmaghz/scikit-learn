@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how kernel density estimation (KDE), a powerful non-parametric density estimation technique, can be used to learn a generative model for a dataset.  With this generative model in place, new samples can be drawn.  These new samples reflect the underlying model of the data.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_digits_kde_sampling_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_digits_kde_sampling.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Kernel Density Estimation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_digits_kde_sampling.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example compares two different bayesian regressors:">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ard_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Linear Bayesian Regressors</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_scaling_importance_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Importance of Feature Scaling</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to approximate a function with polynomials up to degree degree by using ridge regression. We show two different ways given n_samples of 1d points x_i:">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_polynomial_interpolation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Polynomial and Spline interpolation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
