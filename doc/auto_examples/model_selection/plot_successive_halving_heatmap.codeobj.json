@@ -1,0 +1,179 @@
+{
+ "GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "HalvingGridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "HalvingGridSearchCV"
+  }
+ ],
+ "SVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  }
+ ],
+ "datasets.make_classification": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_classification"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.float64": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float64"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "plt.setp": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "setp"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.model_selection.GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "sklearn.model_selection.HalvingGridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "HalvingGridSearchCV"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "HalvingGridSearchCV"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "HalvingGridSearchCV"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "HalvingGridSearchCV"
+  }
+ ],
+ "sklearn.svm.SVC": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
