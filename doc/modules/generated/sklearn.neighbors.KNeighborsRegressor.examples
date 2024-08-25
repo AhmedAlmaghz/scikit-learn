@@ -1,0 +1,42 @@
+
+
+Examples using ``sklearn.neighbors.KNeighborsRegressor``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Demonstrate the resolution of a regression problem using a k-Nearest Neighbor and the interpolation of the target using both barycenter and constant weights.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_regression_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_regression.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Nearest Neighbors regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_regression.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
