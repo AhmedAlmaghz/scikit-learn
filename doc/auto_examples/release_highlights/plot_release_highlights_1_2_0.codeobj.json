@@ -1,0 +1,214 @@
+{
+ "ColumnTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "ColumnTransformer"
+  }
+ ],
+ "HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "KBinsDiscretizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "KBinsDiscretizer"
+  }
+ ],
+ "LearningCurveDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection.LearningCurveDisplay",
+   "module_short": "sklearn.model_selection.LearningCurveDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "OrdinalEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OrdinalEncoder"
+  }
+ ],
+ "PartialDependenceDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "PredictionErrorDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.PredictionErrorDisplay",
+   "module_short": "sklearn.metrics.PredictionErrorDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "datasets.fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "datasets",
+   "module_short": "datasets",
+   "name": "fetch_openml"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "datasets",
+   "module_short": "datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "discriminant_analysis.LinearDiscriminantAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "discriminant_analysis",
+   "module_short": "discriminant_analysis",
+   "name": "LinearDiscriminantAnalysis"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "discriminant_analysis",
+   "module_short": "discriminant_analysis",
+   "name": "LinearDiscriminantAnalysis"
+  }
+ ],
+ "ensemble.HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "inspection.PartialDependenceDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "inspection",
+   "module_short": "inspection",
+   "name": "PartialDependenceDisplay"
+  }
+ ],
+ "load_diabetes": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_diabetes"
+  }
+ ],
+ "load_iris": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_iris"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "metrics.PredictionErrorDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "metrics",
+   "module_short": "metrics",
+   "name": "PredictionErrorDisplay"
+  }
+ ],
+ "model_selection.LearningCurveDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "LearningCurveDisplay"
+  }
+ ],
+ "model_selection.learning_curve": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "learning_curve"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ]
+}
