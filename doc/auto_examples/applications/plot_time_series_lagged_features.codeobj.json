@@ -1,0 +1,252 @@
+{
+ "HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "PredictionErrorDisplay.from_predictions": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.PredictionErrorDisplay",
+   "module_short": "sklearn.metrics.PredictionErrorDisplay",
+   "name": "from_predictions"
+  }
+ ],
+ "TimeSeriesSplit": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "TimeSeriesSplit"
+  }
+ ],
+ "cross_val_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_val_score"
+  }
+ ],
+ "cross_validate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_validate"
+  }
+ ],
+ "cs.numeric": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars.selectors",
+   "module_short": "polars.selectors",
+   "name": "numeric"
+  }
+ ],
+ "defaultdict": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "defaultdict"
+  }
+ ],
+ "fetch_file": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_file"
+  }
+ ],
+ "make_scorer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "make_scorer"
+  }
+ ],
+ "mean_absolute_error": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "mean_absolute_error"
+  }
+ ],
+ "mean_absolute_percentage_error": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "mean_absolute_percentage_error"
+  }
+ ],
+ "mean_pinball_loss": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "mean_pinball_loss"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "pl.Config.set_fmt_str_lengths": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars.Config",
+   "module_short": "polars.Config",
+   "name": "set_fmt_str_lengths"
+  }
+ ],
+ "pl.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "DataFrame"
+  }
+ ],
+ "pl.Float64": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "Float64"
+  }
+ ],
+ "pl.arg_sort_by": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "arg_sort_by"
+  }
+ ],
+ "pl.col": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "col"
+  }
+ ],
+ "pl.read_parquet": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "read_parquet"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "root_mean_squared_error": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "root_mean_squared_error"
+  }
+ ],
+ "sklearn.ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "sklearn.model_selection.TimeSeriesSplit": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "TimeSeriesSplit"
+  }
+ ],
+ "sklearn.model_selection.train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
