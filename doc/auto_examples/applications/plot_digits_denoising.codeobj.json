@@ -1,0 +1,101 @@
+{
+ "KernelPCA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "KernelPCA"
+  }
+ ],
+ "MinMaxScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  }
+ ],
+ "PCA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "PCA"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "np.mean": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "mean"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.datasets.fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "sklearn.decomposition.KernelPCA": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "KernelPCA"
+  }
+ ],
+ "sklearn.decomposition.PCA": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "PCA"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
