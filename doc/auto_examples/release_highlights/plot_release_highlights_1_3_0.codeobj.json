@@ -1,0 +1,307 @@
+{
+ "DecisionTreeClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.tree",
+   "module_short": "sklearn.tree",
+   "name": "DecisionTreeClassifier"
+  }
+ ],
+ "HDBSCAN": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "HDBSCAN"
+  }
+ ],
+ "HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "OrdinalEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OrdinalEncoder"
+  }
+ ],
+ "TargetEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "TargetEncoder"
+  }
+ ],
+ "ValidationCurveDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection.ValidationCurveDisplay",
+   "module_short": "sklearn.model_selection.ValidationCurveDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "cluster.DBSCAN": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "DBSCAN"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "DBSCAN"
+  }
+ ],
+ "cluster.HDBSCAN": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "HDBSCAN"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "cluster",
+   "module_short": "cluster",
+   "name": "HDBSCAN"
+  }
+ ],
+ "cross_val_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_val_score"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "load_digits": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_digits"
+  }
+ ],
+ "make_classification": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_classification"
+  }
+ ],
+ "make_low_rank_matrix": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_low_rank_matrix"
+  }
+ ],
+ "model_selection.GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "model_selection.ValidationCurveDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "ValidationCurveDisplay"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "ValidationCurveDisplay"
+  }
+ ],
+ "model_selection.validation_curve": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "validation_curve"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.exp": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "exp"
+  }
+ ],
+ "np.geomspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "geomspace"
+  }
+ ],
+ "np.nan": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "nan"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.unique": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "unique"
+  }
+ ],
+ "pipeline.Pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "pipeline",
+   "module_short": "pipeline",
+   "name": "Pipeline"
+  }
+ ],
+ "preprocessing.OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "preprocessing.OrdinalEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "OrdinalEncoder"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "OrdinalEncoder"
+  }
+ ],
+ "preprocessing.TargetEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "preprocessing",
+   "module_short": "preprocessing",
+   "name": "TargetEncoder"
+  }
+ ],
+ "tree.DecisionTreeClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "tree",
+   "module_short": "tree",
+   "name": "DecisionTreeClassifier"
+  }
+ ],
+ "tree.DecisionTreeRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "tree",
+   "module_short": "tree",
+   "name": "DecisionTreeRegressor"
+  }
+ ],
+ "v_measure_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "v_measure_score"
+  }
+ ]
+}
