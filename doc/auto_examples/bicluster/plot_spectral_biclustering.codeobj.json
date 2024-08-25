@@ -1,0 +1,142 @@
+{
+ "SpectralBiclustering": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "SpectralBiclustering"
+  }
+ ],
+ "consensus_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "consensus_score"
+  }
+ ],
+ "make_checkerboard": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_checkerboard"
+  }
+ ],
+ "np.argsort": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "argsort"
+  }
+ ],
+ "np.outer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "outer"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.sort": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sort"
+  }
+ ],
+ "numpy.outer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "outer"
+  }
+ ],
+ "plt.cm.Blues": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "Blues"
+  }
+ ],
+ "plt.matshow": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "matshow"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "sklearn.cluster.SpectralBiclustering": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "SpectralBiclustering"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "SpectralBiclustering"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "SpectralBiclustering"
+  }
+ ],
+ "sklearn.datasets.make_checkerboard": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_checkerboard"
+  }
+ ]
+}
