@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.metrics.silhouette_samples``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Silhouette analysis can be used to study the separation distance between the resulting clusters. The silhouette plot displays a measure of how close each point in one cluster is to points in the neighboring clusters and thus provides a way to assess parameters like number of clusters visually. This measure has a range of [-1, 1].">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_kmeans_silhouette_analysis_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_silhouette_analysis.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Selecting the number of clusters with silhouette analysis on KMeans clustering</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_silhouette_analysis.py`
