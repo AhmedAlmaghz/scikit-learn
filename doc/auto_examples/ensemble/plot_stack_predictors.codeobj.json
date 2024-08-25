@@ -1,0 +1,272 @@
+{
+ "HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "LassoCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LassoCV"
+  }
+ ],
+ "OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "OrdinalEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OrdinalEncoder"
+  }
+ ],
+ "PredictionErrorDisplay.from_predictions": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.PredictionErrorDisplay",
+   "module_short": "sklearn.metrics.PredictionErrorDisplay",
+   "name": "from_predictions"
+  }
+ ],
+ "RandomForestRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestRegressor"
+  }
+ ],
+ "RidgeCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "RidgeCV"
+  }
+ ],
+ "SimpleImputer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.impute",
+   "module_short": "sklearn.impute",
+   "name": "SimpleImputer"
+  }
+ ],
+ "StackingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "StackingRegressor"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "cross_val_predict": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_val_predict"
+  }
+ ],
+ "cross_validate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_validate"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "make_column_selector": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "make_column_selector"
+  }
+ ],
+ "make_column_transformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "make_column_transformer"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "np.abs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "abs"
+  }
+ ],
+ "np.log": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "log"
+  }
+ ],
+ "np.mean": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "mean"
+  }
+ ],
+ "np.number": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "number"
+  }
+ ],
+ "np.ravel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ravel"
+  }
+ ],
+ "np.std": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "std"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.subplots_adjust": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots_adjust"
+  }
+ ],
+ "plt.suptitle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "suptitle"
+  }
+ ],
+ "plt.tight_layout": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "tight_layout"
+  }
+ ],
+ "shuffle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils",
+   "module_short": "sklearn.utils",
+   "name": "shuffle"
+  }
+ ],
+ "sklearn.linear_model.RidgeCV()": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "RidgeCV()"
+  }
+ ],
+ "time.time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
