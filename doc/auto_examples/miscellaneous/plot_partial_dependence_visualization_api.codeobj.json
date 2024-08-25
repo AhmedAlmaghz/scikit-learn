@@ -1,0 +1,131 @@
+{
+ "DecisionTreeRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.tree",
+   "module_short": "sklearn.tree",
+   "name": "DecisionTreeRegressor"
+  }
+ ],
+ "MLPRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neural_network",
+   "module_short": "sklearn.neural_network",
+   "name": "MLPRegressor"
+  }
+ ],
+ "PartialDependenceDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "load_diabetes": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_diabetes"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.inspection.PartialDependenceDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "PartialDependenceDisplay"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "PartialDependenceDisplay"
+  }
+ ],
+ "sklearn.inspection.PartialDependenceDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "from_estimator"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "sklearn.inspection.PartialDependenceDisplay.plot": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "plot"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "plot"
+  }
+ ]
+}
