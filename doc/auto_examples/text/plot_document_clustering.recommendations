@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example we compare the various initialization strategies for K-means in terms of runtime and quality of the results.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_kmeans_digits_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_digits.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">A demo of K-Means clustering on the handwritten digits data</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_digits.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We want to compare the performance of the MiniBatchKMeans and KMeans: the MiniBatchKMeans is faster, but gives slightly different results (see mini_batch_kmeans).">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_mini_batch_kmeans_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_mini_batch_kmeans.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparison of the K-Means and MiniBatchKMeans clustering algorithms</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_mini_batch_kmeans.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the Spectral Co-clustering algorithm on the twenty newsgroups dataset. The &#x27;comp.os.ms-windows.misc&#x27; category is excluded because it contains many posts containing nothing but data.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bicluster/images/thumb/sphx_glr_plot_bicluster_newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bicluster_plot_bicluster_newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Biclustering documents with the Spectral Co-clustering algorithm</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_bicluster_plot_bicluster_newsgroups.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how scikit-learn can be used to classify documents by topics using a Bag of Words approach. This example uses a Tf-idf-weighted document-term sparse matrix to encode the features and demonstrates various classifiers that can efficiently handle sparse matrices.">
+
+.. only:: html
+
+  .. image:: /auto_examples/text/images/thumb/sphx_glr_plot_document_classification_20newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Classification of text documents using sparse features</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
