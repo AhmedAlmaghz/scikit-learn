@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to approximate the solution of sklearn.svm.OneClassSVM in the case of an RBF kernel with sklearn.linear_model.SGDOneClassSVM, a Stochastic Gradient Descent (SGD) version of the One-Class SVM. A kernel approximation is first used in order to apply sklearn.linear_model.SGDOneClassSVM which implements a linear One-Class SVM using SGD.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgdocsvm_vs_ocsvm_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sgdocsvm_vs_ocsvm.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_sgdocsvm_vs_ocsvm.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Local Outlier Factor (LOF) algorithm is an unsupervised anomaly detection method which computes the local density deviation of a given data point with respect to its neighbors. It considers as outliers the samples that have a substantially lower density than their neighbors. This example shows how to use LOF for novelty detection. Note that when LOF is used for novelty detection you MUST not use predict, decision_function and score_samples on the training set as this would lead to wrong results. You must only use these methods on new unseen data (which are not in the training set). See User Guide &lt;outlier_detection&gt;: for details on the difference between outlier detection and novelty detection and how to use LOF for outlier detection.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_lof_novelty_detection_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_lof_novelty_detection.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Novelty detection with Local Outlier Factor (LOF)</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_lof_novelty_detection.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the maximum margin separating hyperplane within a two-class separable dataset using a Support Vector Machine classifier with linear kernel.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_separating_hyperplane_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SVM: Maximum margin separating hyperplane</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the need for robust covariance estimation on a real data set. It is useful both for outlier detection and for a better understanding of the data structure.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_outlier_detection_wine_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_outlier_detection_wine.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Outlier detection on a real data set</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_outlier_detection_wine.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
