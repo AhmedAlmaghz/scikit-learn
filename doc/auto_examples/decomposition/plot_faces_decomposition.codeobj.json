@@ -1,0 +1,266 @@
+{
+ "RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "cluster.MiniBatchKMeans": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  }
+ ],
+ "decomposition.FactorAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "FactorAnalysis"
+  }
+ ],
+ "decomposition.FastICA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "FastICA"
+  }
+ ],
+ "decomposition.MiniBatchDictionaryLearning": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "MiniBatchDictionaryLearning"
+  }
+ ],
+ "decomposition.MiniBatchSparsePCA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "MiniBatchSparsePCA"
+  }
+ ],
+ "decomposition.NMF": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "NMF"
+  }
+ ],
+ "decomposition.PCA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "PCA"
+  }
+ ],
+ "fetch_olivetti_faces": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_olivetti_faces"
+  }
+ ],
+ "logging.INFO": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "INFO"
+  }
+ ],
+ "logging.basicConfig": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "logging",
+   "module_short": "logging",
+   "name": "basicConfig"
+  }
+ ],
+ "plt.axis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "axis"
+  }
+ ],
+ "plt.cm.RdBu": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "RdBu"
+  }
+ ],
+ "plt.cm.gray": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "gray"
+  }
+ ],
+ "plt.colorbar": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "colorbar"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.imshow": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "imshow"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "sklearn.cluster.MiniBatchKMeans": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  }
+ ],
+ "sklearn.cluster.MiniBatchKMeans.partial_fit": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster.MiniBatchKMeans",
+   "module_short": "sklearn.cluster.MiniBatchKMeans",
+   "name": "partial_fit"
+  }
+ ],
+ "sklearn.decomposition.FactorAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "FactorAnalysis"
+  }
+ ],
+ "sklearn.decomposition.MiniBatchDictionaryLearning": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "MiniBatchDictionaryLearning"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "MiniBatchDictionaryLearning"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "MiniBatchDictionaryLearning"
+  }
+ ],
+ "sklearn.decomposition.MiniBatchSparsePCA": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "MiniBatchSparsePCA"
+  }
+ ],
+ "sklearn.decomposition.PCA": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "PCA"
+  }
+ ],
+ "sklearn.decomposition.SparsePCA": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "SparsePCA"
+  }
+ ]
+}
