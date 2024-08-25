@@ -1,0 +1,42 @@
+
+
+Examples using ``sklearn.datasets.fetch_species_distributions``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example does not perform any learning over the data (see sphx_glr_auto_examples_applications_plot_species_distribution_modeling.py for an example of classification based on the attributes in this dataset).  It simply shows the kernel density estimate of observed data points in geospatial coordinates.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_species_kde_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_species_kde.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Kernel Density Estimate of Species Distributions</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_species_kde.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
