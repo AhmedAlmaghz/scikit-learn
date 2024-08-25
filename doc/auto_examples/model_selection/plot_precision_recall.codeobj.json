@@ -1,0 +1,281 @@
+{
+ "Counter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "Counter"
+  }
+ ],
+ "LinearSVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "LinearSVC"
+  }
+ ],
+ "OneVsRestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsRestClassifier"
+  }
+ ],
+ "PrecisionRecallDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "PrecisionRecallDisplay"
+  }
+ ],
+ "PrecisionRecallDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.PrecisionRecallDisplay",
+   "module_short": "sklearn.metrics.PrecisionRecallDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "PrecisionRecallDisplay.from_predictions": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.PrecisionRecallDisplay",
+   "module_short": "sklearn.metrics.PrecisionRecallDisplay",
+   "name": "from_predictions"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "average_precision_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "average_precision_score"
+  }
+ ],
+ "cycle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "itertools",
+   "module_short": "itertools",
+   "name": "cycle"
+  }
+ ],
+ "label_binarize": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "label_binarize"
+  }
+ ],
+ "load_iris": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_iris"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "np.concatenate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "concatenate"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "plt.annotate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "annotate"
+  }
+ ],
+ "plt.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "plot"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "precision_recall_curve": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "precision_recall_curve"
+  }
+ ],
+ "sklearn.metrics.PrecisionRecallDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "PrecisionRecallDisplay"
+  }
+ ],
+ "sklearn.metrics.PrecisionRecallDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics.PrecisionRecallDisplay",
+   "module_short": "sklearn.metrics.PrecisionRecallDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "sklearn.metrics.PrecisionRecallDisplay.from_predictions": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics.PrecisionRecallDisplay",
+   "module_short": "sklearn.metrics.PrecisionRecallDisplay",
+   "name": "from_predictions"
+  }
+ ],
+ "sklearn.metrics.auc": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "auc"
+  }
+ ],
+ "sklearn.metrics.average_precision_score": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "average_precision_score"
+  }
+ ],
+ "sklearn.metrics.f1_score": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "f1_score"
+  }
+ ],
+ "sklearn.metrics.precision_score": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "precision_score"
+  }
+ ],
+ "sklearn.metrics.recall_score": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "recall_score"
+  }
+ ],
+ "sklearn.multiclass.OneVsRestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsRestClassifier"
+  }
+ ],
+ "sklearn.preprocessing.StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
