@@ -1,0 +1,56 @@
+
+
+Examples using ``sklearn.inspection.permutation_importance``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we will compare the impurity-based feature importance of RandomForestClassifier with the permutation importance on the titanic dataset using permutation_importance. We will show that the impurity-based feature importance can inflate the importance of numerical features.">
+
+.. only:: html
+
+  .. image:: /auto_examples/inspection/images/thumb/sphx_glr_plot_permutation_importance_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Permutation Importance vs Random Forest Feature Importance (MDI)</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we compute the permutation_importance of the features to a trained RandomForestClassifier using the breast_cancer_dataset. The model can easily get about 97% accuracy on a test dataset. Because this dataset contains multicollinear features, the permutation importance shows that none of the features are important, in contradiction with the high test accuracy.">
+
+.. only:: html
+
+  .. image:: /auto_examples/inspection/images/thumb/sphx_glr_plot_permutation_importance_multicollinear_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance_multicollinear.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Permutation Importance with Multicollinear or Correlated Features</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance_multicollinear.py`
