@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.config_context``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example will demonstrate the set_output API to configure transformers to output pandas DataFrames. set_output can be configured per estimator by calling the set_output method or globally by setting set_config(transform_output=&quot;pandas&quot;). For details, see SLEP018.">
+
+.. only:: html
+
+  .. image:: /auto_examples/miscellaneous/images/thumb/sphx_glr_plot_set_output_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_miscellaneous_plot_set_output.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Introducing the set_output API</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_miscellaneous_plot_set_output.py`
