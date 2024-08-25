@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how the scikit-learn API can be used to cluster documents by topics using a Bag of Words approach.">
+
+.. only:: html
+
+  .. image:: /auto_examples/text/images/thumb/sphx_glr_plot_document_clustering_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Clustering text documents using k-means</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Performs a pixel-wise Vector Quantization (VQ) of an image of the summer palace (China), reducing the number of colors required to show the image from 96,615 unique colors to 64, while preserving the overall appearance quality.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_color_quantization_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Color Quantization using K-Means</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We want to compare the performance of the MiniBatchKMeans and KMeans: the MiniBatchKMeans is faster, but gives slightly different results (see mini_batch_kmeans).">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_mini_batch_kmeans_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_mini_batch_kmeans.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparison of the K-Means and MiniBatchKMeans clustering algorithms</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_mini_batch_kmeans.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The plot shows:">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_cluster_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_cluster_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">K-means Clustering</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_cluster_iris.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
