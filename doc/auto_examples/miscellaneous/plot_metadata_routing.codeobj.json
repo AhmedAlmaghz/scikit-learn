@@ -1,0 +1,316 @@
+{
+ "BaseEstimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "BaseEstimator"
+  }
+ ],
+ "ClassifierMixin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "ClassifierMixin"
+  }
+ ],
+ "LinearRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LinearRegression"
+  }
+ ],
+ "MetaEstimatorMixin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "MetaEstimatorMixin"
+  }
+ ],
+ "MetadataRouter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.metadata_routing",
+   "module_short": "sklearn.utils.metadata_routing",
+   "name": "MetadataRouter"
+  }
+ ],
+ "MethodMapping": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.metadata_routing",
+   "module_short": "sklearn.utils.metadata_routing",
+   "name": "MethodMapping"
+  }
+ ],
+ "RegressorMixin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "RegressorMixin"
+  }
+ ],
+ "TransformerMixin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "TransformerMixin"
+  }
+ ],
+ "base.BaseEstimator": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "base",
+   "module_short": "base",
+   "name": "BaseEstimator"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "base",
+   "module_short": "base",
+   "name": "BaseEstimator"
+  }
+ ],
+ "base.ClassifierMixin": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "base",
+   "module_short": "base",
+   "name": "ClassifierMixin"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "base",
+   "module_short": "base",
+   "name": "ClassifierMixin"
+  }
+ ],
+ "base.RegressorMixin": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "base",
+   "module_short": "base",
+   "name": "RegressorMixin"
+  }
+ ],
+ "base.TransformerMixin": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "base",
+   "module_short": "base",
+   "name": "TransformerMixin"
+  }
+ ],
+ "check_is_fitted": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.validation",
+   "module_short": "sklearn.utils.validation",
+   "name": "check_is_fitted"
+  }
+ ],
+ "clone": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn",
+   "name": "clone"
+  }
+ ],
+ "get_routing_for_object": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.metadata_routing",
+   "module_short": "sklearn.utils.metadata_routing",
+   "name": "get_routing_for_object"
+  }
+ ],
+ "metadata_routing.WARN": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.metadata_routing",
+   "module_short": "sklearn.utils.metadata_routing",
+   "name": "WARN"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.ones": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ones"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.zeros": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "zeros"
+  }
+ ],
+ "pipeline.Pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "pipeline",
+   "module_short": "pipeline",
+   "name": "Pipeline"
+  }
+ ],
+ "pprint": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pprint",
+   "module_short": "pprint",
+   "name": "pprint"
+  }
+ ],
+ "process_routing": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.metadata_routing",
+   "module_short": "sklearn.utils.metadata_routing",
+   "name": "process_routing"
+  }
+ ],
+ "set_config": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn",
+   "module_short": "sklearn",
+   "name": "set_config"
+  }
+ ],
+ "sklearn.model_selection.cross_validate": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_validate"
+  }
+ ],
+ "utils.metadata_routing.MetadataRequest": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.metadata_routing",
+   "module_short": "utils.metadata_routing",
+   "name": "MetadataRequest"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.metadata_routing",
+   "module_short": "utils.metadata_routing",
+   "name": "MetadataRequest"
+  }
+ ],
+ "utils.metadata_routing.MetadataRouter": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.metadata_routing",
+   "module_short": "utils.metadata_routing",
+   "name": "MetadataRouter"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.metadata_routing",
+   "module_short": "utils.metadata_routing",
+   "name": "MetadataRouter"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.metadata_routing",
+   "module_short": "utils.metadata_routing",
+   "name": "MetadataRouter"
+  }
+ ],
+ "utils.metadata_routing.MethodMapping": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.metadata_routing",
+   "module_short": "utils.metadata_routing",
+   "name": "MethodMapping"
+  }
+ ],
+ "utils.metadata_routing.get_routing_for_object": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.metadata_routing",
+   "module_short": "utils.metadata_routing",
+   "name": "get_routing_for_object"
+  }
+ ],
+ "utils.metadata_routing.process_routing": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.metadata_routing",
+   "module_short": "utils.metadata_routing",
+   "name": "process_routing"
+  }
+ ],
+ "warnings.catch_warnings": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "warnings",
+   "module_short": "warnings",
+   "name": "catch_warnings"
+  }
+ ]
+}
