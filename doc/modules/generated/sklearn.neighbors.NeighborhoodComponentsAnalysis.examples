@@ -1,0 +1,84 @@
+
+
+Examples using ``sklearn.neighbors.NeighborhoodComponentsAnalysis``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="An example comparing nearest neighbors classification with and without Neighborhood Components Analysis.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sample usage of Neighborhood Components Analysis for dimensionality reduction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_dim_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Dimensionality Reduction with Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates a learned distance metric that maximizes the nearest neighbors classification accuracy. It provides a visual representation of this metric compared to the original point space. Please refer to the User Guide &lt;nca&gt; for more information.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_illustration_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_illustration.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Neighborhood Components Analysis Illustration</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_illustration.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
