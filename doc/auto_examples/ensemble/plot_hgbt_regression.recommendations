@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how Polars-engineered lagged features can be used for time series forecasting with HistGradientBoostingRegressor on the Bike Sharing Demand dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_time_series_lagged_features_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_time_series_lagged_features.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Lagged features for time series forecasting</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_time_series_lagged_features.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example we compare the performance of Random Forest (RF) and Histogram Gradient Boosting (HGBT) models in terms of score and computation time for a regression dataset, though all the concepts here presented apply to classification as well.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_forest_hist_grad_boosting_comparison_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_forest_hist_grad_boosting_comparison.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Random Forests and Histogram Gradient Boosting models</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_forest_hist_grad_boosting_comparison.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the effect of monotonic constraints on a gradient boosting estimator.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_monotonic_constraints_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_monotonic_constraints.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Monotonic Constraints</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_monotonic_constraints.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This notebook introduces different strategies to leverage time-related features for a bike sharing demand regression task that is highly dependent on business cycles (days, weeks, months) and yearly season cycles.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_cyclical_feature_engineering_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Time-related feature engineering</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
