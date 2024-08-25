@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Comparison of the sparsity (percentage of zero coefficients) of solutions when L1, L2 and Elastic-Net penalty are used for different values of C. We can see that large values of C give more freedom to the model.  Conversely, smaller values of C constrain the model more. In the L1 penalty case, this leads to sparser solutions. As expected, the Elastic-Net penalty sparsity is between that of L1 and L2.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_l1_l2_sparsity_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_l1_l2_sparsity.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">L1 Penalty and Sparsity in Logistic Regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_l1_l2_sparsity.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the classification probability for different classifiers. We use a 3 class dataset, and we classify it with a Support Vector classifier, L1 and L2 penalized logistic regression (multinomial multiclass), a One-Vs-Rest version with logistic regression, and Gaussian process classification.">
+
+.. only:: html
+
+  .. image:: /auto_examples/classification/images/thumb/sphx_glr_plot_classification_probability_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_classification_plot_classification_probability.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot classification probability</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_classification_plot_classification_probability.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A model that overfits learns the training data too well, capturing both the underlying patterns and the noise in the data. However, when applied to unseen data, the learned associations may not hold. We normally detect this when we apply our trained predictions to the test data and see the statistical performance drop significantly compared to the training data.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ridge_coeffs_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_coeffs.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Ridge coefficients as a function of the L2 Regularization</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_coeffs.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" Train l1-penalized logistic regression models on a binary classification problem derived from the Iris dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_path_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_path.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Regularization path of L1- Logistic Regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_path.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
