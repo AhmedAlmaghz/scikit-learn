@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.utils.Bunch``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Modeling species&#x27; geographic distributions is an important problem in conservation biology. In this example, we model the geographic distribution of two South American mammals given past observations and 14 environmental variables. Since we have only positive examples (there are no unsuccessful observations), we cast this problem as a density estimation problem and use the OneClassSVM as our modeling tool. The dataset is provided by Phillips et. al. (2006). If available, the example uses basemap to plot the coast lines and national boundaries of South America.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_species_distribution_modeling_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_species_distribution_modeling.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Species distribution modeling</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_species_distribution_modeling.py`
