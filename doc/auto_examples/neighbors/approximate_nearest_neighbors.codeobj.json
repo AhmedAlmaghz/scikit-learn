@@ -1,0 +1,255 @@
+{
+ "BaseEstimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "BaseEstimator"
+  }
+ ],
+ "KNeighborsTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "KNeighborsTransformer"
+  }
+ ],
+ "NullFormatter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.ticker",
+   "module_short": "matplotlib.ticker",
+   "name": "NullFormatter"
+  }
+ ],
+ "PyNNDescentTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pynndescent",
+   "module_short": "pynndescent",
+   "name": "PyNNDescentTransformer"
+  }
+ ],
+ "TSNE": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "TSNE"
+  }
+ ],
+ "TransformerMixin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "TransformerMixin"
+  }
+ ],
+ "csr_matrix": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.sparse",
+   "module_short": "scipy.sparse",
+   "name": "csr_matrix"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "joblib.cpu_count": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "joblib",
+   "module_short": "joblib",
+   "name": "cpu_count"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "nmslib.init": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "nmslib",
+   "module_short": "nmslib",
+   "name": "init"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.int32": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "int32"
+  }
+ ],
+ "np.max": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "max"
+  }
+ ],
+ "np.sum": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sum"
+  }
+ ],
+ "np.vstack": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "vstack"
+  }
+ ],
+ "plt.cm.viridis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "viridis"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "shuffle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils",
+   "module_short": "sklearn.utils",
+   "name": "shuffle"
+  }
+ ],
+ "sklearn.manifold.TSNE": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "TSNE"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "TSNE"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "TSNE"
+  }
+ ],
+ "sklearn.neighbors.KNeighborsTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "KNeighborsTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "KNeighborsTransformer"
+  }
+ ],
+ "sklearn.neighbors.NearestNeighbors": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "NearestNeighbors"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "NearestNeighbors"
+  }
+ ],
+ "sys.exit": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sys",
+   "module_short": "sys",
+   "name": "exit"
+  }
+ ],
+ "time.time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
