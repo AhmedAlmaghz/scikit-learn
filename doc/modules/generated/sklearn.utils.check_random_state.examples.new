@@ -1,0 +1,77 @@
+
+
+Examples using ``sklearn.utils.check_random_state``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="An application of the different manifold techniques on a spherical data-set. Here one can see the use of dimensionality reduction in order to gain some intuition regarding the manifold learning methods. Regarding the dataset, the poles are cut from the sphere, as well as a thin slice down its side. This enables the manifold learning techniques to &#x27;spread it open&#x27; whilst projecting it onto two dimensions.">
+
+.. only:: html
+
+  .. image:: /auto_examples/manifold/images/thumb/sphx_glr_plot_manifold_sphere_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_manifold_plot_manifold_sphere.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Manifold Learning methods on a severed sphere</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_manifold_plot_manifold_sphere.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows the use of multi-output estimator to complete images. The goal is to predict the lower half of a face given its upper half.">
+
+.. only:: html
+
+  .. image:: /auto_examples/miscellaneous/images/thumb/sphx_glr_plot_multioutput_face_completion_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Face completion with a multi-output estimators</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="An illustration of the isotonic regression on generated data (non-linear monotonic trend with homoscedastic uniform noise).">
+
+.. only:: html
+
+  .. image:: /auto_examples/miscellaneous/images/thumb/sphx_glr_plot_isotonic_regression_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_miscellaneous_plot_isotonic_regression.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Isotonic Regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_miscellaneous_plot_isotonic_regression.py`
