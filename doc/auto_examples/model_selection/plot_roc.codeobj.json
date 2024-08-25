@@ -1,0 +1,268 @@
+{
+ "LabelBinarizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "LabelBinarizer"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "RocCurveDisplay.from_predictions": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.RocCurveDisplay",
+   "module_short": "sklearn.metrics.RocCurveDisplay",
+   "name": "from_predictions"
+  }
+ ],
+ "auc": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "auc"
+  }
+ ],
+ "combinations": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "itertools",
+   "module_short": "itertools",
+   "name": "combinations"
+  }
+ ],
+ "cycle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "itertools",
+   "module_short": "itertools",
+   "name": "cycle"
+  }
+ ],
+ "load_iris": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_iris"
+  }
+ ],
+ "np.average": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "average"
+  }
+ ],
+ "np.concatenate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "concatenate"
+  }
+ ],
+ "np.flatnonzero": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "flatnonzero"
+  }
+ ],
+ "np.interp": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "interp"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.logical_or": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "logical_or"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.unique": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "unique"
+  }
+ ],
+ "np.zeros_like": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "zeros_like"
+  }
+ ],
+ "numpy.ravel": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ravel"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ravel"
+  }
+ ],
+ "plt.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "plot"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "roc_auc_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_auc_score"
+  }
+ ],
+ "roc_curve": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_curve"
+  }
+ ],
+ "sklearn.linear_model.LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "sklearn.metrics.auc": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "auc"
+  }
+ ],
+ "sklearn.metrics.roc_auc_score": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_auc_score"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_auc_score"
+  }
+ ],
+ "sklearn.metrics.roc_curve": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_curve"
+  }
+ ],
+ "sklearn.multiclass.OneVsRestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsRestClassifier"
+  }
+ ],
+ "sklearn.preprocessing.LabelBinarizer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "LabelBinarizer"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
