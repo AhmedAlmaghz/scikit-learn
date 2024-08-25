@@ -1,0 +1,77 @@
+
+
+Examples using ``sklearn.model_selection.RepeatedStratifiedKFold``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Once a binary classifier is trained, the predict method outputs class label predictions corresponding to a thresholding of either the decision_function or the predict_proba output. The default threshold is defined as a posterior probability estimate of 0.5 or a decision score of 0.0. However, this default strategy may not be optimal for the task at hand.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_tuned_decision_threshold_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_tuned_decision_threshold.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Post-hoc tuning the cut-off point of decision function</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_tuned_decision_threshold.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to statistically compare the performance of models trained and evaluated using GridSearchCV.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_grid_search_stats_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Statistical comparison of models using grid search</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we discuss the problem of classification when the target variable is composed of more than two classes. This is called multiclass classification.">
+
+.. only:: html
+
+  .. image:: /auto_examples/multiclass/images/thumb/sphx_glr_plot_multiclass_overview_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_multiclass_plot_multiclass_overview.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Overview of multiclass training meta-estimators</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_multiclass_plot_multiclass_overview.py`
