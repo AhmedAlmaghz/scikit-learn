@@ -1,0 +1,178 @@
+{
+ "DecisionBoundaryDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection.DecisionBoundaryDisplay",
+   "module_short": "sklearn.inspection.DecisionBoundaryDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "LinearDiscriminantAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.discriminant_analysis",
+   "module_short": "sklearn.discriminant_analysis",
+   "name": "LinearDiscriminantAnalysis"
+  }
+ ],
+ "QuadraticDiscriminantAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.discriminant_analysis",
+   "module_short": "sklearn.discriminant_analysis",
+   "name": "QuadraticDiscriminantAnalysis"
+  }
+ ],
+ "colors.ListedColormap": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.colors",
+   "module_short": "matplotlib.colors",
+   "name": "ListedColormap"
+  }
+ ],
+ "mpl.patches.Ellipse": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.patches",
+   "module_short": "matplotlib.patches",
+   "name": "Ellipse"
+  }
+ ],
+ "np.arctan": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arctan"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.concatenate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "concatenate"
+  }
+ ],
+ "np.linalg.eigh": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.linalg",
+   "module_short": "numpy.linalg",
+   "name": "eigh"
+  }
+ ],
+ "np.linalg.norm": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.linalg",
+   "module_short": "numpy.linalg",
+   "name": "norm"
+  }
+ ],
+ "np.ones": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ones"
+  }
+ ],
+ "np.pi": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "pi"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.zeros": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "zeros"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.discriminant_analysis.LinearDiscriminantAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.discriminant_analysis",
+   "module_short": "sklearn.discriminant_analysis",
+   "name": "LinearDiscriminantAnalysis"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.discriminant_analysis",
+   "module_short": "sklearn.discriminant_analysis",
+   "name": "LinearDiscriminantAnalysis"
+  }
+ ],
+ "sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.discriminant_analysis",
+   "module_short": "sklearn.discriminant_analysis",
+   "name": "QuadraticDiscriminantAnalysis"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.discriminant_analysis",
+   "module_short": "sklearn.discriminant_analysis",
+   "name": "QuadraticDiscriminantAnalysis"
+  }
+ ]
+}
