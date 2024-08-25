@@ -1,0 +1,128 @@
+{
+ "FunctionTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "FunctionTransformer"
+  }
+ ],
+ "GradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "GradientBoostingClassifier"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "RandomTreesEmbedding": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomTreesEmbedding"
+  }
+ ],
+ "RocCurveDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.RocCurveDisplay",
+   "module_short": "sklearn.metrics.RocCurveDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "make_classification": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_classification"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.ensemble.GradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "GradientBoostingClassifier"
+  }
+ ],
+ "sklearn.ensemble.HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "sklearn.ensemble.RandomTreesEmbedding": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomTreesEmbedding"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
