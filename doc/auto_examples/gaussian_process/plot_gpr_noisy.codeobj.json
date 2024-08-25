@@ -1,0 +1,296 @@
+{
+ "GaussianProcessRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process",
+   "module_short": "sklearn.gaussian_process",
+   "name": "GaussianProcessRegressor"
+  }
+ ],
+ "LogNorm": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.colors",
+   "module_short": "matplotlib.colors",
+   "name": "LogNorm"
+  }
+ ],
+ "RBF": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "RBF"
+  }
+ ],
+ "WhiteKernel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "WhiteKernel"
+  }
+ ],
+ "np.around": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "around"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.log": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "log"
+  }
+ ],
+ "np.log10": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "log10"
+  }
+ ],
+ "np.logspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "logspace"
+  }
+ ],
+ "np.meshgrid": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "meshgrid"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.reshape": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "reshape"
+  }
+ ],
+ "np.sin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sin"
+  }
+ ],
+ "plt.colorbar": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "colorbar"
+  }
+ ],
+ "plt.contour": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "contour"
+  }
+ ],
+ "plt.errorbar": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "errorbar"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "plot"
+  }
+ ],
+ "plt.scatter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "scatter"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xlabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xlabel"
+  }
+ ],
+ "plt.xscale": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xscale"
+  }
+ ],
+ "plt.ylabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylabel"
+  }
+ ],
+ "plt.yscale": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "yscale"
+  }
+ ],
+ "sklearn.gaussian_process.GaussianProcessRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process",
+   "module_short": "sklearn.gaussian_process",
+   "name": "GaussianProcessRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process",
+   "module_short": "sklearn.gaussian_process",
+   "name": "GaussianProcessRegressor"
+  }
+ ],
+ "sklearn.gaussian_process.kernels.RBF": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "RBF"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "RBF"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "RBF"
+  }
+ ],
+ "sklearn.gaussian_process.kernels.WhiteKernel": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "WhiteKernel"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "WhiteKernel"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "WhiteKernel"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "WhiteKernel"
+  }
+ ]
+}
