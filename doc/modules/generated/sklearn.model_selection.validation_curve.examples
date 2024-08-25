@@ -1,0 +1,42 @@
+
+
+Examples using ``sklearn.model_selection.validation_curve``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The following example illustrates the effect of scaling the regularization parameter when using svm for svm_classification. For SVC classification, we are interested in a risk minimization for the equation:">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_svm_scale_c_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_svm_scale_c.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Scaling the regularization parameter for SVCs</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_svm_scale_c.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
