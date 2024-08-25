@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the use of permutation_test_score to evaluate the significance of a cross-validated score using permutations.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_permutation_tests_for_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_permutation_tests_for_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Test with permutations the significance of a classification score</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_permutation_tests_for_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In linear models, the target value is modeled as a linear combination of the features (see the linear_model User Guide section for a description of a set of linear models available in scikit-learn). Coefficients in multiple linear models represent the relationship between the given feature, X_i and the target, y, assuming that all the other features remain constant (conditional dependence). This is different from plotting X_i versus y and fitting a linear relationship: in that case all possible values of the other features are taken into account in the estimation (marginal dependence).">
+
+.. only:: html
+
+  .. image:: /auto_examples/inspection/images/thumb/sphx_glr_plot_linear_model_coefficient_interpretation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Common pitfalls in the interpretation of coefficients of linear models</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Well calibrated classifiers are probabilistic classifiers for which the output of predict_proba can be directly interpreted as a confidence level. For instance, a well calibrated (binary) classifier should classify the samples such that for the samples to which it gave a predict_proba value close to 0.8, approximately 80% actually belong to the positive class.">
+
+.. only:: html
+
+  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_compare_calibration_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparison of Calibration of Classifiers</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The dataset used in this example is 20newsgroups_dataset which will be automatically downloaded, cached and reused for the document classification example.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_grid_search_text_feature_extraction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Sample pipeline for text feature extraction and evaluation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
