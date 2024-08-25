@@ -1,0 +1,243 @@
+{
+ "ColumnTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "ColumnTransformer"
+  }
+ ],
+ "ConfusionMatrixDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.ConfusionMatrixDisplay",
+   "module_short": "sklearn.metrics.ConfusionMatrixDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "FixedThresholdClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "FixedThresholdClassifier"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "PCA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "PCA"
+  }
+ ],
+ "SimpleImputer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.impute",
+   "module_short": "sklearn.impute",
+   "name": "SimpleImputer"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "TunedThresholdClassifierCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "TunedThresholdClassifierCV"
+  }
+ ],
+ "compose.ColumnTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "compose",
+   "module_short": "compose",
+   "name": "ColumnTransformer"
+  }
+ ],
+ "confusion_matrix": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "confusion_matrix"
+  }
+ ],
+ "decomposition.PCA": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "decomposition",
+   "module_short": "decomposition",
+   "name": "PCA"
+  }
+ ],
+ "impute.SimpleImputer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "impute",
+   "module_short": "impute",
+   "name": "SimpleImputer"
+  }
+ ],
+ "make_classification": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_classification"
+  }
+ ],
+ "make_low_rank_matrix": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_low_rank_matrix"
+  }
+ ],
+ "make_scorer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "make_scorer"
+  }
+ ],
+ "metrics.pairwise_distances": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "metrics",
+   "module_short": "metrics",
+   "name": "pairwise_distances"
+  }
+ ],
+ "model_selection.FixedThresholdClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "FixedThresholdClassifier"
+  }
+ ],
+ "model_selection.TunedThresholdClassifierCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "TunedThresholdClassifierCV"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "TunedThresholdClassifierCV"
+  }
+ ],
+ "np.abs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "abs"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.min": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "min"
+  }
+ ],
+ "np.nan": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "nan"
+  }
+ ],
+ "pairwise_distances": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "pairwise_distances"
+  }
+ ],
+ "random": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.sparse",
+   "module_short": "scipy.sparse",
+   "name": "random"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
