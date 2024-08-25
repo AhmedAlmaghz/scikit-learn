@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example simulates a multi-label document classification problem. The dataset is generated randomly based on the following process:">
+
+.. only:: html
+
+  .. image:: /auto_examples/miscellaneous/images/thumb/sphx_glr_plot_multilabel_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_miscellaneous_plot_multilabel.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multilabel classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_miscellaneous_plot_multilabel.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example compares Principal Component Regression (PCR) and Partial Least Squares Regression (PLS) on a toy dataset. Our goal is to illustrate how PLS can outperform PCR when the target is strongly correlated with some directions in the data that have a low variance.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cross_decomposition/images/thumb/sphx_glr_plot_pcr_vs_pls_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cross_decomposition_plot_pcr_vs_pls.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Principal Component Regression vs Partial Least Squares Regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cross_decomposition_plot_pcr_vs_pls.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_multilabel_classification dataset generator. Each sample consists of counts of two features (up to 50 in total), which are differently distributed in each of two classes.">
+
+.. only:: html
+
+  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_random_multilabel_dataset_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_datasets_plot_random_multilabel_dataset.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot randomly generated multilabel dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_datasets_plot_random_multilabel_dataset.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="For greyscale image data where pixel values can be interpreted as degrees of blackness on a white background, like handwritten digit recognition, the Bernoulli Restricted Boltzmann machine model (BernoulliRBM) can perform effective non-linear feature extraction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neural_networks/images/thumb/sphx_glr_plot_rbm_logistic_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Restricted Boltzmann Machine features for digit classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
