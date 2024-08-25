@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the use of permutation_test_score to evaluate the significance of a cross-validated score using permutations.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_permutation_tests_for_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_permutation_tests_for_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Test with permutations the significance of a classification score</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_permutation_tests_for_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="- a first experiment with fixed &quot;ground truth labels&quot; (and therefore fixed   number of classes) and randomly &quot;predicted labels&quot;; - a second experiment with varying &quot;ground truth labels&quot;, randomly &quot;predicted   labels&quot;. The &quot;predicted labels&quot; have the same number of classes and clusters   as the &quot;ground truth labels&quot;.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_adjusted_for_chance_measures_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Adjustment for chance in clustering performance evaluation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This notebook is an example of using univariate feature selection to improve classification accuracy on a noisy dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/feature_selection/images/thumb/sphx_glr_plot_feature_selection_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_feature_selection_plot_feature_selection.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Univariate Feature Selection</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_feature_selection_plot_feature_selection.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example compares the parameter search performed by HalvingGridSearchCV and GridSearchCV.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_successive_halving_heatmap_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_successive_halving_heatmap.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparison between grid search and successive halving</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_successive_halving_heatmap.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
