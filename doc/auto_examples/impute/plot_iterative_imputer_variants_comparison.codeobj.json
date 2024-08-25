@@ -1,0 +1,285 @@
+{
+ "BayesianRidge": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "BayesianRidge"
+  }
+ ],
+ "IterativeImputer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.impute",
+   "module_short": "sklearn.impute",
+   "name": "IterativeImputer"
+  }
+ ],
+ "KNeighborsRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "KNeighborsRegressor"
+  }
+ ],
+ "Nystroem": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.kernel_approximation",
+   "module_short": "sklearn.kernel_approximation",
+   "name": "Nystroem"
+  }
+ ],
+ "RandomForestRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestRegressor"
+  }
+ ],
+ "Ridge": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Ridge"
+  }
+ ],
+ "SimpleImputer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.impute",
+   "module_short": "sklearn.impute",
+   "name": "SimpleImputer"
+  }
+ ],
+ "cross_val_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_val_score"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "ensemble.RandomForestRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "RandomForestRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "RandomForestRegressor"
+  }
+ ],
+ "fetch_california_housing": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_california_housing"
+  }
+ ],
+ "impute.IterativeImputer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "impute",
+   "module_short": "impute",
+   "name": "IterativeImputer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "impute",
+   "module_short": "impute",
+   "name": "IterativeImputer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "impute",
+   "module_short": "impute",
+   "name": "IterativeImputer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "impute",
+   "module_short": "impute",
+   "name": "IterativeImputer"
+  }
+ ],
+ "kernel_approximation.Nystroem": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "kernel_approximation",
+   "module_short": "kernel_approximation",
+   "name": "Nystroem"
+  }
+ ],
+ "linear_model.BayesianRidge": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "BayesianRidge"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "BayesianRidge"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "BayesianRidge"
+  }
+ ],
+ "linear_model.Ridge": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "Ridge"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "neighbors.KNeighborsRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "KNeighborsRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "KNeighborsRegressor"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.nan": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "nan"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "pd.concat": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "concat"
+  }
+ ],
+ "pipeline.make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "pipeline",
+   "module_short": "pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.tight_layout": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "tight_layout"
+  }
+ ]
+}
