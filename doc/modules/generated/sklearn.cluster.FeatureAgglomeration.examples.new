@@ -1,0 +1,56 @@
+
+
+Examples using ``sklearn.cluster.FeatureAgglomeration``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="These images show how similar features are merged together using feature agglomeration.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_digits_agglomeration_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_digits_agglomeration.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Feature agglomeration</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_digits_agglomeration.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example compares 2 dimensionality reduction strategies:">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_feature_agglomeration_vs_univariate_selection_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_feature_agglomeration_vs_univariate_selection.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Feature agglomeration vs. univariate selection</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_feature_agglomeration_vs_univariate_selection.py`
