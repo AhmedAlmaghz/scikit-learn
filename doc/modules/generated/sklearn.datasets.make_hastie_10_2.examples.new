@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.datasets.make_hastie_10_2``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Multiple metric parameter search can be done by setting the scoring parameter to a list of metric scorer names or a dict mapping the scorer names to the scorer callables.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_multi_metric_evaluation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_multi_metric_evaluation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_multi_metric_evaluation.py`
