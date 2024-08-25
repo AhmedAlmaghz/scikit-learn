@@ -1,0 +1,393 @@
+{
+ "HashingVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  }
+ ],
+ "KMeans": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  }
+ ],
+ "MiniBatchKMeans": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  }
+ ],
+ "Normalizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "Normalizer"
+  }
+ ],
+ "TfidfTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfTransformer"
+  }
+ ],
+ "TfidfVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  }
+ ],
+ "TruncatedSVD": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "TruncatedSVD"
+  }
+ ],
+ "defaultdict": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "defaultdict"
+  }
+ ],
+ "fetch_20newsgroups": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_20newsgroups"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "metrics.adjusted_rand_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "adjusted_rand_score"
+  }
+ ],
+ "metrics.completeness_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "completeness_score"
+  }
+ ],
+ "metrics.homogeneity_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "homogeneity_score"
+  }
+ ],
+ "metrics.silhouette_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "silhouette_score"
+  }
+ ],
+ "metrics.v_measure_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "v_measure_score"
+  }
+ ],
+ "np.asarray": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "asarray"
+  }
+ ],
+ "np.mean": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "mean"
+  }
+ ],
+ "np.prod": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "prod"
+  }
+ ],
+ "np.std": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "std"
+  }
+ ],
+ "np.unique": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "unique"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.tight_layout": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "tight_layout"
+  }
+ ],
+ "sklearn.cluster.KMeans": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "KMeans"
+  }
+ ],
+ "sklearn.cluster.MiniBatchKMeans": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "MiniBatchKMeans"
+  }
+ ],
+ "sklearn.datasets.fetch_20newsgroups": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_20newsgroups"
+  }
+ ],
+ "sklearn.decomposition.TruncatedSVD": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "TruncatedSVD"
+  }
+ ],
+ "sklearn.feature_extraction.text.HashingVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  }
+ ],
+ "sklearn.feature_extraction.text.TfidfTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfTransformer"
+  }
+ ],
+ "sklearn.feature_extraction.text.TfidfVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
