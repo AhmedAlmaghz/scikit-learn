@@ -1,0 +1,83 @@
+{
+ "kmeans_plusplus": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "kmeans_plusplus"
+  }
+ ],
+ "make_blobs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_blobs"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.scatter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "scatter"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xticks": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xticks"
+  }
+ ],
+ "plt.yticks": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "yticks"
+  }
+ ],
+ "sklearn.cluster.kmeans_plusplus": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.cluster",
+   "module_short": "sklearn.cluster",
+   "name": "kmeans_plusplus"
+  }
+ ]
+}
