@@ -1,0 +1,188 @@
+{
+ "DecisionBoundaryDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection.DecisionBoundaryDisplay",
+   "module_short": "sklearn.inspection.DecisionBoundaryDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.logical_xor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "logical_xor"
+  }
+ ],
+ "np.meshgrid": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "meshgrid"
+  }
+ ],
+ "np.random.randn": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "randn"
+  }
+ ],
+ "np.random.seed": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "seed"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.inspection.DecisionBoundaryDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "DecisionBoundaryDisplay"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "DecisionBoundaryDisplay"
+  }
+ ],
+ "sklearn.metrics.hinge_loss": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "hinge_loss"
+  }
+ ],
+ "sklearn.metrics.pairwise.cosine_similarity": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics.pairwise",
+   "module_short": "sklearn.metrics.pairwise",
+   "name": "cosine_similarity"
+  }
+ ],
+ "sklearn.model_selection.GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "sklearn.preprocessing.PolynomialFeatures": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "PolynomialFeatures"
+  }
+ ],
+ "sklearn.svm.SVC": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  }
+ ],
+ "svm.SVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  }
+ ]
+}
