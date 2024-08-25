@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Illustration of how the performance of an estimator on unseen data (test data) is not the same as the performance on training data. As the regularization increases the performance on train decreases while the performance on test is optimal within a range of values of the regularization parameter. The example with an Elastic-Net regression model and the performance is measured using the explained variance a.k.a. R^2.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_train_error_vs_test_error_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_train_error_vs_test_error.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Train error vs Test error</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_train_error_vs_test_error.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example focuses on model selection for Lasso models that are linear models with an L1 penalty for regression problems.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_model_selection_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_model_selection.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Lasso model selection: AIC-BIC / cross-validation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_model_selection.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A Recursive Feature Elimination (RFE) example with automatic tuning of the number of features selected with cross-validation.">
+
+.. only:: html
+
+  .. image:: /auto_examples/feature_selection/images/thumb/sphx_glr_plot_rfe_with_cross_validation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Recursive feature elimination with cross-validation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Shows the effect of collinearity in the coefficients of an estimator.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ridge_path_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_path.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot Ridge coefficients as a function of the regularization</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_path.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
