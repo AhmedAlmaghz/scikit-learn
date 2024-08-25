@@ -1,0 +1,56 @@
+
+
+Examples using ``sklearn.metrics.pairwise_distances_argmin``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Performs a pixel-wise Vector Quantization (VQ) of an image of the summer palace (China), reducing the number of colors required to show the image from 96,615 unique colors to 64, while preserving the overall appearance quality.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_color_quantization_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Color Quantization using K-Means</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We want to compare the performance of the MiniBatchKMeans and KMeans: the MiniBatchKMeans is faster, but gives slightly different results (see mini_batch_kmeans).">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_mini_batch_kmeans_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_mini_batch_kmeans.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparison of the K-Means and MiniBatchKMeans clustering algorithms</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_mini_batch_kmeans.py`
