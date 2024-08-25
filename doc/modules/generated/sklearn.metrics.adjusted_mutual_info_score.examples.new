@@ -1,0 +1,77 @@
+
+
+Examples using ``sklearn.metrics.adjusted_mutual_info_score``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="- a first experiment with fixed &quot;ground truth labels&quot; (and therefore fixed   number of classes) and randomly &quot;predicted labels&quot;; - a second experiment with varying &quot;ground truth labels&quot;, randomly &quot;predicted   labels&quot;. The &quot;predicted labels&quot; have the same number of classes and clusters   as the &quot;ground truth labels&quot;.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_adjusted_for_chance_measures_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Adjustment for chance in clustering performance evaluation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="DBSCAN (Density-Based Spatial Clustering of Applications with Noise) finds core samples in regions of high density and expands clusters from them. This algorithm is good for data which contains clusters of similar density.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_dbscan_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_dbscan.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Demo of DBSCAN clustering algorithm</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_dbscan.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Reference: Brendan J. Frey and Delbert Dueck, &quot;Clustering by Passing Messages Between Data Points&quot;, Science Feb. 2007">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_affinity_propagation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_affinity_propagation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Demo of affinity propagation clustering algorithm</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_affinity_propagation.py`
