@@ -1,0 +1,325 @@
+{
+ "MaxAbsScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MaxAbsScaler"
+  }
+ ],
+ "MinMaxScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  }
+ ],
+ "Normalizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "Normalizer"
+  }
+ ],
+ "PowerTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "PowerTransformer"
+  }
+ ],
+ "QuantileTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "QuantileTransformer"
+  }
+ ],
+ "RobustScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "RobustScaler"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "cm": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "cm"
+  }
+ ],
+ "cm.hot_r": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.cm",
+   "module_short": "matplotlib.cm",
+   "name": "hot_r"
+  }
+ ],
+ "fetch_california_housing": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_california_housing"
+  }
+ ],
+ "minmax_scale": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "minmax_scale"
+  }
+ ],
+ "mpl.colorbar.ColorbarBase": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.colorbar",
+   "module_short": "matplotlib.colorbar",
+   "name": "ColorbarBase"
+  }
+ ],
+ "mpl.colors.Normalize": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.colors",
+   "module_short": "matplotlib.colors",
+   "name": "Normalize"
+  }
+ ],
+ "np.all": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "all"
+  }
+ ],
+ "np.percentile": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "percentile"
+  }
+ ],
+ "plt.axes": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "axes"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "sklearn.preprocessing.MaxAbsScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MaxAbsScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MaxAbsScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MaxAbsScaler"
+  }
+ ],
+ "sklearn.preprocessing.MinMaxScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  }
+ ],
+ "sklearn.preprocessing.Normalizer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "Normalizer"
+  }
+ ],
+ "sklearn.preprocessing.PowerTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "PowerTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "PowerTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "PowerTransformer"
+  }
+ ],
+ "sklearn.preprocessing.QuantileTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "QuantileTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "QuantileTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "QuantileTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "QuantileTransformer"
+  }
+ ],
+ "sklearn.preprocessing.RobustScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "RobustScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "RobustScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "RobustScaler"
+  }
+ ],
+ "sklearn.preprocessing.StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ]
+}
