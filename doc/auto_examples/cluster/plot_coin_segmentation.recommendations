@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, an image with connected circles is generated and spectral clustering is used to separate the circles.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_segmentation_toy_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_segmentation_toy.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Spectral clustering for image segmentation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_segmentation_toy.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Performs a pixel-wise Vector Quantization (VQ) of an image of the summer palace (China), reducing the number of colors required to show the image from 96,615 unique colors to 64, while preserving the overall appearance quality.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_color_quantization_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Color Quantization using K-Means</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Compute the segmentation of a 2D image with Ward hierarchical clustering. The clustering is spatially constrained in order for each segmented region to be in one piece.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_coin_ward_segmentation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_coin_ward_segmentation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">A demo of structured Ward hierarchical clustering on an image of coins</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_coin_ward_segmentation.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example employs several unsupervised learning techniques to extract the stock market structure from variations in historical quotes.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_stock_market_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_stock_market.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Visualizing the stock market structure</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_stock_market.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
