@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Shown in the plot is how the logistic regression would, in this synthetic dataset, classify values as either 0 or 1, i.e. class one or two, using the logistic curve.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Logistic function</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_logistic.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The coefficients, residual sum of squares and the coefficient of determination are also calculated.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ols_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ols.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Linear Regression Example</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_ols.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Machine Learning models are great for measuring statistical associations. Unfortunately, unless we&#x27;re willing to make strong assumptions about the data, those models are unable to infer causal effects.">
+
+.. only:: html
+
+  .. image:: /auto_examples/inspection/images/thumb/sphx_glr_plot_causal_interpretation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_inspection_plot_causal_interpretation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Failure of Machine Learning to infer causal effects</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_inspection_plot_causal_interpretation.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The present example compares three l1-based regression models on a synthetic signal obtained from sparse and correlated features that are further corrupted with additive gaussian noise:">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_and_elasticnet_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_and_elasticnet.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">L1-based models for Sparse Signals</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_and_elasticnet.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
