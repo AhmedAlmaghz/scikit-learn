@@ -1,0 +1,315 @@
+{
+ "DecisionTreeRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.tree",
+   "module_short": "sklearn.tree",
+   "name": "DecisionTreeRegressor"
+  }
+ ],
+ "HalvingRandomSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "HalvingRandomSearchCV"
+  }
+ ],
+ "KNeighborsClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "KNeighborsClassifier"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "MinMaxScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  }
+ ],
+ "PartialDependenceDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "PolynomialCountSketch": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.kernel_approximation",
+   "module_short": "sklearn.kernel_approximation",
+   "name": "PolynomialCountSketch"
+  }
+ ],
+ "RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "RandomForestRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestRegressor"
+  }
+ ],
+ "SVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  }
+ ],
+ "SelfTrainingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.semi_supervised",
+   "module_short": "sklearn.semi_supervised",
+   "name": "SelfTrainingClassifier"
+  }
+ ],
+ "SequentialFeatureSelector": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_selection",
+   "module_short": "sklearn.feature_selection",
+   "name": "SequentialFeatureSelector"
+  }
+ ],
+ "datasets.load_iris": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_iris"
+  }
+ ],
+ "ensemble.HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "fetch_california_housing": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_california_housing"
+  }
+ ],
+ "fetch_covtype": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_covtype"
+  }
+ ],
+ "load_iris": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_iris"
+  }
+ ],
+ "make_classification": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_classification"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "np.exp": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "exp"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "randint": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.stats",
+   "module_short": "scipy.stats",
+   "name": "randint"
+  }
+ ],
+ "sklearn.ensemble.HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "sklearn.ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "sklearn.feature_selection.SequentialFeatureSelector": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_selection",
+   "module_short": "sklearn.feature_selection",
+   "name": "SequentialFeatureSelector"
+  }
+ ],
+ "sklearn.kernel_approximation.PolynomialCountSketch": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.kernel_approximation",
+   "module_short": "sklearn.kernel_approximation",
+   "name": "PolynomialCountSketch"
+  }
+ ],
+ "sklearn.model_selection.GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "sklearn.model_selection.HalvingGridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "HalvingGridSearchCV"
+  }
+ ],
+ "sklearn.model_selection.HalvingRandomSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "HalvingRandomSearchCV"
+  }
+ ],
+ "sklearn.model_selection.RandomizedSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "RandomizedSearchCV"
+  }
+ ],
+ "sklearn.preprocessing.PolynomialFeatures": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "PolynomialFeatures"
+  }
+ ],
+ "sklearn.tree.DecisionTreeRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.tree",
+   "module_short": "sklearn.tree",
+   "name": "DecisionTreeRegressor"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
