@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot Hierarchical Clustering Dendrogram">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_agglomerative_dendrogram_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_agglomerative_dendrogram.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot Hierarchical Clustering Dendrogram</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_agglomerative_dendrogram.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The DecisionTreeClassifier provides parameters such as min_samples_leaf and max_depth to prevent a tree from overfiting. Cost complexity pruning provides another option to control the size of a tree. In DecisionTreeClassifier, this pruning technique is parameterized by the cost complexity parameter, ccp_alpha. Greater values of ccp_alpha increase the number of nodes pruned. Here we only show the effect of ccp_alpha on regularizing the trees and how to choose a ccp_alpha based on validation scores.">
+
+.. only:: html
+
+  .. image:: /auto_examples/tree/images/thumb/sphx_glr_plot_cost_complexity_pruning_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_tree_plot_cost_complexity_pruning.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Post pruning decision trees with cost complexity pruning</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_tree_plot_cost_complexity_pruning.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surface of a decision tree trained on pairs of features of the iris dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/tree/images/thumb/sphx_glr_plot_iris_dtc_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_tree_plot_iris_dtc.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot the decision surface of decision trees trained on the iris dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_tree_plot_iris_dtc.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 1.5! Many bug fixes and improvements were added, as well as some key new features. Below we detail the highlights of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_1_5&gt;.">
+
+.. only:: html
+
+  .. image:: /auto_examples/release_highlights/images/thumb/sphx_glr_plot_release_highlights_1_5_0_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_release_highlights_plot_release_highlights_1_5_0.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 1.5</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_release_highlights_plot_release_highlights_1_5_0.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
