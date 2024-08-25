@@ -1,0 +1,155 @@
+{
+ "ExpSineSquared": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "ExpSineSquared"
+  }
+ ],
+ "GaussianProcessRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process",
+   "module_short": "sklearn.gaussian_process",
+   "name": "GaussianProcessRegressor"
+  }
+ ],
+ "RBF": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "RBF"
+  }
+ ],
+ "RationalQuadratic": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "RationalQuadratic"
+  }
+ ],
+ "WhiteKernel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "WhiteKernel"
+  }
+ ],
+ "datetime.datetime.now": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "datetime.datetime",
+   "module_short": "datetime.datetime",
+   "name": "now"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "pl.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "DataFrame"
+  }
+ ],
+ "pl.col": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "col"
+  }
+ ],
+ "pl.date": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "date"
+  }
+ ],
+ "plt.fill_between": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "fill_between"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "plot"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xlabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xlabel"
+  }
+ ],
+ "plt.ylabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylabel"
+  }
+ ]
+}
