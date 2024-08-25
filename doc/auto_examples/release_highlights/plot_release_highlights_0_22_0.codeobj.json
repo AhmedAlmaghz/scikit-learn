@@ -1,0 +1,353 @@
+{
+ "DecisionTreeRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.tree",
+   "module_short": "sklearn.tree",
+   "name": "DecisionTreeRegressor"
+  }
+ ],
+ "HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "Isomap": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "Isomap"
+  }
+ ],
+ "KNNImputer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.impute",
+   "module_short": "sklearn.impute",
+   "name": "KNNImputer"
+  }
+ ],
+ "KNeighborsTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "KNeighborsTransformer"
+  }
+ ],
+ "LinearSVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "LinearSVC"
+  }
+ ],
+ "LogisticRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LogisticRegression"
+  }
+ ],
+ "RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "RocCurveDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.RocCurveDisplay",
+   "module_short": "sklearn.metrics.RocCurveDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "SVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "SVC"
+  }
+ ],
+ "StackingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "StackingClassifier"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "TemporaryDirectory": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "tempfile",
+   "module_short": "tempfile",
+   "name": "TemporaryDirectory"
+  }
+ ],
+ "datasets.fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "datasets",
+   "module_short": "datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "ensemble.HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "ensemble.StackingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "StackingClassifier"
+  }
+ ],
+ "ensemble.StackingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "StackingRegressor"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "inspection.permutation_importance": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "inspection",
+   "module_short": "inspection",
+   "name": "permutation_importance"
+  }
+ ],
+ "load_iris": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_iris"
+  }
+ ],
+ "make_classification": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_classification"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "matplotlib.__version__": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "__version__"
+  }
+ ],
+ "neighbors.KNeighborsTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "KNeighborsTransformer"
+  }
+ ],
+ "neighbors.RadiusNeighborsTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "neighbors",
+   "module_short": "neighbors",
+   "name": "RadiusNeighborsTransformer"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.mean": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "mean"
+  }
+ ],
+ "np.nan": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "nan"
+  }
+ ],
+ "parametrize_with_checks": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.estimator_checks",
+   "module_short": "sklearn.utils.estimator_checks",
+   "name": "parametrize_with_checks"
+  }
+ ],
+ "parse_version": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.fixes",
+   "module_short": "sklearn.utils.fixes",
+   "name": "parse_version"
+  }
+ ],
+ "permutation_importance": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "permutation_importance"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "roc_auc_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_auc_score"
+  }
+ ],
+ "sklearn.metrics.pairwise.nan_euclidean_distances": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics.pairwise",
+   "module_short": "sklearn.metrics",
+   "name": "nan_euclidean_distances"
+  }
+ ],
+ "sklearn.metrics.roc_auc_score": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_auc_score"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ],
+ "utils.estimator_checks.check_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "utils.estimator_checks",
+   "module_short": "utils.estimator_checks",
+   "name": "check_estimator"
+  }
+ ]
+}
