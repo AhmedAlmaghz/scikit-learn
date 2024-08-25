@@ -1,0 +1,101 @@
+{
+ "NeighborhoodComponentsAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "NeighborhoodComponentsAnalysis"
+  }
+ ],
+ "cm.Set1": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.cm",
+   "module_short": "matplotlib.cm",
+   "name": "Set1"
+  }
+ ],
+ "logsumexp": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.special",
+   "module_short": "scipy.special",
+   "name": "logsumexp"
+  }
+ ],
+ "make_classification": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_classification"
+  }
+ ],
+ "np.einsum": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "einsum"
+  }
+ ],
+ "np.exp": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "exp"
+  }
+ ],
+ "np.inf": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "inf"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.gca": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "gca"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "sklearn.neighbors.NeighborhoodComponentsAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "NeighborhoodComponentsAnalysis"
+  }
+ ]
+}
