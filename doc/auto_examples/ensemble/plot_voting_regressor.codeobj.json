@@ -1,0 +1,162 @@
+{
+ "GradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "GradientBoostingRegressor"
+  }
+ ],
+ "LinearRegression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "LinearRegression"
+  }
+ ],
+ "RandomForestRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestRegressor"
+  }
+ ],
+ "VotingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "VotingRegressor"
+  }
+ ],
+ "ensemble.GradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "GradientBoostingRegressor"
+  }
+ ],
+ "ensemble.RandomForestRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "RandomForestRegressor"
+  }
+ ],
+ "ensemble.VotingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "VotingRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "VotingRegressor"
+  }
+ ],
+ "linear_model.LinearRegression": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "linear_model",
+   "module_short": "linear_model",
+   "name": "LinearRegression"
+  }
+ ],
+ "load_diabetes": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_diabetes"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "plot"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.tick_params": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "tick_params"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xlabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xlabel"
+  }
+ ],
+ "plt.ylabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylabel"
+  }
+ ]
+}
