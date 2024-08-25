@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.metrics.DetCurveDisplay.from_estimator``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we compare two binary classification multi-threshold metrics: the Receiver Operating Characteristic (ROC) and the Detection Error Tradeoff (DET). For such purpose, we evaluate two different classifiers for the same classification task.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_det_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_det.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Detection error tradeoff (DET) curve</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_det.py`
