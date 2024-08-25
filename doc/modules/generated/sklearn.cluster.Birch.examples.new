@@ -1,0 +1,56 @@
+
+
+Examples using ``sklearn.cluster.Birch``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example compares the timing of BIRCH (with and without the global clustering step) and MiniBatchKMeans on a synthetic dataset having 25,000 samples and 2 features generated using make_blobs.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_birch_vs_minibatchkmeans_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_birch_vs_minibatchkmeans.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Compare BIRCH and MiniBatchKMeans</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_birch_vs_minibatchkmeans.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows characteristics of different clustering algorithms on datasets that are &quot;interesting&quot; but still in 2D. With the exception of the last dataset, the parameters of each of these dataset-algorithm pairs has been tuned to produce good clustering results. Some algorithms are more sensitive to parameter values than others.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_cluster_comparison_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_cluster_comparison.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing different clustering algorithms on toy datasets</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_cluster_comparison.py`
