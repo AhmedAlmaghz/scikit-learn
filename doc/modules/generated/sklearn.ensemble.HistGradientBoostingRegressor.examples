@@ -1,0 +1,42 @@
+
+
+Examples using ``sklearn.ensemble.HistGradientBoostingRegressor``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how Polars-engineered lagged features can be used for time series forecasting with HistGradientBoostingRegressor on the Bike Sharing Demand dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_time_series_lagged_features_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_time_series_lagged_features.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Lagged features for time series forecasting</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_time_series_lagged_features.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
