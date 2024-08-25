@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example of Precision-Recall metric to evaluate classifier output quality.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_precision_recall_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_precision_recall.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Precision-Recall</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_precision_recall.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example balances model complexity and cross-validated score by finding a decent accuracy within 1 standard deviation of the best accuracy score while minimising the number of PCA components [1].">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_grid_search_refit_callable_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_refit_callable.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Balance model complexity and cross-validated score</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_refit_callable.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Compare randomized search and grid search for optimizing hyperparameters of a linear SVM with SGD training. All parameters that influence the learning are searched simultaneously (except for the number of estimators, which poses a time / quality tradeoff).">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_randomized_search_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_randomized_search.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing randomized search and grid search for hyperparameter estimation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_randomized_search.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A Recursive Feature Elimination (RFE) example with automatic tuning of the number of features selected with cross-validation.">
+
+.. only:: html
+
+  .. image:: /auto_examples/feature_selection/images/thumb/sphx_glr_plot_rfe_with_cross_validation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Recursive feature elimination with cross-validation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
