@@ -1,0 +1,77 @@
+
+
+Examples using ``sklearn.metrics.roc_curve``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we will construct display objects, ConfusionMatrixDisplay, RocCurveDisplay, and PrecisionRecallDisplay directly from their respective metrics. This is an alternative to using their corresponding plot functions when a model&#x27;s predictions are already computed or expensive to compute. Note that this is advanced usage, and in general we recommend using their respective plot functions.">
+
+.. only:: html
+
+  .. image:: /auto_examples/miscellaneous/images/thumb/sphx_glr_plot_display_object_visualization_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_miscellaneous_plot_display_object_visualization.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Visualizations with Display Objects</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_miscellaneous_plot_display_object_visualization.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we compare two binary classification multi-threshold metrics: the Receiver Operating Characteristic (ROC) and the Detection Error Tradeoff (DET). For such purpose, we evaluate two different classifiers for the same classification task.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_det_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_det.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Detection error tradeoff (DET) curve</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_det.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example describes the use of the Receiver Operating Characteristic (ROC) metric to evaluate the quality of multiclass classifiers.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_roc_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_roc.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multiclass Receiver Operating Characteristic (ROC)</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_roc.py`
