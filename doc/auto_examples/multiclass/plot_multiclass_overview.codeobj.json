@@ -1,0 +1,160 @@
+{
+ "DecisionTreeClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.tree",
+   "module_short": "sklearn.tree",
+   "name": "DecisionTreeClassifier"
+  }
+ ],
+ "GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "OneVsOneClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsOneClassifier"
+  }
+ ],
+ "OneVsRestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsRestClassifier"
+  }
+ ],
+ "OutputCodeClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OutputCodeClassifier"
+  }
+ ],
+ "RepeatedStratifiedKFold": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "RepeatedStratifiedKFold"
+  }
+ ],
+ "cross_validate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_validate"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "sklearn.datasets.fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "sklearn.model_selection.RepeatedStratifiedKFold": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "RepeatedStratifiedKFold"
+  }
+ ],
+ "sklearn.multiclass.OneVsOneClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsOneClassifier"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsOneClassifier"
+  }
+ ],
+ "sklearn.multiclass.OneVsRestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsRestClassifier"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OneVsRestClassifier"
+  }
+ ],
+ "sklearn.multiclass.OutputCodeClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.multiclass",
+   "module_short": "sklearn.multiclass",
+   "name": "OutputCodeClassifier"
+  }
+ ],
+ "sklearn.tree.DecisionTreeClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.tree",
+   "module_short": "sklearn.tree",
+   "name": "DecisionTreeClassifier"
+  }
+ ]
+}
