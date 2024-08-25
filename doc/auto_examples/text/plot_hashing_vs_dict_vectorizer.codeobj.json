@@ -1,0 +1,374 @@
+{
+ "CountVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  }
+ ],
+ "DictVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  }
+ ],
+ "FeatureHasher": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  }
+ ],
+ "HashingVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  }
+ ],
+ "TfidfVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  }
+ ],
+ "defaultdict": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "defaultdict"
+  }
+ ],
+ "fetch_20newsgroups": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_20newsgroups"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.unique": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "unique"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "re.findall": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "re",
+   "module_short": "re",
+   "name": "findall"
+  }
+ ],
+ "sklearn.feature_extraction.DictVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "DictVectorizer"
+  }
+ ],
+ "sklearn.feature_extraction.FeatureHasher": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction",
+   "module_short": "sklearn.feature_extraction",
+   "name": "FeatureHasher"
+  }
+ ],
+ "sklearn.feature_extraction.text.CountVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  }
+ ],
+ "sklearn.feature_extraction.text.HashingVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "HashingVectorizer"
+  }
+ ],
+ "sklearn.feature_extraction.text.TfidfTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfTransformer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfTransformer"
+  }
+ ],
+ "sklearn.feature_extraction.text.TfidfVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
