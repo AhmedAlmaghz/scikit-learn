@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.datasets.make_biclusters``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to generate a dataset and bicluster it using the Spectral Co-Clustering algorithm.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bicluster/images/thumb/sphx_glr_plot_spectral_coclustering_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bicluster_plot_spectral_coclustering.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">A demo of the Spectral Co-Clustering algorithm</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_bicluster_plot_spectral_coclustering.py`
