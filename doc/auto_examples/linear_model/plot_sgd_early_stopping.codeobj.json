@@ -1,0 +1,119 @@
+{
+ "ConvergenceWarning": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.exceptions",
+   "module_short": "sklearn.exceptions",
+   "name": "ConvergenceWarning"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "ignore_warnings": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils._testing",
+   "module_short": "sklearn.utils._testing",
+   "name": "ignore_warnings"
+  }
+ ],
+ "linear_model.SGDClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "SGDClassifier"
+  }
+ ],
+ "np.logical_or": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "logical_or"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "shuffle": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils",
+   "module_short": "sklearn.utils",
+   "name": "shuffle"
+  }
+ ],
+ "sklearn.linear_model.SGDClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "SGDClassifier"
+  }
+ ],
+ "sys.stdout.flush": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sys.stdout",
+   "module_short": "sys.stdout",
+   "name": "flush"
+  }
+ ],
+ "time.time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
