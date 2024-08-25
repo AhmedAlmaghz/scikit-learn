@@ -1,0 +1,273 @@
+
+
+Examples using ``sklearn.pipeline.Pipeline``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This examples demonstrates how to precompute the k nearest neighbors before using them in KNeighborsClassifier. KNeighborsClassifier can compute the nearest neighbors internally, but precomputing them can have several benefits, such as finer parameter control, caching for multiple use, or custom implementations.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_caching_nearest_neighbors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Caching nearest neighbors</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="An example comparing nearest neighbors classification with and without Neighborhood Components Analysis.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use KNeighborsClassifier. We train such a classifier on the iris dataset and observe the difference of the decision boundary obtained with regards to the parameter weights.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Nearest Neighbors Classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="For greyscale image data where pixel values can be interpreted as degrees of blackness on a white background, like handwritten digit recognition, the Bernoulli Restricted Boltzmann machine model (BernoulliRBM) can perform effective non-linear feature extraction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neural_networks/images/thumb/sphx_glr_plot_rbm_logistic_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Restricted Boltzmann Machine features for digit classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Datasets can often contain components that require different feature extraction and processing pipelines. This scenario might occur when:">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_column_transformer_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Column Transformer with Heterogeneous Data Sources</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to apply different preprocessing and feature extraction pipelines to different subsets of features, using ColumnTransformer. This is particularly handy for the case of datasets that contain heterogeneous data types, since we may want to scale the numeric features and one-hot encode the categorical ones.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_column_transformer_mixed_types_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_column_transformer_mixed_types.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Column Transformer with Mixed Types</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_column_transformer_mixed_types.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In many real-world examples, there are many ways to extract features from a dataset. Often it is beneficial to combine several methods to obtain good performance. This example shows how to use FeatureUnion to combine features obtained by PCA and univariate selection.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_feature_union_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_feature_union.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Concatenating multiple feature extraction methods</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_feature_union.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The PCA does an unsupervised dimensionality reduction, while the logistic regression does the prediction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_digits_pipe_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_digits_pipe.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Pipelining: chaining a PCA and a logistic regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_digits_pipe.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example constructs a pipeline that does dimensionality reduction followed by prediction with a support vector classifier. It demonstrates the use of GridSearchCV and Pipeline to optimize over different classes of estimators in a single CV run -- unsupervised PCA and NMF dimensionality reductions are compared to univariate feature selection during the grid search.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_compare_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_compare_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Selecting dimensionality reduction with Pipeline and GridSearchCV</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_compare_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The TargetEncoder replaces each category of a categorical feature with the shrunk mean of the target variable for that category. This method is useful in cases where there is a strong relationship between the categorical feature and the target. To prevent overfitting, TargetEncoder.fit_transform uses an internal cross fitting scheme to encode the training data to be used by a downstream model. This scheme involves splitting the data into k folds and encoding each fold using the encodings learnt using the other k-1 folds. In this example, we demonstrate the importance of the cross fitting procedure to prevent overfitting.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_target_encoder_cross_val_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder_cross_val.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Target Encoder's Internal Cross fitting</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder_cross_val.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, semi-supervised classifiers are trained on the 20 newsgroups dataset (which will be automatically downloaded).">
+
+.. only:: html
+
+  .. image:: /auto_examples/semi_supervised/images/thumb/sphx_glr_plot_semi_supervised_newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Semi-supervised Classification on a Text Dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_newsgroups.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to perform univariate feature selection before running a SVC (support vector classifier) to improve the classification scores. We use the iris dataset (4 features) and add 36 non-informative features. We can find that our model achieves best performance when we select around 10% of features.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_svm_anova_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_svm_anova.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SVM-Anova: SVM with univariate feature selection</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_svm_anova.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
