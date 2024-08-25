@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.feature_selection.RFECV``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A Recursive Feature Elimination (RFE) example with automatic tuning of the number of features selected with cross-validation.">
+
+.. only:: html
+
+  .. image:: /auto_examples/feature_selection/images/thumb/sphx_glr_plot_rfe_with_cross_validation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Recursive feature elimination with cross-validation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_feature_selection_plot_rfe_with_cross_validation.py`
