@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example simulates a multi-label document classification problem. The dataset is generated randomly based on the following process:">
+
+.. only:: html
+
+  .. image:: /auto_examples/miscellaneous/images/thumb/sphx_glr_plot_multilabel_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_miscellaneous_plot_multilabel.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multilabel classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_miscellaneous_plot_multilabel.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simple usage of various cross decomposition algorithms:">
+
+.. only:: html
+
+  .. image:: /auto_examples/cross_decomposition/images/thumb/sphx_glr_plot_compare_cross_decomposition_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cross_decomposition_plot_compare_cross_decomposition.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Compare cross decomposition methods</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cross_decomposition_plot_compare_cross_decomposition.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example plots the ellipsoids obtained from a toy dataset (mixture of three Gaussians) fitted by the BayesianGaussianMixture class models with a Dirichlet distribution prior (``weight_concentration_prior_type=&#x27;dirichlet_distribution&#x27;``) and a Dirichlet process prior (``weight_concentration_prior_type=&#x27;dirichlet_process&#x27;``). On each figure, we plot the results for three different values of the weight concentration prior.">
+
+.. only:: html
+
+  .. image:: /auto_examples/mixture/images/thumb/sphx_glr_plot_concentration_prior_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_mixture_plot_concentration_prior.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_mixture_plot_concentration_prior.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The example compares prediction result of linear regression (linear model) and decision tree (tree based model) with and without discretization of real-valued features.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_discretization_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Using KBinsDiscretizer to discretize continuous features</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
