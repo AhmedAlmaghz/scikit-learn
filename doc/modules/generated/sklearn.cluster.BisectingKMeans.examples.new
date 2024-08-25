@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.cluster.BisectingKMeans``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows differences between Regular K-Means algorithm and Bisecting K-Means.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_bisect_kmeans_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_bisect_kmeans.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Bisecting K-Means and Regular K-Means Performance Comparison</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_bisect_kmeans.py`
