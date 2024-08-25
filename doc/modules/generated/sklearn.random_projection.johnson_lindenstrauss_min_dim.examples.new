@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.random_projection.johnson_lindenstrauss_min_dim``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" The `Johnson-Lindenstrauss lemma`_ states that any high dimensional dataset can be randomly projected into a lower dimensional Euclidean space while controlling the distortion in the pairwise distances.">
+
+.. only:: html
+
+  .. image:: /auto_examples/miscellaneous/images/thumb/sphx_glr_plot_johnson_lindenstrauss_bound_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_miscellaneous_plot_johnson_lindenstrauss_bound.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">The Johnson-Lindenstrauss bound for embedding with random projections</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_miscellaneous_plot_johnson_lindenstrauss_bound.py`
