@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.inspection.partial_dependence``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Partial dependence plots show the dependence between the target function [2]_ and a set of features of interest, marginalizing over the values of all other features (the complement features). Due to the limits of human perception, the size of the set of features of interest must be small (usually, one or two) thus they are usually chosen among the most important features.">
+
+.. only:: html
+
+  .. image:: /auto_examples/inspection/images/thumb/sphx_glr_plot_partial_dependence_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Partial Dependence and Individual Conditional Expectation Plots</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py`
