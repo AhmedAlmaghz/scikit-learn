@@ -1,0 +1,205 @@
+{
+ "RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "defaultdict": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "collections",
+   "module_short": "collections",
+   "name": "defaultdict"
+  }
+ ],
+ "hierarchy.dendrogram": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.cluster.hierarchy",
+   "module_short": "scipy.cluster.hierarchy",
+   "name": "dendrogram"
+  }
+ ],
+ "hierarchy.fcluster": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.cluster.hierarchy",
+   "module_short": "scipy.cluster.hierarchy",
+   "name": "fcluster"
+  }
+ ],
+ "hierarchy.ward": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.cluster.hierarchy",
+   "module_short": "scipy.cluster.hierarchy",
+   "name": "ward"
+  }
+ ],
+ "load_breast_cancer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_breast_cancer"
+  }
+ ],
+ "matplotlib.__version__": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "__version__"
+  }
+ ],
+ "np.abs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "abs"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.argsort": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "argsort"
+  }
+ ],
+ "np.fill_diagonal": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "fill_diagonal"
+  }
+ ],
+ "parse_version": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.fixes",
+   "module_short": "sklearn.utils.fixes",
+   "name": "parse_version"
+  }
+ ],
+ "pd.Series": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "Series"
+  }
+ ],
+ "permutation_importance": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "permutation_importance"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.ensemble.RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "sklearn.inspection.permutation_importance": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "permutation_importance"
+  }
+ ],
+ "spearmanr": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.stats",
+   "module_short": "scipy.stats",
+   "name": "spearmanr"
+  }
+ ],
+ "squareform": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.spatial.distance",
+   "module_short": "scipy.spatial.distance",
+   "name": "squareform"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
