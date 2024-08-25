@@ -1,0 +1,105 @@
+
+
+Examples using ``sklearn.metrics.classification_report``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="For greyscale image data where pixel values can be interpreted as degrees of blackness on a white background, like handwritten digit recognition, the Bernoulli Restricted Boltzmann machine model (BernoulliRBM) can perform effective non-linear feature extraction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neural_networks/images/thumb/sphx_glr_plot_rbm_logistic_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Restricted Boltzmann Machine features for digit classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Datasets can often contain components that require different feature extraction and processing pipelines. This scenario might occur when:">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_column_transformer_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Column Transformer with Heterogeneous Data Sources</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Demonstrates an active learning technique to learn handwritten digits using label propagation.">
+
+.. only:: html
+
+  .. image:: /auto_examples/semi_supervised/images/thumb/sphx_glr_plot_label_propagation_digits_active_learning_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits_active_learning.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Label Propagation digits active learning</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits_active_learning.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the power of semisupervised learning by training a Label Spreading model to classify handwritten digits with sets of very few labels.">
+
+.. only:: html
+
+  .. image:: /auto_examples/semi_supervised/images/thumb/sphx_glr_plot_label_propagation_digits_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Label Propagation digits: Demonstrating performance</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
