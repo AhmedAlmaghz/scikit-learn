@@ -1,0 +1,77 @@
+
+
+Examples using ``sklearn.linear_model.HuberRegressor``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Fit Ridge and HuberRegressor on a dataset with outliers.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_huber_vs_ridge_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_huber_vs_ridge.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">HuberRegressor vs Ridge on dataset with strong outliers</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_huber_vs_ridge.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A model that overfits learns the training data too well, capturing both the underlying patterns and the noise in the data. However, when applied to unseen data, the learned associations may not hold. We normally detect this when we apply our trained predictions to the test data and see the statistical performance drop significantly compared to the training data.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ridge_coeffs_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_coeffs.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Ridge coefficients as a function of the L2 Regularization</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_coeffs.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here a sine function is fit with a polynomial of order 3, for values close to zero.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_robust_fit_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_robust_fit.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Robust linear estimator fitting</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_robust_fit.py`
