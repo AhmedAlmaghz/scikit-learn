@@ -1,0 +1,234 @@
+{
+ "ExpSineSquared": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "ExpSineSquared"
+  }
+ ],
+ "GaussianProcessRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process",
+   "module_short": "sklearn.gaussian_process",
+   "name": "GaussianProcessRegressor"
+  }
+ ],
+ "KernelRidge": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.kernel_ridge",
+   "module_short": "sklearn.kernel_ridge",
+   "name": "KernelRidge"
+  }
+ ],
+ "RBF": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "RBF"
+  }
+ ],
+ "RandomizedSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "RandomizedSearchCV"
+  }
+ ],
+ "Ridge": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Ridge"
+  }
+ ],
+ "WhiteKernel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "WhiteKernel"
+  }
+ ],
+ "loguniform": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.stats",
+   "module_short": "scipy.stats",
+   "name": "loguniform"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.linspace": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "linspace"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.sin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sin"
+  }
+ ],
+ "plt.fill_between": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "fill_between"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "plot"
+  }
+ ],
+ "plt.scatter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "scatter"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xlabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xlabel"
+  }
+ ],
+ "plt.ylabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylabel"
+  }
+ ],
+ "sklearn.gaussian_process.GaussianProcessRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process",
+   "module_short": "sklearn.gaussian_process",
+   "name": "GaussianProcessRegressor"
+  }
+ ],
+ "sklearn.gaussian_process.kernels.ExpSineSquared": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "ExpSineSquared"
+  }
+ ],
+ "sklearn.gaussian_process.kernels.WhiteKernel": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.gaussian_process.kernels",
+   "module_short": "sklearn.gaussian_process.kernels",
+   "name": "WhiteKernel"
+  }
+ ],
+ "sklearn.kernel_ridge.KernelRidge": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.kernel_ridge",
+   "module_short": "sklearn.kernel_ridge",
+   "name": "KernelRidge"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.kernel_ridge",
+   "module_short": "sklearn.kernel_ridge",
+   "name": "KernelRidge"
+  }
+ ],
+ "sklearn.linear_model.Ridge": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Ridge"
+  }
+ ],
+ "time.time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
