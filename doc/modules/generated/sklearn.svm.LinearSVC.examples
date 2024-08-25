@@ -1,0 +1,168 @@
+
+
+Examples using ``sklearn.svm.LinearSVC``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Datasets can often contain components that require different feature extraction and processing pipelines. This scenario might occur when:">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_column_transformer_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Column Transformer with Heterogeneous Data Sources</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example constructs a pipeline that does dimensionality reduction followed by prediction with a support vector classifier. It demonstrates the use of GridSearchCV and Pipeline to optimize over different classes of estimators in a single CV run -- unsupervised PCA and NMF dimensionality reductions are compared to univariate feature selection during the grid search.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_compare_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_compare_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Selecting dimensionality reduction with Pipeline and GridSearchCV</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_compare_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A demonstration of feature discretization on synthetic classification datasets. Feature discretization decomposes each feature into a set of bins, here equally distributed in width. The discrete values are then one-hot encoded, and given to a linear classifier. This preprocessing enables a non-linear behavior even though the classifier is linear.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_discretization_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Feature discretization</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Comparison of different linear SVM classifiers on a 2D projection of the iris dataset. We only consider the first 2 features of this dataset:">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_iris_svc_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_iris_svc.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot different SVM classifiers in the iris dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_iris_svc.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Unlike SVC (based on LIBSVM), LinearSVC (based on LIBLINEAR) does not provide the support vectors. This example demonstrates how to obtain the support vectors in LinearSVC.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_linearsvc_support_vectors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_linearsvc_support_vectors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot the support vectors in LinearSVC</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_linearsvc_support_vectors.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The following example illustrates the effect of scaling the regularization parameter when using svm for svm_classification. For SVC classification, we are interested in a risk minimization for the equation:">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_svm_scale_c_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_svm_scale_c.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Scaling the regularization parameter for SVCs</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_svm_scale_c.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how scikit-learn can be used to classify documents by topics using a Bag of Words approach. This example uses a Tf-idf-weighted document-term sparse matrix to encode the features and demonstrates various classifiers that can efficiently handle sparse matrices.">
+
+.. only:: html
+
+  .. image:: /auto_examples/text/images/thumb/sphx_glr_plot_document_classification_20newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Classification of text documents using sparse features</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
