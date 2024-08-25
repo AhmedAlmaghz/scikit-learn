@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Performs a pixel-wise Vector Quantization (VQ) of an image of the summer palace (China), reducing the number of colors required to show the image from 96,615 unique colors to 64, while preserving the overall appearance quality.">
+
+.. only:: html
+
+  .. image:: /auto_examples/cluster/images/thumb/sphx_glr_plot_color_quantization_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Color Quantization using K-Means</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is an example of applying NMF and LatentDirichletAllocation on a corpus of documents and extract additive models of the topic structure of the corpus.  The output is a plot of topics, each represented as bar plot using top few words based on weights.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_topics_extraction_with_nmf_lda_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_topics_extraction_with_nmf_lda.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Topic extraction with Non-negative Matrix Factorization and Latent Dirichlet Allocation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_topics_extraction_with_nmf_lda.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example applies to olivetti_faces_dataset different unsupervised matrix decomposition (dimension reduction) methods from the module sklearn.decomposition (see the documentation chapter decompositions).">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_faces_decomposition_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Faces dataset decompositions</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how scikit-learn can be used to classify documents by topics using a Bag of Words approach. This example uses a Tf-idf-weighted document-term sparse matrix to encode the features and demonstrates various classifiers that can efficiently handle sparse matrices.">
+
+.. only:: html
+
+  .. image:: /auto_examples/text/images/thumb/sphx_glr_plot_document_classification_20newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Classification of text documents using sparse features</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
