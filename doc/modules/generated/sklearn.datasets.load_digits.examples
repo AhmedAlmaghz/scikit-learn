@@ -1,0 +1,231 @@
+
+
+Examples using ``sklearn.datasets.load_digits``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This examples demonstrates how to precompute the k nearest neighbors before using them in KNeighborsClassifier. KNeighborsClassifier can compute the nearest neighbors internally, but precomputing them can have several benefits, such as finer parameter control, caching for multiple use, or custom implementations.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_caching_nearest_neighbors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Caching nearest neighbors</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sample usage of Neighborhood Components Analysis for dimensionality reduction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_dim_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Dimensionality Reduction with Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how kernel density estimation (KDE), a powerful non-parametric density estimation technique, can be used to learn a generative model for a dataset.  With this generative model in place, new samples can be drawn.  These new samples reflect the underlying model of the data.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_digits_kde_sampling_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_digits_kde_sampling.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Kernel Density Estimation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_digits_kde_sampling.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example visualizes some training loss curves for different stochastic learning strategies, including SGD and Adam. Because of time-constraints, we use several small datasets, for which L-BFGS might be more suitable. The general trend shown in these examples seems to carry over to larger datasets, however.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neural_networks/images/thumb/sphx_glr_plot_mlp_training_curves_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neural_networks_plot_mlp_training_curves.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Compare Stochastic learning strategies for MLPClassifier</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neural_networks_plot_mlp_training_curves.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="For greyscale image data where pixel values can be interpreted as degrees of blackness on a white background, like handwritten digit recognition, the Bernoulli Restricted Boltzmann machine model (BernoulliRBM) can perform effective non-linear feature extraction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neural_networks/images/thumb/sphx_glr_plot_rbm_logistic_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Restricted Boltzmann Machine features for digit classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The PCA does an unsupervised dimensionality reduction, while the logistic regression does the prediction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_digits_pipe_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_digits_pipe.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Pipelining: chaining a PCA and a logistic regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_digits_pipe.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example constructs a pipeline that does dimensionality reduction followed by prediction with a support vector classifier. It demonstrates the use of GridSearchCV and Pipeline to optimize over different classes of estimators in a single CV run -- unsupervised PCA and NMF dimensionality reductions are compared to univariate feature selection during the grid search.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_compare_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_compare_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Selecting dimensionality reduction with Pipeline and GridSearchCV</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_compare_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Demonstrates an active learning technique to learn handwritten digits using label propagation.">
+
+.. only:: html
+
+  .. image:: /auto_examples/semi_supervised/images/thumb/sphx_glr_plot_label_propagation_digits_active_learning_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits_active_learning.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Label Propagation digits active learning</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits_active_learning.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the power of semisupervised learning by training a Label Spreading model to classify handwritten digits with sets of very few labels.">
+
+.. only:: html
+
+  .. image:: /auto_examples/semi_supervised/images/thumb/sphx_glr_plot_label_propagation_digits_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Label Propagation digits: Demonstrating performance</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A tutorial exercise regarding the use of classification techniques on the Digits dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/exercises/images/thumb/sphx_glr_plot_digits_classification_exercise_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_exercises_plot_digits_classification_exercise.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Digits Classification Exercise</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_exercises_plot_digits_classification_exercise.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
