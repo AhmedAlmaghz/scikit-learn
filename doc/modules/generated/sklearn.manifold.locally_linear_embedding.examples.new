@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.manifold.locally_linear_embedding``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Swiss Roll And Swiss-Hole Reduction">
+
+.. only:: html
+
+  .. image:: /auto_examples/manifold/images/thumb/sphx_glr_plot_swissroll_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_manifold_plot_swissroll.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Swiss Roll And Swiss-Hole Reduction</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_manifold_plot_swissroll.py`
