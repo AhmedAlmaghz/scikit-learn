@@ -1,0 +1,10 @@
+available\_if
+=============
+
+.. currentmodule:: sklearn.utils.metaestimators
+
+.. دالة تلقائية:: available_if
+
+.. معرض مصغر:: sklearn.utils.metaestimators.available_if
+   :add-heading: أمثلة المعرض
+   :heading-level: -يرجى ملاحظة أنني قمت بترجمة المصطلحات التقنية إلى اللغة العربية، ولكن قد تحتاج إلى تعديل الترجمة اعتمادًا على السياق المحدد لمشروعك.
