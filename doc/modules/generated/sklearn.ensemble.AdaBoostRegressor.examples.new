@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.ensemble.AdaBoostRegressor``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A decision tree is boosted using the AdaBoost.R2 [1]_ algorithm on a 1D sinusoidal dataset with a small amount of Gaussian noise. 299 boosts (300 decision trees) is compared with a single decision tree regressor. As the number of boosts is increased the regressor can fit more detail.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_adaboost_regression_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_regression.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Decision Tree Regression with AdaBoost</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_regression.py`
