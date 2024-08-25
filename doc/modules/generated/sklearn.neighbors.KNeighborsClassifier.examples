@@ -1,0 +1,168 @@
+
+
+Examples using ``sklearn.neighbors.KNeighborsClassifier``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This examples demonstrates how to precompute the k nearest neighbors before using them in KNeighborsClassifier. KNeighborsClassifier can compute the nearest neighbors internally, but precomputing them can have several benefits, such as finer parameter control, caching for multiple use, or custom implementations.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_caching_nearest_neighbors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Caching nearest neighbors</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="An example comparing nearest neighbors classification with and without Neighborhood Components Analysis.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sample usage of Neighborhood Components Analysis for dimensionality reduction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_dim_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Dimensionality Reduction with Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use KNeighborsClassifier. We train such a classifier on the iris dataset and observe the difference of the decision boundary obtained with regards to the parameter weights.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Nearest Neighbors Classification</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_scaling_importance_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Importance of Feature Scaling</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A tutorial exercise regarding the use of classification techniques on the Digits dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/exercises/images/thumb/sphx_glr_plot_digits_classification_exercise_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_exercises_plot_digits_classification_exercise.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Digits Classification Exercise</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_exercises_plot_digits_classification_exercise.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how scikit-learn can be used to classify documents by topics using a Bag of Words approach. This example uses a Tf-idf-weighted document-term sparse matrix to encode the features and demonstrates various classifiers that can efficiently handle sparse matrices.">
+
+.. only:: html
+
+  .. image:: /auto_examples/text/images/thumb/sphx_glr_plot_document_classification_20newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Classification of text documents using sparse features</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
