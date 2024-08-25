@@ -1,0 +1,209 @@
+{
+ "KBinsDiscretizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "KBinsDiscretizer"
+  }
+ ],
+ "Ridge": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Ridge"
+  }
+ ],
+ "TargetEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "TargetEncoder"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "TargetEncoder"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "TargetEncoder"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "TargetEncoder"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "TargetEncoder"
+  }
+ ],
+ "TargetEncoder.fit": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "TargetEncoder",
+   "module_short": "TargetEncoder",
+   "name": "fit"
+  }
+ ],
+ "TargetEncoder.fit_transform": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "TargetEncoder",
+   "module_short": "TargetEncoder",
+   "name": "fit_transform"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "TargetEncoder",
+   "module_short": "TargetEncoder",
+   "name": "fit_transform"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "TargetEncoder",
+   "module_short": "TargetEncoder",
+   "name": "fit_transform"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "TargetEncoder",
+   "module_short": "TargetEncoder",
+   "name": "fit_transform"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "TargetEncoder",
+   "module_short": "TargetEncoder",
+   "name": "fit_transform"
+  }
+ ],
+ "TargetEncoder.transform": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "TargetEncoder",
+   "module_short": "TargetEncoder",
+   "name": "transform"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "TargetEncoder",
+   "module_short": "TargetEncoder",
+   "name": "transform"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "np.concatenate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "concatenate"
+  }
+ ],
+ "np.int32": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "int32"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "pd.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "DataFrame"
+  }
+ ],
+ "pd.Series": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pandas",
+   "module_short": "pandas",
+   "name": "Series"
+  }
+ ],
+ "plt.rcParams": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib",
+   "name": "rcParams"
+  }
+ ],
+ "sklearn.pipeline.Pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "Pipeline"
+  }
+ ],
+ "sklearn.set_config": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn",
+   "module_short": "sklearn",
+   "name": "set_config"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
