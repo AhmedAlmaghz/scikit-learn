@@ -1,0 +1,243 @@
+{
+ "datasets.load_diabetes": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_diabetes"
+  }
+ ],
+ "ensemble.GradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "GradientBoostingRegressor"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "matplotlib.__version__": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib",
+   "module_short": "matplotlib",
+   "name": "__version__"
+  }
+ ],
+ "mean_squared_error": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "mean_squared_error"
+  }
+ ],
+ "np.arange": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "arange"
+  }
+ ],
+ "np.argsort": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "argsort"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.float64": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float64"
+  }
+ ],
+ "np.zeros": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "zeros"
+  }
+ ],
+ "parse_version": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.fixes",
+   "module_short": "sklearn.utils.fixes",
+   "name": "parse_version"
+  }
+ ],
+ "permutation_importance": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection",
+   "module_short": "sklearn.inspection",
+   "name": "permutation_importance"
+  }
+ ],
+ "plt.barh": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "barh"
+  }
+ ],
+ "plt.boxplot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "boxplot"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "plot"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplot"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xlabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xlabel"
+  }
+ ],
+ "plt.ylabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylabel"
+  }
+ ],
+ "plt.yticks": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "yticks"
+  }
+ ],
+ "sklearn.ensemble.GradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "GradientBoostingRegressor"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "GradientBoostingRegressor"
+  }
+ ],
+ "sklearn.ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
