@@ -1,0 +1,101 @@
+{
+ "ConvergenceWarning": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.exceptions",
+   "module_short": "sklearn.exceptions",
+   "name": "ConvergenceWarning"
+  }
+ ],
+ "MLPClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neural_network",
+   "module_short": "sklearn.neural_network",
+   "name": "MLPClassifier"
+  }
+ ],
+ "MinMaxScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  }
+ ],
+ "datasets.load_digits": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_digits"
+  }
+ ],
+ "datasets.load_iris": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_iris"
+  }
+ ],
+ "datasets.make_circles": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_circles"
+  }
+ ],
+ "datasets.make_moons": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_moons"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "warnings.catch_warnings": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "warnings",
+   "module_short": "warnings",
+   "name": "catch_warnings"
+  }
+ ],
+ "warnings.filterwarnings": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "warnings",
+   "module_short": "warnings",
+   "name": "filterwarnings"
+  }
+ ]
+}
