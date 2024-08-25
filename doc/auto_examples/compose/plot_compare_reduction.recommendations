@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Incremental principal component analysis (IPCA) is typically used as a replacement for principal component analysis (PCA) when the dataset to be decomposed is too large to fit in memory. IPCA builds a low-rank approximation for the input data using an amount of memory which is independent of the number of input data samples. It is still dependent on the input data features, but changing the batch size allows for control of memory usage.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_incremental_pca_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_incremental_pca.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Incremental PCA</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_decomposition_plot_incremental_pca.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example balances model complexity and cross-validated score by finding a decent accuracy within 1 standard deviation of the best accuracy score while minimising the number of PCA components [1].">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_grid_search_refit_callable_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_refit_callable.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Balance model complexity and cross-validated score</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_refit_callable.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This examples demonstrates how to precompute the k nearest neighbors before using them in KNeighborsClassifier. KNeighborsClassifier can compute the nearest neighbors internally, but precomputing them can have several benefits, such as finer parameter control, caching for multiple use, or custom implementations.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_caching_nearest_neighbors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Caching nearest neighbors</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In many real-world examples, there are many ways to extract features from a dataset. Often it is beneficial to combine several methods to obtain good performance. This example shows how to use FeatureUnion to combine features obtained by PCA and univariate selection.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_feature_union_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_feature_union.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Concatenating multiple feature extraction methods</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_feature_union.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
