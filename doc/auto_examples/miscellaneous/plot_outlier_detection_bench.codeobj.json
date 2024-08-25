@@ -1,0 +1,356 @@
+{
+ "ColumnTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "ColumnTransformer"
+  }
+ ],
+ "IsolationForest": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "IsolationForest"
+  }
+ ],
+ "LocalOutlierFactor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "LocalOutlierFactor"
+  }
+ ],
+ "MinMaxScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  }
+ ],
+ "OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "OrdinalEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OrdinalEncoder"
+  }
+ ],
+ "RobustScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "RobustScaler"
+  }
+ ],
+ "RocCurveDisplay.from_predictions": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.RocCurveDisplay",
+   "module_short": "sklearn.metrics.RocCurveDisplay",
+   "name": "from_predictions"
+  }
+ ],
+ "SplineTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "SplineTransformer"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "fetch_covtype": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_covtype"
+  }
+ ],
+ "fetch_kddcup99": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_kddcup99"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "math.ceil": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "math",
+   "module_short": "math",
+   "name": "ceil"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.int32": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "int32"
+  }
+ ],
+ "perf_counter": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "perf_counter"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.tight_layout": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "tight_layout"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xlabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xlabel"
+  }
+ ],
+ "selector": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "make_column_selector"
+  }
+ ],
+ "sklearn.compose.make_column_selector": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "make_column_selector"
+  }
+ ],
+ "sklearn.datasets": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn",
+   "module_short": "sklearn",
+   "name": "datasets"
+  }
+ ],
+ "sklearn.ensemble.IsolationForest": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "IsolationForest"
+  }
+ ],
+ "sklearn.metrics.RocCurveDisplay": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "RocCurveDisplay"
+  }
+ ],
+ "sklearn.model_selection.train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ],
+ "sklearn.neighbors.LocalOutlierFactor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "LocalOutlierFactor"
+  }
+ ],
+ "sklearn.preprocessing.MinMaxScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  }
+ ],
+ "sklearn.preprocessing.OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "sklearn.preprocessing.OrdinalEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OrdinalEncoder"
+  }
+ ],
+ "sklearn.preprocessing.RobustScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "RobustScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "RobustScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "RobustScaler"
+  }
+ ],
+ "sklearn.preprocessing.SplineTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "SplineTransformer"
+  }
+ ],
+ "sklearn.preprocessing.StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
