@@ -1,0 +1,110 @@
+{
+ "CountVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "CountVectorizer"
+  }
+ ],
+ "LatentDirichletAllocation": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "LatentDirichletAllocation"
+  }
+ ],
+ "MiniBatchNMF": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "MiniBatchNMF"
+  }
+ ],
+ "NMF": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "NMF"
+  }
+ ],
+ "TfidfVectorizer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.feature_extraction.text",
+   "module_short": "sklearn.feature_extraction.text",
+   "name": "TfidfVectorizer"
+  }
+ ],
+ "fetch_20newsgroups": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_20newsgroups"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "plt.subplots_adjust": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots_adjust"
+  }
+ ],
+ "sklearn.decomposition.LatentDirichletAllocation": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "LatentDirichletAllocation"
+  }
+ ],
+ "sklearn.decomposition.NMF": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "NMF"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
