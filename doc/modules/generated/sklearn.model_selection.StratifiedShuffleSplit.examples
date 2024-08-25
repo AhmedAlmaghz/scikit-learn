@@ -1,0 +1,42 @@
+
+
+Examples using ``sklearn.model_selection.StratifiedShuffleSplit``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the effect of the parameters gamma and C of the Radial Basis Function (RBF) kernel SVM.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_rbf_parameters_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_rbf_parameters.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">RBF SVM parameters</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_rbf_parameters.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
