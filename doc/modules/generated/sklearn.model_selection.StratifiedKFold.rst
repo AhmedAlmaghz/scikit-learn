@@ -1,0 +1,13 @@
+StratifiedKFold
+===============
+
+.. currentmodule:: sklearn.model_selection
+
+.. فئة تلقائية:: StratifiedKFold
+   :members:
+   :inherited-members:
+   :special-members: __call__
+
+.. معرض مصغر:: sklearn.model_selection.StratifiedKFold sklearn.model_selection.StratifiedKFold.__init__ sklearn.model_selection.StratifiedKFold.get_metadata_routing sklearn.model_selection.StratifiedKFold.get_n_splits sklearn.model_selection.StratifiedKFold.split 
+   :add-heading: أمثلة المعرض
+   :heading-level: -يرجى ملاحظة أنني قمت بترجمة المصطلحات التقنية إلى اللغة العربية، ولكن قد تحتاج إلى تعديل الترجمة اعتمادًا على السياق المحدد لمشروعك.
