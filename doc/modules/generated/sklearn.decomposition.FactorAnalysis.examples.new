@@ -1,0 +1,77 @@
+
+
+Examples using ``sklearn.decomposition.FactorAnalysis``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example applies to olivetti_faces_dataset different unsupervised matrix decomposition (dimension reduction) methods from the module sklearn.decomposition (see the documentation chapter decompositions).">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_faces_decomposition_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Faces dataset decompositions</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Investigating the Iris dataset, we see that sepal length, petal length and petal width are highly correlated. Sepal width is less redundant. Matrix decomposition techniques can uncover these latent patterns. Applying rotations to the resulting components does not inherently improve the predictive value of the derived latent space, but can help visualise their structure; here, for example, the varimax rotation, which is found by maximizing the squared variances of the weights, finds a structure where the second component only loads positively on sepal width.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_varimax_fa_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_varimax_fa.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Factor Analysis (with rotation) to visualize patterns</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_decomposition_plot_varimax_fa.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Probabilistic PCA and Factor Analysis are probabilistic models. The consequence is that the likelihood of new data can be used for model selection and covariance estimation. Here we compare PCA and FA with cross-validation on low rank data corrupted with homoscedastic noise (noise variance is the same for each feature) or heteroscedastic noise (noise variance is the different for each feature). In a second step we compare the model likelihood to the likelihoods obtained from shrinkage covariance estimators.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_pca_vs_fa_model_selection_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_fa_model_selection.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Model selection with Probabilistic PCA and Factor Analysis (FA)</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_fa_model_selection.py`
