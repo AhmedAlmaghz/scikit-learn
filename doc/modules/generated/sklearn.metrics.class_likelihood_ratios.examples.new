@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.metrics.class_likelihood_ratios``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the class_likelihood_ratios function, which computes the positive and negative likelihood ratios (`LR+`, LR-) to assess the predictive power of a binary classifier. As we will see, these metrics are independent of the proportion between classes in the test set, which makes them very useful when the available data for a study has a different class proportion than the target application.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_likelihood_ratios_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_likelihood_ratios.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Class Likelihood Ratios to measure classification performance</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_likelihood_ratios.py`
