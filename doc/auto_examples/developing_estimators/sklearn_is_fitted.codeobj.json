@@ -1,0 +1,38 @@
+{
+ "BaseEstimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "BaseEstimator"
+  }
+ ],
+ "ClassifierMixin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn.base",
+   "name": "ClassifierMixin"
+  }
+ ],
+ "check_is_fitted": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.utils.validation",
+   "module_short": "sklearn.utils.validation",
+   "name": "check_is_fitted"
+  }
+ ],
+ "sklearn.utils.validation.check_is_fitted": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.utils.validation",
+   "module_short": "sklearn.utils.validation",
+   "name": "check_is_fitted"
+  }
+ ]
+}
