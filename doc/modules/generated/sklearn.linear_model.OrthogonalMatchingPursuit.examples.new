@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.linear_model.OrthogonalMatchingPursuit``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Using orthogonal matching pursuit for recovering a sparse signal from a noisy measurement encoded with a dictionary">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_omp_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_omp.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Orthogonal Matching Pursuit</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_omp.py`
