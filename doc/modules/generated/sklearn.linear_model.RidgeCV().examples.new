@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.linear_model.RidgeCV()``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Stacking refers to a method to blend estimators. In this strategy, some estimators are individually fitted on some training data while a final estimator is trained using the stacked predictions of these base estimators.">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_stack_predictors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_stack_predictors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Combine predictors using stacking</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_stack_predictors.py`
