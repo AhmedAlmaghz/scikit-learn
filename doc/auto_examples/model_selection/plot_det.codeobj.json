@@ -1,0 +1,126 @@
+{
+ "DetCurveDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.DetCurveDisplay",
+   "module_short": "sklearn.metrics.DetCurveDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "LinearSVC": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.svm",
+   "module_short": "sklearn.svm",
+   "name": "LinearSVC"
+  }
+ ],
+ "RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "RocCurveDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics.RocCurveDisplay",
+   "module_short": "sklearn.metrics.RocCurveDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "make_classification": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_classification"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.metrics.det_curve": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "det_curve"
+  },
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "det_curve"
+  }
+ ],
+ "sklearn.metrics.roc_curve": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_curve"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
