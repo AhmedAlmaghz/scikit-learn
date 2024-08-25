@@ -1,0 +1,56 @@
+
+
+Examples using ``sklearn.linear_model.SGDRegressor``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is an example showing the prediction latency of various scikit-learn estimators.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_prediction_latency_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_prediction_latency.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Prediction Latency</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_prediction_latency.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Contours of where the penalty is equal to 1 for the three penalties L1, L2 and elastic-net.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_penalties_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_penalties.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SGD: Penalties</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_penalties.py`
