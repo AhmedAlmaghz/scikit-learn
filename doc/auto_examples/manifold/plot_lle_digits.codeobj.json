@@ -1,0 +1,263 @@
+{
+ "Isomap": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "Isomap"
+  }
+ ],
+ "LinearDiscriminantAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.discriminant_analysis",
+   "module_short": "sklearn.discriminant_analysis",
+   "name": "LinearDiscriminantAnalysis"
+  }
+ ],
+ "LocallyLinearEmbedding": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "LocallyLinearEmbedding"
+  }
+ ],
+ "MDS": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "MDS"
+  }
+ ],
+ "MinMaxScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "MinMaxScaler"
+  }
+ ],
+ "NeighborhoodComponentsAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "NeighborhoodComponentsAnalysis"
+  }
+ ],
+ "RandomTreesEmbedding": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomTreesEmbedding"
+  }
+ ],
+ "SparseRandomProjection": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.random_projection",
+   "module_short": "sklearn.random_projection",
+   "name": "SparseRandomProjection"
+  }
+ ],
+ "SpectralEmbedding": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "SpectralEmbedding"
+  }
+ ],
+ "TSNE": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "TSNE"
+  }
+ ],
+ "TruncatedSVD": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "TruncatedSVD"
+  }
+ ],
+ "load_digits": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "load_digits"
+  }
+ ],
+ "make_pipeline": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.pipeline",
+   "module_short": "sklearn.pipeline",
+   "name": "make_pipeline"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.concatenate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "concatenate"
+  }
+ ],
+ "np.min": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "min"
+  }
+ ],
+ "np.sum": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sum"
+  }
+ ],
+ "offsetbox.AnnotationBbox": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.offsetbox",
+   "module_short": "matplotlib.offsetbox",
+   "name": "AnnotationBbox"
+  }
+ ],
+ "offsetbox.OffsetImage": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.offsetbox",
+   "module_short": "matplotlib.offsetbox",
+   "name": "OffsetImage"
+  }
+ ],
+ "plt.cm.Dark2": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "Dark2"
+  }
+ ],
+ "plt.cm.binary": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "binary"
+  }
+ ],
+ "plt.cm.gray_r": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot.cm",
+   "module_short": "matplotlib.pyplot.cm",
+   "name": "gray_r"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.subplots": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "subplots"
+  }
+ ],
+ "sklearn.discriminant_analysis.LinearDiscriminantAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.discriminant_analysis",
+   "module_short": "sklearn.discriminant_analysis",
+   "name": "LinearDiscriminantAnalysis"
+  }
+ ],
+ "sklearn.ensemble.RandomTreesEmbedding": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomTreesEmbedding"
+  }
+ ],
+ "sklearn.manifold.TSNE": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.manifold",
+   "module_short": "sklearn.manifold",
+   "name": "TSNE"
+  }
+ ],
+ "sklearn.neighbors.NeighborhoodComponentsAnalysis": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "sklearn.neighbors",
+   "module_short": "sklearn.neighbors",
+   "name": "NeighborhoodComponentsAnalysis"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ]
+}
