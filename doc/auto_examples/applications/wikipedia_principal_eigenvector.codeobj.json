@@ -1,0 +1,137 @@
+{
+ "BZ2File": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "bz2",
+   "module_short": "bz2",
+   "name": "BZ2File"
+  }
+ ],
+ "datetime.now": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "datetime.datetime",
+   "module_short": "datetime.datetime",
+   "name": "now"
+  }
+ ],
+ "np.abs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "abs"
+  }
+ ],
+ "np.asarray": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "asarray"
+  }
+ ],
+ "np.dot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "dot"
+  }
+ ],
+ "np.float32": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float32"
+  }
+ ],
+ "np.full": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "full"
+  }
+ ],
+ "np.isclose": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "isclose"
+  }
+ ],
+ "np.where": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "where"
+  }
+ ],
+ "os.path.exists": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "os.path",
+   "module_short": "os.path",
+   "name": "exists"
+  }
+ ],
+ "pprint": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "pprint",
+   "module_short": "pprint",
+   "name": "pprint"
+  }
+ ],
+ "randomized_svd": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "randomized_svd"
+  }
+ ],
+ "sparse.lil_matrix": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.sparse",
+   "module_short": "scipy.sparse",
+   "name": "lil_matrix"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ],
+ "urlopen": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "urllib.request",
+   "module_short": "urllib.request",
+   "name": "urlopen"
+  }
+ ]
+}
