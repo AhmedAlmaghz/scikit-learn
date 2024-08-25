@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the predicted probability of GPC for an isotropic and anisotropic RBF kernel on a two-dimensional version for the iris-dataset. The anisotropic RBF kernel obtains slightly higher log-marginal-likelihood by assigning different length-scales to the two feature dimensions.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Gaussian process classification (GPC) on iris dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_iris.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A comparison for the decision boundaries generated on the iris dataset by Label Spreading, Self-training and SVM.">
+
+.. only:: html
+
+  .. image:: /auto_examples/semi_supervised/images/thumb/sphx_glr_plot_semi_supervised_versus_svm_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_versus_svm_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_semi_supervised_plot_semi_supervised_versus_svm_iris.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A small value of C includes more/all the observations, allowing the margins to be calculated using all the data in the area.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_svm_margin_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_svm_margin.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SVM Margins Example</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_svm_margin.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A comparison of different values for regularization parameter &#x27;alpha&#x27; on synthetic datasets. The plot shows that different alphas yield different decision functions.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neural_networks/images/thumb/sphx_glr_plot_mlp_alpha_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neural_networks_plot_mlp_alpha.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Varying regularization in Multi-layer Perceptron</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neural_networks_plot_mlp_alpha.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
