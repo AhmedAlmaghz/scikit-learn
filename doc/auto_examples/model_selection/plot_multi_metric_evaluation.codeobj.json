@@ -1,0 +1,137 @@
+{
+ "DecisionTreeClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.tree",
+   "module_short": "sklearn.tree",
+   "name": "DecisionTreeClassifier"
+  }
+ ],
+ "GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "accuracy_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "accuracy_score"
+  }
+ ],
+ "make_hastie_10_2": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_hastie_10_2"
+  }
+ ],
+ "make_scorer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "make_scorer"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.nonzero": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "nonzero"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.gca": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "gca"
+  }
+ ],
+ "plt.grid": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "grid"
+  }
+ ],
+ "plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "legend"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.xlabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "xlabel"
+  }
+ ],
+ "plt.ylabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylabel"
+  }
+ ]
+}
