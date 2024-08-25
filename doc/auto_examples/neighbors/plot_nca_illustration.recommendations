@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="An example comparing nearest neighbors classification with and without Neighborhood Components Analysis.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sample usage of Neighborhood Components Analysis for dimensionality reduction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_dim_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Dimensionality Reduction with Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We illustrate various embedding techniques on the digits dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/manifold/images/thumb/sphx_glr_plot_lle_digits_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example plots the ellipsoids obtained from a toy dataset (mixture of three Gaussians) fitted by the BayesianGaussianMixture class models with a Dirichlet distribution prior (``weight_concentration_prior_type=&#x27;dirichlet_distribution&#x27;``) and a Dirichlet process prior (``weight_concentration_prior_type=&#x27;dirichlet_process&#x27;``). On each figure, we plot the results for three different values of the weight concentration prior.">
+
+.. only:: html
+
+  .. image:: /auto_examples/mixture/images/thumb/sphx_glr_plot_concentration_prior_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_mixture_plot_concentration_prior.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_mixture_plot_concentration_prior.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
