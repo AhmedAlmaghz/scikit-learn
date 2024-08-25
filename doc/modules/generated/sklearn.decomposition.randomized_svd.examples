@@ -1,0 +1,42 @@
+
+
+Examples using ``sklearn.decomposition.randomized_svd``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A classical way to assert the relative importance of vertices in a graph is to compute the principal eigenvector of the adjacency matrix so as to assign to each vertex the values of the components of the first eigenvector as a centrality score:">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_wikipedia_principal_eigenvector_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_wikipedia_principal_eigenvector.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Wikipedia principal eigenvector</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_wikipedia_principal_eigenvector.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
