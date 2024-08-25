@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the maximum margin separating hyperplane within a two-class separable dataset using a Support Vector Machine classifier with linear kernel.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_separating_hyperplane_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SVM: Maximum margin separating hyperplane</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the maximum margin separating hyperplane within a two-class separable dataset using a linear Support Vector Machines classifier trained using SGD.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_separating_hyperplane_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_separating_hyperplane.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SGD: Maximum margin separating hyperplane</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_separating_hyperplane.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Comparison of different linear SVM classifiers on a 2D projection of the iris dataset. We only consider the first 2 features of this dataset:">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_iris_svc_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_iris_svc.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot different SVM classifiers in the iris dataset</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_iris_svc.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Unlike SVC (based on LIBSVM), LinearSVC (based on LIBLINEAR) does not provide the support vectors. This example demonstrates how to obtain the support vectors in LinearSVC.">
+
+.. only:: html
+
+  .. image:: /auto_examples/svm/images/thumb/sphx_glr_plot_linearsvc_support_vectors_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_svm_plot_linearsvc_support_vectors.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot the support vectors in LinearSVC</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_svm_plot_linearsvc_support_vectors.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
