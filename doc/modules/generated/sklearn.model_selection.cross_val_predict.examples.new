@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.model_selection.cross_val_predict``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use cross_val_predict together with PredictionErrorDisplay to visualize prediction errors.">
+
+.. only:: html
+
+  .. image:: /auto_examples/model_selection/images/thumb/sphx_glr_plot_cv_predict_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_model_selection_plot_cv_predict.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting Cross-Validated Predictions</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_model_selection_plot_cv_predict.py`
