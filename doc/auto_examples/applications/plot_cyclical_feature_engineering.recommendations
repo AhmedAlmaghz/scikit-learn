@@ -1,0 +1,100 @@
+
+
+.. rubric:: Related examples
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how Polars-engineered lagged features can be used for time series forecasting with HistGradientBoostingRegressor on the Bike Sharing Demand dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/applications/images/thumb/sphx_glr_plot_time_series_lagged_features_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_applications_plot_time_series_lagged_features.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Lagged features for time series forecasting</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_applications_plot_time_series_lagged_features.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we will compare the training times and prediction performances of HistGradientBoostingRegressor with different encoding strategies for categorical features. In particular, we will evaluate:">
+
+.. only:: html
+
+  .. image:: /auto_examples/ensemble/images/thumb/sphx_glr_plot_gradient_boosting_categorical_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Categorical Feature Support in Gradient Boosting</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to approximate a function with polynomials up to degree degree by using ridge regression. We show two different ways given n_samples of 1d points x_i:">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_polynomial_interpolation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Polynomial and Spline interpolation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Partial dependence plots show the dependence between the target function [2]_ and a set of features of interest, marginalizing over the values of all other features (the complement features). Due to the limits of human perception, the size of the set of features of interest must be small (usually, one or two) thus they are usually chosen among the most important features.">
+
+.. only:: html
+
+  .. image:: /auto_examples/inspection/images/thumb/sphx_glr_plot_partial_dependence_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Partial Dependence and Individual Conditional Expectation Plots</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
