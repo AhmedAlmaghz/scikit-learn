@@ -1,0 +1,35 @@
+
+
+Examples using ``sklearn.linear_model.LassoLarsCV``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example focuses on model selection for Lasso models that are linear models with an L1 penalty for regression problems.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_model_selection_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_model_selection.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Lasso model selection: AIC-BIC / cross-validation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_model_selection.py`
