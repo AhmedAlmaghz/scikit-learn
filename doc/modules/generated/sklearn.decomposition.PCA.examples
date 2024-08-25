@@ -1,0 +1,168 @@
+
+
+Examples using ``sklearn.decomposition.PCA``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Sample usage of Neighborhood Components Analysis for dimensionality reduction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_nca_dim_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Dimensionality Reduction with Neighborhood Components Analysis</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how kernel density estimation (KDE), a powerful non-parametric density estimation technique, can be used to learn a generative model for a dataset.  With this generative model in place, new samples can be drawn.  These new samples reflect the underlying model of the data.">
+
+.. only:: html
+
+  .. image:: /auto_examples/neighbors/images/thumb/sphx_glr_plot_digits_kde_sampling_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_neighbors_plot_digits_kde_sampling.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Kernel Density Estimation</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_neighbors_plot_digits_kde_sampling.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Datasets can often contain components that require different feature extraction and processing pipelines. This scenario might occur when:">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_column_transformer_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Column Transformer with Heterogeneous Data Sources</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_column_transformer.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In many real-world examples, there are many ways to extract features from a dataset. Often it is beneficial to combine several methods to obtain good performance. This example shows how to use FeatureUnion to combine features obtained by PCA and univariate selection.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_feature_union_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_feature_union.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Concatenating multiple feature extraction methods</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_feature_union.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The PCA does an unsupervised dimensionality reduction, while the logistic regression does the prediction.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_digits_pipe_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_digits_pipe.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Pipelining: chaining a PCA and a logistic regression</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_digits_pipe.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example constructs a pipeline that does dimensionality reduction followed by prediction with a support vector classifier. It demonstrates the use of GridSearchCV and Pipeline to optimize over different classes of estimators in a single CV run -- unsupervised PCA and NMF dimensionality reductions are compared to univariate feature selection during the grid search.">
+
+.. only:: html
+
+  .. image:: /auto_examples/compose/images/thumb/sphx_glr_plot_compare_reduction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_compose_plot_compare_reduction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Selecting dimensionality reduction with Pipeline and GridSearchCV</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_compose_plot_compare_reduction.py`
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_scaling_importance_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Importance of Feature Scaling</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
