@@ -1,0 +1,299 @@
+{
+ "ColumnTransformer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.compose",
+   "module_short": "sklearn.compose",
+   "name": "ColumnTransformer"
+  }
+ ],
+ "GridSearchCV": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GridSearchCV"
+  }
+ ],
+ "GroupKFold": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "GroupKFold"
+  }
+ ],
+ "HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "Lasso": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.linear_model",
+   "module_short": "sklearn.linear_model",
+   "name": "Lasso"
+  }
+ ],
+ "OneHotEncoder": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "OneHotEncoder"
+  }
+ ],
+ "PCA": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.decomposition",
+   "module_short": "sklearn.decomposition",
+   "name": "PCA"
+  }
+ ],
+ "PartialDependenceDisplay.from_estimator": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.inspection.PartialDependenceDisplay",
+   "module_short": "sklearn.inspection.PartialDependenceDisplay",
+   "name": "from_estimator"
+  }
+ ],
+ "RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "RandomForestRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.ensemble",
+   "module_short": "sklearn.ensemble",
+   "name": "RandomForestRegressor"
+  }
+ ],
+ "StandardScaler": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.preprocessing",
+   "module_short": "sklearn.preprocessing",
+   "name": "StandardScaler"
+  }
+ ],
+ "clone": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.base",
+   "module_short": "sklearn",
+   "name": "clone"
+  }
+ ],
+ "cross_validate": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "cross_validate"
+  }
+ ],
+ "ensemble.HistGradientBoostingClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingClassifier"
+  }
+ ],
+ "ensemble.HistGradientBoostingRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "HistGradientBoostingRegressor"
+  }
+ ],
+ "ensemble.RandomForestClassifier": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "RandomForestClassifier"
+  }
+ ],
+ "ensemble.RandomForestRegressor": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "ensemble",
+   "module_short": "ensemble",
+   "name": "RandomForestRegressor"
+  }
+ ],
+ "fetch_openml": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "fetch_openml"
+  }
+ ],
+ "get_scorer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "get_scorer"
+  }
+ ],
+ "make_regression": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.datasets",
+   "module_short": "sklearn.datasets",
+   "name": "make_regression"
+  }
+ ],
+ "model_selection.GroupKFold": [
+  {
+   "is_class": false,
+   "is_explicit": true,
+   "module": "model_selection",
+   "module_short": "model_selection",
+   "name": "GroupKFold"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.nan": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "nan"
+  }
+ ],
+ "np.pi": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "pi"
+  }
+ ],
+ "np.random.RandomState": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "RandomState"
+  }
+ ],
+ "np.sin": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "sin"
+  }
+ ],
+ "pl.DataFrame": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "polars",
+   "module_short": "polars",
+   "name": "DataFrame"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "roc_auc_score": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.metrics",
+   "module_short": "sklearn.metrics",
+   "name": "roc_auc_score"
+  }
+ ],
+ "sklearn.set_config": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn",
+   "module_short": "sklearn",
+   "name": "set_config"
+  }
+ ],
+ "sp.random": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "scipy.sparse",
+   "module_short": "scipy.sparse",
+   "name": "random"
+  }
+ ],
+ "time": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "time",
+   "module_short": "time",
+   "name": "time"
+  }
+ ],
+ "train_test_split": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "sklearn.model_selection",
+   "module_short": "sklearn.model_selection",
+   "name": "train_test_split"
+  }
+ ]
+}
