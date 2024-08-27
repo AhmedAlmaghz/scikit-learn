@@ -1,16 +1,16 @@
-{{الفهرس}}
-{{ملخص}}
-{{ملخص موسع}}
-{{المعاملات}}
-{{العوائد}}
-{{المُخرجات}}
-{{معاملات أخرى}}
-{{خصائص}}
-{{يُثير الاستثناء}}
-{{يُحذر}}
-{{تحذيرات}}
-{{انظر أيضا}}
-{{ملاحظات}}
-{{مراجع}}
-{{أمثلة}}
-{{الطرق}}
+{{index}}
+{{summary}}
+{{extended_summary}}
+{{parameters}}
+{{returns}}
+{{yields}}
+{{other_parameters}}
+{{attributes}}
+{{raises}}
+{{warns}}
+{{warnings}}
+{{see_also}}
+{{notes}}
+{{references}}
+{{examples}}
+{{methods}}
